@@ -1,5 +1,6 @@
 import type { StorybookConfig } from "@storybook/nextjs";
 import * as path from "path";
+import type { RuleSetRule } from "webpack";
 
 const config: StorybookConfig = {
   stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -17,6 +18,22 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
+  },
+  webpackFinal: (config) => {
+    if (!config.module || !config.module.rules) return config;
+
+    const imageRule = (config.module.rules as RuleSetRule[]).find(
+      (rule) => rule.test instanceof RegExp && rule.test.test(".svg")
+    );
+
+    if (imageRule) imageRule.exclude = /.svg$/;
+
+    config.module.rules.push({
+      test: /.svg$/,
+      use: ["@svgr/webpack"],
+    });
+
+    return config;
   },
 };
 export default config;
