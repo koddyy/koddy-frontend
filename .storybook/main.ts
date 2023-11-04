@@ -3,7 +3,7 @@ import * as path from "path";
 import type { RuleSetRule } from "webpack";
 
 const config: StorybookConfig = {
-  stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  stories: ["../**/*.mdx", "../**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
