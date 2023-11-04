@@ -20,6 +20,13 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   webpackFinal: (config) => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "@": path.resolve(__dirname, ".."),
+      };
+    }
+
     if (!config.module || !config.module.rules) return config;
 
     const imageRule = (config.module.rules as RuleSetRule[]).find(
