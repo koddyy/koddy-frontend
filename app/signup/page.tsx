@@ -14,7 +14,7 @@ const Page = () => {
   return (
     <div className="flex h-screen flex-col">
       <NavigationBar onClickGoback={() => router.back()} />
-      <h2 className="my-5 text-center text-xl font-bold">회원 유형을 선택해주세요</h2>
+      <h2 className="headline-3 my-5 text-center">회원 유형을 선택해주세요</h2>
       <div className="flex flex-col gap-[1.75rem] px-8">
         <UserTypeCard
           type="mentor"

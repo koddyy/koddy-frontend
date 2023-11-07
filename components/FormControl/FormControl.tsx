@@ -29,11 +29,7 @@ const FormLabel = ({
   const { id, required, ...rest } = useFormControl(props);
 
   return (
-    <label
-      htmlFor={id}
-      className={cn("mb-[0.375rem] text-[0.875rem] font-bold", className)}
-      {...rest}
-    >
+    <label htmlFor={id} className={cn("body-3-bold mb-[0.375rem]", className)} {...rest}>
       {children}
       {required && <span className="text-error"> *</span>}
     </label>

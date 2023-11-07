@@ -30,7 +30,7 @@ export const Select = ({
   };
 
   return (
-    <div className="relative text-base text-gray-400">
+    <div className="body-1 relative text-gray-400">
       <button
         className={cn(
           "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:ring-1 focus-within:ring-gray-400 focus-within:ring-offset-1",

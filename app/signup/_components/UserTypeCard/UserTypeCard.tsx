@@ -41,10 +41,8 @@ export const UserTypeCard = ({ type, onClick, isSelected = false }: UserTypeCard
         <img src={content.imageUrl} />
       </div>
       <div className="text-center">
-        <span className="text-lg font-bold">{content.typeName}</span>
-        <p className="whitespace-pre-line text-sm font-normal text-gray-500">
-          {content.description.join("\n")}
-        </p>
+        <span className="subheading-bold">{content.typeName}</span>
+        <p className="body-3 whitespace-pre-line text-gray-500">{content.description.join("\n")}</p>
       </div>
     </div>
   );
