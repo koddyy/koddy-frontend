@@ -4,6 +4,7 @@ import type { RuleSetRule } from "webpack";
 
 const config: StorybookConfig = {
   stories: ["../**/*.mdx", "../**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  staticDirs: ["../public"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
