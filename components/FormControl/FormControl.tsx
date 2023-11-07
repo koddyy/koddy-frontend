@@ -26,10 +26,14 @@ const FormLabel = ({
   children,
   ...props
 }: PropsWithChildren<LabelHTMLAttributes<HTMLLabelElement>>) => {
-  const { required, ...rest } = useFormControl(props);
+  const { id, required, ...rest } = useFormControl(props);
 
   return (
-    <label className={cn("mb-[0.375rem] text-[0.875rem] font-bold", className)} {...rest}>
+    <label
+      htmlFor={id}
+      className={cn("mb-[0.375rem] text-[0.875rem] font-bold", className)}
+      {...rest}
+    >
       {children}
       {required && <span className="text-error"> *</span>}
     </label>
