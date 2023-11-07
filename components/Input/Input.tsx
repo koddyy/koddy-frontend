@@ -1,15 +1,18 @@
 import { forwardRef, InputHTMLAttributes, ReactNode } from "react";
+import { FormOptions } from "@/components/FormControl/FormControl.type";
+import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { cn } from "@/utils/cn";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  hasError?: boolean;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement>, FormOptions {
   defaultValue?: string;
   leftContent?: ReactNode;
   rightContent?: ReactNode;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type = "text", hasError = false, leftContent, rightContent, ...props }, ref) => {
+  ({ className, type = "text", leftContent, rightContent, ...props }, ref) => {
+    const { hasError, ...rest } = useFormControl(props);
+
     return (
       <div
         className={cn(
@@ -19,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
       >
         {leftContent}
-        <input className="w-full outline-none" type={type} ref={ref} {...props} />
+        <input className="w-full outline-none" type={type} ref={ref} {...rest} />
         {rightContent}
       </div>
     );
