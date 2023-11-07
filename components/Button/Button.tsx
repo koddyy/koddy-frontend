@@ -23,7 +23,7 @@ export const Button = ({
   return (
     <button
       className={cn(
-        "body-1-bold w-full cursor-pointer rounded-[0.625rem] p-3 text-gray-100",
+        "body-1-bold w-full cursor-pointer rounded-[0.625rem] p-3 text-white",
         colorVariants[colorVariant],
         disabled && "cursor-not-allowed bg-gray-400",
         className

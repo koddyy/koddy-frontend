@@ -42,7 +42,7 @@ export const UserTypeCard = ({ type, onClick, isSelected = false }: UserTypeCard
       </div>
       <div className="text-center">
         <span className="subheading-bold">{content.typeName}</span>
-        <p className="body-3 whitespace-pre-line text-gray-500">{content.description.join("\n")}</p>
+        <p className="body-3 whitespace-pre-line text-gray-600">{content.description.join("\n")}</p>
       </div>
     </div>
   );
