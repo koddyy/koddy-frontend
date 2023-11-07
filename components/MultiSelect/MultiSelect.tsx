@@ -59,7 +59,7 @@ export const MultiSelect = ({
         {RightContent && <RightContent className="ml-auto" />}
       </button>
       {isOpen && (
-        <ul className="absolute top-14 w-full rounded-[0.625rem] border border-gray-300">
+        <ul className="absolute top-14 w-full rounded-[0.625rem] border border-gray-300 bg-white">
           {options.map((value) => (
             <li
               key={value}
