@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import TriangleDown from "@/assets/triangle-down.svg";
-import { Select } from "./Select";
+import { Select, SelectProps } from "./Select";
 
 const meta = {
   title: "Components/Select",
@@ -11,26 +11,21 @@ const meta = {
 
 export default meta;
 
-const options = ["Korea", "US", "Japen", "France", "Germany"];
-
-const ControlledSelect = () => {
+const ControlledSelect = (args: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleChangeValue = (value: string) => {
     setSelectedValue(value);
   };
 
-  return (
-    <Select
-      options={options}
-      value={selectedValue}
-      onChangeValue={handleChangeValue}
-      placeholder="국적을 선택해 주세요"
-      rightContent={TriangleDown}
-    />
-  );
+  return <Select value={selectedValue} onChangeValue={handleChangeValue} {...args} />;
 };
 
-export const Controlled: StoryObj<typeof ControlledSelect> = {
-  render: () => <ControlledSelect />,
+export const Controlled: StoryObj<typeof Select> = {
+  render: (args) => <ControlledSelect {...args} />,
+  args: {
+    options: ["Korea", "US", "Japen", "France", "Germany"],
+    placeholder: "국적을 선택해 주세요",
+    rightContent: TriangleDown,
+  },
 };

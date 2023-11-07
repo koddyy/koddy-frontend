@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { SelectProps } from "@/components/Select";
 import { cn } from "@/utils/cn";
 
@@ -16,7 +17,9 @@ export const MultiSelect = ({
   onDeleteValues,
   placeholder,
   rightContent: RightContent,
+  ...props
 }: MultiSelectProps) => {
+  const { hasError } = useFormControl(props);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleAddValues = (value: string) => {
@@ -32,6 +35,7 @@ export const MultiSelect = ({
       <button
         className={cn(
           "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:ring-1 focus-within:ring-gray-400 focus-within:ring-offset-1",
+          hasError && "border-[#f87171]",
           className
         )}
         type="button"

@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { cn } from "@/utils/cn";
 
 export interface CheckboxProps {
@@ -10,10 +11,15 @@ export interface CheckboxProps {
 
 export const Checkbox = ({
   className,
+  value,
   checked,
   onChangeChecked,
   children,
+  ...props
 }: PropsWithChildren<CheckboxProps>) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { hasError } = useFormControl(props);
+
   return (
     <div
       className={cn(
@@ -23,7 +29,7 @@ export const Checkbox = ({
       )}
       onClick={onChangeChecked}
     >
-      <input className="appearance-none" type="checkbox" checked={checked} />
+      <input className="appearance-none" type="checkbox" value={value} checked={checked} />
       {children}
     </div>
   );
