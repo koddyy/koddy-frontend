@@ -30,17 +30,17 @@ export const Select = ({
   };
 
   return (
-    <div className="relative text-base text-gray-400">
+    <div className="body-1 relative">
       <button
         className={cn(
-          "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:ring-1 focus-within:ring-gray-400 focus-within:ring-offset-1",
-          hasError && "border border-error",
+          "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:border-gray-400",
+          hasError && "border-dander border",
           className
         )}
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span>{value || placeholder}</span>
+        <span className={cn(!value && "text-gray-400")}>{value || placeholder}</span>
         {RightContent && <RightContent className="ml-auto" />}
       </button>
       {isOpen && (

@@ -29,13 +29,9 @@ const FormLabel = ({
   const { id, required, ...rest } = useFormControl(props);
 
   return (
-    <label
-      htmlFor={id}
-      className={cn("mb-[0.375rem] text-[0.875rem] font-bold", className)}
-      {...rest}
-    >
+    <label htmlFor={id} className={cn("body-3-bold mb-[0.375rem]", className)} {...rest}>
       {children}
-      {required && <span className="text-error"> *</span>}
+      {required && <span className="text-danger"> *</span>}
     </label>
   );
 };
@@ -50,10 +46,7 @@ const FormErrorMessage = ({
   if (!hasError) return null;
 
   return (
-    <span
-      className={cn("mt-[0.375rem] text-[0.875rem] font-normal text-error", className)}
-      {...rest}
-    >
+    <span className={cn("text-danger body-1 mt-[0.375rem]", className)} {...rest}>
       {children}
     </span>
   );

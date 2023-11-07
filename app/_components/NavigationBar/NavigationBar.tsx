@@ -22,7 +22,7 @@ export const NavigationBar = ({ className, title, onClickGoback }: NavigationBar
           <Back />
         </button>
       )}
-      {title && <h1 className="absolute left-1/2 -translate-x-1/2 text-xl font-bold">{title}</h1>}
+      {title && <h1 className="subheading-bold absolute left-1/2 -translate-x-1/2">{title}</h1>}
     </div>
   );
 };

@@ -3,7 +3,55 @@
 @tailwind utilities;
 
 @layer base {
-  html {
+  body {
     font-family: Pretendard;
+    color: theme(colors[gray].700);
+  }
+}
+
+@layer utilities {
+  .headline-1 {
+    @apply text-[1.75rem] font-[700] leading-[130%];
+  }
+  .headline-2 {
+    @apply text-[1.375rem] font-[700] leading-[130%];
+  }
+  .headline-3 {
+    @apply text-[1.25rem] font-[700] leading-[130%];
+  }
+
+  .subheading-bold {
+    @apply text-[1.125rem] font-[700] leading-[140%];
+  }
+  .subheading {
+    @apply text-[1.125rem] font-[400] leading-[140%];
+  }
+
+  .body-1-bold {
+    @apply text-[1rem] font-[700] leading-[140%];
+  }
+  .body-1 {
+    @apply text-[1rem] font-[400] leading-[140%];
+  }
+
+  .body-2-bold {
+    @apply text-[0.9375rem] font-[700] leading-[140%];
+  }
+  .body-2 {
+    @apply text-[0.9375rem] font-[400] leading-[140%];
+  }
+
+  .body-3-bold {
+    @apply text-[0.875rem] font-[700] leading-[140%];
+  }
+  .body-3 {
+    @apply text-[0.875rem] font-[400] leading-[140%];
+  }
+
+  .label-bold {
+    @apply text-[0.75rem] font-[700] leading-[140%];
+  }
+  .label {
+    @apply text-[0.75rem] font-[400] leading-[140%];
   }
 }
