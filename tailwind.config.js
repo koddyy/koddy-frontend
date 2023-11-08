@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       zIndex: {
         lowest: -1,
+        header: 900,
         overlay: 1000,
         highest: 9999,
       },

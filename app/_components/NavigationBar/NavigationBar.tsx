@@ -13,7 +13,7 @@ export const NavigationBar = ({ className, title, onClickGoback }: NavigationBar
   return (
     <div
       className={cn(
-        "relative flex w-full items-center justify-between border-b border-b-gray-200 px-5 py-[0.875rem]",
+        "sticky top-0 z-header flex w-full items-center justify-between border-b border-b-gray-200 bg-white px-5 py-[0.875rem]",
         className
       )}
     >
