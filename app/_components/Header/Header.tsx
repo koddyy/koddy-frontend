@@ -4,7 +4,7 @@ import Logo from "@/assets/logo_small_letter.svg";
 
 export const Header = () => {
   return (
-    <div className="sticky flex h-[3.25rem] items-center justify-between px-5">
+    <div className="sticky inset-x-0 top-0 z-header flex h-[3.25rem] items-center justify-between border-b border-gray-200 bg-white px-5">
       <Logo />
       <Link href="/notify">
         <Bell />
