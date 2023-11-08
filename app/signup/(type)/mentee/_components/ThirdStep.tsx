@@ -3,15 +3,17 @@ import { Button } from "@/components/Button";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { MultiSelect, Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import type { ThirdStepData } from "@/types/data";
+import type { ThirdStepData as MentorThirdStepData } from "@/types/data";
 
 const language_options = ["한국어", "영어", "독일어"];
 
+export type ThirdStepData = Omit<MentorThirdStepData, "link">;
+
 interface ThirdStepProps {
-  onClickNextStep: (data: ThirdStepData) => void;
+  onSubmitForm: (data: ThirdStepData) => void;
 }
 
-export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
+export const ThirdStep = ({ onSubmitForm }: ThirdStepProps) => {
   const {
     register,
     control,
@@ -20,7 +22,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
   } = useForm<ThirdStepData>();
 
   return (
-    <form className="mt-[1.44rem] flex flex-col gap-4" onSubmit={handleSubmit(onClickNextStep)}>
+    <form className="mt-[1.44rem] flex flex-col gap-4" onSubmit={handleSubmit(onSubmitForm)}>
       <FormControl required>
         <FormLabel htmlFor="nationality">국적</FormLabel>
         <Controller
@@ -66,10 +68,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
           }}
         />
       </FormControl>
-      <FormControl>
-        <FormLabel>줌 링크</FormLabel>
-        <TextArea height="sm" {...register("link")} />
-      </FormControl>
+
       <FormControl>
         <FormLabel>자기소개</FormLabel>
         <TextArea {...register("introduce")} />
