@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
+import { Progress } from "@/components/Progress";
 import type { FirstStepData } from "@/types/data";
 import { SecondStep, SecondStepData } from "./_components/SecondStep";
 import { ThirdStep, ThirdStepData } from "./_components/ThirdStep";
+
+const TOTAL_STEPS = 3;
 
 const Page = () => {
   const router = useRouter();
@@ -33,6 +36,7 @@ const Page = () => {
     <div>
       <NavigationBar title="회원가입" onClickGoback={handleClickGoback} />
       <div className="px-5 pt-6">
+        <Progress percent={(100 / TOTAL_STEPS) * currentStep} />
         {currentStep === 1 && <FirstStep onClickNextStep={handleClickNextStep} />}
         {currentStep === 2 && <SecondStep onClickNextStep={handleClickNextStep} />}
         {currentStep === 3 && <ThirdStep onSubmitForm={handleSubmitForm} />}

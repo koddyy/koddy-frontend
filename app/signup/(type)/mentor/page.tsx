@@ -7,7 +7,10 @@ import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
 import { FourthStep } from "@/app/signup/(type)/mentor/_components/FourthStep";
 import { SecondStep } from "@/app/signup/(type)/mentor/_components/SecondStep";
 import { ThirdStep } from "@/app/signup/(type)/mentor/_components/ThirdStep";
+import { Progress } from "@/components/Progress";
 import type { FirstStepData, FourthStepData, SecondStepData, ThirdStepData } from "@/types/data";
+
+const TOTAL_STEPS = 4;
 
 const Page = () => {
   const router = useRouter();
@@ -36,6 +39,7 @@ const Page = () => {
     <>
       <NavigationBar title="회원가입" onClickGoback={handleClickGoback} />
       <div className="px-5 pt-6">
+        <Progress percent={(100 / TOTAL_STEPS) * currentStep} />
         {currentStep === 1 && <FirstStep onClickNextStep={handleClickNextStep} />}
         {currentStep === 2 && <SecondStep onClickNextStep={handleClickNextStep} />}
         {currentStep === 3 && <ThirdStep onClickNextStep={handleClickNextStep} />}
