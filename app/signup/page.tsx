@@ -12,7 +12,7 @@ const Page = () => {
   const [selectedUserType, setSelectedUserType] = useState<UserType>();
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex flex-col">
       <NavigationBar onClickGoback={() => router.back()} />
       <h2 className="headline-3 my-5 text-center">회원 유형을 선택해주세요</h2>
       <div className="flex flex-col gap-[1.75rem] px-8">
