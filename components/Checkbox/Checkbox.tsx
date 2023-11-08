@@ -1,12 +1,15 @@
-import { PropsWithChildren } from "react";
+import { ChangeEvent, PropsWithChildren } from "react";
+import Checked from "@/assets/checkboxes_checked.svg";
+import Unchecked from "@/assets/checkboxes_unchecked.svg";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { cn } from "@/utils/cn";
 
 export interface CheckboxProps {
   className?: string;
+  id?: string;
   value?: string;
-  checked: boolean;
-  onChangeChecked: () => void;
+  checked?: boolean;
+  onChangeChecked?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Checkbox = ({
@@ -21,16 +24,16 @@ export const Checkbox = ({
   const { hasError } = useFormControl(props);
 
   return (
-    <div
-      className={cn(
-        "inline-block rounded-[0.625rem] border border-gray-300 ",
-        checked && "border-primary bg-[#EAFAF1] text-primary",
-        className
-      )}
-      onClick={onChangeChecked}
-    >
-      <input className="appearance-none" type="checkbox" value={value} checked={checked} />
+    <label className={cn("flex items-center gap-1", className)}>
+      <input
+        className="peer appearance-none"
+        type="checkbox"
+        value={value}
+        checked={checked}
+        onChange={onChangeChecked}
+      />
+      <span>{checked ? <Checked /> : <Unchecked />}</span>
       {children}
-    </div>
+    </label>
   );
 };
