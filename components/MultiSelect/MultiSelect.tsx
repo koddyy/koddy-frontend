@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { SelectProps } from "@/components/Select";
+import useClickOutside from "@/hooks/useClickOutside";
 import { cn } from "@/utils/cn";
 
 export interface MultiSelectProps extends Omit<SelectProps, "value" | "onChangeValue"> {
@@ -21,6 +22,7 @@ export const MultiSelect = ({
 }: MultiSelectProps) => {
   const { hasError } = useFormControl(props);
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useClickOutside(() => setIsOpen(false));
 
   const handleAddValues = (value: string) => {
     onAddValues?.(value);
@@ -31,7 +33,7 @@ export const MultiSelect = ({
   };
 
   return (
-    <div className="body-1 relative">
+    <div className="body-1 relative" ref={ref}>
       <button
         className={cn(
           "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:border-gray-400",
