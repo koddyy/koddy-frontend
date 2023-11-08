@@ -1,6 +1,7 @@
 import { ElementType, PropsWithChildren, useState } from "react";
 import { FormOptions } from "@/components/FormControl/FormControl.type";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
+import useClickOutside from "@/hooks/useClickOutside";
 import { cn } from "@/utils/cn";
 
 export interface SelectProps extends FormOptions {
@@ -23,6 +24,7 @@ export const Select = ({
 }: PropsWithChildren<SelectProps>) => {
   const { hasError } = useFormControl(props);
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useClickOutside(() => setIsOpen(false));
 
   const handleChange = (value: string) => {
     onChangeValue?.(value);
@@ -30,7 +32,7 @@ export const Select = ({
   };
 
   return (
-    <div className="body-1 relative">
+    <div className="body-1 relative" ref={ref}>
       <button
         className={cn(
           "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:border-gray-400",

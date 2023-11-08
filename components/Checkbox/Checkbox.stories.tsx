@@ -13,20 +13,19 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    checked: false,
-    children: <span>✔️</span>,
+    children: "option",
   },
 };
 
 const CheckboxGroup = () => {
-  const [isChecked, setIsChecked] = useState<Array<boolean>>(new Array(7).fill(false));
+  const [isChecked, setIsChecked] = useState<Array<boolean>>(new Array(3).fill(false));
 
   return (
-    <div className="flex gap-2">
-      {["월", "화", "수", "목", "금", "토", "일"].map((value, i) => (
+    <div className="flex flex-col gap-2">
+      {["option1", "option2", "option3"].map((value, i) => (
         <Checkbox
-          className="px-[0.8125rem] py-[0.6875rem]"
           key={i}
+          value={value}
           checked={isChecked[i]}
           onChangeChecked={() => {
             setIsChecked((prev) => {

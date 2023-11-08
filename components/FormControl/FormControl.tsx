@@ -46,7 +46,7 @@ const FormErrorMessage = ({
   if (!hasError) return null;
 
   return (
-    <span className={cn("text-danger body-1 mt-[0.375rem]", className)} {...rest}>
+    <span className={cn("body-1 mt-[0.375rem] text-danger", className)} {...rest}>
       {children}
     </span>
   );

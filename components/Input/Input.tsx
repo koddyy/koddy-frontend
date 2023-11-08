@@ -17,7 +17,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div
         className={cn(
           "body-1 flex rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem] placeholder:text-gray-400 focus-within:border-gray-400 disabled:cursor-not-allowed disabled:opacity-50",
-          hasError && "border-danger",
+          hasError && "border-danger focus-within:border-danger",
           className
         )}
       >
