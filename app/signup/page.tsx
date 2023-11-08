@@ -2,17 +2,17 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BottomButton } from "@/app/_components/BottomButton";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import type { UserType } from "@/app/signup/_components/UserTypeCard";
 import { UserTypeCard } from "@/app/signup/_components/UserTypeCard";
-import { Button } from "@/components/Button";
 
 const Page = () => {
   const router = useRouter();
   const [selectedUserType, setSelectedUserType] = useState<UserType>();
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex flex-col">
       <NavigationBar onClickGoback={() => router.back()} />
       <h2 className="headline-3 my-5 text-center">회원 유형을 선택해주세요</h2>
       <div className="flex flex-col gap-[1.75rem] px-8">
@@ -27,9 +27,7 @@ const Page = () => {
           isSelected={selectedUserType === "mentee"}
         />
       </div>
-      <div className="mt-auto px-4 py-6">
-        <Button onClick={() => router.push(`/signup/${selectedUserType}`)}>다음</Button>
-      </div>
+      <BottomButton onClick={() => router.push(`/signup/${selectedUserType}`)}>다음</BottomButton>
     </div>
   );
 };

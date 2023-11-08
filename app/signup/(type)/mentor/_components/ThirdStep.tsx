@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { Button } from "@/components/Button";
+import { BottomButton } from "@/app/_components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { MultiSelect, Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
@@ -74,11 +74,9 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
         <FormLabel>자기소개</FormLabel>
         <TextArea {...register("introduce")} />
       </FormControl>
-      <div className="absolute inset-x-5 bottom-[2.38rem]">
-        <Button type="submit" disabled={!isValid}>
-          다음
-        </Button>
-      </div>
+      <BottomButton type="submit" disabled={!isValid}>
+        다음
+      </BottomButton>
     </form>
   );
 };

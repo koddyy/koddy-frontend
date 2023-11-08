@@ -46,7 +46,7 @@ export const Select = ({
         {RightContent && <RightContent className="ml-auto" />}
       </button>
       {isOpen && (
-        <ul className="absolute top-14 z-overlay w-full rounded-[0.625rem] border border-gray-300 bg-white">
+        <ul className="absolute top-14 z-dropdown w-full rounded-[0.625rem] border border-gray-300 bg-white">
           {options.map((value) => (
             <li
               key={value}

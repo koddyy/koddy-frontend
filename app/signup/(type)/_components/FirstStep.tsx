@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/Button";
+import { BottomButton } from "@/app/_components/BottomButton";
 import { Checkbox } from "@/components/Checkbox";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
@@ -76,11 +76,9 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
           </div>
         </Checkbox>
       </div>
-      <div className="absolute inset-x-5 bottom-[2.38rem]">
-        <Button type="submit" disabled={!isAgreed}>
-          다음
-        </Button>
-      </div>
+      <BottomButton type="submit" disabled={!isAgreed}>
+        다음
+      </BottomButton>
     </form>
   );
 };

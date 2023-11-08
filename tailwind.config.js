@@ -9,7 +9,9 @@ module.exports = {
     extend: {
       zIndex: {
         lowest: -1,
-        overlay: 1000,
+        dropdown: 1000,
+        header: 1100,
+        overlay: 1200,
         highest: 9999,
       },
     },

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
+import { BottomButton } from "@/app/_components/BottomButton";
 import { ProfileImageUpload } from "@/app/_components/ProfileImageUpload";
-import { Button } from "@/components/Button";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import type { SecondStepData as MentorSecondStepData } from "@/types/data";
@@ -50,11 +50,9 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
           })}
         />
       </FormControl>
-      <div className="absolute inset-x-5 bottom-[2.38rem]">
-        <Button type="submit" disabled={!isValid}>
-          다음
-        </Button>
-      </div>
+      <BottomButton type="submit" disabled={!isValid}>
+        다음
+      </BottomButton>
     </form>
   );
 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button } from "@/components/Button";
+import { BottomButton } from "@/app/_components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
@@ -65,9 +65,7 @@ export const FourthStep = ({ onSubmitForm }: FourthStepProps) => {
           ))}
         </div>
       </FormControl>
-      <div className="absolute inset-x-5 bottom-[2.38rem]">
-        <Button type="submit">코띠 시작하기</Button>
-      </div>
+      <BottomButton type="submit">코띠 시작하기</BottomButton>
     </form>
   );
 };
