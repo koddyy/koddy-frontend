@@ -13,7 +13,12 @@ interface ThirdStepProps {
 }
 
 export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
-  const { register, control, handleSubmit } = useForm<ThirdStepData>();
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<ThirdStepData>();
 
   return (
     <>
@@ -26,9 +31,9 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
             name="nationality"
             render={({ field }) => (
               <Select
-                onChangeValue={(value: string) => field.onChange(value)}
-                value={field.value}
                 options={["South Korea", "US", "Germany", "Austrailia"]}
+                value={field.value}
+                onChangeValue={(value: string) => field.onChange(value)}
                 placeholder="국적을 선택해 주세요."
               />
             )}
@@ -38,7 +43,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
           />
         </FormControl>
         <FormControl required>
-          <FormLabel htmlFor="language">구사언어</FormLabel>
+          <FormLabel htmlFor="languages">구사언어</FormLabel>
           <Controller
             control={control}
             name="languages"
@@ -49,12 +54,12 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
                 onAddValues={(value: string) => {
                   const cloned = new Set(field.value);
                   cloned.add(value);
-                  field.onChange(cloned);
+                  field.onChange([...cloned]);
                 }}
                 onDeleteValues={(value: string) => {
                   const cloned = new Set(field.value);
                   cloned.delete(value);
-                  field.onChange(cloned);
+                  field.onChange([...cloned]);
                 }}
                 placeholder="구사언어를 선택해 주세요."
               />
@@ -73,7 +78,9 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
           <TextArea {...register("introduce")} />
         </FormControl>
         <div className="absolute inset-x-5 bottom-[2.38rem]">
-          <Button type="submit">다음</Button>
+          <Button type="submit" disabled={!isValid}>
+            다음
+          </Button>
         </div>
       </form>
     </>
