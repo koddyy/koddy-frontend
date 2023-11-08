@@ -8,7 +8,7 @@ const colorVariants = {
 
 type colorVariantsType = keyof typeof colorVariants;
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   colorVariant?: colorVariantsType;
 }
 
