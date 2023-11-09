@@ -44,15 +44,23 @@ const MentorHome = () => {
 
 const MenteeHome = () => {
   return (
-    <div className="px-5 pb-[5.75rem] pt-[0.87rem]">
-      <div className="subheading-bold mb-3">멘토 둘러보기</div>
-      <div className="flex flex-col gap-[0.81rem]">
-        {new Array(10).fill(0).map((_, i) => (
-          <Link key={i} href={`/profile/${i + 11}`}>
-            <UserCard {...MOCK_MENTOR} imageUrl="/images/mock_profile2.png" />
-          </Link>
-        ))}
-      </div>
+    <div className="flex flex-col px-5 pb-[5.75rem] pt-[0.87rem]">
+      <>
+        <div className="subheading-bold mb-3">제안 온 커피챗</div>
+        <Link href={`/coffeechat/${78910}`}>
+          <UserCard {...MOCK_MENTEE} imageUrl="/images/mock_profile2.png" />
+        </Link>
+        <div className="subheading-bold mb-3">멘토 둘러보기</div>
+      </>
+      <>
+        <div className="flex flex-col gap-[0.81rem]">
+          {new Array(10).fill(0).map((_, i) => (
+            <Link key={i} href={`/profile/${i + 11}`}>
+              <UserCard {...MOCK_MENTOR} imageUrl="/images/mock_profile2.png" />
+            </Link>
+          ))}
+        </div>
+      </>
     </div>
   );
 };
