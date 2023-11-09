@@ -13,6 +13,7 @@ export const Primary: Story = {
   args: {
     name: "Hường",
     description: "description",
+    nationality: "베트남인",
     languages: ["베트남어", "영어", "힌국어"],
   },
 };
