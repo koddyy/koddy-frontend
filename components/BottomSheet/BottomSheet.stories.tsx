@@ -10,7 +10,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Default: Story = {
+  args: {
+    onClose: () => {},
+  },
+  render: (args) => (
+    <BottomSheet {...args}>
+      <div>content area</div>
+    </BottomSheet>
+  ),
+};
+
+export const WithButton: Story = {
   args: {
     onClose: () => {},
   },
@@ -18,8 +29,22 @@ export const Primary: Story = {
     <BottomSheet {...args}>
       <div>content area</div>
       <ButtonArea>
-        <Button>아니요</Button>
-        <Button>네</Button>
+        <Button>Button1</Button>
+      </ButtonArea>
+    </BottomSheet>
+  ),
+};
+
+export const WithTwoButton: Story = {
+  args: {
+    onClose: () => {},
+  },
+  render: (args) => (
+    <BottomSheet {...args}>
+      <div>content area</div>
+      <ButtonArea>
+        <Button variant="outline">Button1</Button>
+        <Button>Button2</Button>
       </ButtonArea>
     </BottomSheet>
   ),
