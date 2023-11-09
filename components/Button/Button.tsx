@@ -1,22 +1,22 @@
 import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import { cn } from "@/utils/cn";
 
-const colorVariants = {
-  primary: "bg-primary",
-  transparent: "bg-transparent",
+const variants = {
+  solid: "bg-primary",
+  outline: "border-2 border-primary bg-transparent text-primary",
 };
 
-type colorVariantsType = keyof typeof colorVariants;
+type variantsType = keyof typeof variants;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  colorVariant?: colorVariantsType;
+  variant?: variantsType;
 }
 
 export const Button = ({
   className,
   disabled = false,
   type = "button",
-  colorVariant = "primary",
+  variant = "solid",
   children,
   ...rest
 }: PropsWithChildren<ButtonProps>) => {
@@ -24,7 +24,7 @@ export const Button = ({
     <button
       className={cn(
         "body-1-bold w-full cursor-pointer rounded-[0.625rem] p-3 text-white",
-        colorVariants[colorVariant],
+        variants[variant],
         disabled && "cursor-not-allowed bg-gray-400",
         className
       )}
