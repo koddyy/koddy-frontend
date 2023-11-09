@@ -39,6 +39,7 @@ module.exports = {
         600: "#4B4B4B",
         700: "#212121",
       },
+      transparent: "transparent",
     },
   },
   plugins: [],

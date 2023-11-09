@@ -3,8 +3,8 @@
 import { notFound, useRouter } from "next/navigation";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
-import { MOCK_MENTEE, MOCK_MENTOR } from "@/app/(home)/page";
 import { Button } from "@/components/Button";
+import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const id = Number(params.id);
