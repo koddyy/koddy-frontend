@@ -3,12 +3,22 @@
 import { notFound, useRouter } from "next/navigation";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
-import { Button } from "@/components/Button";
+import { PendingBottomSheet } from "@/app/(home)/coffeechat/_components/PendingBottomSheet";
+import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
+import { useRequestCoffeeChat } from "@/app/(home)/profile/_hooks/useRequestCoffeeChat";
+import { Button, LinkButton } from "@/components/Button";
 import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const id = Number(params.id);
   const router = useRouter();
+  const {
+    isPending,
+    isRequested,
+    openPendingBottomSheet,
+    closePendingBottomSheet,
+    requestCoffeeChat,
+  } = useRequestCoffeeChat();
 
   if (id > 20) return notFound();
 
@@ -32,7 +42,26 @@ const Page = ({ params }: { params: { id: string } }) => {
         </p>
       </div>
       <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem] ">
-        {isMentor ? <Button>커피챗 신청하기</Button> : <Button>커피챗 제안하기</Button>}
+        {isMentor ? (
+          <Button>커피챗 신청하기</Button>
+        ) : (
+          <Button onClick={openPendingBottomSheet}>커피챗 제안하기</Button>
+        )}
+        {isPending && (
+          <PendingBottomSheet
+            resultType="positive"
+            description={[`${MOCK_MENTEE.name}님에게`, "커피챗을 제안하시겠습니까?"]}
+            onClickNo={closePendingBottomSheet}
+            onClickYes={requestCoffeeChat}
+          />
+        )}
+        {isRequested && (
+          <ResultBottomSheet
+            resultType="positive"
+            description={[`${MOCK_MENTEE.name}님에게`, "커피챗을 제안하였습니다."]}
+            confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+          />
+        )}
       </div>
     </>
   );
