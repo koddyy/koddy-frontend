@@ -5,21 +5,25 @@ import { Input } from "@/components/Input";
 import { cn } from "@/utils/cn";
 import { isNil } from "@/utils/typeUtils";
 
-interface RejectCoffeeChatBottomSheetProps extends BottomSheetProps {
+interface RejectBottomSheetProps extends BottomSheetProps {
   userName: string;
+  onClickRejectButton: (reason: string) => void;
 }
 
 const REJECT_OPTIONS = ["스케줄이 바뀌었어요", "당분간 상담이 어려워요."];
 
-export const RejectCoffeeChatBottomSheet = ({
+export const RejectBottomSheet = ({
   userName,
+  onClickRejectButton,
   onClose,
-}: RejectCoffeeChatBottomSheetProps) => {
+}: RejectBottomSheetProps) => {
   const [selectedOption, setSelectedOption] = useState<number>();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleClickReject = () => {
-    console.log(inputRef.current?.value ?? selectedOption);
+  const handleClickRejectButton = () => {
+    if (!isNil(selectedOption)) {
+      onClickRejectButton(inputRef.current?.value ?? REJECT_OPTIONS[selectedOption]);
+    }
   };
 
   return (
@@ -59,7 +63,7 @@ export const RejectCoffeeChatBottomSheet = ({
         />
       </div>
       <ButtonArea>
-        <Button onClick={handleClickReject} disabled={isNil(selectedOption)}>
+        <Button onClick={handleClickRejectButton} disabled={isNil(selectedOption)}>
           거절하기
         </Button>
       </ButtonArea>
