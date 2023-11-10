@@ -103,6 +103,14 @@ const CoffeechatRequestFromMentee = () => {
 };
 
 const CoffeechatRequestFromMentor = () => {
+  const {
+    isRejecting,
+    isRejected,
+    openRejectBottomSheet,
+    closeRejectBottomSheet,
+    rejectCoffeeChat,
+  } = useRejectCoffeeChat();
+
   return (
     <>
       <UserCard cardType="vertical" {...MOCK_MENTOR} />
@@ -133,10 +141,26 @@ const CoffeechatRequestFromMentor = () => {
       </div>
       <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
         <div className="flex gap-5">
-          <Button variant="outline">거절하기</Button>
-          <Button>수락하기</Button>
+          <Button variant="outline" onClick={openRejectBottomSheet}>
+            거절하기
+          </Button>
+          <LinkButton href={`/reservation?id=${78910}`}>수락하기</LinkButton>
         </div>
       </div>
+      {isRejecting && (
+        <RejectBottomSheet
+          userName={MOCK_MENTOR.name}
+          onClickRejectButton={rejectCoffeeChat}
+          onClose={closeRejectBottomSheet}
+        />
+      )}
+      {isRejected && (
+        <ResultBottomSheet
+          resultType="negative"
+          description={[`${MOCK_MENTOR.name}님과의`, "커피챗이 거절되었습니다."]}
+          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+        />
+      )}
     </>
   );
 };
