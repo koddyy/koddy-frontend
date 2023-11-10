@@ -15,9 +15,10 @@ export const Toggle = ({
 }: PropsWithChildren<ToggleProps>) => {
   return (
     <button
+      type="button"
       className={cn(
         "rounded-[0.625rem] border border-gray-300 px-[0.8125rem] py-[0.6875rem]",
-        pressed && "border-none bg-primary text-white",
+        pressed && "border-primary bg-primary text-white",
         className
       )}
       onClick={onChangePressed}
