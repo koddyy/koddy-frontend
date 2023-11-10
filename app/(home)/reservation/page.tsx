@@ -5,13 +5,15 @@ import { Nullable } from "primereact/ts-helpers";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { NavigationBar } from "@/app/_components/NavigationBar";
-import { Button } from "@/components/Button";
+import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
+import { Button, LinkButton } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
 import { cn } from "@/utils/cn";
+import useReserveCoffeeChat from "./_hooks/useReserveCoffeeChat";
 
 type FirstStepData = {
   date: Date;
@@ -26,6 +28,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FirstStepData | SecondStepData>();
+  const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
@@ -40,15 +43,23 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const handleSubmitReservation = (data: SecondStepData) => {
     // TODO: mutate
     console.log({ ...formData, ...data });
+    reserveCoffeeChat();
   };
 
   return (
     <>
       <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
-      <div className="px-5 pb-[5.75rem] pt-4">
+      <div className="px-5 pb-40 pt-4">
         {currentStep === 1 && <Schedule onClickNextStep={handleClickNextStep} />}
         {currentStep === 2 && <Question onSubmitReservation={handleSubmitReservation} />}
       </div>
+      {isReserved && (
+        <ResultBottomSheet
+          resultType="positive"
+          description={["OOO님과의", "커피챗이 신청되었습니다."]}
+          confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
+        />
+      )}
     </>
   );
 };
@@ -136,7 +147,6 @@ const Question = ({ onSubmitReservation }: QuestionProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitReservation)}>
-      {/* <div className="body-1-bold mb-2 flex flex-wrap gap-3">멘토에게 궁금한 점 적기</div> */}
       <FormControl>
         <FormLabel className="body-1-bold mb-2">멘토에게 궁금한 점 적기</FormLabel>
         <TextArea {...register("question")} />
