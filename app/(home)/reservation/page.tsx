@@ -24,6 +24,7 @@ type SecondStepData = {
   question: string;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
