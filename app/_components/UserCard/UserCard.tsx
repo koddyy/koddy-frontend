@@ -9,16 +9,20 @@ interface UserCardProps {
   description: string;
   nationality?: string;
   languages: string[];
+  coffeeChatStatusText?: string;
 }
 
 export const UserCard = ({
   cardType = "horizontal",
   imageUrl = "/images/mock_profile.png", // TODO: default image 교체
+  coffeeChatStatusText,
   ...props
 }: UserCardProps) => {
   if (cardType === "horizontal") return <HorizontalUserCard imageUrl={imageUrl} {...props} />;
 
-  return <VerticalUserCard imageUrl={imageUrl} {...props} />;
+  return (
+    <VerticalUserCard imageUrl={imageUrl} coffeeChatStatusText={coffeeChatStatusText} {...props} />
+  );
 };
 
 const HorizontalUserCard = ({ imageUrl, name, description, languages }: UserCardProps) => {
@@ -46,6 +50,7 @@ const VerticalUserCard = ({
   description,
   nationality,
   languages,
+  coffeeChatStatusText,
 }: UserCardProps) => {
   return (
     <>
@@ -54,6 +59,9 @@ const VerticalUserCard = ({
       </div>
       <div className="px-5 py-3">
         <div className="mb-2">
+          {coffeeChatStatusText && (
+            <div className="body-2-bold text-primary-dark">{coffeeChatStatusText}</div>
+          )}
           <span className="headline-2">{name}</span>
           <p className="body-3-bold">{description}</p>
         </div>

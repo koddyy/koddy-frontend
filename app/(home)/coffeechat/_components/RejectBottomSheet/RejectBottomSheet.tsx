@@ -6,6 +6,8 @@ import { cn } from "@/utils/cn";
 import { isNil } from "@/utils/typeUtils";
 
 interface RejectBottomSheetProps extends BottomSheetProps {
+  type?: "reject" | "cancel";
+  options?: string[];
   userName: string;
   onClickRejectButton: (reason: string) => void;
 }
@@ -13,6 +15,8 @@ interface RejectBottomSheetProps extends BottomSheetProps {
 const REJECT_OPTIONS = ["스케줄이 바뀌었어요", "당분간 상담이 어려워요."];
 
 export const RejectBottomSheet = ({
+  type = "reject",
+  options = REJECT_OPTIONS,
   userName,
   onClickRejectButton,
   onClose,
@@ -31,10 +35,10 @@ export const RejectBottomSheet = ({
       <div className="subheading-bold">
         {userName}님과의 커피챗을
         <br />
-        거절하는 이유를 알려주세요.
+        {type === "reject" ? "거절" : "취소"}하는 이유를 알려주세요.
       </div>
       <div className="my-5 flex flex-col gap-3">
-        {REJECT_OPTIONS.map((option, i) => {
+        {options.map((option, i) => {
           const isSelected = selectedOption === i;
           return (
             <Button
@@ -64,7 +68,7 @@ export const RejectBottomSheet = ({
       </div>
       <ButtonArea>
         <Button onClick={handleClickRejectButton} disabled={isNil(selectedOption)}>
-          거절하기
+          {type === "reject" ? "거절하기" : "취소하기"}
         </Button>
       </ButtonArea>
     </BottomSheet>

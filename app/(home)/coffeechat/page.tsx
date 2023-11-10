@@ -25,7 +25,7 @@ const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } })
       <div className="flex flex-col gap-[0.88rem] px-5 py-[0.87rem] pb-40">
         {type === "mentor" &&
           new Array(5).fill(0).map((_, i) => (
-            <Link key={i} href="/coffeechat/123456">
+            <Link key={i} href={`/coffeechat/123456?status=${COFFEECHAT_STATUS[i]}`}>
               <CoffeeChatCard
                 userType={type}
                 coffeechatStatus={COFFEECHAT_STATUS[i]}
@@ -37,7 +37,7 @@ const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } })
 
         {type === "mentee" &&
           new Array(5).fill(0).map((_, i) => (
-            <Link key={i} href="/coffeechat/78910">
+            <Link key={i} href={`/coffeechat/123456?status=${COFFEECHAT_STATUS[i]}`}>
               <CoffeeChatCard
                 userType={type}
                 coffeechatStatus={COFFEECHAT_STATUS[i]}
