@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
+import { PendingBottomSheet } from "@/app/(home)/coffeechat/_components/PendingBottomSheet";
+import useCancelCoffeeChat from "@/app/(home)/coffeechat/_hooks/useCancelCoffeeChat";
 import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
@@ -35,13 +37,13 @@ const Page = ({
         onClickGoback={() => router.back()}
       />
       {id === 123456 && (
-        <CoffeechatRequestFromMentee
+        <CoffeeChatDetailForMentor
           status={status}
           coffeeChatStatusText={CoffeeChatStatusText.mentor[status]}
         />
       )}
       {id === 78910 && (
-        <CoffeechatRequestFromMentor
+        <CoffeeChatDetailForMentee
           status={status}
           coffeeChatStatusText={CoffeeChatStatusText.mentee[status]}
         />
@@ -50,12 +52,12 @@ const Page = ({
   );
 };
 
-interface CoffeeChatRequestProps {
+interface CoffeeChatDetailProps {
   status: CoffeeChatStatus;
   coffeeChatStatusText: string;
 }
 
-const CoffeechatRequestFromMentee = ({ status, coffeeChatStatusText }: CoffeeChatRequestProps) => {
+const CoffeeChatDetailForMentor = ({ status, coffeeChatStatusText }: CoffeeChatDetailProps) => {
   const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat();
   const {
     isRejecting,
@@ -64,6 +66,15 @@ const CoffeechatRequestFromMentee = ({ status, coffeeChatStatusText }: CoffeeCha
     closeRejectBottomSheet,
     rejectCoffeeChat,
   } = useRejectCoffeeChat();
+  const {
+    isCanceling,
+    isCanceled,
+    openCancelBottomSheet,
+    closeCancelBottomSheet,
+    cancelCoffeeChat,
+  } = useCancelCoffeeChat();
+
+  const isCancelable = status === "expected" || status === "requested";
 
   return (
     <>
@@ -106,44 +117,68 @@ const CoffeechatRequestFromMentee = ({ status, coffeeChatStatusText }: CoffeeCha
               reprehenderit dolore tempor.
             </p>
           </div>
+          {isCancelable && (
+            <Button
+              variant="outline"
+              className="border-[0.5px] border-gray-500 text-gray-500"
+              onClick={openCancelBottomSheet}
+            >
+              커피챗 취소하기
+            </Button>
+          )}
         </div>
       </div>
-      <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        {status === "requested" && (
+      {status === "requested" && (
+        <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
             <Button variant="outline" onClick={openRejectBottomSheet}>
               거절하기
             </Button>
             <Button onClick={acceptCoffeeChat}>수락하기</Button>
           </div>
-        )}
-        {isAccepted && (
-          <ResultBottomSheet
-            resultType="positive"
-            description={[`${MOCK_MENTEE.name}님과의`, "커피챗이 예약되었습니다."]}
-            confirmButton={<LinkButton href="/">예약페이지로 가기</LinkButton>}
-          />
-        )}
-        {isRejecting && (
-          <RejectBottomSheet
-            userName={MOCK_MENTEE.name}
-            onClickRejectButton={rejectCoffeeChat}
-            onClose={closeRejectBottomSheet}
-          />
-        )}
-        {isRejected && (
-          <ResultBottomSheet
-            resultType="positive"
-            description={[`${MOCK_MENTEE.name}님과의`, "커피챗이 거절되었습니다."]}
-            confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
-          />
-        )}
-      </div>
+        </div>
+      )}
+      {isAccepted && (
+        <ResultBottomSheet
+          resultType="positive"
+          description={[`${MOCK_MENTEE.name}님과의`, "커피챗이 예약되었습니다."]}
+          confirmButton={<LinkButton href="/">예약페이지로 가기</LinkButton>}
+        />
+      )}
+      {isRejecting && (
+        <RejectBottomSheet
+          userName={MOCK_MENTEE.name}
+          onClickRejectButton={rejectCoffeeChat}
+          onClose={closeRejectBottomSheet}
+        />
+      )}
+      {isRejected && (
+        <ResultBottomSheet
+          resultType="positive"
+          description={[`${MOCK_MENTEE.name}님과의`, "커피챗이 거절되었습니다."]}
+          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+        />
+      )}
+      {isCanceling && (
+        <RejectBottomSheet
+          type="cancel"
+          userName={MOCK_MENTEE.name}
+          onClickRejectButton={(reason: string) => cancelCoffeeChat(reason)}
+          onClose={closeCancelBottomSheet}
+        />
+      )}
+      {isCanceled && (
+        <ResultBottomSheet
+          resultType="negative"
+          description={[`${MOCK_MENTEE.name}님과의`, "커피챗이 취소되었습니다."]}
+          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+        />
+      )}
     </>
   );
 };
 
-const CoffeechatRequestFromMentor = ({ coffeeChatStatusText }: CoffeeChatRequestProps) => {
+const CoffeeChatDetailForMentee = ({ status, coffeeChatStatusText }: CoffeeChatDetailProps) => {
   const {
     isRejecting,
     isRejected,
@@ -151,6 +186,15 @@ const CoffeechatRequestFromMentor = ({ coffeeChatStatusText }: CoffeeChatRequest
     closeRejectBottomSheet,
     rejectCoffeeChat,
   } = useRejectCoffeeChat();
+  const {
+    isPending,
+    isCanceled,
+    openPendingBottomSheet,
+    closePendingBottomSheet,
+    cancelCoffeeChat,
+  } = useCancelCoffeeChat();
+
+  const isCancelable = status === "expected" || status === "requested";
 
   return (
     <>
@@ -178,16 +222,27 @@ const CoffeechatRequestFromMentor = ({ coffeeChatStatusText }: CoffeeChatRequest
               reprehenderit dolore tempor.
             </p>
           </div>
+          {isCancelable && (
+            <Button
+              variant="outline"
+              className="border-[0.5px] border-gray-500 text-gray-500"
+              onClick={openPendingBottomSheet}
+            >
+              커피챗 취소하기
+            </Button>
+          )}
         </div>
       </div>
-      <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        <div className="flex gap-5">
-          <Button variant="outline" onClick={openRejectBottomSheet}>
-            거절하기
-          </Button>
-          <LinkButton href={`/reservation?id=${78910}`}>수락하기</LinkButton>
+      {status === "requested" && (
+        <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+          <div className="flex gap-5">
+            <Button variant="outline" onClick={openRejectBottomSheet}>
+              거절하기
+            </Button>
+            <LinkButton href={`/reservation?id=${78910}`}>수락하기</LinkButton>
+          </div>
         </div>
-      </div>
+      )}
       {isRejecting && (
         <RejectBottomSheet
           userName={MOCK_MENTOR.name}
@@ -199,6 +254,21 @@ const CoffeechatRequestFromMentor = ({ coffeeChatStatusText }: CoffeeChatRequest
         <ResultBottomSheet
           resultType="negative"
           description={[`${MOCK_MENTOR.name}님과의`, "커피챗이 거절되었습니다."]}
+          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+        />
+      )}
+      {isPending && (
+        <PendingBottomSheet
+          resultType="negative"
+          description={[`${MOCK_MENTEE.name}님과의`, "커피챗을 취소하시겠습니까?"]}
+          onClickNo={closePendingBottomSheet}
+          onClickYes={cancelCoffeeChat}
+        />
+      )}
+      {isCanceled && (
+        <ResultBottomSheet
+          resultType="negative"
+          description={[`${MOCK_MENTEE.name}님과의`, "커피챗이 취소되었습니다."]}
           confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
         />
       )}
