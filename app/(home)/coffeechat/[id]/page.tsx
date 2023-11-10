@@ -128,7 +128,7 @@ const CoffeeChatDetailForMentor = ({ status, coffeeChatStatusText }: CoffeeChatD
           )}
         </div>
       </div>
-      {status === "requested" && (
+      {status === "recieved" && (
         <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
             <Button variant="outline" onClick={openRejectBottomSheet}>
@@ -233,7 +233,7 @@ const CoffeeChatDetailForMentee = ({ status, coffeeChatStatusText }: CoffeeChatD
           )}
         </div>
       </div>
-      {status === "requested" && (
+      {status === "recieved" && (
         <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
             <Button variant="outline" onClick={openRejectBottomSheet}>
