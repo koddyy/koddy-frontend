@@ -3,16 +3,27 @@
 import { useRouter } from "next/navigation";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
+import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
+import { CoffeeChatStatusText } from "@/constants/coffeechat";
 import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
+import { CoffeeChatStatus } from "@/types/coffeechat";
 import { RejectBottomSheet } from "../_components/RejectBottomSheet";
 import { ResultBottomSheet } from "../_components/ResultBottomSheet/ResultBottomSheet";
 import useAcceptCoffeeChat from "../_hooks/useAcceptCoffeeChat";
 import useRejectCoffeeChat from "../_hooks/useRejectCoffeeChat";
 
-const Page = ({ params }: { params: { id: string } }) => {
+// TODO : CoffeeChatStatus 제거
+const Page = ({
+  searchParams,
+  params,
+}: {
+  searchParams: { status: CoffeeChatStatus };
+  params: { id: string };
+}) => {
   const id = Number(params.id);
+  const status = searchParams.status ?? "expected";
   const router = useRouter();
 
   if (!(id === 123456 || id === 78910)) return <div>forbidden</div>; // TODO
@@ -23,13 +34,28 @@ const Page = ({ params }: { params: { id: string } }) => {
         className="absolute border-none bg-transparent"
         onClickGoback={() => router.back()}
       />
-      {id === 123456 && <CoffeechatRequestFromMentee />}
-      {id === 78910 && <CoffeechatRequestFromMentor />}
+      {id === 123456 && (
+        <CoffeechatRequestFromMentee
+          status={status}
+          coffeeChatStatusText={CoffeeChatStatusText.mentor[status]}
+        />
+      )}
+      {id === 78910 && (
+        <CoffeechatRequestFromMentor
+          status={status}
+          coffeeChatStatusText={CoffeeChatStatusText.mentee[status]}
+        />
+      )}
     </>
   );
 };
 
-const CoffeechatRequestFromMentee = () => {
+interface CoffeeChatRequestProps {
+  status: CoffeeChatStatus;
+  coffeeChatStatusText: string;
+}
+
+const CoffeechatRequestFromMentee = ({ status, coffeeChatStatusText }: CoffeeChatRequestProps) => {
   const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat();
   const {
     isRejecting,
@@ -41,10 +67,23 @@ const CoffeechatRequestFromMentee = () => {
 
   return (
     <>
-      <UserCard cardType="vertical" {...MOCK_MENTEE} />
+      <UserCard cardType="vertical" {...MOCK_MENTEE} coffeeChatStatusText={coffeeChatStatusText} />
       <div className="px-5">
         <Divider />
-        <div className="body-3-bold py-4 text-gray-600">예약 신청 날짜: 2023/11/01 15:00</div>
+        <div className="flex flex-col items-start gap-[0.38rem] py-4">
+          <div className="body-3-bold text-gray-600">2023/11/01 15:00~15:30</div>
+          {status === "expected" && (
+            <button
+              className="label-bold flex items-center gap-2 rounded bg-gray-200 px-2 py-1"
+              type="button"
+            >
+              <span>
+                <Clip />
+              </span>
+              <span>줌 링크 복사하기</span>
+            </button>
+          )}
+        </div>
         <Divider />
         <div className="flex flex-col gap-5 pb-[5.75rem] pt-3">
           <div>
@@ -70,12 +109,14 @@ const CoffeechatRequestFromMentee = () => {
         </div>
       </div>
       <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        <div className="flex gap-5">
-          <Button variant="outline" onClick={openRejectBottomSheet}>
-            거절하기
-          </Button>
-          <Button onClick={acceptCoffeeChat}>수락하기</Button>
-        </div>
+        {status === "requested" && (
+          <div className="flex gap-5">
+            <Button variant="outline" onClick={openRejectBottomSheet}>
+              거절하기
+            </Button>
+            <Button onClick={acceptCoffeeChat}>수락하기</Button>
+          </div>
+        )}
         {isAccepted && (
           <ResultBottomSheet
             resultType="positive"
@@ -102,7 +143,7 @@ const CoffeechatRequestFromMentee = () => {
   );
 };
 
-const CoffeechatRequestFromMentor = () => {
+const CoffeechatRequestFromMentor = ({ coffeeChatStatusText }: CoffeeChatRequestProps) => {
   const {
     isRejecting,
     isRejected,
@@ -113,7 +154,7 @@ const CoffeechatRequestFromMentor = () => {
 
   return (
     <>
-      <UserCard cardType="vertical" {...MOCK_MENTOR} />
+      <UserCard cardType="vertical" {...MOCK_MENTOR} coffeeChatStatusText={coffeeChatStatusText} />
       <div className="px-5">
         <Divider />
         <div className="flex flex-col gap-5 pb-[5.75rem] pt-3">
