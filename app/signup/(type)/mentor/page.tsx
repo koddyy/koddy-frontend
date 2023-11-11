@@ -50,7 +50,14 @@ const Page = () => {
   };
 
   const handleSubmitForm = (data: FourthStepData) => {
-    signup({ ...formData, ...data });
+    signup(
+      { ...formData, ...data },
+      {
+        onSuccess: () => {
+          router.replace("/");
+        },
+      }
+    );
   };
 
   return (

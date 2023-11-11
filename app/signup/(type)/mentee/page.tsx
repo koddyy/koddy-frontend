@@ -44,7 +44,14 @@ const Page = () => {
   };
 
   const handleSubmitForm = (data: ThirdStepData) => {
-    signup({ ...formData, ...data });
+    signup(
+      { ...formData, ...data },
+      {
+        onSuccess: () => {
+          router.replace("/");
+        },
+      }
+    );
   };
 
   return (
