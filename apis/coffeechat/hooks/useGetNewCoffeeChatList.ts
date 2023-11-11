@@ -5,6 +5,7 @@ const useGetNewCoffeeChatList = () => {
   return useSuspenseQuery({
     queryKey: ["getNewCoffeeChatList"],
     queryFn: coffeeChatApi.getNewCoffeeChatList,
+    select: (data) => data.data,
   });
 };
 
