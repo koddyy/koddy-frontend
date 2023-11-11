@@ -16,3 +16,9 @@ export interface PostCoffeeChatRequest {
   endTime?: string;
   question?: string;
 }
+
+export interface patchCoffeeChatStatusRequest {
+  applicationId: string;
+  status: CoffeeChatStatus;
+  statusDesc?: string;
+}

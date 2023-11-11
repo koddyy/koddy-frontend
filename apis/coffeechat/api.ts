@@ -1,5 +1,9 @@
 import { apiInstance } from "@/apis/axios";
-import { GetCoffeeChatListResponseData, PostCoffeeChatRequest } from "@/apis/coffeechat/types";
+import {
+  GetCoffeeChatListResponseData,
+  patchCoffeeChatStatusRequest,
+  PostCoffeeChatRequest,
+} from "@/apis/coffeechat/types";
 import { ResponseType } from "@/apis/types";
 
 class CoffeeChatApi {
@@ -17,6 +21,10 @@ class CoffeeChatApi {
 
   postCoffeeChat = (coffeeChatFormData: PostCoffeeChatRequest) => {
     return apiInstance.post("/api/application", coffeeChatFormData);
+  };
+
+  patchCoffeeChatStatus = (coffeeChatStatus: patchCoffeeChatStatusRequest) => {
+    return apiInstance.patch("/api/application", coffeeChatStatus);
   };
 }
 
