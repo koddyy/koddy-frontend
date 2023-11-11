@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useGetMe } from "@/api/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
 import { PendingBottomSheet } from "@/app/(home)/coffeechat/_components/PendingBottomSheet";
@@ -28,6 +29,13 @@ const Page = ({
   const status = searchParams.status ?? "expected";
   const router = useRouter();
 
+  const { data: me } = useGetMe();
+
+  if (!me) return;
+
+  const isMentor = me.mentorYn === "Y";
+  const isMentee = me.mentorYn === "N";
+
   if (!(id === 123456 || id === 78910)) return <div>forbidden</div>; // TODO
 
   return (
@@ -36,13 +44,13 @@ const Page = ({
         className="absolute border-none bg-transparent"
         onClickGoback={() => router.back()}
       />
-      {id === 123456 && (
+      {id === 123456 && isMentor && (
         <CoffeeChatDetailForMentor
           status={status}
           coffeeChatStatusText={CoffeeChatStatusText.mentor[status]}
         />
       )}
-      {id === 78910 && (
+      {id === 78910 && isMentee && (
         <CoffeeChatDetailForMentee
           status={status}
           coffeeChatStatusText={CoffeeChatStatusText.mentee[status]}

@@ -1,20 +1,24 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { useGetMe } from "@/api/user/hooks/useGetMe";
 import { Header } from "@/app/_components/Header";
 import { UserCard } from "@/app/_components/UserCard/UserCard";
 import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
 
-// TODO: searchParams 제거, 유저 정보로 type 구분
-const Home = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } }) => {
-  const { type } = searchParams;
+const Home = () => {
+  const { data: me } = useGetMe();
 
-  if (!(type === "mentor" || type === "mentee")) return notFound();
+  if (!me) return;
+
+  const isMentor = me.mentorYn === "Y";
+  const isMentee = me.mentorYn === "N";
 
   return (
     <>
       <Header />
-      {type === "mentor" && <MentorHome />}
-      {type === "mentee" && <MenteeHome />}
+      {isMentor && <MentorHome />}
+      {isMentee && <MenteeHome />}
     </>
   );
 };
