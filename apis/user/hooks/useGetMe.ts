@@ -5,6 +5,7 @@ export const useGetMe = () => {
   return useQuery({
     queryKey: ["getMe"],
     queryFn: userApi.getMe,
+    select: (data) => data.data,
     staleTime: Infinity,
   });
 };
