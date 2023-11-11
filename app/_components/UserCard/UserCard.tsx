@@ -45,7 +45,7 @@ const HorizontalUserCard = ({ imageUrl, name, introduce, languages }: UserCardPr
 };
 
 const HorizontalUserCardSkeleton = () => {
-  return <div className="h-[6.5rem] w-[37.5rem]" />;
+  return <div className="h-[6.5rem] w-full rounded-xl bg-gray-100" />;
 };
 
 UserCard.HorizontalSkeleton = HorizontalUserCardSkeleton;
