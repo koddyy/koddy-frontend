@@ -41,6 +41,10 @@ module.exports = {
       },
       transparent: "transparent",
     },
+    backgroundImage: {
+      "dimmed-gradient":
+        "linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.00) 100%)",
+    },
   },
   plugins: [],
 };

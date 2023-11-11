@@ -43,6 +43,7 @@ const Page = ({
       <NavigationBar
         className="absolute border-none bg-transparent"
         onClickGoback={() => router.back()}
+        backButtonColor="white"
       />
       {id === 123456 && isMentor && (
         <CoffeeChatDetailForMentor

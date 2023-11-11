@@ -7,9 +7,15 @@ interface NavigationBarProps {
   className?: string;
   title?: string;
   onClickGoback?: () => void;
+  backButtonColor?: "default" | "white";
 }
 
-export const NavigationBar = ({ className, title, onClickGoback }: NavigationBarProps) => {
+export const NavigationBar = ({
+  className,
+  title,
+  onClickGoback,
+  backButtonColor,
+}: NavigationBarProps) => {
   return (
     <div
       className={cn(
@@ -18,7 +24,7 @@ export const NavigationBar = ({ className, title, onClickGoback }: NavigationBar
       )}
     >
       {onClickGoback && (
-        <button onClick={onClickGoback}>
+        <button className={cn(backButtonColor === "white" && "text-white")} onClick={onClickGoback}>
           <Back />
         </button>
       )}
