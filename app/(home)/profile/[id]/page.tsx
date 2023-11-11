@@ -1,21 +1,23 @@
 "use client";
 
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
 import { PendingBottomSheet } from "@/app/(home)/coffeechat/_components/PendingBottomSheet";
 import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
 import { useRequestCoffeeChat } from "@/app/(home)/profile/_hooks/useRequestCoffeeChat";
 import { Button, LinkButton } from "@/components/Button";
-import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
+import { useGetMentee } from "@/hooks/temp/useGetMentee";
+import { useGetMentor } from "@/hooks/temp/useGetMentor";
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const id = Number(params.id);
   const router = useRouter();
+  const { data: me } = useGetMe();
 
-  if (id > 20) return notFound();
+  if (!me) return null;
 
-  const isMentor = id > 10;
+  const isMentor = me.mentorYn === "Y";
 
   return (
     <>
@@ -24,12 +26,16 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {isMentor ? <MentorProfile /> : <MenteeProfile />}
+      {isMentor ? <MenteeProfile id={params.id} /> : <MentorProfile id={params.id} />}
     </>
   );
 };
 
-const MenteeProfile = () => {
+interface ProfileProps {
+  id: string;
+}
+
+const MenteeProfile = ({ id }: ProfileProps) => {
   const {
     isPending,
     isRequested,
@@ -37,25 +43,25 @@ const MenteeProfile = () => {
     closePendingBottomSheet,
     requestCoffeeChat,
   } = useRequestCoffeeChat();
+  const { user } = useGetMentee(id);
+
+  if (!user) return <div>존재하지 않는 멘티예요</div>;
 
   return (
     <>
-      <UserCard cardType="vertical" {...MOCK_MENTEE} />
+      <UserCard cardType="vertical" {...user} />
       <div className="px-5 py-3 pb-[5.75rem]">
-        <span className="body-3-bold mb-[0.38rem]">자기소개</span>
+        <div className="body-3-bold mb-[0.38rem]">자기소개</div>
         <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-          Duis quis incididunt deserunt exercitation cillum minim dolore mollit occaecat consequat
-          tempor. Quis proident adipisicing exercitation ea duis. Non in nostrud commodo dolore
-          fugiat occaecat consectetur proident esse id. Aliquip do mollit ut sit. Deserunt pariatur
-          dolor eiusmod enim labore consequat eiusmod. Esse velit reprehenderit dolore tempor.
+          {user.introduce || "자기소개가 없습니다."}
         </p>
       </div>
-      <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+      <div className="fixed bottom-[5.75rem] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
         <Button onClick={openPendingBottomSheet}>커피챗 제안하기</Button>
         {isPending && (
           <PendingBottomSheet
             resultType="positive"
-            description={[`${MOCK_MENTEE.name}님에게`, "커피챗을 제안하시겠습니까?"]}
+            description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
             onClickNo={closePendingBottomSheet}
             onClickYes={requestCoffeeChat}
           />
@@ -63,7 +69,7 @@ const MenteeProfile = () => {
         {isRequested && (
           <ResultBottomSheet
             resultType="positive"
-            description={[`${MOCK_MENTEE.name}님에게`, "커피챗을 제안하였습니다."]}
+            description={[`${user.name}님에게`, "커피챗을 제안하였습니다."]}
             confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
           />
         )}
@@ -72,21 +78,22 @@ const MenteeProfile = () => {
   );
 };
 
-const MentorProfile = () => {
+const MentorProfile = ({ id }: ProfileProps) => {
+  const { user } = useGetMentor(id);
+
+  if (!user) return <div>존재하지 않는 멘토예요</div>;
+
   return (
     <>
-      <UserCard cardType="vertical" {...MOCK_MENTOR} />
+      <UserCard cardType="vertical" {...user} />
       <div className="px-5 py-3">
-        <span className="body-3-bold mb-[0.38rem]">자기소개</span>
+        <div className="body-3-bold mb-[0.38rem]">자기소개</div>
         <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-          Duis quis incididunt deserunt exercitation cillum minim dolore mollit occaecat consequat
-          tempor. Quis proident adipisicing exercitation ea duis. Non in nostrud commodo dolore
-          fugiat occaecat consectetur proident esse id. Aliquip do mollit ut sit. Deserunt pariatur
-          dolor eiusmod enim labore consequat eiusmod. Esse velit reprehenderit dolore tempor.
+          {user.introduce || "자기소개가 없습니다."}
         </p>
       </div>
       <div className="fixed bottom-[5.75rem] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        <LinkButton className="inline-block" href={`/reservation?id=${78910}`}>
+        <LinkButton className="inline-block" href={`/reservation?id=${id}`}>
           커피챗 신청하기
         </LinkButton>
       </div>
