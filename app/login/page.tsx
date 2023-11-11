@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useLogin } from "@/api/user/hooks/useLogin";
 import { Button } from "@/components/Button";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
