@@ -33,6 +33,7 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
       <FormControl required>
         <FormLabel>이메일</FormLabel>
         <Input
+          type="email"
           placeholder="이메일을 입력해 주세요."
           {...register("email", {
             required: true,

@@ -43,6 +43,7 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
       <FormControl required>
         <FormLabel htmlFor="grade">학년</FormLabel>
         <Input
+          type="number"
           {...register("grade", {
             required: true,
           })}
