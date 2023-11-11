@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useGetMe } from "@/api/user/hooks/useGetMe";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { UserCard } from "@/app/_components/UserCard";
 import { PendingBottomSheet } from "@/app/(home)/coffeechat/_components/PendingBottomSheet";

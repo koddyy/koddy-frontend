@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useGetMe } from "@/api/user/hooks/useGetMe";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
 

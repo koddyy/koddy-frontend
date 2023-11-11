@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useLogin } from "@/api/user/hooks/useLogin";
+import { useLogin } from "@/apis/user/hooks/useLogin";
 import { Button } from "@/components/Button";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
@@ -16,7 +16,7 @@ const Page = () => {
     formState: { isValid },
   } = useForm<{ email: string; password: string }>();
   const router = useRouter();
-  const { mutate: login } = useLogin();
+  const { mutate: login, isError } = useLogin();
 
   const handleLogin = (data: { email: string; password: string }) => {
     login(data, {
@@ -40,11 +40,11 @@ const Page = () => {
           <img src="/images/illustration_welcome.png" />
         </div>
         <div className="mb-6 flex flex-col gap-4">
-          <FormControl>
+          <FormControl hasError={isError}>
             <FormLabel>이메일</FormLabel>
             <Input type="email" {...register("email", { required: true })} />
           </FormControl>
-          <FormControl>
+          <FormControl hasError={isError}>
             <FormLabel>비밀번호</FormLabel>
             <Input type="password" {...register("password", { required: true })} />
             <FormErrorMessage>이메일 혹은 비밀번호가 틀렸습니다.</FormErrorMessage>

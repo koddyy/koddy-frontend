@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useGetMe } from "@/api/user/hooks/useGetMe";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { Header } from "@/app/_components/Header";
 import { UserCard } from "@/app/_components/UserCard/UserCard";
 import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
