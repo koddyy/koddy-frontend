@@ -1,6 +1,7 @@
-import type { SignupFormData } from "@/types/data";
+import { User } from "@/types/user";
 
 export interface GetCoffeeChatResponseData {
   applicationId: string;
-  mentee: SignupFormData;
+  mentor: User;
+  mentee: User;
 }

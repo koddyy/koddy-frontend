@@ -10,13 +10,13 @@ interface User {
   mentorYn: "Y" | "N";
   email: string;
   school: string;
-  grade: number;
+  grade?: number;
   major: string;
   nationality: string;
-  zoomLink: string;
-  introduce: string;
+  zoomLink?: string;
+  introduce?: string;
   languages: Array<{ languageId: LanguageType }>;
-  availableTimes: Array<{
+  availableTimes?: Array<{
     week: WeekType;
     startTime: string;
     endTime: string;
