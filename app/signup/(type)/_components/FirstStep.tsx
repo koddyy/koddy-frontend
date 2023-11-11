@@ -34,8 +34,7 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
         <FormLabel>이메일</FormLabel>
         <Input
           placeholder="이메일을 입력해 주세요."
-          {...(register("email"),
-          {
+          {...register("email", {
             required: true,
           })}
         />
