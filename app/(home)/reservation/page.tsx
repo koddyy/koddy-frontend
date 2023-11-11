@@ -13,23 +13,19 @@ import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
+import { CoffeeChatForm, FirstStepData, SecondStepData } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
 import useReserveCoffeeChat from "./_hooks/useReserveCoffeeChat";
 
-type FirstStepData = {
-  date: Date;
-  time: string;
-};
-
-type SecondStepData = {
-  question: string;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Page = ({ searchParams }: { searchParams: { id: string } }) => {
+const Page = ({ searchParams }: { searchParams: { mentor: string } }) => {
+  const mentor = searchParams.mentor;
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<FirstStepData | SecondStepData>();
+  const [formData, setFormData] = useState<CoffeeChatForm>({
+    date: new Date(),
+    time: "",
+    question: "",
+  });
   const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
   const { data: me } = useGetMe();
 
@@ -48,9 +44,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   };
 
   const handleSubmitReservation = (data: SecondStepData) => {
-    // TODO: mutate
-    console.log({ ...formData, ...data });
-    reserveCoffeeChat();
+    reserveCoffeeChat({ ...formData, ...data }, { mentor, mentee: me.userId });
   };
 
   return (

@@ -1,14 +1,22 @@
-import { useState } from "react";
+import usePostCoffeeChat from "@/apis/coffeechat/hooks/useCreateCoffeeChat";
+import { PostCoffeeChatRequest } from "@/apis/coffeechat/types";
+import { CoffeeChatForm } from "@/types/coffeechat";
+import { toYYYYMMDD } from "@/utils/dateUtils";
 
 const useReserveCoffeeChat = () => {
-  const [isReserved, setIsReserved] = useState(false);
+  const { isSuccess, mutate: createCoffeeChat } = usePostCoffeeChat();
 
-  const reserveCoffeeChat = () => {
-    // TODO: mutation
-    setIsReserved(true);
+  const reserveCoffeeChat = (
+    { date, time, ...coffeeChatForm }: CoffeeChatForm,
+    { mentor, mentee }: Pick<PostCoffeeChatRequest, "mentor" | "mentee">
+  ) => {
+    const YYYYMMDD = toYYYYMMDD(date);
+    const [startTime, endTime] = time.split(" ~ ");
+
+    createCoffeeChat({ mentor, mentee, date: YYYYMMDD, startTime, endTime, ...coffeeChatForm });
   };
 
-  return { isReserved, reserveCoffeeChat };
+  return { isReserved: isSuccess, reserveCoffeeChat };
 };
 
 export default useReserveCoffeeChat;
