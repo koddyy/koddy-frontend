@@ -9,8 +9,10 @@ import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";
 const Home = () => {
   const { data: me } = useGetMe();
 
+  if (!me) return;
+
   const isMentor = me.mentorYn === "Y";
-  const isMentee = (me.mentorYn = "N");
+  const isMentee = me.mentorYn === "N";
 
   return (
     <>
