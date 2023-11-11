@@ -2,22 +2,42 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSignup } from "@/api/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
 import { FourthStep } from "@/app/signup/(type)/mentor/_components/FourthStep";
 import { SecondStep } from "@/app/signup/(type)/mentor/_components/SecondStep";
 import { ThirdStep } from "@/app/signup/(type)/mentor/_components/ThirdStep";
 import { Progress } from "@/components/Progress";
-import type { FirstStepData, FourthStepData, SecondStepData, ThirdStepData } from "@/types/data";
+import type {
+  FirstStepData,
+  FourthStepData,
+  SecondStepData,
+  SignupFormData,
+  ThirdStepData,
+} from "@/types/data";
+
+const intialSignupFormData = {
+  email: "",
+  password: "",
+  confirm_password: "",
+  name: "",
+  school: "",
+  grade: 0,
+  major: "",
+  nationality: "",
+  languages: [],
+  availableTimes: [],
+  mentorYn: "Y",
+};
 
 const TOTAL_STEPS = 4;
 
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<
-    FirstStepData | SecondStepData | ThirdStepData | FourthStepData
-  >();
+  const [formData, setFormData] = useState<SignupFormData>(intialSignupFormData);
+  const { mutate: signup } = useSignup();
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
@@ -25,14 +45,19 @@ const Page = () => {
   };
 
   const handleClickNextStep = (data: FirstStepData | SecondStepData | ThirdStepData) => {
-    console.log({ ...formData, ...data });
     setFormData((prev) => ({ ...prev, ...data }));
     setCurrentStep((prev) => prev + 1);
   };
 
   const handleSubmitForm = (data: FourthStepData) => {
-    // TODO: mutate
-    console.log({ ...formData, ...data });
+    signup(
+      { ...formData, ...data },
+      {
+        onSuccess: () => {
+          router.replace("/");
+        },
+      }
+    );
   };
 
   return (

@@ -1,0 +1,8 @@
+import axios from "axios";
+
+export const apiInstance = axios.create({
+  baseURL: process.env.NODE_ENV === "development" ? "/" : process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
+});
+
+apiInstance.interceptors.response.use(async (response) => response.data);
