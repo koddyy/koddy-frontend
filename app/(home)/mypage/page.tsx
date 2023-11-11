@@ -1,8 +1,13 @@
+"use client";
+
+import Link from "next/link";
+import { useGetMe } from "@/api/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
 
 const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } }) => {
   const userType = searchParams.type;
+  const { data: me } = useGetMe();
 
   return (
     <>
@@ -13,15 +18,17 @@ const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } })
           src="/images/mock_profile.png"
         />
         <div className="flex flex-col items-center gap-1">
-          <span className="headline-2">OOO</span>
-          <p className="text-gray-600">관심 : Seoul Nat’ University, Philosophy</p>
+          <span className="headline-2">{me?.name}</span>
+          <p className="text-gray-600">{me?.indroduce}</p>
         </div>
       </div>
       <Divider className="border-4 border-gray-100" />
       <div>
         {userType === "mentor" && (
           <>
-            <div className="px-5 py-[0.88rem]">커피챗 시간 수정</div>
+            <Link href="/mypage/edit" className="inline-block w-full px-5 py-[0.88rem]">
+              커피챗 시간 수정
+            </Link>
             <Divider className="border-gray-100" />
           </>
         )}
