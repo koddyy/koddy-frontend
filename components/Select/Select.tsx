@@ -1,4 +1,5 @@
 import { ElementType, PropsWithChildren, useState } from "react";
+import ArrowDown from "@/assets/arrow_down.svg";
 import { FormOptions } from "@/components/FormControl/FormControl.type";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
 import useClickOutside from "@/hooks/useClickOutside";
@@ -19,7 +20,7 @@ export const Select = ({
   value = "",
   onChangeValue,
   placeholder,
-  rightContent: RightContent,
+  rightContent: RightContent = ArrowDown,
   ...props
 }: PropsWithChildren<SelectProps>) => {
   const { hasError } = useFormControl(props);
@@ -35,7 +36,7 @@ export const Select = ({
     <div className="body-1 relative" ref={ref}>
       <button
         className={cn(
-          "flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:border-gray-400",
+          "body-3 flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-5 py-[0.6875rem] outline-none focus-within:border-primary",
           hasError && "border-dander border",
           className
         )}
@@ -46,11 +47,11 @@ export const Select = ({
         {RightContent && <RightContent className="ml-auto" />}
       </button>
       {isOpen && (
-        <ul className="absolute top-14 z-dropdown w-full rounded-[0.625rem] border border-gray-300 bg-white">
+        <ul className="absolute top-14 z-dropdown max-h-[12rem] w-full overflow-y-scroll rounded-[0.625rem] border border-gray-300 bg-white shadow-md">
           {options.map((value) => (
             <li
               key={value}
-              className="px-5 py-1 hover:bg-gray-100"
+              className="body-3 rounded-[0.625rem] px-3 py-2 hover:bg-gray-100"
               onClick={() => handleChange(value)}
             >
               {value}
