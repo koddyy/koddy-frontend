@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import PrivateRoute from "@/app/_components/PrivateRoute";
 import QueryClientProvider from "@/app/_providers/QueryClientProvider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -13,7 +14,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="mx-auto max-w-screen-sm">
-        <QueryClientProvider>{children}</QueryClientProvider>
+        <QueryClientProvider>
+          <PrivateRoute>{children}</PrivateRoute>
+        </QueryClientProvider>
       </body>
     </html>
   );
