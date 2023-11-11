@@ -87,7 +87,7 @@ export const ThirdStep = ({ onSubmitForm }: ThirdStepProps) => {
         <TextArea {...register("introduce")} />
       </FormControl>
       <BottomButton type="submit" disabled={!isValid}>
-        다음
+        코띠 시작하기
       </BottomButton>
     </form>
   );
