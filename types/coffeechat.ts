@@ -5,4 +5,15 @@ type AvailableTimeRange = {
   endTime: string;
 };
 
-export type { AvailableTimeRange, CoffeeChatStatus };
+type FirstStepData = {
+  date: Date;
+  time: string;
+};
+
+type SecondStepData = {
+  question: string;
+};
+
+type CoffeeChatForm = FirstStepData & SecondStepData;
+
+export type { AvailableTimeRange, CoffeeChatForm, CoffeeChatStatus, FirstStepData, SecondStepData };

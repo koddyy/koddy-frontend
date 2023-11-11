@@ -1,8 +1,10 @@
 import { useState } from "react";
+import useCreateCoffeeChat from "@/apis/coffeechat/hooks/useCreateCoffeeChat";
+import { PostCoffeeChatRequest } from "@/apis/coffeechat/types";
 
 export const useRequestCoffeeChat = () => {
   const [isPending, setIsPending] = useState(false);
-  const [isRequested, setIsRequested] = useState(false);
+  const { mutate: createCoffeeChat, isSuccess } = useCreateCoffeeChat();
 
   const openPendingBottomSheet = () => {
     setIsPending(true);
@@ -12,14 +14,16 @@ export const useRequestCoffeeChat = () => {
     setIsPending(false);
   };
 
-  const requestCoffeeChat = () => {
-    // TODO: mutation
-    setIsRequested(true);
+  const requestCoffeeChat = ({
+    mentor,
+    mentee,
+  }: Pick<PostCoffeeChatRequest, "mentor" | "mentee">) => {
+    createCoffeeChat({ mentor, mentee });
   };
 
   return {
     isPending,
-    isRequested,
+    isRequested: isSuccess,
     openPendingBottomSheet,
     closePendingBottomSheet,
     requestCoffeeChat,
