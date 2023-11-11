@@ -10,7 +10,7 @@ export const BottomButton = ({
   children,
 }: PropsWithChildren<BottomButtonProps>) => {
   return (
-    <div className="fixed inset-x-5 bottom-0 z-header pb-[2.38rem]">
+    <div className="fixed bottom-0 left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-4 pb-[2.38rem]">
       <Button type={type} disabled={disabled} onClick={onClick}>
         {children}
       </Button>
