@@ -46,6 +46,7 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
           type="number"
           {...register("grade", {
             required: true,
+            valueAsNumber: true,
           })}
         />
       </FormControl>
