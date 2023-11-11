@@ -1,7 +1,10 @@
 import { User } from "@/types/user";
 
-export interface GetCoffeeChatResponseData {
+type CoffeeChatStatus = "AGREE" | "CANCEL" | "DONE" | "FAIL" | "REQUEST" | "SUGGEST";
+
+export interface GetCoffeeChatListResponseData {
   applicationId: string;
   mentor: User;
   mentee: User;
+  status?: CoffeeChatStatus;
 }
