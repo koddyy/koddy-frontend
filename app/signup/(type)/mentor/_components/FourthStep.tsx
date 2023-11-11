@@ -1,71 +1,101 @@
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
-import { dayOfWeek, FourthStepData } from "@/types/data";
+import { AvailableTimeRange, FourthStepData, WeekType } from "@/types/data";
+
+const DAYS_OF_WEEK = {
+  MON: "월",
+  TUE: "화",
+  WED: "수",
+  THU: "목",
+  FRI: "금",
+  SAT: "토",
+  SUN: "일",
+} as const;
+
+const TIMES = new Array(24).fill(0).reduce((acc, _, i) => {
+  const HH = String(i).padStart(2, "0");
+  return [...acc, `${HH}:00`, `${HH}:30`];
+}, []);
 
 interface FourthStepProps {
   onSubmitForm: (data: FourthStepData) => void;
 }
 
 export const FourthStep = ({ onSubmitForm }: FourthStepProps) => {
-  const { control, handleSubmit } = useForm<FourthStepData>();
-  const [isChecked, setIsChecked] = useState<Array<boolean>>(new Array(7).fill(false));
+  const [availableTimeRange, setAvailableTimeRange] = useState<AvailableTimeRange>({
+    startTime: "",
+    endTime: "",
+  });
+  const [availableWeeks, setAvailableWeeks] = useState<WeekType[]>([]);
+
+  const handleSubmitForm = () => {
+    if (isValid) {
+      onSubmitForm({
+        availableTimes: availableWeeks.map((week) => ({ week, ...availableTimeRange })),
+      });
+    }
+  };
+
+  const isValid = Boolean(
+    availableTimeRange.startTime && availableTimeRange.endTime && availableWeeks.length > 0
+  );
 
   return (
-    <form className="mt-[1.81rem]" onSubmit={handleSubmit(onSubmitForm)}>
+    <div className="mt-[1.81rem]">
       <div className="headline-3 mb-[1.5rem]">
         커피챗이 가능한
         <br />
         시간대를 알려주세요
       </div>
       <FormControl className="mb-5">
-        <FormLabel htmlFor="timeRange">이용 가능 시간</FormLabel>
-        <Controller
-          control={control}
-          name="timeRange"
-          render={({ field }) => (
-            <div className="flex items-center gap-[0.63rem]">
-              <Select
-                className="w-28 px-[0.75rem] py-[0.5625rem]"
-                options={["09:00", "10:00", "11:00", "12:00", "13:00"]}
-                value={field.value?.start ?? "09:00"}
-                onChangeValue={(value) => field.onChange({ ...field.value, start: value })}
-              />
-              <span>~</span>
-              <Select
-                className="w-28 px-[0.75rem] py-[0.5625rem]"
-                options={["09:00", "10:00", "11:00", "12:00", "13:00"]}
-                value={field.value?.end ?? "09:00"}
-                onChangeValue={(value) => field.onChange({ ...field.value, end: value })}
-              />
-            </div>
-          )}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel htmlFor="daysOfWeek">이용 가능 요일</FormLabel>
-        <div className="flex gap-2">
-          {dayOfWeek.map((value, i) => (
-            <Toggle
-              key={i}
-              pressed={isChecked[i]}
-              onChangePressed={() => {
-                setIsChecked((prev) => {
-                  const cloned = [...prev];
-                  cloned[i] = !cloned[i];
-                  return cloned;
-                });
-              }}
-            >
-              {value}
-            </Toggle>
-          ))}
+        <FormLabel htmlFor="availableTimes">이용 가능 시간</FormLabel>
+        <div className="flex items-center gap-[0.63rem]">
+          <Select
+            className="w-28 px-[0.75rem] py-[0.5625rem]"
+            options={TIMES}
+            value={availableTimeRange.startTime || "09:00"}
+            onChangeValue={(value) =>
+              setAvailableTimeRange((prev) => ({ ...prev, startTime: value }))
+            }
+          />
+          <span>~</span>
+          <Select
+            className="w-28 px-[0.75rem] py-[0.5625rem]"
+            options={TIMES}
+            value={availableTimeRange.endTime || "09:00"}
+            onChangeValue={(value) =>
+              setAvailableTimeRange((prev) => ({ ...prev, endTime: value }))
+            }
+          />
         </div>
       </FormControl>
-      <BottomButton type="submit">코띠 시작하기</BottomButton>
-    </form>
+      <FormControl>
+        <FormLabel htmlFor="availableTimes">이용 가능 요일</FormLabel>
+        <div className="flex gap-2">
+          {Object.entries(DAYS_OF_WEEK).map(([key, value]) => {
+            const isPressed = availableWeeks.some((week) => week === key);
+            return (
+              <Toggle
+                key={key}
+                pressed={isPressed}
+                onChangePressed={() =>
+                  setAvailableWeeks((prev) =>
+                    isPressed ? prev.filter((week) => week !== key) : prev.concat(key as WeekType)
+                  )
+                }
+              >
+                {value}
+              </Toggle>
+            );
+          })}
+        </div>
+      </FormControl>
+      <BottomButton disabled={!isValid} onClick={handleSubmitForm}>
+        코띠 시작하기
+      </BottomButton>
+    </div>
   );
 };
