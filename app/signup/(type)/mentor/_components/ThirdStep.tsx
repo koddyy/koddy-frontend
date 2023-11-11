@@ -1,11 +1,21 @@
 import { Controller, useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
-import { MultiSelect, Select } from "@/components/Select";
+import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import type { ThirdStepData } from "@/types/data";
+import { Toggle } from "@/components/Toggle";
+import type { LanguageType, ThirdStepData } from "@/types/data";
+import { cn } from "@/utils/cn";
 
-const language_options = ["한국어", "영어", "독일어"];
+const LANGUAGES: {
+  [key in LanguageType]: string;
+} = {
+  KO: "한국어",
+  EN: "영어",
+  CH: "중국어",
+  JP: "일본어",
+  VI: "베트남어",
+};
 
 interface ThirdStepProps {
   onClickNextStep: (data: ThirdStepData) => void;
@@ -17,7 +27,14 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<ThirdStepData>();
+  } = useForm<ThirdStepData>({
+    defaultValues: {
+      nationality: "",
+      languages: [],
+      zoomLink: "",
+      introduce: "",
+    },
+  });
 
   return (
     <form className="mt-[1.44rem] flex flex-col gap-4" onSubmit={handleSubmit(onClickNextStep)}>
@@ -45,21 +62,28 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
           control={control}
           name="languages"
           render={({ field }) => (
-            <MultiSelect
-              options={language_options}
-              values={new Set(field.value)}
-              onAddValues={(value: string) => {
-                const cloned = new Set(field.value);
-                cloned.add(value);
-                field.onChange([...cloned]);
-              }}
-              onDeleteValues={(value: string) => {
-                const cloned = new Set(field.value);
-                cloned.delete(value);
-                field.onChange([...cloned]);
-              }}
-              placeholder="구사언어를 선택해 주세요."
-            />
+            <div className="flex flex-wrap gap-2 rounded-[0.625rem] border border-gray-300 px-[0.875rem] py-[0.4375rem]">
+              {Object.entries(LANGUAGES).map(([value, label]) => {
+                const isPressed = field.value.some((v) => v === value);
+                return (
+                  <Toggle
+                    className={cn(
+                      "label rounded-[1.25rem] bg-gray-200 px-2 py-[0.375rem]",
+                      isPressed && "label-bold bg-primary"
+                    )}
+                    key={value}
+                    pressed={isPressed}
+                    onChangePressed={() =>
+                      isPressed
+                        ? field.onChange(field.value.filter((v) => v !== value))
+                        : field.onChange(field.value.concat(value as LanguageType))
+                    }
+                  >
+                    {label}
+                  </Toggle>
+                );
+              })}
+            </div>
           )}
           rules={{
             required: true,
@@ -68,7 +92,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
       </FormControl>
       <FormControl>
         <FormLabel>줌 링크</FormLabel>
-        <TextArea height="sm" {...register("link")} />
+        <TextArea height="sm" {...register("zoomLink")} />
       </FormControl>
       <FormControl>
         <FormLabel>자기소개</FormLabel>
