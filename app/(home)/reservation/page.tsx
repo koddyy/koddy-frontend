@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Nullable } from "primereact/ts-helpers";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useGetMe } from "@/api/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
 import { Button, LinkButton } from "@/components/Button";
@@ -30,6 +31,11 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FirstStepData | SecondStepData>();
   const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
+  const { data: me } = useGetMe();
+
+  if (!me) return;
+
+  if (me.mentorYn === "Y") router.replace("/");
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
