@@ -2,19 +2,36 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSignup } from "@/api/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
 import { Progress } from "@/components/Progress";
 import type { FirstStepData } from "@/types/data";
+import { SignupFormData } from "@/types/data";
 import { SecondStep, SecondStepData } from "./_components/SecondStep";
 import { ThirdStep, ThirdStepData } from "./_components/ThirdStep";
 
 const TOTAL_STEPS = 3;
 
+export const intialSignupFormData = {
+  email: "",
+  password: "",
+  confirm_password: "",
+  name: "",
+  school: "",
+  grade: 0,
+  major: "",
+  nationality: "",
+  languages: [],
+  availableTimes: [],
+  mentorYn: "N",
+};
+
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<FirstStepData | SecondStepData | ThirdStepData>();
+  const [formData, setFormData] = useState<SignupFormData>(intialSignupFormData);
+  const { mutate: signup } = useSignup();
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
@@ -22,14 +39,12 @@ const Page = () => {
   };
 
   const handleClickNextStep = (data: FirstStepData | SecondStepData | ThirdStepData) => {
-    console.log({ ...formData, ...data });
     setFormData((prev) => ({ ...prev, ...data }));
     setCurrentStep((prev) => prev + 1);
   };
 
   const handleSubmitForm = (data: ThirdStepData) => {
-    // TODO: mutate
-    console.log({ ...formData, ...data });
+    signup({ ...formData, ...data });
   };
 
   return (

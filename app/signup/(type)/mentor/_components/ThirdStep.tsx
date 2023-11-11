@@ -7,7 +7,7 @@ import { Toggle } from "@/components/Toggle";
 import type { LanguageType, ThirdStepData } from "@/types/data";
 import { cn } from "@/utils/cn";
 
-const LANGUAGES: {
+export const LANGUAGES: {
   [key in LanguageType]: string;
 } = {
   KO: "한국어",
