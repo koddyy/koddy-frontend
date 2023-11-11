@@ -1,4 +1,4 @@
-type CoffeeChatStatus = "expected" | "requested" | "recieved" | "completed" | "canceled";
+type CoffeeChatStatus = "AGREE" | "REQUEST" | "SUGGEST" | "DONE" | "CANCEL";
 
 type AvailableTimeRange = {
   startTime: string;

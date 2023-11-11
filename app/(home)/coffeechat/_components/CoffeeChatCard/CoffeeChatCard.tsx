@@ -3,18 +3,18 @@ import { CoffeeChatStatus } from "@/types/coffeechat";
 
 interface CoffeeChatCardProps {
   userType: "mentor" | "mentee";
-  coffeechatStatus: CoffeeChatStatus;
+  status: CoffeeChatStatus;
   imageUrl?: string;
-  userName: string;
-  description: string;
+  name: string;
+  introduce?: string;
 }
 
 export const CoffeeChatCard = ({
   userType,
-  coffeechatStatus,
+  status,
   imageUrl = "/images/mock_profile.png",
-  userName,
-  description,
+  name,
+  introduce,
 }: CoffeeChatCardProps) => {
   return (
     <div className="flex items-center justify-between gap-[0.88rem] rounded-xl bg-gray-100 p-3">
@@ -22,11 +22,9 @@ export const CoffeeChatCard = ({
         <img className="h-20 w-20 rounded-lg object-cover" src={imageUrl} />
       </div>
       <div className="grow">
-        <div className="label-bold text-primary-dark">
-          {CoffeeChatStatusText[userType][coffeechatStatus]}
-        </div>
-        <div className="subheading-bold mb-[0.12rem]">{userName}</div>
-        <p className="body-2 text-gray-600">{description}</p>
+        <div className="label-bold text-primary-dark">{CoffeeChatStatusText[userType][status]}</div>
+        <div className="subheading-bold mb-[0.12rem]">{name}</div>
+        <p className="body-2 text-gray-600">{introduce}</p>
       </div>
     </div>
   );
