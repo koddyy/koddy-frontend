@@ -1,5 +1,7 @@
 import { apiInstance } from "@/apis/axios";
+import { ResponseType } from "@/apis/types";
 import { SignupFormData } from "@/types/data";
+import { User } from "@/types/user";
 
 class UserApi {
   signup = (signupFormData: SignupFormData) => {
@@ -11,13 +13,19 @@ class UserApi {
   };
 
   getMe = async () => {
-    const response = await apiInstance.get("/api/users/me");
+    const response = await apiInstance.get<ResponseType<User>>("/api/users/me");
     return response.data;
   };
 
-  getMentorList = () => apiInstance.get("/api/users/mentor");
+  getMentorList = async () => {
+    const response = await apiInstance.get<ResponseType<User[]>>("/api/users/mentor");
+    return response.data;
+  };
 
-  getMenteeList = () => apiInstance.get("/api/users/mentee");
+  getMenteeList = async () => {
+    const response = await apiInstance.get<ResponseType<User[]>>("/api/users/mentee");
+    return response.data;
+  };
 }
 
 export const userApi = new UserApi();

@@ -22,6 +22,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       <NavigationBar
         className="absolute border-none bg-transparent"
         onClickGoback={() => router.back()}
+        backButtonColor="white"
       />
       {isMentor ? <MentorProfile /> : <MenteeProfile />}
     </>
