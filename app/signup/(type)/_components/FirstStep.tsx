@@ -21,7 +21,8 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
   const [isAgreed, setIsAgreed] = useState(false);
 
   const onSubmit = (data: FirstStepData) => {
-    if (data.password === data.confirm_password) onClickNextStep(data);
+    const { confirm_password, ...rest } = data;
+    if (data.password === confirm_password) onClickNextStep(rest);
     setError("confirm_password", { message: "비밀번호가 일치하지 않습니다." });
   };
 
@@ -33,9 +34,9 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
       <FormControl required>
         <FormLabel>이메일</FormLabel>
         <Input
+          type="email"
           placeholder="이메일을 입력해 주세요."
-          {...(register("email"),
-          {
+          {...register("email", {
             required: true,
           })}
         />
