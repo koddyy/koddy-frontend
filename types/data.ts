@@ -1,3 +1,6 @@
+import { AvailableTimeRange } from "@/types/coffeechat";
+import { LanguageType, WeekType } from "@/types/user";
+
 type FirstStepData = {
   email: string;
   password: string;
@@ -11,20 +14,11 @@ type SecondStepData = {
   major: string;
 };
 
-type LanguageType = "KO" | "EN" | "CH" | "JP" | "VI";
-
 type ThirdStepData = {
   nationality: string;
   languages: LanguageType[];
   zoomLink?: string;
   introduce?: string;
-};
-
-type WeekType = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
-
-type AvailableTimeRange = {
-  startTime: string;
-  endTime: string;
 };
 
 type FourthStepData = {

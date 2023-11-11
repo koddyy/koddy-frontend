@@ -1,14 +1,12 @@
 import { Tag } from "@/components/Tag";
+import { languageTypeText } from "@/constants/language";
+import type { User } from "@/types/user";
 
 type CardType = "horizontal" | "vertical";
 
-interface UserCardProps {
+interface UserCardProps extends User {
   cardType?: CardType;
   imageUrl?: string;
-  name: string;
-  description: string;
-  nationality?: string;
-  languages: string[];
   coffeeChatStatusText?: string;
 }
 
@@ -25,7 +23,7 @@ export const UserCard = ({
   );
 };
 
-const HorizontalUserCard = ({ imageUrl, name, description, languages }: UserCardProps) => {
+const HorizontalUserCard = ({ imageUrl, name, introduce, languages }: UserCardProps) => {
   return (
     <div className="flex justify-between gap-5 rounded-xl bg-gray-100 p-3">
       <div className="shrink-0 rounded-lg">
@@ -34,28 +32,37 @@ const HorizontalUserCard = ({ imageUrl, name, description, languages }: UserCard
       <div className="grow">
         <div className="mb-2 mt-1 border-b border-b-gray-200">
           <span className="body-1-bold mb-[0.13rem]">{name}</span>
-          <p className="label-bold text-gray-600">{description}</p>
+          <p className="label-bold text-gray-600">{introduce}</p>
         </div>
         <div className="flex flex-wrap justify-end gap-2">
-          {languages?.map((language) => <Tag key={language}>{language}</Tag>)}
+          {languages?.map(({ languageId }) => (
+            <Tag key={languageId}>{languageTypeText[languageId]}</Tag>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
+const HorizontalUserCardSkeleton = () => {
+  return <div className="h-[6.5rem] w-[37.5rem]" />;
+};
+
+UserCard.HorizontalSkeleton = HorizontalUserCardSkeleton;
+
 const VerticalUserCard = ({
   imageUrl,
   name,
-  description,
+  introduce,
   nationality,
   languages,
   coffeeChatStatusText,
 }: UserCardProps) => {
   return (
     <>
-      <div className="">
+      <div className="relative">
         <img className="h-60 w-full object-cover" src={imageUrl} />
+        <div className="absolute inset-0 z-10 bg-dimmed-gradient"></div>
       </div>
       <div className="px-5 py-3">
         <div className="mb-2">
@@ -63,13 +70,13 @@ const VerticalUserCard = ({
             <div className="body-2-bold text-primary-dark">{coffeeChatStatusText}</div>
           )}
           <span className="headline-2">{name}</span>
-          <p className="body-3-bold">{description}</p>
+          <p className="body-3-bold">{introduce}</p>
         </div>
         <div className="flex justify-between">
           <Tag variant="primary-dark">{nationality}</Tag>
           <div className="flex flex-wrap justify-end gap-2">
-            {languages.map((language) => (
-              <Tag key={language}>{language}</Tag>
+            {languages.map(({ languageId }) => (
+              <Tag key={languageId}>{languageTypeText[languageId]}</Tag>
             ))}
           </div>
         </div>
