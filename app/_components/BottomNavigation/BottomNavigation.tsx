@@ -9,7 +9,7 @@ import { cn } from "@/utils/cn";
 
 const NAVIGATION_LINK = [
   { segment: "", icon: Home, label: "홈" },
-  { segment: "reservation", icon: Event, label: "예약" },
+  { segment: "coffeechat", icon: Event, label: "예약" },
   { segment: "mypage", icon: Person, label: "마이" },
 ];
 
