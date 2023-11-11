@@ -6,7 +6,7 @@ export const Header = () => {
   return (
     <div className="sticky inset-x-0 top-0 z-header flex h-[3.25rem] items-center justify-between border-b border-gray-200 bg-white px-5">
       <Logo />
-      <Link href="/notify">
+      <Link href="/notification">
         <Bell />
       </Link>
     </div>

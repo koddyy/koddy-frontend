@@ -1,0 +1,57 @@
+"use client";
+
+import Link from "next/link";
+import { notFound, useRouter } from "next/navigation";
+import { BottomNavigation } from "@/app/_components/BottomNavigation";
+import { NavigationBar } from "@/app/_components/NavigationBar";
+import ArrowRight from "@/assets/arrow_right.svg";
+import { CoffeeChatStatus, NotificationText } from "@/constants/notification";
+import { Divider } from "@/components/Divider/Divider";
+
+const MOCK_NOTIFICATIIONS: Array<{
+  id: number;
+  name: string;
+  status: CoffeeChatStatus;
+  reason?: string;
+}> = [
+  { id: 1, name: "Le Minh C", status: "received" },
+  { id: 2, name: "Mizuli Kiyoshi", status: "canceled", reason: "당분간 상담이 어려워요." },
+];
+
+const Page = ({
+  searchParams,
+}: {
+  searchParams: {
+    type: "mentor" | "mentee";
+  };
+}) => {
+  const userType = searchParams.type;
+  const router = useRouter();
+
+  if (!(userType === "mentor" || userType === "mentee")) return notFound();
+
+  return (
+    <div>
+      <NavigationBar title="알림" onClickGoback={() => router.back()} />
+      {MOCK_NOTIFICATIIONS.map(({ id, name, status, reason }) => (
+        <>
+          <Link
+            href={`/coffeechat/${id}`}
+            key={id}
+            className="flex items-center justify-between px-5 py-4"
+          >
+            <div className="body-2">
+              <div>{name + NotificationText[userType][status]}</div>
+              {status === "canceled" && <div>(사유 : {reason})</div>}
+            </div>
+            <ArrowRight />
+          </Link>
+          <Divider />
+        </>
+      ))}
+      <BottomNavigation />
+    </div>
+  );
+};
+
+export default Page;
