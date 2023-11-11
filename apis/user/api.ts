@@ -1,4 +1,4 @@
-import { apiInstance } from "@/api/axios";
+import { apiInstance } from "@/apis/axios";
 import { SignupFormData } from "@/types/data";
 
 class UserApi {

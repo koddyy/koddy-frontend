@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Nullable } from "primereact/ts-helpers";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useGetMe } from "@/api/user/hooks/useGetMe";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
 import { Button, LinkButton } from "@/components/Button";

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useSignup } from "@/api/user/hooks/useSignup";
+import { useSignup } from "@/apis/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
 import { FourthStep } from "@/app/signup/(type)/mentor/_components/FourthStep";

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { notFound } from "next/navigation";
 import { Header } from "@/app/_components/Header";
 import { CoffeeChatCard } from "@/app/(home)/coffeechat/_components/CoffeeChatCard";
 import { MOCK_MENTEE, MOCK_MENTOR } from "@/mocks/dummy";

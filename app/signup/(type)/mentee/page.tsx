@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useSignup } from "@/api/user/hooks/useSignup";
+import { useSignup } from "@/apis/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
 import { Progress } from "@/components/Progress";
@@ -13,7 +13,7 @@ import { ThirdStep, ThirdStepData } from "./_components/ThirdStep";
 
 const TOTAL_STEPS = 3;
 
-export const intialSignupFormData = {
+const intialSignupFormData = {
   email: "",
   password: "",
   confirm_password: "",

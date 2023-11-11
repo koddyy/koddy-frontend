@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-import { useGetMe } from "@/api/user/hooks/useGetMe";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 
 const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const router = useRouter();

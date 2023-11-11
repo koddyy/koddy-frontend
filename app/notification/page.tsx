@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BottomNavigation } from "@/app/_components/BottomNavigation";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import ArrowRight from "@/assets/arrow_right.svg";
-import { CoffeeChatStatus, NotificationText } from "@/constants/notification";
 import { Divider } from "@/components/Divider/Divider";
+import { CoffeeChatStatus, NotificationText } from "@/constants/notification";
 
 const MOCK_NOTIFICATIIONS: Array<{
   id: number;
@@ -25,10 +25,8 @@ const Page = ({
     type: "mentor" | "mentee";
   };
 }) => {
-  const userType = searchParams.type;
+  const userType = searchParams.type ?? "mentor";
   const router = useRouter();
-
-  if (!(userType === "mentor" || userType === "mentee")) return notFound();
 
   return (
     <div>
