@@ -8,13 +8,13 @@ const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const { data: me, isLoading } = useGetMe();
 
-  const isLogggedIn = !isLoading && Boolean(me);
+  const isLogggedIn = Boolean(me);
 
   useEffect(() => {
-    if (!isLogggedIn) {
+    if (!isLoading && !isLogggedIn) {
       router.push("/login");
     }
-  }, [isLogggedIn, router]);
+  }, [isLoading, isLogggedIn, router]);
 
   return <>{children}</>;
 };
