@@ -1,10 +1,10 @@
-import usePostCoffeeChat from "@/apis/coffeechat/hooks/useCreateCoffeeChat";
+import useCreateCoffeeChat from "@/apis/coffeechat/hooks/useCreateCoffeeChat";
 import { PostCoffeeChatRequest } from "@/apis/coffeechat/types";
 import { CoffeeChatForm } from "@/types/coffeechat";
 import { toYYYYMMDD } from "@/utils/dateUtils";
 
 const useReserveCoffeeChat = () => {
-  const { isSuccess, mutate: createCoffeeChat } = usePostCoffeeChat();
+  const { isSuccess, mutate: createCoffeeChat } = useCreateCoffeeChat();
 
   const reserveCoffeeChat = (
     { date, time, ...coffeeChatForm }: CoffeeChatForm,
