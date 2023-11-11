@@ -11,21 +11,38 @@ type SecondStepData = {
   major: string;
 };
 
+type LanguageType = "KO" | "EN" | "CH" | "JP" | "VI";
+
 type ThirdStepData = {
   nationality: string;
-  languages: string[];
-  link?: string;
+  languages: LanguageType[];
+  zoomLink?: string;
   introduce?: string;
 };
 
-const dayOfWeek = ["월", "화", "수", "목", "금", "토", "일"] as const;
+type WeekType = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
 
-type dayOfWeekType = typeof dayOfWeek;
-
-type FourthStepData = {
-  timeRange: { start?: string; end?: string };
-  daysOfWeek: dayOfWeekType[];
+type AvailableTimeRange = {
+  startTime: string;
+  endTime: string;
 };
 
-export { dayOfWeek };
-export type { dayOfWeekType, FirstStepData, FourthStepData, SecondStepData, ThirdStepData };
+type FourthStepData = {
+  availableTimes: (AvailableTimeRange & { week: WeekType })[];
+};
+
+type SignupFormData = Omit<FirstStepData, "confirm_password"> &
+  SecondStepData &
+  ThirdStepData &
+  FourthStepData;
+
+export type {
+  AvailableTimeRange,
+  FirstStepData,
+  FourthStepData,
+  LanguageType,
+  SecondStepData,
+  SignupFormData,
+  ThirdStepData,
+  WeekType,
+};
