@@ -1,7 +1,7 @@
 type FirstStepData = {
   email: string;
   password: string;
-  confirm_password: string;
+  confirm_password?: string;
 };
 
 type SecondStepData = {

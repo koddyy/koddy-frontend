@@ -21,7 +21,8 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
   const [isAgreed, setIsAgreed] = useState(false);
 
   const onSubmit = (data: FirstStepData) => {
-    if (data.password === data.confirm_password) onClickNextStep(data);
+    const { confirm_password, ...rest } = data;
+    if (data.password === confirm_password) onClickNextStep(rest);
     setError("confirm_password", { message: "비밀번호가 일치하지 않습니다." });
   };
 
