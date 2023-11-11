@@ -58,22 +58,22 @@ const MenteeProfile = ({ id }: ProfileProps) => {
       </div>
       <div className="fixed bottom-[5.75rem] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
         <Button onClick={openPendingBottomSheet}>커피챗 제안하기</Button>
-        {isPending && (
-          <PendingBottomSheet
-            resultType="positive"
-            description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
-            onClickNo={closePendingBottomSheet}
-            onClickYes={requestCoffeeChat}
-          />
-        )}
-        {isRequested && (
-          <ResultBottomSheet
-            resultType="positive"
-            description={[`${user.name}님에게`, "커피챗을 제안하였습니다."]}
-            confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
-          />
-        )}
       </div>
+      {isPending && (
+        <PendingBottomSheet
+          resultType="positive"
+          description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
+          onClickNo={closePendingBottomSheet}
+          onClickYes={requestCoffeeChat}
+        />
+      )}
+      {isRequested && (
+        <ResultBottomSheet
+          resultType="positive"
+          description={[`${user.name}님에게`, "커피챗을 제안하였습니다."]}
+          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+        />
+      )}
     </>
   );
 };
