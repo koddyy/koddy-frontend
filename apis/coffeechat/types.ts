@@ -11,8 +11,8 @@ export interface GetCoffeeChatListResponseData {
 export interface PostCoffeeChatRequest {
   mentor: string;
   mentee: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  question: string;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
+  question?: string;
 }

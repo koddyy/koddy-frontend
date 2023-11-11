@@ -26,7 +26,11 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {isMentor ? <MenteeProfile id={params.id} /> : <MentorProfile id={params.id} />}
+      {isMentor ? (
+        <MenteeProfile id={params.id} userId={me.userId} />
+      ) : (
+        <MentorProfile id={params.id} />
+      )}
     </>
   );
 };
@@ -35,7 +39,7 @@ interface ProfileProps {
   id: string;
 }
 
-const MenteeProfile = ({ id }: ProfileProps) => {
+const MenteeProfile = ({ id, userId }: ProfileProps & { userId: string }) => {
   const {
     isPending,
     isRequested,
@@ -64,7 +68,7 @@ const MenteeProfile = ({ id }: ProfileProps) => {
           resultType="positive"
           description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
           onClickNo={closePendingBottomSheet}
-          onClickYes={requestCoffeeChat}
+          onClickYes={() => requestCoffeeChat({ mentor: userId, mentee: id })}
         />
       )}
       {isRequested && (
