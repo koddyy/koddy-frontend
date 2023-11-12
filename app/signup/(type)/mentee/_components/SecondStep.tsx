@@ -5,7 +5,7 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import type { SecondStepData as MentorSecondStepData } from "@/types/data";
 
-export type SecondStepData = Omit<MentorSecondStepData, "grade">;
+export type SecondStepData = Omit<MentorSecondStepData, "grade"> & { image: FileList };
 
 interface SecondStepProps {
   onClickNextStep: (data: SecondStepData) => void;
@@ -14,9 +14,12 @@ interface SecondStepProps {
 export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { isValid },
   } = useForm<SecondStepData>();
+
+  const watchImage = watch("image");
 
   return (
     <form
@@ -24,7 +27,10 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
       onSubmit={handleSubmit(onClickNextStep)}
     >
       <div className="mb-5">
-        <ProfileImageUpload />
+        <ProfileImageUpload
+          register={register("image", { required: true })}
+          watchImage={watchImage}
+        />
       </div>
       <FormControl required>
         <FormLabel htmlFor="name">이름</FormLabel>
