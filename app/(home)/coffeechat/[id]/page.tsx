@@ -239,7 +239,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
           resultType="negative"
           description={[`${coffeechat.mentor.name}님과의`, "커피챗을 취소하시겠습니까?"]}
           onClickNo={closePendingBottomSheet}
-          onClickYes={cancelCoffeeChat}
+          onClickYes={() => cancelCoffeeChat()}
         />
       )}
       {isCanceled && (
