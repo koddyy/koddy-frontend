@@ -11,9 +11,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
+    userId: "1",
+    mentorYn: "Y",
+    email: "",
+    school: "",
+    major: "",
     name: "Hường",
-    description: "description",
+    introduce: "description",
     nationality: "베트남인",
-    languages: ["베트남어", "영어", "힌국어"],
+    languages: [{ languageId: "KO" }, { languageId: "EN" }],
   },
 };

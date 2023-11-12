@@ -17,8 +17,8 @@ import { CoffeeChatForm, FirstStepData, SecondStepData } from "@/types/coffeecha
 import { cn } from "@/utils/cn";
 import useReserveCoffeeChat from "./_hooks/useReserveCoffeeChat";
 
-const Page = ({ searchParams }: { searchParams: { mentor: string } }) => {
-  const mentor = searchParams.mentor;
+const Page = ({ searchParams }: { searchParams: { id: string } }) => {
+  const mentor = searchParams.id;
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<CoffeeChatForm>({

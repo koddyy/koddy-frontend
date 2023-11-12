@@ -6,6 +6,11 @@ export interface GetCoffeeChatListResponseData {
   mentor: User;
   mentee: User;
   status: CoffeeChatStatus;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
+  statusDesc?: string;
+  question?: string;
 }
 
 export interface PostCoffeeChatRequest {
@@ -15,4 +20,10 @@ export interface PostCoffeeChatRequest {
   startTime?: string;
   endTime?: string;
   question?: string;
+}
+
+export interface patchCoffeeChatStatusRequest {
+  applicationId: string;
+  status: CoffeeChatStatus;
+  statusDesc?: string;
 }
