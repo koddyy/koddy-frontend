@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { cn } from "@/utils/cn";
 
 interface ProfileImageUploadProps {
   register?: UseFormRegisterReturn;
@@ -16,12 +17,15 @@ export const ProfileImageUpload = ({ register, watchImage }: ProfileImageUploadP
   }, [watchImage]);
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-3">
       <input className="invisible" id="image" type="file" accept="image/*" {...register} />
       <div>
         <img
-          className="h-[7.5rem] w-[7.5rem] rounded-xl object-cover"
-          src={imageFile ? imageFile : "/images/profile.png"}
+          className={cn(
+            "h-[7.5rem] w-[7.5rem] rounded-xl border border-gray-200 bg-gray-100 object-contain px-[1.15rem] py-[0.48rem]",
+            imageFile && "object-cover p-0"
+          )}
+          src={imageFile ? imageFile : "/images/bean.png"}
         />
       </div>
       <label htmlFor="image" className="label-bold rounded-[0.625rem] border border-gray-300 p-2">
