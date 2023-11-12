@@ -12,9 +12,12 @@ interface SecondStepProps {
 export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { isValid },
-  } = useForm<SecondStepData>();
+  } = useForm<SecondStepData & { image: FileList }>();
+
+  const watchImage = watch("image");
 
   return (
     <form
@@ -22,7 +25,10 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
       onSubmit={handleSubmit(onClickNextStep)}
     >
       <div className="mb-5">
-        <ProfileImageUpload />
+        <ProfileImageUpload
+          register={register("image", { required: true })}
+          watchImage={watchImage}
+        />
       </div>
       <FormControl required>
         <FormLabel htmlFor="name">이름</FormLabel>
