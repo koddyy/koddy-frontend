@@ -43,21 +43,21 @@ interface CoffeeChatDetailProps {
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
-  const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat();
+  const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat(id);
   const {
     isRejecting,
     isRejected,
     openRejectBottomSheet,
     closeRejectBottomSheet,
     rejectCoffeeChat,
-  } = useRejectCoffeeChat();
+  } = useRejectCoffeeChat(id);
   const {
     isCanceling,
     isCanceled,
     openCancelBottomSheet,
     closeCancelBottomSheet,
     cancelCoffeeChat,
-  } = useCancelCoffeeChat();
+  } = useCancelCoffeeChat(id);
   const { coffeechat } = useGetCoffeeChatById(id);
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요</div>;
@@ -118,7 +118,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
             <Button variant="outline" onClick={openRejectBottomSheet}>
               거절하기
             </Button>
-            <Button onClick={acceptCoffeeChat}>수락하기</Button>
+            <Button onClick={() => acceptCoffeeChat()}>수락하기</Button>
           </div>
         </div>
       )}
@@ -132,7 +132,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {isRejecting && (
         <RejectBottomSheet
           userName={coffeechat.mentee.name}
-          onClickRejectButton={rejectCoffeeChat}
+          onClickRejectButton={(reason) => rejectCoffeeChat({ statusDesc: reason })}
           onClose={closeRejectBottomSheet}
         />
       )}
@@ -147,7 +147,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
         <RejectBottomSheet
           type="cancel"
           userName={coffeechat.mentee.name}
-          onClickRejectButton={(reason: string) => cancelCoffeeChat(reason)}
+          onClickRejectButton={(reason: string) => cancelCoffeeChat({ statusDesc: reason })}
           onClose={closeCancelBottomSheet}
         />
       )}
@@ -169,14 +169,14 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
     openRejectBottomSheet,
     closeRejectBottomSheet,
     rejectCoffeeChat,
-  } = useRejectCoffeeChat();
+  } = useRejectCoffeeChat(id);
   const {
     isPending,
     isCanceled,
     openPendingBottomSheet,
     closePendingBottomSheet,
     cancelCoffeeChat,
-  } = useCancelCoffeeChat();
+  } = useCancelCoffeeChat(id);
   const { coffeechat } = useGetCoffeeChatById(id);
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요.</div>;
@@ -223,7 +223,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       {isRejecting && (
         <RejectBottomSheet
           userName={coffeechat.mentor.name}
-          onClickRejectButton={rejectCoffeeChat}
+          onClickRejectButton={(reason: string) => rejectCoffeeChat({ statusDesc: reason })}
           onClose={closeRejectBottomSheet}
         />
       )}

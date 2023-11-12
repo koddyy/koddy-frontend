@@ -1,11 +1,11 @@
-import { useState } from "react";
+import useUpdateCoffeeChatStatus from "@/apis/coffeechat/hooks/usePatchCoffeeChatStatus";
+import { patchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
 
-const useAcceptCoffeeChat = () => {
-  const [isSuccess, setIsSuccess] = useState(false); // TODO: mutation status
+const useAcceptCoffeeChat = (applicationId: string) => {
+  const { isSuccess, mutate: updateCoffeeChatStatus } = useUpdateCoffeeChatStatus();
 
-  const acceptCoffeeChat = () => {
-    // TODO: mutation
-    setIsSuccess(true);
+  const acceptCoffeeChat = (args?: Pick<patchCoffeeChatStatusRequest, "statusDesc">) => {
+    updateCoffeeChatStatus({ ...args, applicationId, status: "AGREE" });
   };
 
   return { isAccepted: isSuccess, acceptCoffeeChat };

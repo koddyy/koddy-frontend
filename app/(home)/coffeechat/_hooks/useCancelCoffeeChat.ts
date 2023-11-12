@@ -1,9 +1,11 @@
 import { useState } from "react";
+import useUpdateCoffeeChatStatus from "@/apis/coffeechat/hooks/usePatchCoffeeChatStatus";
+import { patchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
 
-const useCancelCoffeeChat = () => {
+const useCancelCoffeeChat = (applicationId: string) => {
   const [isCanceling, setIsCanceling] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [isCanceled, setIsCanceled] = useState(false);
+  const { isSuccess, mutate: updateCoffeeChatStatus } = useUpdateCoffeeChatStatus();
 
   // for mentor
   const openCancelBottomSheet = () => {
@@ -21,16 +23,14 @@ const useCancelCoffeeChat = () => {
     setIsPending(false);
   };
 
-  const cancelCoffeeChat = (reason?: string) => {
-    // TODO: mutation
-    console.log(reason);
-    setIsCanceled(true);
+  const cancelCoffeeChat = (args?: Pick<patchCoffeeChatStatusRequest, "statusDesc">) => {
+    updateCoffeeChatStatus({ ...args, applicationId, status: "CANCEL" });
   };
 
   return {
     isCanceling,
     isPending,
-    isCanceled,
+    isCanceled: isSuccess,
     openPendingBottomSheet,
     closePendingBottomSheet,
     openCancelBottomSheet,
