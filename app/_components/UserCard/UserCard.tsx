@@ -1,6 +1,7 @@
 import { Tag } from "@/components/Tag";
 import { languageTypeText } from "@/constants/language";
 import type { User } from "@/types/user";
+import { cn } from "@/utils/cn";
 
 type CardType = "horizontal" | "vertical";
 
@@ -12,7 +13,7 @@ interface UserCardProps extends User {
 
 export const UserCard = ({
   cardType = "horizontal",
-  imageUrl = "/images/mock_profile.png", // TODO: default image 교체
+  imageUrl = "/images/empty_profile.svg",
   coffeeChatStatusText,
   ...props
 }: UserCardProps) => {
@@ -30,7 +31,13 @@ const HorizontalUserCard = ({ imageUrl, name, school, major, grade, mentorYn }: 
   return (
     <div className="flex justify-between gap-[1.13rem] rounded-xl bg-gray-100 p-3">
       <div className="shrink-0 rounded-lg">
-        <img className="h-20 w-20 rounded-lg object-cover" src={imageUrl} />
+        <img
+          className={cn(
+            "h-20 w-20 rounded-lg object-cover",
+            imageUrl && "border border-gray-300 object-contain p-[0.49rem]"
+          )}
+          src={imageUrl}
+        />
       </div>
       <div className="flex grow flex-col justify-center">
         <div className="subheading-bold mb-[0.13rem]">{name}</div>

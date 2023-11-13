@@ -1,3 +1,6 @@
+import { ElementType } from "react";
+import Mentee from "@/assets/mentee.svg";
+import Mentor from "@/assets/mentor.svg";
 import { cn } from "@/utils/cn";
 
 export type UserType = "mentor" | "mentee";
@@ -9,7 +12,7 @@ export interface UserTypeCardProps {
 }
 
 type ContentType = {
-  imageUrl: string;
+  image: ElementType;
   typeName: string;
   description: string[];
 };
@@ -18,14 +21,14 @@ const contents: {
   [key in UserType]: ContentType;
 } = {
   mentor: {
-    imageUrl: "images/mentor.png",
+    image: Mentor,
     typeName: "멘토",
-    description: ["멘티에게 도움을 줄 수 있는", "한국인이라면 모두 환영합니다"],
+    description: ["한국에 적응하고 싶은 유학생들을 위해", "코띠의 멘토가 되어주세요!"],
   },
   mentee: {
-    imageUrl: "/images/mentee.png",
+    image: Mentee,
     typeName: "멘티",
-    description: ["멘토에게 도움을 받을", "예비 유학생과 유학생 모두 환영합니다"],
+    description: ["한국 생활을 알고 싶다면", "코띠 멘토의 도움을 받아보세요!"],
   },
 };
 
@@ -38,7 +41,7 @@ export const UserTypeCard = ({ type, onClick, isSelected = false }: UserTypeCard
       onClick={onClick}
     >
       <div className="mb-[0.375rem] flex items-center justify-center">
-        <img src={content.imageUrl} />
+        <content.image />
       </div>
       <div className="text-center">
         <span className="subheading-bold">{content.typeName}</span>
