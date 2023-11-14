@@ -1,22 +1,22 @@
 import Link from "next/link";
 import useGetNewCoffeeChatList from "@/apis/coffeechat/hooks/useGetNewCoffeeChatList";
 import { CoffeeChatCard } from "@/app/(home)/coffeechat/_components/CoffeeChatCard/CoffeeChatCard";
-import { UserType } from "@/types/user";
+import { Role } from "@/types/user";
 
 interface NewCoffeeChatCardListProps {
-  userType: UserType;
+  userRole: Role;
 }
 
-export const NewCoffeeChatCardList = ({ userType }: NewCoffeeChatCardListProps) => {
+export const NewCoffeeChatCardList = ({ userRole }: NewCoffeeChatCardListProps) => {
   const { data: coffeeChatList } = useGetNewCoffeeChatList();
 
   return (
     <>
       {coffeeChatList.map(({ applicationId, status, mentee, mentor }) => {
-        const user = userType === "mentor" ? mentee : mentor;
+        const user = userRole === "mentor" ? mentee : mentor;
         return (
           <Link key={applicationId} href={`/coffeechat/${applicationId}`}>
-            <CoffeeChatCard userType={userType} status={status} {...user} />
+            <CoffeeChatCard userRole={userRole} status={status} {...user} />
           </Link>
         );
       })}

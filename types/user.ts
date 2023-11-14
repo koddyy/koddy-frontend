@@ -1,4 +1,4 @@
-type UserType = "mentor" | "mentee";
+type Role = "mentor" | "mentee";
 
 type LanguageType = "KO" | "EN" | "CH" | "JP" | "VI";
 
@@ -30,4 +30,4 @@ interface Mentee extends User {
   mentorYn: "N";
 }
 
-export type { LanguageType, Mentee, Mentor, User, UserType, WeekType };
+export type { LanguageType, Mentee, Mentor, Role, User, WeekType };

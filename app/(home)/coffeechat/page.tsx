@@ -13,7 +13,7 @@ const Page = () => {
 
   if (!me) return null;
 
-  const userType = me.mentorYn === "Y" ? "mentor" : "mentee";
+  const userRole = me.mentorYn === "Y" ? "mentor" : "mentee";
 
   return (
     <>
@@ -34,8 +34,8 @@ const Page = () => {
       </div>
       <div className="flex flex-col gap-[0.88rem] px-5 py-[0.87rem] pb-40">
         <Suspense>
-          {activeTab === 0 && <CoffeeChatCardList userType={userType} />}
-          {activeTab === 1 && <NewCoffeeChatCardList userType={userType} />}
+          {activeTab === 0 && <CoffeeChatCardList userRole={userRole} />}
+          {activeTab === 1 && <NewCoffeeChatCardList userRole={userRole} />}
         </Suspense>
       </div>
     </>

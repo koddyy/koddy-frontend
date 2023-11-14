@@ -12,7 +12,6 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     userId: "1",
-    mentorYn: "Y",
     email: "",
     school: "",
     major: "",
