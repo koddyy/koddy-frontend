@@ -20,7 +20,6 @@ import type {
 const intialSignupFormData = {
   email: "",
   password: "",
-  confirm_password: "",
   name: "",
   school: "",
   grade: 0,

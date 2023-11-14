@@ -16,7 +16,6 @@ const TOTAL_STEPS = 3;
 const intialSignupFormData = {
   email: "",
   password: "",
-  confirm_password: "",
   name: "",
   school: "",
   grade: 0,
