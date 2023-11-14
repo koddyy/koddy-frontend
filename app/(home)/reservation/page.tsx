@@ -1,34 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Nullable } from "primereact/ts-helpers";
-import { useMemo, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useState } from "react";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { useGetMentorById } from "@/apis/user/hooks/useGetMentorById";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
+import { ScheduleForm } from "@/app/(home)/reservation/components/ScheduleForm";
 import type {
   FirstStep,
-  ScheduleForm,
+  ScheduleForm as ScheduleFormType,
   SecondStep,
 } from "@/app/(home)/reservation/types/scheduleForm";
-import { createTimeRangeList, getDisabledDays } from "@/app/(home)/reservation/utils/scheduleUtils";
-import { Button, LinkButton } from "@/components/Button";
-import { Calendar } from "@/components/Calendar";
-import { Divider } from "@/components/Divider/Divider";
-import { FormControl, FormLabel } from "@/components/FormControl";
-import { TextArea } from "@/components/TextArea";
-import { Toggle } from "@/components/Toggle";
-import type { AvailableTimes } from "@/types/coffeechat";
-import { cn } from "@/utils/cn";
+import { LinkButton } from "@/components/Button";
 import useReserveCoffeeChat from "./_hooks/useReserveCoffeeChat";
 
 const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const mentor = searchParams.id;
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<ScheduleForm>({
+  const [formData, setFormData] = useState<ScheduleFormType>({
     date: new Date(),
     timeRange: "",
     question: "",
@@ -60,9 +51,14 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
       <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
       <div className="px-5 pb-40 pt-4">
         {currentStep === 1 && (
-          <Schedule availableTimes={user.availableTimes} onClickNextStep={handleClickNextStep} />
+          <ScheduleForm.FirstStep
+            availableTimes={user.availableTimes}
+            onClickNextStep={handleClickNextStep}
+          />
         )}
-        {currentStep === 2 && <Question onSubmitReservation={handleSubmitReservation} />}
+        {currentStep === 2 && (
+          <ScheduleForm.SecondStep onSubmitReservation={handleSubmitReservation} />
+        )}
       </div>
       {isReserved && (
         <ResultBottomSheet
@@ -72,115 +68,6 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
         />
       )}
     </>
-  );
-};
-
-interface ScheduleProps {
-  availableTimes: AvailableTimes;
-  onClickNextStep: (data: FirstStep) => void;
-}
-
-const Schedule = ({ availableTimes, onClickNextStep }: ScheduleProps) => {
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<FirstStep>();
-
-  const availableDays = useMemo(() => availableTimes.map(({ week }) => week), [availableTimes]);
-
-  const disabledDays = useMemo(() => getDisabledDays(availableDays), [availableDays]);
-
-  const timeRangeList = useMemo(
-    () => createTimeRangeList(availableTimes[0].startTime, availableTimes[0].endTime),
-    [availableTimes]
-  );
-
-  const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
-
-  return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onClickNextStep)}>
-      <FormControl>
-        <FormLabel className="body-1-bold mb-2">날짜 선택</FormLabel>
-        <Controller
-          control={control}
-          name="date"
-          render={({ field }) => (
-            <div className="border border-gray-200">
-              <Calendar
-                disabledDays={disabledDays}
-                value={field.value}
-                onChange={(value: Nullable<Date>) => field.onChange(value)}
-              />
-            </div>
-          )}
-          rules={{
-            required: true,
-          }}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel className="body-1-bold mb-2">시간 선택</FormLabel>
-        <Controller
-          control={control}
-          name="timeRange"
-          render={({ field }) => (
-            <div className="flex flex-wrap gap-3">
-              {timeRangeList.map(([startTime, endTime], i) => {
-                const value = `${startTime} ~ ${endTime}`;
-                return (
-                  <Toggle
-                    key={i}
-                    className={cn(field.value === value && "bg-[#DCFEEB] text-gray-600")}
-                    pressed={field.value === value}
-                    onChangePressed={() => field.onChange(value)}
-                  >
-                    {value}
-                  </Toggle>
-                );
-              })}
-            </div>
-          )}
-          rules={{
-            required: true,
-          }}
-        />
-      </FormControl>
-      <Divider />
-      <div className="body-3-bold mb-[2.12rem] flex items-center gap-1 text-gray-600">
-        <img className="h-4 w-4" src="/images/earth.png" />
-        <div>현재 한국 시간 기준 {currentTime}</div>
-      </div>
-      <div className="fixed bottom-[5.75rem] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
-        <div className="px-[1.25rem] py-[0.69rem]">
-          <Button type="submit" disabled={!isValid}>
-            다음
-          </Button>
-        </div>
-      </div>
-    </form>
-  );
-};
-
-interface QuestionProps {
-  onSubmitReservation: (data: SecondStep) => void;
-}
-
-const Question = ({ onSubmitReservation }: QuestionProps) => {
-  const { register, handleSubmit } = useForm<SecondStep>();
-
-  return (
-    <form onSubmit={handleSubmit(onSubmitReservation)}>
-      <FormControl>
-        <FormLabel className="body-1-bold mb-2">멘토에게 궁금한 점 적기</FormLabel>
-        <TextArea {...register("question")} />
-      </FormControl>
-      <div className="fixed bottom-[5.75rem] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
-        <div className="px-[1.25rem] py-[0.69rem]">
-          <Button type="submit">신청하기</Button>
-        </div>
-      </div>
-    </form>
   );
 };
 
