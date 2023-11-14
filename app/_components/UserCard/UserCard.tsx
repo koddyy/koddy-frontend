@@ -1,6 +1,7 @@
 import { Tag } from "@/components/Tag";
 import { languageTypeText } from "@/constants/language";
 import type { User } from "@/types/user";
+import { cn } from "@/utils/cn";
 
 type CardType = "horizontal" | "vertical";
 
@@ -12,7 +13,7 @@ interface UserCardProps extends User {
 
 export const UserCard = ({
   cardType = "horizontal",
-  imageUrl = "/images/mock_profile.png", // TODO: default image 교체
+  imageUrl = "/images/empty_profile.svg",
   coffeeChatStatusText,
   ...props
 }: UserCardProps) => {
@@ -23,22 +24,24 @@ export const UserCard = ({
   );
 };
 
-const HorizontalUserCard = ({ imageUrl, name, introduce, languages }: UserCardProps) => {
+const HorizontalUserCard = ({ imageUrl, name, school, major, grade, mentorYn }: UserCardProps) => {
+  const description =
+    mentorYn === "Y" ? `${school} ${major} ${grade}학년` : `관심 : ${school}, ${major}`;
+
   return (
-    <div className="flex justify-between gap-5 rounded-xl bg-gray-100 p-3">
+    <div className="flex justify-between gap-[1.13rem] rounded-xl bg-gray-100 p-3">
       <div className="shrink-0 rounded-lg">
-        <img className="h-20 w-20 rounded-lg object-cover" src={imageUrl} />
+        <img
+          className={cn(
+            "h-20 w-20 rounded-lg object-cover",
+            imageUrl && "border border-gray-300 object-contain p-[0.49rem]"
+          )}
+          src={imageUrl}
+        />
       </div>
-      <div className="grow">
-        <div className="mb-2 mt-1 border-b border-b-gray-200">
-          <span className="body-1-bold mb-[0.13rem]">{name}</span>
-          <p className="label-bold text-gray-600">{introduce}</p>
-        </div>
-        <div className="flex flex-wrap justify-end gap-2">
-          {languages?.map(({ languageId }) => (
-            <Tag key={languageId}>{languageTypeText[languageId]}</Tag>
-          ))}
-        </div>
+      <div className="flex grow flex-col justify-center">
+        <div className="subheading-bold mb-[0.13rem]">{name}</div>
+        <p className="body-2 line-clamp-2 text-gray-600">{description}</p>
       </div>
     </div>
   );
@@ -53,11 +56,17 @@ UserCard.HorizontalSkeleton = HorizontalUserCardSkeleton;
 const VerticalUserCard = ({
   imageUrl,
   name,
-  introduce,
+  school,
+  major,
+  grade,
+  mentorYn,
   nationality,
   languages,
   coffeeChatStatusText,
 }: UserCardProps) => {
+  const description =
+    mentorYn === "Y" ? `${school} ${major} ${grade}학년` : `관심 : ${school}, ${major}`;
+
   return (
     <>
       <div className="relative">
@@ -70,7 +79,7 @@ const VerticalUserCard = ({
             <div className="body-2-bold text-primary-dark">{coffeeChatStatusText}</div>
           )}
           <span className="headline-2">{name}</span>
-          <p className="body-3-bold">{introduce}</p>
+          <p className="body-3-bold">{description}</p>
         </div>
         <div className="flex justify-between">
           <Tag variant="primary-dark">{nationality}</Tag>

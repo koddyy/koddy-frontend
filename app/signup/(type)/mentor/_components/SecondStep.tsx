@@ -5,6 +5,8 @@ import type { SecondStepForm } from "@/app/signup/types/mentorForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 
+type SecondStepSubmitForm = SecondStepForm & { image: FileList };
+
 interface SecondStepProps {
   onClickNextStep: (data: SecondStepForm) => void;
 }
@@ -12,9 +14,12 @@ interface SecondStepProps {
 export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
   const {
     register,
+    watch,
     handleSubmit,
     formState: { isValid },
-  } = useForm<SecondStepForm>();
+  } = useForm<SecondStepSubmitForm>();
+
+  const watchImage = watch("image");
 
   return (
     <form
@@ -22,7 +27,10 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
       onSubmit={handleSubmit(onClickNextStep)}
     >
       <div className="mb-5">
-        <ProfileImageUpload />
+        <ProfileImageUpload
+          register={register("image", { required: true })}
+          watchImage={watchImage}
+        />
       </div>
       <FormControl required>
         <FormLabel htmlFor="name">이름</FormLabel>
