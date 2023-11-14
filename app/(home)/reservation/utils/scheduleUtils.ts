@@ -32,9 +32,6 @@ export const createTimeRangeList = (start: string, end: string, GAP = 30) => {
       .padStart(2, "0");
     const nextMM = (nextTime % 60).toString().padStart(2, "0");
 
-    return [
-      [prevHH, prevMM],
-      [nextHH, nextMM],
-    ];
+    return [`${prevHH}:${prevMM}`, `${nextHH}:${nextMM}`];
   });
 };
