@@ -1,9 +1,9 @@
 import { CoffeeChatStatus } from "@/types/coffeechat";
-import { UserType } from "@/types/user";
+import { Role } from "@/types/user";
 
 type CoffeeChatStatusTextType = Record<CoffeeChatStatus, string>;
 
-export const CoffeeChatStatusText: Record<UserType, CoffeeChatStatusTextType> = {
+export const CoffeeChatStatusText: Record<Role, CoffeeChatStatusTextType> = {
   mentor: {
     AGREE: "커피챗 예정이에요",
     SUGGEST: "멘티에게 커피챗 제안을 했어요",

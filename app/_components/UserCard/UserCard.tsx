@@ -1,32 +1,33 @@
 import { Tag } from "@/components/Tag";
 import { languageTypeText } from "@/constants/language";
-import type { User } from "@/types/user";
+import type { Mentee, Mentor } from "@/types/user";
 import { cn } from "@/utils/cn";
 
 type CardType = "horizontal" | "vertical";
 
-interface UserCardProps extends User {
+type UserCardProps = {
   cardType?: CardType;
   imageUrl?: string;
   coffeeChatStatusText?: string;
-}
+} & (Mentor | Mentee);
 
 export const UserCard = ({
   cardType = "horizontal",
   imageUrl = "/images/empty_profile.svg",
   coffeeChatStatusText,
-  ...props
+  ...user
 }: UserCardProps) => {
-  if (cardType === "horizontal") return <HorizontalUserCard imageUrl={imageUrl} {...props} />;
+  if (cardType === "horizontal") return <HorizontalUserCard imageUrl={imageUrl} {...user} />;
 
   return (
-    <VerticalUserCard imageUrl={imageUrl} coffeeChatStatusText={coffeeChatStatusText} {...props} />
+    <VerticalUserCard imageUrl={imageUrl} coffeeChatStatusText={coffeeChatStatusText} {...user} />
   );
 };
 
-const HorizontalUserCard = ({ imageUrl, name, school, major, grade, mentorYn }: UserCardProps) => {
+const HorizontalUserCard = ({ imageUrl, ...user }: UserCardProps) => {
+  const { mentorYn, name, school, major } = user;
   const description =
-    mentorYn === "Y" ? `${school} ${major} ${grade}학년` : `관심 : ${school}, ${major}`;
+    mentorYn === "Y" ? `${school} ${major} ${user.grade}학년` : `관심 : ${school}, ${major}`;
 
   return (
     <div className="flex justify-between gap-[1.13rem] rounded-xl bg-gray-100 p-3">
@@ -53,19 +54,10 @@ const HorizontalUserCardSkeleton = () => {
 
 UserCard.HorizontalSkeleton = HorizontalUserCardSkeleton;
 
-const VerticalUserCard = ({
-  imageUrl,
-  name,
-  school,
-  major,
-  grade,
-  mentorYn,
-  nationality,
-  languages,
-  coffeeChatStatusText,
-}: UserCardProps) => {
+const VerticalUserCard = ({ imageUrl, coffeeChatStatusText, ...user }: UserCardProps) => {
+  const { mentorYn, name, school, major, nationality, languages } = user;
   const description =
-    mentorYn === "Y" ? `${school} ${major} ${grade}학년` : `관심 : ${school}, ${major}`;
+    mentorYn === "Y" ? `${school} ${major} ${user.grade}학년` : `관심 : ${school}, ${major}`;
 
   return (
     <>

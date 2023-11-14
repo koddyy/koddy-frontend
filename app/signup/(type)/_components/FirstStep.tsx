@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
+import type { FirstStepForm as FirstStepSubmitForm } from "@/app/signup/types/mentorForm";
 import { Checkbox } from "@/components/Checkbox";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
-import type { FirstStepData } from "@/types/data";
+
+type FirstStepForm = FirstStepSubmitForm & { confirmPassword: string };
 
 interface FirstStepProps {
-  onClickNextStep: (data: FirstStepData) => void;
+  onClickNextStep: (data: FirstStepSubmitForm) => void;
 }
 
 export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
@@ -17,13 +19,16 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<FirstStepData>();
+  } = useForm<FirstStepForm>();
   const [isAgreed, setIsAgreed] = useState(false);
 
-  const onSubmit = (data: FirstStepData) => {
-    const { confirm_password, ...rest } = data;
-    if (data.password === confirm_password) onClickNextStep(rest);
-    setError("confirm_password", { message: "비밀번호가 일치하지 않습니다." });
+  const onSubmit = (data: FirstStepForm) => {
+    const { confirmPassword, ...rest } = data;
+    if (data.password === confirmPassword) {
+      onClickNextStep(rest);
+      return;
+    }
+    setError("confirmPassword", { message: "비밀번호가 일치하지 않습니다." });
   };
 
   return (
@@ -55,16 +60,16 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
         />
         <FormErrorMessage>10~20자의 영문자 및 숫자 조합으로 작성해 주세요.</FormErrorMessage>
       </FormControl>
-      <FormControl required hasError={Boolean(errors.confirm_password)}>
+      <FormControl required hasError={Boolean(errors.confirmPassword)}>
         <FormLabel>비밀번호 확인</FormLabel>
         <Input
           type="password"
           placeholder="비밀번호를 재입력해주세요."
-          {...register("confirm_password", {
+          {...register("confirmPassword", {
             required: true,
           })}
         />
-        <FormErrorMessage>{errors.confirm_password?.message}</FormErrorMessage>
+        <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
       </FormControl>
       <Divider />
       <div className="flex">

@@ -1,17 +1,16 @@
 import { Controller, useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
 import { LANGUAGES } from "@/app/signup/(type)/mentor/_components/ThirdStep";
+import type { ThirdStepForm } from "@/app/signup/types/menteeForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
-import type { LanguageType, ThirdStepData as MentorThirdStepData } from "@/types/data";
+import type { LanguageType } from "@/types/user";
 import { cn } from "@/utils/cn";
 
-export type ThirdStepData = Omit<MentorThirdStepData, "zoomLink">;
-
 interface ThirdStepProps {
-  onSubmitForm: (data: ThirdStepData) => void;
+  onSubmitForm: (data: ThirdStepForm) => void;
 }
 
 export const ThirdStep = ({ onSubmitForm }: ThirdStepProps) => {
@@ -20,12 +19,8 @@ export const ThirdStep = ({ onSubmitForm }: ThirdStepProps) => {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<ThirdStepData>({
-    defaultValues: {
-      nationality: "",
-      languages: [],
-      introduce: "",
-    },
+  } = useForm<ThirdStepForm>({
+    defaultValues: { languages: [] },
   });
 
   return (
@@ -37,7 +32,7 @@ export const ThirdStep = ({ onSubmitForm }: ThirdStepProps) => {
           name="nationality"
           render={({ field }) => (
             <Select
-              options={["South Korea", "US", "Germany", "Austrailia"]}
+              options={["한국", "미국", "일본", "베트남", "Others"]}
               value={field.value}
               onChangeValue={(value: string) => field.onChange(value)}
               placeholder="국적을 선택해 주세요."

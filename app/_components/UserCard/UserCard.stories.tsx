@@ -11,13 +11,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    userId: "1",
     mentorYn: "Y",
-    email: "",
-    school: "",
-    major: "",
+    userId: "1",
     name: "Hường",
-    introduce: "description",
+    email: "",
+    school: "OO대학교",
+    major: "OO학부",
+    grade: 0,
+    nationality: "베트남인",
+    languages: [{ languageId: "KO" }, { languageId: "EN" }],
+    availableTimes: [],
+  },
+};
+
+export const Mentee: Story = {
+  args: {
+    mentorYn: "N",
+    userId: "1",
+    name: "Hường",
+    email: "",
+    school: "OO대학교",
+    major: "OO학부",
     nationality: "베트남인",
     languages: [{ languageId: "KO" }, { languageId: "EN" }],
   },

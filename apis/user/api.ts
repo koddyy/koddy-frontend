@@ -1,11 +1,12 @@
 import { apiInstance } from "@/apis/axios";
-import { ResponseType } from "@/apis/types";
-import { SignupFormData } from "@/types/data";
-import { User } from "@/types/user";
+import type { ResponseType } from "@/apis/types";
+import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
+import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
+import type { Mentee, Mentor } from "@/types/user";
 
 class UserApi {
-  signup = (signupFormData: SignupFormData) => {
-    return apiInstance.post("/api/oauth/signup", signupFormData);
+  signup = (signupForm: MentorSignupForm | MenteeSignupForm) => {
+    return apiInstance.post("/api/oauth/signup", signupForm);
   };
 
   login = (loginFormData: { email: string; password: string }) => {
@@ -13,17 +14,17 @@ class UserApi {
   };
 
   getMe = async () => {
-    const response = await apiInstance.get<ResponseType<User>>("/api/users/me");
+    const response = await apiInstance.get<ResponseType<Mentor | Mentee>>("/api/users/me");
     return response.data;
   };
 
   getMentorList = async () => {
-    const response = await apiInstance.get<ResponseType<User[]>>("/api/users/mentor");
+    const response = await apiInstance.get<ResponseType<Mentor[]>>("/api/users/mentor");
     return response.data;
   };
 
   getMenteeList = async () => {
-    const response = await apiInstance.get<ResponseType<User[]>>("/api/users/mentee");
+    const response = await apiInstance.get<ResponseType<Mentee[]>>("/api/users/mentee");
     return response.data;
   };
 }

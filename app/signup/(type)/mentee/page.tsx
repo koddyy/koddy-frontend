@@ -5,32 +5,31 @@ import { useState } from "react";
 import { useSignup } from "@/apis/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
+import { SecondStep } from "@/app/signup/(type)/mentee/_components/SecondStep";
+import { ThirdStep } from "@/app/signup/(type)/mentee/_components/ThirdStep";
+import {
+  FirstStepForm,
+  SecondStepForm,
+  SignupForm,
+  ThirdStepForm,
+} from "@/app/signup/types/menteeForm";
 import { Progress } from "@/components/Progress";
-import type { FirstStepData } from "@/types/data";
-import { SignupFormData } from "@/types/data";
-import { SecondStep, SecondStepData } from "./_components/SecondStep";
-import { ThirdStep, ThirdStepData } from "./_components/ThirdStep";
 
 const TOTAL_STEPS = 3;
-
-const intialSignupFormData = {
-  email: "",
-  password: "",
-  confirm_password: "",
-  name: "",
-  school: "",
-  grade: 0,
-  major: "",
-  nationality: "",
-  languages: [],
-  availableTimes: [],
-  mentorYn: "N",
-};
 
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<SignupFormData>(intialSignupFormData);
+  const [signupForm, setSignupForm] = useState<SignupForm>({
+    email: "",
+    password: "",
+    name: "",
+    school: "",
+    major: "",
+    nationality: "",
+    languages: [],
+    mentorYn: "N",
+  });
   const { mutate: signup } = useSignup();
 
   const handleClickGoback = () => {
@@ -38,14 +37,14 @@ const Page = () => {
     else setCurrentStep((prev) => prev - 1);
   };
 
-  const handleClickNextStep = (data: FirstStepData | SecondStepData | ThirdStepData) => {
-    setFormData((prev) => ({ ...prev, ...data }));
+  const handleClickNextStep = (data: FirstStepForm | SecondStepForm | ThirdStepForm) => {
+    setSignupForm((prev) => ({ ...prev, ...data }));
     setCurrentStep((prev) => prev + 1);
   };
 
-  const handleSubmitForm = (data: ThirdStepData) => {
+  const handleSubmitForm = (data: ThirdStepForm) => {
     signup(
-      { ...formData, ...data },
+      { ...signupForm, ...data },
       {
         onSuccess: () => {
           router.replace("/");

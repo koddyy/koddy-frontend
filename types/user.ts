@@ -1,4 +1,4 @@
-type UserType = "mentor" | "mentee";
+type Role = "mentor" | "mentee";
 
 type LanguageType = "KO" | "EN" | "CH" | "JP" | "VI";
 
@@ -7,20 +7,27 @@ type WeekType = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
 interface User {
   userId: string;
   name: string;
-  mentorYn: "Y" | "N";
   email: string;
   school: string;
-  grade?: number;
   major: string;
   nationality: string;
-  zoomLink?: string;
-  introduce?: string;
   languages: Array<{ languageId: LanguageType }>;
-  availableTimes?: Array<{
+  introduce?: string;
+}
+
+interface Mentor extends User {
+  mentorYn: "Y";
+  grade: number;
+  zoomLink?: string;
+  availableTimes: Array<{
     week: WeekType;
     startTime: string;
     endTime: string;
   }>;
 }
 
-export type { LanguageType, User, UserType, WeekType };
+interface Mentee extends User {
+  mentorYn: "N";
+}
+
+export type { LanguageType, Mentee, Mentor, Role, User, WeekType };

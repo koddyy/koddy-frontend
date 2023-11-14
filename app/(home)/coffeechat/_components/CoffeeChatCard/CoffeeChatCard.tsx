@@ -1,8 +1,9 @@
 import { CoffeeChatStatusText } from "@/constants/coffeechat";
 import { CoffeeChatStatus } from "@/types/coffeechat";
+import { Role } from "@/types/user";
 
 interface CoffeeChatCardProps {
-  userType: "mentor" | "mentee";
+  userRole: Role;
   status: CoffeeChatStatus;
   imageUrl?: string;
   name: string;
@@ -10,7 +11,7 @@ interface CoffeeChatCardProps {
 }
 
 export const CoffeeChatCard = ({
-  userType,
+  userRole,
   status,
   imageUrl = "/images/mock_profile.png",
   name,
@@ -22,7 +23,7 @@ export const CoffeeChatCard = ({
         <img className="h-20 w-20 rounded-lg object-cover" src={imageUrl} />
       </div>
       <div className="grow">
-        <div className="label-bold text-primary-dark">{CoffeeChatStatusText[userType][status]}</div>
+        <div className="label-bold text-primary-dark">{CoffeeChatStatusText[userRole][status]}</div>
         <div className="subheading-bold mb-[0.12rem]">{name}</div>
         <p className="body-2 text-gray-600">{introduce}</p>
       </div>

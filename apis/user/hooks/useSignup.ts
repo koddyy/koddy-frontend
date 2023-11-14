@@ -1,9 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { userApi } from "@/apis/user/api";
-import { SignupFormData } from "@/types/data";
+import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
+import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
 
 export const useSignup = () => {
   return useMutation({
-    mutationFn: (signupFormData: SignupFormData) => userApi.signup(signupFormData),
+    mutationFn: (signupForm: MentorSignupForm | MenteeSignupForm) => userApi.signup(signupForm),
   });
 };

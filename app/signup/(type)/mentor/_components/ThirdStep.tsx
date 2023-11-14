@@ -1,10 +1,12 @@
 import { Controller, useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
+import type { ThirdStepForm } from "@/app/signup/types/mentorForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
-import type { LanguageType, ThirdStepData } from "@/types/data";
+import { languageTypeText } from "@/constants/language";
+import type { LanguageType } from "@/types/user";
 import { cn } from "@/utils/cn";
 
 export const LANGUAGES: {
@@ -18,7 +20,7 @@ export const LANGUAGES: {
 };
 
 interface ThirdStepProps {
-  onClickNextStep: (data: ThirdStepData) => void;
+  onClickNextStep: (data: ThirdStepForm) => void;
 }
 
 export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
@@ -27,14 +29,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<ThirdStepData>({
-    defaultValues: {
-      nationality: "",
-      languages: [],
-      zoomLink: "",
-      introduce: "",
-    },
-  });
+  } = useForm<ThirdStepForm>({ defaultValues: { languages: [] } });
 
   return (
     <form className="mt-[1.44rem] flex flex-col gap-4" onSubmit={handleSubmit(onClickNextStep)}>
@@ -45,7 +40,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
           name="nationality"
           render={({ field }) => (
             <Select
-              options={["South Korea", "US", "Germany", "Austrailia"]}
+              options={["한국", "미국", "일본", "베트남", "Others"]}
               value={field.value}
               onChangeValue={(value: string) => field.onChange(value)}
               placeholder="국적을 선택해 주세요."
@@ -63,7 +58,7 @@ export const ThirdStep = ({ onClickNextStep }: ThirdStepProps) => {
           name="languages"
           render={({ field }) => (
             <div className="flex flex-wrap gap-2 rounded-[0.625rem] border border-gray-300 px-[0.875rem] py-[0.4375rem]">
-              {Object.entries(LANGUAGES).map(([value, label]) => {
+              {Object.entries(languageTypeText).map(([value, label]) => {
                 const isPressed = field.value.some((v) => v === value);
                 return (
                   <Toggle
