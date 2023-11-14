@@ -1,14 +1,12 @@
 import { useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
 import { ProfileImageUpload } from "@/app/_components/ProfileImageUpload";
+import type { SecondStepForm } from "@/app/signup/types/menteeForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
-import type { SecondStepData as MentorSecondStepData } from "@/types/data";
-
-export type SecondStepData = Omit<MentorSecondStepData, "grade">;
 
 interface SecondStepProps {
-  onClickNextStep: (data: SecondStepData) => void;
+  onClickNextStep: (data: SecondStepForm) => void;
 }
 
 export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
@@ -16,7 +14,7 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<SecondStepData>();
+  } = useForm<SecondStepForm>();
 
   return (
     <form

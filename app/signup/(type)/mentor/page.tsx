@@ -8,34 +8,32 @@ import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
 import { FourthStep } from "@/app/signup/(type)/mentor/_components/FourthStep";
 import { SecondStep } from "@/app/signup/(type)/mentor/_components/SecondStep";
 import { ThirdStep } from "@/app/signup/(type)/mentor/_components/ThirdStep";
-import { Progress } from "@/components/Progress";
 import type {
-  FirstStepData,
-  FourthStepData,
-  SecondStepData,
-  SignupFormData,
-  ThirdStepData,
-} from "@/types/data";
-
-const intialSignupFormData = {
-  email: "",
-  password: "",
-  name: "",
-  school: "",
-  grade: 0,
-  major: "",
-  nationality: "",
-  languages: [],
-  availableTimes: [],
-  mentorYn: "Y",
-};
+  FirstStepForm,
+  FourthStepForm,
+  SecondStepForm,
+  SignupForm,
+  ThirdStepForm,
+} from "@/app/signup/types/mentorForm";
+import { Progress } from "@/components/Progress";
 
 const TOTAL_STEPS = 4;
 
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<SignupFormData>(intialSignupFormData);
+  const [signupForm, setSignupForm] = useState<SignupForm>({
+    email: "",
+    password: "",
+    name: "",
+    school: "",
+    grade: 0,
+    major: "",
+    nationality: "",
+    languages: [],
+    availableTimes: [],
+    mentorYn: "Y",
+  });
   const { mutate: signup } = useSignup();
 
   const handleClickGoback = () => {
@@ -43,14 +41,14 @@ const Page = () => {
     else setCurrentStep((prev) => prev - 1);
   };
 
-  const handleClickNextStep = (data: FirstStepData | SecondStepData | ThirdStepData) => {
-    setFormData((prev) => ({ ...prev, ...data }));
+  const handleClickNextStep = (data: FirstStepForm | SecondStepForm | ThirdStepForm) => {
+    setSignupForm((prev) => ({ ...prev, ...data }));
     setCurrentStep((prev) => prev + 1);
   };
 
-  const handleSubmitForm = (data: FourthStepData) => {
+  const handleSubmitForm = (data: FourthStepForm) => {
     signup(
-      { ...formData, ...data },
+      { ...signupForm, ...data },
       {
         onSuccess: () => {
           router.replace("/");

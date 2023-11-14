@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { BottomButton } from "@/app/_components/BottomButton";
+import type { FourthStepForm } from "@/app/signup/types/mentorForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
-import { AvailableTimeRange, FourthStepData, WeekType } from "@/types/data";
+import type { AvailableTimeRange } from "@/types/coffeechat";
+import type { WeekType } from "@/types/user";
 
 const DAYS_OF_WEEK = {
   MON: "월",
@@ -21,7 +23,7 @@ const TIMES = new Array(24).fill(0).reduce((acc, _, i) => {
 }, []);
 
 interface FourthStepProps {
-  onSubmitForm: (data: FourthStepData) => void;
+  onSubmitForm: (data: FourthStepForm) => void;
 }
 
 export const FourthStep = ({ onSubmitForm }: FourthStepProps) => {

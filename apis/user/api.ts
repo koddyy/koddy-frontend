@@ -1,11 +1,12 @@
 import { apiInstance } from "@/apis/axios";
 import { ResponseType } from "@/apis/types";
-import { SignupFormData } from "@/types/data";
+import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
+import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
 import { User } from "@/types/user";
 
 class UserApi {
-  signup = (signupFormData: SignupFormData) => {
-    return apiInstance.post("/api/oauth/signup", signupFormData);
+  signup = (signupForm: MentorSignupForm | MenteeSignupForm) => {
+    return apiInstance.post("/api/oauth/signup", signupForm);
   };
 
   login = (loginFormData: { email: string; password: string }) => {
