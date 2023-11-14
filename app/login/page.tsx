@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useLogin } from "@/apis/user/hooks/useLogin";
+import Welcome from "@/assets/welcome.svg";
 import { Button } from "@/components/Button";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
@@ -32,12 +33,12 @@ const Page = () => {
 
   return (
     <form
-      className="flex min-h-screen items-center justify-center"
+      className="flex min-h-screen items-center justify-center px-5"
       onSubmit={handleSubmit(handleLogin)}
     >
       <div className="w-full">
         <div className="mb-[1.56rem] flex items-center justify-center">
-          <img src="/images/illustration_welcome.png" />
+          <Welcome />
         </div>
         <div className="mb-6 flex flex-col gap-4">
           <FormControl hasError={isError}>
