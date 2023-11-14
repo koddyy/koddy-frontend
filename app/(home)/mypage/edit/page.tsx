@@ -7,7 +7,8 @@ import { Button } from "@/components/Button";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
-import { AvailableTimeRange, WeekType } from "@/types/data";
+import type { AvailableTimeRange } from "@/types/coffeechat";
+import type { WeekType } from "@/types/user";
 
 const DAYS_OF_WEEK = {
   MON: "월",
