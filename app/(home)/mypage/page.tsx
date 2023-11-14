@@ -19,7 +19,7 @@ const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } })
         />
         <div className="flex flex-col items-center gap-1">
           <span className="headline-2">{me?.name}</span>
-          <p className="text-gray-600">{me?.indroduce}</p>
+          <p className="text-gray-600">{me?.introduce}</p>
         </div>
       </div>
       <Divider className="border-4 border-gray-100" />
