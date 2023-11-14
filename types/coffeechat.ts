@@ -1,3 +1,5 @@
+import { WeekType } from "@/types/user";
+
 type CoffeeChatStatus = "AGREE" | "REQUEST" | "SUGGEST" | "DONE" | "CANCEL";
 
 type AvailableTimeRange = {
@@ -5,15 +7,10 @@ type AvailableTimeRange = {
   endTime: string;
 };
 
-type FirstStepData = {
-  date: Date;
-  time: string;
-};
+type AvailableTimes = Array<
+  AvailableTimeRange & {
+    week: WeekType;
+  }
+>;
 
-type SecondStepData = {
-  question: string;
-};
-
-type CoffeeChatForm = FirstStepData & SecondStepData;
-
-export type { AvailableTimeRange, CoffeeChatForm, CoffeeChatStatus, FirstStepData, SecondStepData };
+export type { AvailableTimeRange, AvailableTimes, CoffeeChatStatus };

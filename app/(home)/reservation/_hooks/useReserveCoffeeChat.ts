@@ -1,17 +1,17 @@
 import useCreateCoffeeChat from "@/apis/coffeechat/hooks/useCreateCoffeeChat";
-import { PostCoffeeChatRequest } from "@/apis/coffeechat/types";
-import { CoffeeChatForm } from "@/types/coffeechat";
+import type { PostCoffeeChatRequest } from "@/apis/coffeechat/types";
+import type { ScheduleForm } from "@/app/(home)/reservation/types/scheduleForm";
 import { toYYYYMMDD } from "@/utils/dateUtils";
 
 const useReserveCoffeeChat = () => {
   const { isSuccess, mutate: createCoffeeChat } = useCreateCoffeeChat();
 
   const reserveCoffeeChat = (
-    { date, time, ...coffeeChatForm }: CoffeeChatForm,
+    { date, timeRange, ...coffeeChatForm }: ScheduleForm,
     { mentor, mentee }: Pick<PostCoffeeChatRequest, "mentor" | "mentee">
   ) => {
     const YYYYMMDD = toYYYYMMDD(date);
-    const [startTime, endTime] = time.split(" ~ ");
+    const [startTime, endTime] = timeRange.split(" ~ ");
 
     createCoffeeChat({ mentor, mentee, date: YYYYMMDD, startTime, endTime, ...coffeeChatForm });
   };

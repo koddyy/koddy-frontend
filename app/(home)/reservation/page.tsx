@@ -2,18 +2,25 @@
 
 import { useRouter } from "next/navigation";
 import { Nullable } from "primereact/ts-helpers";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
+import { useGetMentorById } from "@/apis/user/hooks/useGetMentorById";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
+import type {
+  FirstStep,
+  ScheduleForm,
+  SecondStep,
+} from "@/app/(home)/reservation/types/scheduleForm";
+import { createTimeRangeList, getDisabledDays } from "@/app/(home)/reservation/utils/scheduleUtils";
 import { Button, LinkButton } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
-import { CoffeeChatForm, FirstStepData, SecondStepData } from "@/types/coffeechat";
+import type { AvailableTimes } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
 import useReserveCoffeeChat from "./_hooks/useReserveCoffeeChat";
 
@@ -21,15 +28,16 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const mentor = searchParams.id;
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<CoffeeChatForm>({
+  const [formData, setFormData] = useState<ScheduleForm>({
     date: new Date(),
-    time: "",
+    timeRange: "",
     question: "",
   });
   const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
+  const { data: user } = useGetMentorById(mentor);
   const { data: me } = useGetMe();
 
-  if (!me) return;
+  if (!me || !user) return;
 
   if (me.mentorYn === "Y") router.replace("/");
 
@@ -38,12 +46,12 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
     else setCurrentStep((prev) => prev - 1);
   };
 
-  const handleClickNextStep = (data: FirstStepData) => {
+  const handleClickNextStep = (data: FirstStep) => {
     setCurrentStep((prev) => prev + 1);
     setFormData((prev) => ({ ...prev, ...data }));
   };
 
-  const handleSubmitReservation = (data: SecondStepData) => {
+  const handleSubmitReservation = (data: SecondStep) => {
     reserveCoffeeChat({ ...formData, ...data }, { mentor, mentee: me.userId });
   };
 
@@ -51,7 +59,9 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
     <>
       <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
       <div className="px-5 pb-40 pt-4">
-        {currentStep === 1 && <Schedule onClickNextStep={handleClickNextStep} />}
+        {currentStep === 1 && (
+          <Schedule availableTimes={user.availableTimes} onClickNextStep={handleClickNextStep} />
+        )}
         {currentStep === 2 && <Question onSubmitReservation={handleSubmitReservation} />}
       </div>
       {isReserved && (
@@ -66,15 +76,25 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
 };
 
 interface ScheduleProps {
-  onClickNextStep: (data: FirstStepData) => void;
+  availableTimes: AvailableTimes;
+  onClickNextStep: (data: FirstStep) => void;
 }
 
-const Schedule = ({ onClickNextStep }: ScheduleProps) => {
+const Schedule = ({ availableTimes, onClickNextStep }: ScheduleProps) => {
   const {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<FirstStepData>();
+  } = useForm<FirstStep>();
+
+  const availableDays = useMemo(() => availableTimes.map(({ week }) => week), [availableTimes]);
+
+  const disabledDays = useMemo(() => getDisabledDays(availableDays), [availableDays]);
+
+  const timeRangeList = useMemo(
+    () => createTimeRangeList(availableTimes[0].startTime, availableTimes[0].endTime),
+    [availableTimes]
+  );
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
 
@@ -88,7 +108,7 @@ const Schedule = ({ onClickNextStep }: ScheduleProps) => {
           render={({ field }) => (
             <div className="border border-gray-200">
               <Calendar
-                disabledDays={[0, 2, 3, 5, 6, 7]}
+                disabledDays={disabledDays}
                 value={field.value}
                 onChange={(value: Nullable<Date>) => field.onChange(value)}
               />
@@ -103,19 +123,22 @@ const Schedule = ({ onClickNextStep }: ScheduleProps) => {
         <FormLabel className="body-1-bold mb-2">시간 선택</FormLabel>
         <Controller
           control={control}
-          name="time"
+          name="timeRange"
           render={({ field }) => (
             <div className="flex flex-wrap gap-3">
-              {["11:00 ~ 11:30", "11:30 ~ 12:00", "12:00 ~ 12:30"].map((value, i) => (
-                <Toggle
-                  key={i}
-                  className={cn(field.value === value && "bg-[#DCFEEB] text-gray-600")}
-                  pressed={field.value === value}
-                  onChangePressed={() => field.onChange(value)}
-                >
-                  {value}
-                </Toggle>
-              ))}
+              {timeRangeList.map(([startTime, endTime], i) => {
+                const value = `${startTime} ~ ${endTime}`;
+                return (
+                  <Toggle
+                    key={i}
+                    className={cn(field.value === value && "bg-[#DCFEEB] text-gray-600")}
+                    pressed={field.value === value}
+                    onChangePressed={() => field.onChange(value)}
+                  >
+                    {value}
+                  </Toggle>
+                );
+              })}
             </div>
           )}
           rules={{
@@ -140,11 +163,11 @@ const Schedule = ({ onClickNextStep }: ScheduleProps) => {
 };
 
 interface QuestionProps {
-  onSubmitReservation: (data: SecondStepData) => void;
+  onSubmitReservation: (data: SecondStep) => void;
 }
 
 const Question = ({ onSubmitReservation }: QuestionProps) => {
-  const { register, handleSubmit } = useForm<SecondStepData>();
+  const { register, handleSubmit } = useForm<SecondStep>();
 
   return (
     <form onSubmit={handleSubmit(onSubmitReservation)}>
