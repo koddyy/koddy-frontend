@@ -18,11 +18,6 @@ class UserApi {
     return response.data;
   };
 
-  getMentorById = async (id: string) => {
-    const response = await apiInstance.get<ResponseType<Mentor>>(`/api/users/${id}`);
-    return response.data;
-  };
-
   getMentorList = async () => {
     const response = await apiInstance.get<ResponseType<Mentor[]>>("/api/users/mentor");
     return response.data;

@@ -97,7 +97,7 @@ const MentorProfile = ({ id }: ProfileProps) => {
         </p>
       </div>
       <div className="fixed bottom-[5.75rem] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        <LinkButton className="inline-block" href={`/schedule?id=${id}`}>
+        <LinkButton className="inline-block" href={`/reservation?id=${id}`}>
           커피챗 신청하기
         </LinkButton>
       </div>
