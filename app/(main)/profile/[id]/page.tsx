@@ -2,14 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
+import { useGetUserById } from "@/apis/user/hooks/useGetMentorById";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { UserCard } from "@/app/(main)/components/UserCard";
 import { useRequestCoffeeChat } from "@/app/(main)/profile/hooks/useRequestCoffeeChat";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button, LinkButton } from "@/components/Button";
-import { useGetMentee } from "@/hooks/temp/useGetMentee";
-import { useGetMentor } from "@/hooks/temp/useGetMentor";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -27,19 +26,20 @@ const Page = ({ params }: { params: { id: string } }) => {
         backButtonColor="white"
       />
       {isMentor ? (
-        <MenteeProfile id={params.id} userId={me.userId} />
+        <MenteeProfile menteeId={params.id} mentorId={me.userId} />
       ) : (
-        <MentorProfile id={params.id} />
+        <MentorProfile mentorId={params.id} />
       )}
     </>
   );
 };
 
 interface ProfileProps {
-  id: string;
+  mentorId: string;
+  menteeId: string;
 }
 
-const MenteeProfile = ({ id, userId }: ProfileProps & { userId: string }) => {
+const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
   const {
     isPending,
     isRequested,
@@ -47,7 +47,7 @@ const MenteeProfile = ({ id, userId }: ProfileProps & { userId: string }) => {
     closePendingBottomSheet,
     requestCoffeeChat,
   } = useRequestCoffeeChat();
-  const { user } = useGetMentee(id);
+  const { data: user } = useGetUserById(menteeId);
 
   if (!user) return <div>존재하지 않는 멘티예요</div>;
 
@@ -68,7 +68,7 @@ const MenteeProfile = ({ id, userId }: ProfileProps & { userId: string }) => {
           resultType="positive"
           description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
           onClickNo={closePendingBottomSheet}
-          onClickYes={() => requestCoffeeChat({ mentor: userId, mentee: id })}
+          onClickYes={() => requestCoffeeChat({ mentor: mentorId, mentee: menteeId })}
         />
       )}
       {isRequested && (
@@ -82,8 +82,8 @@ const MenteeProfile = ({ id, userId }: ProfileProps & { userId: string }) => {
   );
 };
 
-const MentorProfile = ({ id }: ProfileProps) => {
-  const { user } = useGetMentor(id);
+const MentorProfile = ({ mentorId }: Omit<ProfileProps, "menteeId">) => {
+  const { data: user } = useGetUserById(mentorId);
 
   if (!user) return <div>존재하지 않는 멘토예요</div>;
 
@@ -97,7 +97,7 @@ const MentorProfile = ({ id }: ProfileProps) => {
         </p>
       </div>
       <div className="fixed bottom-[5.75rem] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        <LinkButton className="inline-block" href={`/schedule?id=${id}`}>
+        <LinkButton className="inline-block" href={`/schedule?id=${mentorId}`}>
           커피챗 신청하기
         </LinkButton>
       </div>
