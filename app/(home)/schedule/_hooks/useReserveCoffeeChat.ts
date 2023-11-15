@@ -1,6 +1,6 @@
 import useCreateCoffeeChat from "@/apis/coffeechat/hooks/useCreateCoffeeChat";
 import type { PostCoffeeChatRequest } from "@/apis/coffeechat/types";
-import type { ScheduleForm } from "@/app/(home)/reservation/types/scheduleForm";
+import type { ScheduleForm } from "@/app/(home)/schedule/types/scheduleForm";
 import { toYYYYMMDD } from "@/utils/dateUtils";
 
 const useReserveCoffeeChat = () => {

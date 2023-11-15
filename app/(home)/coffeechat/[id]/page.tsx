@@ -216,7 +216,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
             <Button variant="outline" onClick={openRejectBottomSheet}>
               거절하기
             </Button>
-            <LinkButton href={`/reservation?id=${coffeechat.mentor.userId}`}>수락하기</LinkButton>
+            <LinkButton href={`/schedule?id=${coffeechat.mentor.userId}`}>수락하기</LinkButton>
           </div>
         </div>
       )}

@@ -6,12 +6,12 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { useGetMentorById } from "@/apis/user/hooks/useGetMentorById";
 import { NavigationBar } from "@/app/_components/NavigationBar";
 import { ResultBottomSheet } from "@/app/(home)/coffeechat/_components/ResultBottomSheet/ResultBottomSheet";
-import { ScheduleForm } from "@/app/(home)/reservation/components/ScheduleForm";
+import { ScheduleForm } from "@/app/(home)/schedule/components/ScheduleForm";
 import type {
   FirstStep,
   ScheduleForm as ScheduleFormType,
   SecondStep,
-} from "@/app/(home)/reservation/types/scheduleForm";
+} from "@/app/(home)/schedule/types/scheduleForm";
 import { LinkButton } from "@/components/Button";
 import useReserveCoffeeChat from "./_hooks/useReserveCoffeeChat";
 
@@ -42,7 +42,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
     setFormData((prev) => ({ ...prev, ...data }));
   };
 
-  const handleSubmitReservation = (data: SecondStep) => {
+  const handleSubmitSchedule = (data: SecondStep) => {
     reserveCoffeeChat({ ...formData, ...data }, { mentor, mentee: me.userId });
   };
 
@@ -56,9 +56,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
             onClickNextStep={handleClickNextStep}
           />
         )}
-        {currentStep === 2 && (
-          <ScheduleForm.SecondStep onSubmitReservation={handleSubmitReservation} />
-        )}
+        {currentStep === 2 && <ScheduleForm.SecondStep onSubmitSchedule={handleSubmitSchedule} />}
       </div>
       {isReserved && (
         <ResultBottomSheet

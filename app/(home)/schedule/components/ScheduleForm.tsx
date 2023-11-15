@@ -1,8 +1,8 @@
 import { Nullable } from "primereact/ts-helpers";
 import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import type { FirstStep, SecondStep } from "@/app/(home)/reservation/types/scheduleForm";
-import { createTimeRangeList, getDisabledDays } from "@/app/(home)/reservation/utils/scheduleUtils";
+import type { FirstStep, SecondStep } from "@/app/(home)/schedule/types/scheduleForm";
+import { createTimeRangeList, getDisabledDays } from "@/app/(home)/schedule/utils/scheduleUtils";
 import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
@@ -100,14 +100,14 @@ const FirstStep = ({ availableTimes, onClickNextStep }: FirstStepProps) => {
 };
 
 interface SecondStepProps {
-  onSubmitReservation: (data: SecondStep) => void;
+  onSubmitSchedule: (data: SecondStep) => void;
 }
 
-const SecondStep = ({ onSubmitReservation }: SecondStepProps) => {
+const SecondStep = ({ onSubmitSchedule }: SecondStepProps) => {
   const { register, handleSubmit } = useForm<SecondStep>();
 
   return (
-    <form onSubmit={handleSubmit(onSubmitReservation)}>
+    <form onSubmit={handleSubmit(onSubmitSchedule)}>
       <FormControl>
         <FormLabel className="body-1-bold mb-2">멘토에게 궁금한 점 적기</FormLabel>
         <TextArea {...register("question")} />
