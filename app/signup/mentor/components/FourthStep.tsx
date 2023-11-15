@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BottomButton } from "@/app/_components/BottomButton";
+import { BottomButton } from "@/app/components/BottomButton";
 import type { FourthStepForm } from "@/app/signup/types/mentorForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";

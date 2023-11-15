@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import QueryClientProvider from "@/app/_providers/QueryClientProvider";
+import QueryClientProvider from "@/app/providers/QueryClientProvider";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { BottomButton } from "@/app/_components/BottomButton";
-import { ProfileImageUpload } from "@/app/_components/ProfileImageUpload";
+import { BottomButton } from "@/app/components/BottomButton";
+import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
 import type { SecondStepForm } from "@/app/signup/types/mentorForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";

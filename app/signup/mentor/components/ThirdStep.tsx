@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { BottomButton } from "@/app/_components/BottomButton";
+import { BottomButton } from "@/app/components/BottomButton";
 import type { ThirdStepForm } from "@/app/signup/types/mentorForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";

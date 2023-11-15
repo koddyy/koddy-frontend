@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignup } from "@/apis/user/hooks/useSignup";
-import { NavigationBar } from "@/app/_components/NavigationBar";
+import { NavigationBar } from "@/app/components/NavigationBar";
 import { FirstStep } from "@/app/signup/components/FirstStep";
 import { FourthStep } from "@/app/signup/mentor/components/FourthStep";
 import { SecondStep } from "@/app/signup/mentor/components/SecondStep";

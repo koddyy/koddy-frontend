@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BottomButton } from "@/app/_components/BottomButton";
+import { BottomButton } from "@/app/components/BottomButton";
 import type { FirstStepForm as FirstStepSubmitForm } from "@/app/signup/types/mentorForm";
 import { Checkbox } from "@/components/Checkbox";
 import { Divider } from "@/components/Divider/Divider";
