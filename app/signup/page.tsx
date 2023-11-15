@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BottomButton } from "@/app/_components/BottomButton";
-import { NavigationBar } from "@/app/_components/NavigationBar";
-import type { UserType } from "@/app/signup/_components/UserTypeCard";
-import { UserTypeCard } from "@/app/signup/_components/UserTypeCard";
+import { BottomButton } from "@/app/components/BottomButton";
+import { NavigationBar } from "@/app/components/NavigationBar";
+import type { UserType } from "@/app/signup/components/UserTypeCard";
+import { UserTypeCard } from "@/app/signup/components/UserTypeCard";
 
 const Page = () => {
   const router = useRouter();
