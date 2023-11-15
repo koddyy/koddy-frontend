@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignup } from "@/apis/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
-import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
-import { SecondStep } from "@/app/signup/(type)/mentee/_components/SecondStep";
-import { ThirdStep } from "@/app/signup/(type)/mentee/_components/ThirdStep";
+import { FirstStep } from "@/app/signup/components/FirstStep";
+import { SecondStep } from "@/app/signup/mentee/components/SecondStep";
+import { ThirdStep } from "@/app/signup/mentee/components/ThirdStep";
 import {
   FirstStepForm,
   SecondStepForm,

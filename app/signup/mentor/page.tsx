@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignup } from "@/apis/user/hooks/useSignup";
 import { NavigationBar } from "@/app/_components/NavigationBar";
-import { FirstStep } from "@/app/signup/(type)/_components/FirstStep";
-import { FourthStep } from "@/app/signup/(type)/mentor/_components/FourthStep";
-import { SecondStep } from "@/app/signup/(type)/mentor/_components/SecondStep";
-import { ThirdStep } from "@/app/signup/(type)/mentor/_components/ThirdStep";
+import { FirstStep } from "@/app/signup/components/FirstStep";
+import { FourthStep } from "@/app/signup/mentor/components/FourthStep";
+import { SecondStep } from "@/app/signup/mentor/components/SecondStep";
+import { ThirdStep } from "@/app/signup/mentor/components/ThirdStep";
 import type {
   FirstStepForm,
   FourthStepForm,

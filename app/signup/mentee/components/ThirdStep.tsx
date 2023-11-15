@@ -1,6 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import { BottomButton } from "@/app/_components/BottomButton";
-import { LANGUAGES } from "@/app/signup/(type)/mentor/_components/ThirdStep";
+import { LANGUAGES } from "@/app/signup/mentor/components/ThirdStep";
 import type { ThirdStepForm } from "@/app/signup/types/menteeForm";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
