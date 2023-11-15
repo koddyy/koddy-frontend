@@ -1,10 +1,10 @@
 import { WeekType } from "@/types/user";
 
-export const getDisabledDays = (availableWeeks: WeekType[]) => {
+export const getDisabledDays = (availableDays: WeekType[]) => {
   const days: WeekType[] = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   const disabledDays = days.reduce((acc, cur, i) => {
-    if (!availableWeeks.includes(cur)) return [...acc, i];
+    if (!availableDays.includes(cur)) return [...acc, i];
     return acc;
   }, [] as number[]);
 
