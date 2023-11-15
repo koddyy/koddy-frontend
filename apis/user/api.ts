@@ -18,8 +18,8 @@ class UserApi {
     return response.data;
   };
 
-  getMentorById = async (id: string) => {
-    const response = await apiInstance.get<ResponseType<Mentor>>(`/api/users/${id}`);
+  getUserById = async (id: string) => {
+    const response = await apiInstance.get<ResponseType<Mentor | Mentee>>(`/api/users/${id}`);
     return response.data;
   };
 

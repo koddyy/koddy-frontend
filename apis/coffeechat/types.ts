@@ -1,7 +1,7 @@
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { Mentee, Mentor } from "@/types/user";
 
-export interface GetCoffeeChatListResponseData {
+export interface GetCoffeeChatByIdResponse {
   applicationId: string;
   mentor: Mentor;
   mentee: Mentee;
@@ -13,6 +13,8 @@ export interface GetCoffeeChatListResponseData {
   question?: string;
 }
 
+export type GetCoffeeChatListResponse = GetCoffeeChatByIdResponse[];
+
 export interface PostCoffeeChatRequest {
   mentor: string;
   mentee: string;
@@ -22,7 +24,7 @@ export interface PostCoffeeChatRequest {
   question?: string;
 }
 
-export interface patchCoffeeChatStatusRequest {
+export interface PatchCoffeeChatStatusRequest {
   applicationId: string;
   status: CoffeeChatStatus;
   statusDesc?: string;

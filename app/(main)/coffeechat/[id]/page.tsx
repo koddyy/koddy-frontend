@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import useCancelCoffeeChat from "@/app/(main)/coffeechat/hooks/useCancelCoffeeChat";
@@ -10,7 +11,6 @@ import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { CoffeeChatStatusText } from "@/constants/coffeechat";
-import { useGetCoffeeChatById } from "@/hooks/temp/useGetCoffeeChatById";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
 import useAcceptCoffeeChat from "../hooks/useAcceptCoffeeChat";
@@ -58,7 +58,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     closeCancelBottomSheet,
     cancelCoffeeChat,
   } = useCancelCoffeeChat(id);
-  const { coffeechat } = useGetCoffeeChatById(id);
+  const { data: coffeechat } = useGetCoffeeChatById(id);
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요</div>;
 
@@ -177,7 +177,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
     closePendingBottomSheet,
     cancelCoffeeChat,
   } = useCancelCoffeeChat(id);
-  const { coffeechat } = useGetCoffeeChatById(id);
+  const { data: coffeechat } = useGetCoffeeChatById(id);
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요.</div>;
 

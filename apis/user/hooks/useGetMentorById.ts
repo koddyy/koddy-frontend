@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { userApi } from "@/apis/user/api";
 
-export const useGetMentorById = (id: string) => {
+export const useGetUserById = (id: string) => {
   return useQuery({
-    queryKey: ["getMentorById", id],
-    queryFn: () => userApi.getMentorById(id),
+    queryKey: ["getUserById", id],
+    queryFn: () => userApi.getUserById(id),
     select: (data) => data.data,
   });
 };
