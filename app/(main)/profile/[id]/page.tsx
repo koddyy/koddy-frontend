@@ -6,7 +6,7 @@ import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBo
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { useRequestCoffeeChat } from "@/app/(main)/profile/hooks/useRequestCoffeeChat";
 import { NavigationBar } from "@/app/components/NavigationBar";
-import { UserCard } from "@/app/components/UserCard";
+import { UserCard } from "@/app/(main)/components/UserCard";
 import { Button, LinkButton } from "@/components/Button";
 import { useGetMentee } from "@/hooks/temp/useGetMentee";
 import { useGetMentor } from "@/hooks/temp/useGetMentor";

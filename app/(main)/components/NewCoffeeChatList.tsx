@@ -1,7 +1,7 @@
 import Link from "next/link";
 import useGetNewCoffeeChatList from "@/apis/coffeechat/hooks/useGetNewCoffeeChatList";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { UserCard } from "@/app/components/UserCard";
+import { UserCard } from "@/app/(main)/components/UserCard";
 
 export const NewCoffeeChatList = () => {
   const { data: me } = useGetMe();

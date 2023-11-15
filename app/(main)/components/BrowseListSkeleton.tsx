@@ -1,4 +1,4 @@
-import { UserCard } from "@/app/components/UserCard";
+import { UserCard } from "@/app/(main)/components/UserCard";
 
 export const BrowseListSkeleton = () => {
   return (

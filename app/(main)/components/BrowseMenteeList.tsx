@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useGetMenteeList } from "@/apis/user/hooks/useGetMenteeList";
-import { UserCard } from "@/app/components/UserCard";
+import { UserCard } from "@/app/(main)/components/UserCard";
 
 export const BrowseMenteeList = () => {
   const { data: menteeList } = useGetMenteeList();

@@ -5,7 +5,7 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import useCancelCoffeeChat from "@/app/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { NavigationBar } from "@/app/components/NavigationBar";
-import { UserCard } from "@/app/components/UserCard";
+import { UserCard } from "@/app/(main)/components/UserCard";
 import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useGetMentorList } from "@/apis/user/hooks/useGetMentorList";
-import { UserCard } from "@/app/components/UserCard";
+import { UserCard } from "@/app/(main)/components/UserCard";
 
 export const BrowseMentorList = () => {
   const { data: mentorList } = useGetMentorList();
