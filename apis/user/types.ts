@@ -1,4 +1,4 @@
-import { AvailableTimes } from "@/types/coffeechat";
+import { AvailableTimes } from "@/types/user";
 
 export interface PostAvailableTimesRequest {
   availableTimes: AvailableTimes;
