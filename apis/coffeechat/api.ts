@@ -27,6 +27,12 @@ class CoffeeChatApi {
     return response.data;
   };
 
+  getCoffeeChatNotification = async () => {
+    const response =
+      await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application/alarm");
+    return response.data;
+  };
+
   postCoffeeChat = (coffeeChatFormData: PostCoffeeChatRequest) => {
     return apiInstance.post("/api/application", coffeeChatFormData);
   };

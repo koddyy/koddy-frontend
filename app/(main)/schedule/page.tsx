@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { useGetUserById } from "@/apis/user/hooks/useGetMentorById";
+import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { ScheduleForm } from "@/app/(main)/schedule/components/ScheduleForm";
 import type {
