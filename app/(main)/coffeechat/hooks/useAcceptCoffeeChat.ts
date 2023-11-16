@@ -1,10 +1,10 @@
 import useUpdateCoffeeChatStatus from "@/apis/coffeechat/hooks/usePatchCoffeeChatStatus";
-import { patchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
+import { PatchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
 
 const useAcceptCoffeeChat = (applicationId: string) => {
   const { isSuccess, mutate: updateCoffeeChatStatus } = useUpdateCoffeeChatStatus();
 
-  const acceptCoffeeChat = (args?: Pick<patchCoffeeChatStatusRequest, "statusDesc">) => {
+  const acceptCoffeeChat = (args?: Pick<PatchCoffeeChatStatusRequest, "statusDesc">) => {
     updateCoffeeChatStatus({ ...args, applicationId, status: "AGREE" });
   };
 

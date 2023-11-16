@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useUpdateCoffeeChatStatus from "@/apis/coffeechat/hooks/usePatchCoffeeChatStatus";
-import { patchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
+import { PatchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
 
 const useCancelCoffeeChat = (applicationId: string) => {
   const [isCanceling, setIsCanceling] = useState(false);
@@ -23,7 +23,7 @@ const useCancelCoffeeChat = (applicationId: string) => {
     setIsPending(false);
   };
 
-  const cancelCoffeeChat = (args?: Pick<patchCoffeeChatStatusRequest, "statusDesc">) => {
+  const cancelCoffeeChat = (args?: Pick<PatchCoffeeChatStatusRequest, "statusDesc">) => {
     updateCoffeeChatStatus({ ...args, applicationId, status: "CANCEL" });
   };
 
