@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUpdateAvailableTimes } from "@/apis/user/hooks/useUpdateAvailableTimes";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button } from "@/components/Button";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -32,10 +33,18 @@ const Page = () => {
     endTime: "",
   });
   const [availableWeeks, setAvailableWeeks] = useState<WeekType[]>([]);
+  const { mutate: updateAvailableTimes } = useUpdateAvailableTimes();
 
   const handleSubmitForm = () => {
     if (isValid) {
-      // TODO
+      const { startTime, endTime } = availableTimeRange;
+      updateAvailableTimes(
+        availableWeeks.map((week) => ({
+          week,
+          startTime,
+          endTime,
+        }))
+      );
     }
   };
 

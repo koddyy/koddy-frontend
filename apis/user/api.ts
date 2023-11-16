@@ -1,5 +1,6 @@
 import { apiInstance } from "@/apis/axios";
 import type { ResponseType } from "@/apis/types";
+import { PostAvailableTimesRequest } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
 import type { Mentee, Mentor } from "@/types/user";
@@ -31,6 +32,10 @@ class UserApi {
   getMenteeList = async () => {
     const response = await apiInstance.get<ResponseType<Mentee[]>>("/api/users/mentee");
     return response.data;
+  };
+
+  postAvailableTimes = (availableTimesData: PostAvailableTimesRequest) => {
+    return apiInstance.post("/api/users/available-time", availableTimesData);
   };
 }
 

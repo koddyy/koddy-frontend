@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { useGetMentorById } from "@/apis/user/hooks/useGetMentorById";
+import { useGetUserById } from "@/apis/user/hooks/useGetMentorById";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { ScheduleForm } from "@/app/(main)/schedule/components/ScheduleForm";
 import type {
@@ -25,12 +25,15 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
     question: "",
   });
   const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
-  const { data: user } = useGetMentorById(mentor);
+  const { data: user } = useGetUserById(mentor);
   const { data: me } = useGetMe();
 
   if (!me || !user) return;
 
-  if (me.mentorYn === "Y") router.replace("/");
+  if (me.mentorYn === "Y" || user.mentorYn === "N") {
+    router.replace("/");
+    return;
+  }
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
