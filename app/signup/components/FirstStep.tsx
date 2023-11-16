@@ -2,10 +2,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import type { FirstStepForm as FirstStepSubmitForm } from "@/app/signup/types/mentorForm";
+import Eye from "@/assets/eye.svg";
+import EyeSlash from "@/assets/eye-slash.svg";
 import { Checkbox } from "@/components/Checkbox";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
+import { useToggle } from "@/hooks/useToggle";
 
 type FirstStepForm = FirstStepSubmitForm & { confirmPassword: string };
 
@@ -21,6 +24,8 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
     formState: { errors },
   } = useForm<FirstStepForm>();
   const [isAgreed, setIsAgreed] = useState(false);
+  const [isShowPassword, toggleIsShowPassword] = useToggle(false);
+  const [isShowConfirmPassword, toggleIsShowConfirmPassword] = useToggle(false);
 
   const onSubmit = (data: FirstStepForm) => {
     const { confirmPassword, ...rest } = data;
@@ -49,7 +54,8 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
       <FormControl required hasError={Boolean(errors.password)}>
         <FormLabel>비밀번호</FormLabel>
         <Input
-          type="password"
+          className="h-[2.875rem]"
+          type={isShowPassword ? "text" : "password"}
           placeholder="비밀번호를 입력해 주세요."
           {...register("password", {
             required: true,
@@ -57,17 +63,28 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
             maxLength: 20,
             pattern: /^[a-zA-Z0-9]*$/,
           })}
+          rightContent={
+            <button type="button" className="ml-2" onClick={() => toggleIsShowPassword()}>
+              {isShowPassword ? <EyeSlash /> : <Eye />}
+            </button>
+          }
         />
         <FormErrorMessage>10~20자의 영문자 및 숫자 조합으로 작성해 주세요.</FormErrorMessage>
       </FormControl>
       <FormControl required hasError={Boolean(errors.confirmPassword)}>
         <FormLabel>비밀번호 확인</FormLabel>
         <Input
-          type="password"
+          className="h-[2.875rem]"
+          type={isShowConfirmPassword ? "text" : "password"}
           placeholder="비밀번호를 재입력해주세요."
           {...register("confirmPassword", {
             required: true,
           })}
+          rightContent={
+            <button type="button" className="ml-2" onClick={() => toggleIsShowConfirmPassword()}>
+              {isShowConfirmPassword ? <EyeSlash /> : <Eye />}
+            </button>
+          }
         />
         <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
       </FormControl>
