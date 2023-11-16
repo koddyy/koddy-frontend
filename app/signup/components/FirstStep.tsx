@@ -61,7 +61,6 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
             required: true,
             minLength: 10,
             maxLength: 20,
-            pattern: /^[a-zA-Z0-9]*$/,
           })}
           rightContent={
             <button type="button" className="ml-2" onClick={() => toggleIsShowPassword()}>
@@ -70,7 +69,7 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
           }
           hasTextEllipsis
         />
-        <FormErrorMessage>10~20자의 영문자 및 숫자 조합으로 작성해 주세요.</FormErrorMessage>
+        <FormErrorMessage>10~20자로 작성해 주세요.</FormErrorMessage>
       </FormControl>
       <FormControl required hasError={Boolean(errors.confirmPassword)}>
         <FormLabel>비밀번호 확인</FormLabel>
