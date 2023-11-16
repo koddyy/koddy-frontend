@@ -7,10 +7,8 @@ type AvailableTimeRange = {
   endTime: string;
 };
 
-type AvailableTimes = Array<
-  AvailableTimeRange & {
-    week: WeekType;
-  }
->;
+type AvailableTimes = AvailableTimeRange & {
+  weeks: WeekType[];
+};
 
 export type { AvailableTimeRange, AvailableTimes, CoffeeChatStatus };

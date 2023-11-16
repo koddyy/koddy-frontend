@@ -5,9 +5,12 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
 
-const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } }) => {
-  const userType = searchParams.type;
+const Page = () => {
   const { data: me } = useGetMe();
+
+  if (!me) return;
+
+  const isMentor = me.mentorYn === "Y";
 
   return (
     <>
@@ -24,7 +27,7 @@ const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } })
       </div>
       <Divider className="border-4 border-gray-100" />
       <div>
-        {userType === "mentor" && (
+        {isMentor && (
           <>
             <Link href="/mypage/edit" className="inline-block w-full px-5 py-[0.88rem]">
               커피챗 시간 수정
