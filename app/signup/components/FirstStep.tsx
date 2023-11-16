@@ -68,6 +68,7 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
               {isShowPassword ? <EyeSlash /> : <Eye />}
             </button>
           }
+          hasTextEllipsis
         />
         <FormErrorMessage>10~20자의 영문자 및 숫자 조합으로 작성해 주세요.</FormErrorMessage>
       </FormControl>
@@ -85,6 +86,7 @@ export const FirstStep = ({ onClickNextStep }: FirstStepProps) => {
               {isShowConfirmPassword ? <EyeSlash /> : <Eye />}
             </button>
           }
+          hasTextEllipsis
         />
         <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
       </FormControl>
