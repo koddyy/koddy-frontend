@@ -21,10 +21,16 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
 
   const watchImage = watch("image");
 
+  const onSubmit = (data: SecondStepSubmitForm) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { image, ...rest } = data;
+    onClickNextStep(rest);
+  };
+
   return (
     <form
       className="mb-[0.81rem] mt-[1.44rem] flex flex-col gap-4"
-      onSubmit={handleSubmit(onClickNextStep)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className="mb-5">
         <ProfileImageUpload
