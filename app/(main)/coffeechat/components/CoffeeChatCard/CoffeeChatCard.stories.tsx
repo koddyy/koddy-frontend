@@ -14,6 +14,8 @@ export const Primary: Story = {
     userRole: "mentor",
     status: "AGREE",
     name: "Hường",
-    introduce: "description",
+    school: "코띠대학교",
+    major: "코띠학부",
+    grade: 1,
   },
 };

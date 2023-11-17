@@ -8,7 +8,9 @@ interface CoffeeChatCardProps {
   status: CoffeeChatStatus;
   imageUrl?: string;
   name: string;
-  introduce?: string;
+  school: string;
+  major: string;
+  grade?: number;
 }
 
 export const CoffeeChatCard = ({
@@ -16,10 +18,15 @@ export const CoffeeChatCard = ({
   status,
   imageUrl,
   name,
-  introduce,
+  school,
+  major,
+  grade,
 }: CoffeeChatCardProps) => {
   const defaultImageUrl =
     userRole === "mentor" ? "/images/empty_mentee.svg" : "/images/empty_mentor.svg";
+
+  const description =
+    userRole === "mentor" ? `${school} ${major} ${grade}학년` : `관심 : ${school}, ${major}`;
 
   return (
     <div className="flex items-center justify-between gap-[0.88rem] rounded-xl bg-gray-100 p-3">
@@ -35,7 +42,7 @@ export const CoffeeChatCard = ({
       <div className="grow">
         <div className="label-bold text-primary-dark">{CoffeeChatStatusText[userRole][status]}</div>
         <div className="subheading-bold mb-[0.12rem]">{name}</div>
-        <p className="body-2 text-gray-600">{introduce}</p>
+        <p className="body-2 text-gray-600">{description}</p>
       </div>
     </div>
   );
