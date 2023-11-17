@@ -88,7 +88,7 @@ const FirstStep = ({ availableTimes, onClickNextStep }: FirstStepProps) => {
         <img className="h-4 w-4" src="/images/earth.png" />
         <div>현재 한국 시간 기준 {currentTime}</div>
       </div>
-      <div className="fixed bottom-[5.75rem] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
+      <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
         <div className="px-[1.25rem] py-[0.69rem]">
           <Button type="submit" disabled={!isValid}>
             다음
@@ -112,7 +112,7 @@ const SecondStep = ({ onSubmitSchedule }: SecondStepProps) => {
         <FormLabel className="body-1-bold mb-2">멘토에게 궁금한 점 적기</FormLabel>
         <TextArea {...register("question")} />
       </FormControl>
-      <div className="fixed bottom-[5.75rem] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
+      <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
         <div className="px-[1.25rem] py-[0.69rem]">
           <Button type="submit">신청하기</Button>
         </div>

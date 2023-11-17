@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
+import { cn } from "@/utils/cn";
 
 const Page = () => {
   const { data: me } = useGetMe();
@@ -12,17 +13,24 @@ const Page = () => {
 
   const isMentor = me.mentorYn === "Y";
 
+  const description = isMentor
+    ? `${me.school} ${me.major} ${me.grade}학년`
+    : `관심 : ${me.school}, ${me.major}`;
+
   return (
     <>
       <NavigationBar title="마이페이지" />
-      <div className="flex flex-col items-center gap-3 pb-5 pt-[1.38rem]">
+      <div className="flex flex-col items-center gap-3 px-11 pb-5 pt-[1.38rem]">
         <img
-          className="h-[6.75rem] w-[6.75rem] rounded-xl object-cover"
-          src="/images/mock_profile.png"
+          className={cn(
+            "h-[6.75rem] w-[6.75rem] rounded-xl object-cover",
+            "border border-gray-300 bg-gray-100 object-contain p-[0.3rem]"
+          )}
+          src={me.mentorYn === "Y" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg"}
         />
         <div className="flex flex-col items-center gap-1">
-          <span className="headline-2">{me?.name}</span>
-          <p className="text-gray-600">{me?.introduce}</p>
+          <span className="headline-2">{me.name}</span>
+          <p className="text-gray-600">{description}</p>
         </div>
       </div>
       <Divider className="border-4 border-gray-100" />

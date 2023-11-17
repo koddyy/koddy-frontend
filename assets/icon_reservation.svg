@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon_reservation">
+<rect width="24" height="24" fill="none"/>
+<g id="Group 2763">
+<path id="Vector" d="M19 8H6C4.89543 8 4 8.89543 4 10V17C4 18.1046 4.89543 19 6 19H19C20.1046 19 21 18.1046 21 17V10C21 8.89543 20.1046 8 19 8Z" fill="currentColor"/>
+<path id="Vector_2" d="M19 3H6C4.89543 3 4 3.89543 4 5C4 6.10457 4.89543 7 6 7H19C20.1046 7 21 6.10457 21 5C21 3.89543 20.1046 3 19 3Z" fill="currentColor"/>
+<path id="Vector_3" d="M9.31189 13.0699L11.4715 15.2981L15.8443 11.0603" stroke="white" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

@@ -10,11 +10,11 @@ export const BottomSheet = ({ onClose, children }: PropsWithChildren<BottomSheet
   return (
     <>
       <Dimmed onClick={onClose} />
-      <div className="fixed bottom-[5.75rem] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2">
+      <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2">
         <div className="rounded-t-xl bg-white">
           {onClose && (
             <div className="flex justify-end">
-              <button className="p-5" type="button" onClick={onClose}>
+              <button className="p-5 pt-3" type="button" onClick={onClose}>
                 <Close />
               </button>
             </div>

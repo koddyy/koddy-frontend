@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { Role } from "@/types/user";
 import { cn } from "@/utils/cn";
 
 interface ProfileImageUploadProps {
   register?: UseFormRegisterReturn;
   watchImage?: FileList;
+  role?: Role;
 }
 
-export const ProfileImageUpload = ({ register, watchImage }: ProfileImageUploadProps) => {
+export const ProfileImageUpload = ({ register, watchImage, role }: ProfileImageUploadProps) => {
   const [imageFile, setImageFile] = useState("");
 
   useEffect(() => {
@@ -16,16 +18,19 @@ export const ProfileImageUpload = ({ register, watchImage }: ProfileImageUploadP
     }
   }, [watchImage]);
 
+  const defaultImageUrl =
+    role === "mentor" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg";
+
   return (
     <div className="flex flex-col items-center gap-3">
-      <input className="invisible" id="image" type="file" accept="image/*" {...register} />
+      <input className="hidden" id="image" type="file" accept="image/*" {...register} />
       <div>
         <img
           className={cn(
-            "h-[7.5rem] w-[7.5rem] rounded-xl border border-gray-200 bg-gray-100 object-contain px-[1.15rem] py-[0.48rem]",
+            "h-[7.5rem] w-[7.5rem] rounded-xl border border-gray-200 bg-gray-100 object-contain p-[0.3rem]",
             imageFile && "object-cover p-0"
           )}
-          src={imageFile ? imageFile : "/images/bean.png"}
+          src={imageFile || defaultImageUrl}
         />
       </div>
       <label htmlFor="image" className="label-bold rounded-[0.625rem] border border-gray-300 p-2">
