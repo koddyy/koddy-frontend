@@ -14,7 +14,7 @@ export const BottomSheet = ({ onClose, children }: PropsWithChildren<BottomSheet
         <div className="rounded-t-xl bg-white">
           {onClose && (
             <div className="flex justify-end">
-              <button className="p-5" type="button" onClick={onClose}>
+              <button className="p-5 pt-3" type="button" onClick={onClose}>
                 <Close />
               </button>
             </div>
