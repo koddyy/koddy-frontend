@@ -88,7 +88,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           )}
         </div>
         <Divider />
-        <div className="flex flex-col gap-5 pb-[5.75rem] pt-3">
+        <div className="flex flex-col gap-5 py-3">
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">멘티의 자기소개</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
@@ -113,7 +113,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
         </div>
       </div>
       {coffeechat.status === "REQUEST" && (
-        <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+        <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
             <Button variant="outline" onClick={openRejectBottomSheet}>
               거절하기
@@ -192,11 +192,11 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       />
       <div className="px-5">
         <Divider />
-        <div className="flex flex-col gap-5 pb-[5.75rem] pt-3">
+        <div className="flex flex-col gap-5 py-3">
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">멘토의 자기소개</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeechat.mentor.introduce}
+              {coffeechat.mentor.introduce || "자기소개를 입력하지 않았어요."}
             </p>
           </div>
           {isCancelable && (
@@ -210,8 +210,8 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
           )}
         </div>
       </div>
-      {coffeechat.status === "REQUEST" && (
-        <div className="sticky inset-x-5 bottom-[5.75rem] z-header border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+      {coffeechat.status === "SUGGEST" && (
+        <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
             <Button variant="outline" onClick={openRejectBottomSheet}>
               거절하기

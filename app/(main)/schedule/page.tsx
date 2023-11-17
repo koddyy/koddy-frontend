@@ -49,7 +49,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   return (
     <>
       <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
-      <div className="px-5 pb-40 pt-4">
+      <div className="px-5 pb-[4.5rem] pt-4">
         {currentStep === 1 && (
           <ScheduleForm.FirstStep
             availableTimes={user.availableTimes}

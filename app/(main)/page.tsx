@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="px-5 pb-[5.75rem] pt-[0.87rem]">
+      <div className="px-5 py-[0.87rem]">
         <Suspense fallback={<HomeSkeleton />}>
           <NewCoffeeChatList />
           {isMentor && <BrowseMenteeList />}
