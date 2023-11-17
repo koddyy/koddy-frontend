@@ -4,18 +4,24 @@ import Link from "next/link";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
+import { cn } from "@/utils/cn";
 
 const Page = ({ searchParams }: { searchParams: { type: "mentor" | "mentee" } }) => {
   const userType = searchParams.type;
   const { data: me } = useGetMe();
+
+  if (!me) return;
 
   return (
     <>
       <NavigationBar title="마이페이지" />
       <div className="flex flex-col items-center gap-3 pb-5 pt-[1.38rem]">
         <img
-          className="h-[6.75rem] w-[6.75rem] rounded-xl object-cover"
-          src="/images/mock_profile.png"
+          className={cn(
+            "h-[6.75rem] w-[6.75rem] rounded-xl object-cover",
+            "border border-gray-300 object-contain p-[0.3rem]"
+          )}
+          src={me.mentorYn === "Y" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg"}
         />
         <div className="flex flex-col items-center gap-1">
           <span className="headline-2">{me?.name}</span>
