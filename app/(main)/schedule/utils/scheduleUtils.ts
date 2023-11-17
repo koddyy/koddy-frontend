@@ -18,9 +18,13 @@ export const createTimeRangeList = (start: string, end: string, GAP = 30) => {
   const startTime = startHH * 60 + startMM;
   const endTime = endHH * 60 + endMM;
 
-  return new Array(Math.floor((endTime - startTime) / GAP)).fill(startTime).map((startTime, i) => {
-    const prevTime = startTime + i * GAP;
-    const nextTime = startTime + (i + 1) * GAP;
+  const MINUTES_PER_DAY = 24 * 60;
+  const MinutesDiff =
+    startTime < endTime ? endTime - startTime : endTime + (MINUTES_PER_DAY - startTime);
+
+  return new Array(Math.floor(MinutesDiff / GAP)).fill(startTime).map((startTime, i) => {
+    const prevTime = (startTime + i * GAP) % MINUTES_PER_DAY;
+    const nextTime = (startTime + (i + 1) * GAP) % MINUTES_PER_DAY;
 
     const prevHH = Math.floor(prevTime / 60)
       .toString()
