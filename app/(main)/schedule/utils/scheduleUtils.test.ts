@@ -29,4 +29,14 @@ describe("createTimeRangeList()", () => {
       ["10:20", "11:00"],
     ]);
   });
+
+  test("should return an array of time ranges from PM to AM", () => {
+    const result = createTimeRangeList("23:00", "01:00");
+    expect(result).toEqual([
+      ["23:00", "23:30"],
+      ["23:30", "00:00"],
+      ["00:00", "00:30"],
+      ["00:30", "01:00"],
+    ]);
+  });
 });
