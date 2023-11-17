@@ -17,7 +17,7 @@ export const ResultBottomSheet = ({
 }: ResultBottomSheetProps) => {
   return (
     <BottomSheet>
-      <div className="flex flex-col items-center gap-[1.06rem] pb-[2.38rem] pt-[3.56rem]">
+      <div className="flex flex-col items-center gap-[1.13rem] pb-4 pt-[3rem]">
         <div>
           <img
             src={
