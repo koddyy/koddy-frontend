@@ -9,7 +9,7 @@ import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
-import type { AvailableTimes } from "@/types/coffeechat";
+import type { AvailableTimes } from "@/types/user";
 import { cn } from "@/utils/cn";
 
 interface FirstStepProps {

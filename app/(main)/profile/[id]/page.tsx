@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { useGetUserById } from "@/apis/user/hooks/useGetMentorById";
+import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { UserCard } from "@/app/(main)/components/UserCard";
