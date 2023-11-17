@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import Event from "@/assets/event.svg";
-import Home from "@/assets/home.svg";
-import Person from "@/assets/person.svg";
+import Home from "@/assets/icon_home.svg";
+import My from "@/assets/icon_my.svg";
+import Reservation from "@/assets/icon_reservation.svg";
 import { cn } from "@/utils/cn";
 
 const NAVIGATION_LINK = [
   { segment: "", icon: Home, label: "홈" },
-  { segment: "coffeechat", icon: Event, label: "예약" },
-  { segment: "mypage", icon: Person, label: "마이" },
+  { segment: "coffeechat", icon: Reservation, label: "예약" },
+  { segment: "mypage", icon: My, label: "마이" },
 ];
 
 export const BottomNavigation = () => {
@@ -26,7 +26,7 @@ export const BottomNavigation = () => {
             key={i}
             className={cn(
               "flex grow flex-col items-center gap-[0.13rem] pb-3 pt-2",
-              isCurrentSegment ? "text-gray-700" : "text-gray-500"
+              isCurrentSegment ? "text-primary" : "text-gray-400"
             )}
             href={`/${segment}`}
           >
