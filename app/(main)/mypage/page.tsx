@@ -24,7 +24,7 @@ const Page = () => {
         <img
           className={cn(
             "h-[6.75rem] w-[6.75rem] rounded-xl object-cover",
-            "border border-gray-300 object-contain p-[0.3rem]"
+            "border border-gray-300 bg-gray-100 object-contain p-[0.3rem]"
           )}
           src={me.mentorYn === "Y" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg"}
         />
