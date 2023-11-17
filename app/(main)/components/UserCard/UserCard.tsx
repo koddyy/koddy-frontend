@@ -8,23 +8,31 @@ type CardType = "horizontal" | "vertical";
 type UserCardProps = {
   cardType?: CardType;
   imageUrl?: string;
+  defaultImageUrl?: string;
   coffeeChatStatusText?: string;
 } & (Mentor | Mentee);
 
 export const UserCard = ({
   cardType = "horizontal",
-  imageUrl = "/images/empty_profile.svg",
   coffeeChatStatusText,
   ...user
 }: UserCardProps) => {
-  if (cardType === "horizontal") return <HorizontalUserCard imageUrl={imageUrl} {...user} />;
+  const defaultImageUrl =
+    user.mentorYn === "Y" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg";
+
+  if (cardType === "horizontal")
+    return <HorizontalUserCard defaultImageUrl={defaultImageUrl} {...user} />;
 
   return (
-    <VerticalUserCard imageUrl={imageUrl} coffeeChatStatusText={coffeeChatStatusText} {...user} />
+    <VerticalUserCard
+      defaultImageUrl={defaultImageUrl}
+      coffeeChatStatusText={coffeeChatStatusText}
+      {...user}
+    />
   );
 };
 
-const HorizontalUserCard = ({ imageUrl, ...user }: UserCardProps) => {
+const HorizontalUserCard = ({ imageUrl, defaultImageUrl, ...user }: UserCardProps) => {
   const { mentorYn, name, school, major } = user;
   const description =
     mentorYn === "Y" ? `${school} ${major} ${user.grade}학년` : `관심 : ${school}, ${major}`;
@@ -35,9 +43,9 @@ const HorizontalUserCard = ({ imageUrl, ...user }: UserCardProps) => {
         <img
           className={cn(
             "h-20 w-20 rounded-lg object-cover",
-            imageUrl && "border border-gray-300 object-contain p-[0.49rem]"
+            !imageUrl && "border border-gray-300 object-contain p-[0.3rem]"
           )}
-          src={imageUrl}
+          src={imageUrl || defaultImageUrl}
         />
       </div>
       <div className="flex grow flex-col justify-center">
@@ -54,7 +62,12 @@ const HorizontalUserCardSkeleton = () => {
 
 UserCard.HorizontalSkeleton = HorizontalUserCardSkeleton;
 
-const VerticalUserCard = ({ imageUrl, coffeeChatStatusText, ...user }: UserCardProps) => {
+const VerticalUserCard = ({
+  imageUrl,
+  defaultImageUrl,
+  coffeeChatStatusText,
+  ...user
+}: UserCardProps) => {
   const { mentorYn, name, school, major, nationality, languages } = user;
   const description =
     mentorYn === "Y" ? `${school} ${major} ${user.grade}학년` : `관심 : ${school}, ${major}`;
@@ -62,7 +75,10 @@ const VerticalUserCard = ({ imageUrl, coffeeChatStatusText, ...user }: UserCardP
   return (
     <>
       <div className="relative">
-        <img className="h-60 w-full object-cover" src={imageUrl} />
+        <img
+          className={cn("h-60 w-full object-cover", !imageUrl && "object-contain py-[0.69rem]")}
+          src={imageUrl || defaultImageUrl}
+        />
         <div className="absolute inset-0 z-10 bg-dimmed-gradient"></div>
       </div>
       <div className="px-5 py-3">

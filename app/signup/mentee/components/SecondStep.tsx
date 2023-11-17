@@ -30,6 +30,7 @@ export const SecondStep = ({ onClickNextStep }: SecondStepProps) => {
         <ProfileImageUpload
           register={register("image", { required: true })}
           watchImage={watchImage}
+          role="mentee"
         />
       </div>
       <FormControl required>
