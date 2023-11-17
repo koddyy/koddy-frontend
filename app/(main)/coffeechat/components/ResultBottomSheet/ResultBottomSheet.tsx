@@ -17,13 +17,13 @@ export const ResultBottomSheet = ({
 }: ResultBottomSheetProps) => {
   return (
     <BottomSheet>
-      <div className="flex flex-col items-center gap-[2.19rem] pb-[2.38rem] pt-[3.56rem]">
+      <div className="flex flex-col items-center gap-[1.06rem] pb-[2.38rem] pt-[3.56rem]">
         <div>
           <img
             src={
               resultType === "positive"
-                ? "/images/illustration_success.png"
-                : "/images/illustration_fail.png"
+                ? "/images/illustration_success.svg"
+                : "/images/illustration_fail.svg"
             }
           />
         </div>
