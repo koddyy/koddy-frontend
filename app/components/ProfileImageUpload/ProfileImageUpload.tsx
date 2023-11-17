@@ -23,7 +23,7 @@ export const ProfileImageUpload = ({ register, watchImage, role }: ProfileImageU
 
   return (
     <div className="flex flex-col items-center gap-3">
-      <input className="invisible" id="image" type="file" accept="image/*" {...register} />
+      <input className="hidden" id="image" type="file" accept="image/*" {...register} />
       <div>
         <img
           className={cn(
