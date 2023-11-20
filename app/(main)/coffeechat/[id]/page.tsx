@@ -11,6 +11,7 @@ import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { CoffeeChatStatusText } from "@/constants/coffeechat";
+import useClipboard from "@/hooks/useClipboard";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
 import useAcceptCoffeeChat from "../hooks/useAcceptCoffeeChat";
@@ -59,6 +60,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     cancelCoffeeChat,
   } = useCancelCoffeeChat(id);
   const { data: coffeechat } = useGetCoffeeChatById(id);
+  const { copyText } = useClipboard();
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요</div>;
 
@@ -73,20 +75,21 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       />
       <div className="px-5">
         <Divider />
-        <div className="flex flex-col items-start gap-[0.38rem] py-4">
-          <div className="body-3-bold text-gray-600">{`${coffeechat.date} ${coffeechat.startTime} ~ ${coffeechat.endTime}`}</div>
-          {coffeechat.status === "AGREE" && (
+        {coffeechat.status === "AGREE" && (
+          <div className="flex flex-col items-start gap-[0.38rem] py-4">
+            <div className="body-3-bold text-gray-600">{`${coffeechat.date} ${coffeechat.startTime} ~ ${coffeechat.endTime}`}</div>
             <button
               className="label-bold flex items-center gap-2 rounded bg-gray-200 px-2 py-1"
               type="button"
+              onClick={() => copyText(coffeechat.mentor.zoomLink ?? "")}
             >
               <span>
                 <Clip />
               </span>
               <span>줌 링크 복사하기</span>
             </button>
-          )}
-        </div>
+          </div>
+        )}
         <Divider />
         <div className="flex flex-col gap-5 py-3">
           <div>
@@ -178,6 +181,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
     cancelCoffeeChat,
   } = useCancelCoffeeChat(id);
   const { data: coffeechat } = useGetCoffeeChatById(id);
+  const { copyText } = useClipboard();
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요.</div>;
 
@@ -191,6 +195,22 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
         coffeeChatStatusText={CoffeeChatStatusText.mentee[coffeechat.status]}
       />
       <div className="px-5">
+        <Divider />
+        {coffeechat.status === "AGREE" && (
+          <div className="flex flex-col items-start gap-[0.38rem] py-4">
+            <div className="body-3-bold text-gray-600">{`${coffeechat.date} ${coffeechat.startTime} ~ ${coffeechat.endTime}`}</div>
+            <button
+              className="label-bold flex items-center gap-2 rounded bg-gray-200 px-2 py-1"
+              type="button"
+              onClick={() => copyText(coffeechat.mentor.zoomLink ?? "")}
+            >
+              <span>
+                <Clip />
+              </span>
+              <span>줌 링크 복사하기</span>
+            </button>
+          </div>
+        )}
         <Divider />
         <div className="flex flex-col gap-5 py-3">
           <div>
