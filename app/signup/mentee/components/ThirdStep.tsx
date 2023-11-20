@@ -32,7 +32,7 @@ export const ThirdStep = ({ onSubmitForm }: ThirdStepProps) => {
           name="nationality"
           render={({ field }) => (
             <Select
-              options={["한국", "미국", "일본", "베트남", "Others"]}
+              options={["한국", "미국", "일본", "중국", "베트남", "Others"]}
               value={field.value}
               onChangeValue={(value: string) => field.onChange(value)}
               placeholder="국적을 선택해 주세요."

@@ -28,8 +28,8 @@ interface FourthStepProps {
 
 export const FourthStep = ({ onSubmitForm }: FourthStepProps) => {
   const [availableTimeRange, setAvailableTimeRange] = useState<AvailableTimeRange>({
-    startTime: "",
-    endTime: "",
+    startTime: "09:00",
+    endTime: "17:00",
   });
   const [availableWeeks, setAvailableWeeks] = useState<WeekType[]>([]);
 
