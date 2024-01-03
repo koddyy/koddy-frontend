@@ -59,8 +59,10 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     closeCancelBottomSheet,
     cancelCoffeeChat,
   } = useCancelCoffeeChat(id);
-  const { data: coffeechat } = useGetCoffeeChatById(id);
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(id);
   const { copyText } = useClipboard();
+
+  if (isLoading) return null;
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요</div>;
 
@@ -180,8 +182,10 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
     closePendingBottomSheet,
     cancelCoffeeChat,
   } = useCancelCoffeeChat(id);
-  const { data: coffeechat } = useGetCoffeeChatById(id);
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(id);
   const { copyText } = useClipboard();
+
+  if (isLoading) return null;
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요.</div>;
 
