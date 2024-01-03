@@ -34,8 +34,8 @@ const Page = () => {
       </div>
       <div className="flex flex-col gap-[0.88rem] px-5 py-[0.87rem]">
         <Suspense>
-          {activeTab === 0 && <CoffeeChatCardList userRole={userRole} />}
-          {activeTab === 1 && <NewCoffeeChatCardList userRole={userRole} />}
+          {activeTab === 0 && <NewCoffeeChatCardList userRole={userRole} />}
+          {activeTab === 1 && <CoffeeChatCardList userRole={userRole} />}
         </Suspense>
       </div>
     </>
