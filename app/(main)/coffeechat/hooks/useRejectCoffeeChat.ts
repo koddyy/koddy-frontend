@@ -19,7 +19,7 @@ const useRejectCoffeeChat = (applicationId: string) => {
   };
 
   return {
-    isRejecting,
+    isRejecting: isRejecting && !isSuccess,
     isRejected: isSuccess,
     openRejectBottomSheet,
     closeRejectBottomSheet,

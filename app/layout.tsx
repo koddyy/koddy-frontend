@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import QueryClientProvider from "@/app/providers/QueryClientProvider";
+import MswInit from "@/mocks/MswInit";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>코띠</title>
       </head>
       <body className="mx-auto min-w-[375px] max-w-screen-sm">
+        <MswInit />
         <QueryClientProvider>{children}</QueryClientProvider>
       </body>
     </html>

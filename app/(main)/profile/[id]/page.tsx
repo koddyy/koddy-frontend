@@ -47,7 +47,9 @@ const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
     closePendingBottomSheet,
     requestCoffeeChat,
   } = useRequestCoffeeChat();
-  const { data: user } = useGetUserById(menteeId);
+  const { data: user, isLoading } = useGetUserById(menteeId);
+
+  if (isLoading) return null;
 
   if (!user) return <div>존재하지 않는 멘티예요</div>;
 
@@ -83,7 +85,9 @@ const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
 };
 
 const MentorProfile = ({ mentorId }: Omit<ProfileProps, "menteeId">) => {
-  const { data: user } = useGetUserById(mentorId);
+  const { data: user, isLoading } = useGetUserById(mentorId);
+
+  if (isLoading) return null;
 
   if (!user) return <div>존재하지 않는 멘토예요</div>;
 

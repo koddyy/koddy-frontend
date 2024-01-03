@@ -28,8 +28,8 @@ const useCancelCoffeeChat = (applicationId: string) => {
   };
 
   return {
-    isCanceling,
-    isPending,
+    isCanceling: isCanceling && !isSuccess,
+    isPending: isPending && !isSuccess,
     isCanceled: isSuccess,
     openPendingBottomSheet,
     closePendingBottomSheet,

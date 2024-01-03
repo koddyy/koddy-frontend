@@ -22,7 +22,7 @@ export const useRequestCoffeeChat = () => {
   };
 
   return {
-    isPending,
+    isPending: isPending && !isSuccess,
     isRequested: isSuccess,
     openPendingBottomSheet,
     closePendingBottomSheet,
