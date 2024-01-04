@@ -1,66 +1,36 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { useLogin } from "@/apis/user/hooks/useLogin";
-import Welcome from "@/assets/welcome.svg";
-import { Button } from "@/components/Button";
-import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
-import { Input } from "@/components/Input";
+import { useState } from "react";
+import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
+import { LoginButton } from "@/components/LoginButton";
+import { isValidProvider, type OauthProvider } from "@/types/oauth";
+import { Login } from "./Login";
 
-const Page = () => {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { isValid },
-  } = useForm<{ email: string; password: string }>();
-  const router = useRouter();
-  const { mutate: login, isError } = useLogin();
+const Page = ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
+  const [selectedProvider, setSelectedProvider] = useState<OauthProvider>();
+  const { data: oauthUrl, isSuccess } = useGetOauthUrl(selectedProvider);
 
-  const handleLogin = (data: { email: string; password: string }) => {
-    login(data, {
-      onSuccess: () => {
-        router.replace("/");
-      },
-      onError: (error) => {
-        setError("email", error);
-        setError("password", error);
-      },
-    });
-  };
+  if (isSuccess) window.location.href = oauthUrl;
+
+  const provider = searchParams.provider;
+  const authorizationCode = searchParams.code;
+  const state = searchParams.state;
+
+  const isRedirected = !!provider && isValidProvider(provider) && !!authorizationCode && !!state;
 
   return (
-    <form
-      className="flex min-h-screen items-center justify-center px-5"
-      onSubmit={handleSubmit(handleLogin)}
-    >
-      <div className="w-full">
-        <div className="mb-[1.56rem] flex items-center justify-center">
-          <Welcome />
-        </div>
-        <div className="mb-6 flex flex-col gap-4">
-          <FormControl hasError={isError}>
-            <FormLabel>이메일</FormLabel>
-            <Input type="email" {...register("email", { required: true })} />
-          </FormControl>
-          <FormControl hasError={isError}>
-            <FormLabel>비밀번호</FormLabel>
-            <Input type="password" {...register("password", { required: true })} />
-            <FormErrorMessage>이메일 혹은 비밀번호가 틀렸습니다.</FormErrorMessage>
-          </FormControl>
-        </div>
-        <div className="flex flex-col items-center gap-[0.88rem]">
-          <Button type="submit" disabled={!isValid}>
-            로그인
-          </Button>
-          <Link href="/signup" className="body-2-bold text-gray-700">
-            회원가입
-          </Link>
+    <>
+      <div className="flex flex-col items-center gap-24 px-5">
+        <div className="h-60 w-60 bg-gray-100">온보딩</div>
+        <div className="flex w-full flex-col gap-2">
+          <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
+          <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
         </div>
       </div>
-    </form>
+      {isRedirected && (
+        <Login provider={provider} authorizationCode={authorizationCode} state={state} />
+      )}
+    </>
   );
 };
 
