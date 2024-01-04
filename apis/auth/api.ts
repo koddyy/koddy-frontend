@@ -13,4 +13,20 @@ export const authApi = {
     );
     return response.data;
   },
+
+  oauthLogin: ({
+    provider,
+    authorizationCode,
+    state,
+  }: {
+    provider: OauthProvider;
+    authorizationCode: string;
+    state: string;
+  }) => {
+    return apiInstance.post(`/api/oauth/login/${provider}`, {
+      authorizationCode,
+      state,
+      redirectUri,
+    });
+  },
 };
