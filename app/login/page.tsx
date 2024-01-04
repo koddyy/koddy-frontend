@@ -1,38 +1,36 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
-import { useOauthLogin } from "@/apis/auth/hooks/useOauthLogin";
 import { LoginButton } from "@/components/LoginButton";
 import { isValidProvider, type OauthProvider } from "@/types/oauth";
+import { Login } from "./Login";
 
-const Page = () => {
-  const searchParams = useSearchParams();
+const Page = ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
   const [selectedProvider, setSelectedProvider] = useState<OauthProvider>();
   const { data: oauthUrl, isSuccess } = useGetOauthUrl(selectedProvider);
-  const { mutate: login } = useOauthLogin();
 
   if (isSuccess) window.location.href = oauthUrl;
 
-  const provider = searchParams.get("provider");
-  const authorizationCode = searchParams.get("code");
-  const state = searchParams.get("state");
+  const provider = searchParams.provider;
+  const authorizationCode = searchParams.code;
+  const state = searchParams.state;
 
-  useEffect(() => {
-    if (provider && isValidProvider(provider) && authorizationCode && state) {
-      login({ provider, state, authorizationCode });
-    }
-  }, [provider, authorizationCode, state, login]);
+  const isRedirected = !!provider && isValidProvider(provider) && !!authorizationCode && !!state;
 
   return (
-    <div className="flex flex-col items-center gap-24 px-5">
-      <div className="h-60 w-60 bg-gray-100">온보딩</div>
-      <div className="flex w-full flex-col gap-2">
-        <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
-        <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
+    <>
+      <div className="flex flex-col items-center gap-24 px-5">
+        <div className="h-60 w-60 bg-gray-100">온보딩</div>
+        <div className="flex w-full flex-col gap-2">
+          <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
+          <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
+        </div>
       </div>
-    </div>
+      {isRedirected && (
+        <Login provider={provider} authorizationCode={authorizationCode} state={state} />
+      )}
+    </>
   );
 };
 

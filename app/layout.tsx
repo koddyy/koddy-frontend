@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <title>코띠</title>
       </head>
-      <body className="mx-auto min-w-[375px] max-w-screen-sm">
+      <body className="relative mx-auto min-h-screen min-w-[375px] max-w-screen-sm">
         <MswInit />
         <QueryClientProvider>{children}</QueryClientProvider>
       </body>
