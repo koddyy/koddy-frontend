@@ -1,6 +1,12 @@
 import { AvailableTimeRange } from "@/types/coffeechat";
 import { LanguageType, WeekType } from "@/types/user";
 
+/**
+ * =========================
+ * @TODO remove
+ * =========================
+ */
+
 type FirstStepForm = {
   email: string;
   password: string;
@@ -24,8 +30,15 @@ type FourthStepForm = {
   availableTimes: Array<AvailableTimeRange & { week: WeekType }>;
 };
 
-interface SignupForm extends FirstStepForm, SecondStepForm, ThirdStepForm, FourthStepForm {
-  mentorYn: "Y";
-}
+/**
+ *  =========================
+ */
+
+type SignupForm = {
+  school: string;
+  enteredIn: number;
+  major: string;
+  languages: LanguageType[];
+};
 
 export type { FirstStepForm, FourthStepForm, SecondStepForm, SignupForm, ThirdStepForm };
