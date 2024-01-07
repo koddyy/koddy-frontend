@@ -19,7 +19,7 @@ export const Primary: Story = {
     major: "OO학부",
     grade: 0,
     nationality: "베트남인",
-    languages: [{ languageId: "KO" }, { languageId: "EN" }],
+    languages: [{ languageId: "KR" }, { languageId: "EN" }],
     availableTimes: [],
   },
 };
@@ -33,6 +33,6 @@ export const Mentee: Story = {
     school: "OO대학교",
     major: "OO학부",
     nationality: "베트남인",
-    languages: [{ languageId: "KO" }, { languageId: "EN" }],
+    languages: [{ languageId: "KR" }, { languageId: "EN" }],
   },
 };

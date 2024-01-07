@@ -1,6 +1,6 @@
 type Role = "mentor" | "mentee";
 
-type LanguageType = "KO" | "EN" | "CH" | "JP" | "VI";
+type LanguageType = "KR" | "EN" | "CH" | "JP" | "VN";
 
 interface User {
   name: string;
