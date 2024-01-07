@@ -6,20 +6,12 @@ import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorFo
 import type { Mentee, Mentor, User } from "@/types/user";
 
 class UserApi {
-  signup = (signupForm: MentorSignupForm | MenteeSignupForm) => {
-    return apiInstance.post("/api/oauth/signup", signupForm);
-  };
-
   signupAsMentor = (signupForm: MentorSignupForm & User) => {
     return apiInstance.post("/api/mentors", signupForm);
   };
 
   signupAsMentee = (signupForm: MenteeSignupForm & User) => {
     return apiInstance.post("/api/mentees", signupForm);
-  };
-
-  login = (loginFormData: { email: string; password: string }) => {
-    return apiInstance.post("/api/oauth/login", loginFormData);
   };
 
   getMe = async () => {
