@@ -21,8 +21,8 @@ const ControlledSelect = (args: SelectProps) => {
   return <Select value={selectedValue} onChangeValue={handleChangeValue} {...args} />;
 };
 
-export const Controlled: StoryObj<typeof Select> = {
-  render: (args) => <ControlledSelect {...args} />,
+export const Controlled: StoryObj<typeof Select<string>> = {
+  render: (args: SelectProps) => <ControlledSelect {...args} />,
   args: {
     options: ["Korea", "US", "Japen", "France", "Germany"],
     placeholder: "국적을 선택해 주세요",

@@ -44,7 +44,7 @@ export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
     control,
     name: "languages",
     rules: {
-      required: true,
+      validate: (value) => value?.length > 0,
     },
   });
 

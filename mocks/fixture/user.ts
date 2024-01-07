@@ -7,7 +7,7 @@ export const mentor: Mentor = {
   school: "멘토대학교",
   major: "멘토학부",
   nationality: "한국인",
-  languages: [{ languageId: "KO" }, { languageId: "EN" }],
+  languages: [{ languageId: "KR" }, { languageId: "EN" }],
   introduce: "안녕하세요 저는 멘토대학교에 다니는 김멘토라고 합니다",
   mentorYn: "Y",
   grade: 1,
@@ -25,7 +25,7 @@ export const mentee: Mentee = {
   school: "멘티대학교",
   major: "멘티학부",
   nationality: "베트남인",
-  languages: [{ languageId: "VI" }, { languageId: "KO" }, { languageId: "EN" }],
+  languages: [{ languageId: "VN" }, { languageId: "KR" }, { languageId: "EN" }],
   introduce:
     "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
   mentorYn: "N",

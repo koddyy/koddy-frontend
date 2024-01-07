@@ -10,7 +10,7 @@ import { LanguageType } from "@/types/user";
 import { cn } from "@/utils/cn";
 import type { SignupForm as ISignupForm } from "../../types/mentorForm";
 
-const enteredInOptions = ["18학번", "19학번", "20학번", " 21학번", "22학번", "23학번", "24학번"];
+const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
 const languagesOptions = Object.entries(languageTypeText) as Array<[LanguageType, string]>;
 
 interface SignupFormProps {
@@ -32,9 +32,9 @@ export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
     rules: { required: true },
   });
 
-  const [enteredIn, setEnteredIn] = useState("");
+  const [enteredIn, setEnteredIn] = useState<number>();
 
-  const handleChangeEnteredIn = (value: string) => {
+  const handleChangeEnteredIn = (value: number) => {
     enteredInField.onChange(value);
     setEnteredIn(value);
   };
@@ -44,7 +44,7 @@ export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
     control,
     name: "languages",
     rules: {
-      validate: (value) => value.length > 0,
+      validate: (value) => value?.length > 0,
     },
   });
 
@@ -71,7 +71,7 @@ export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
 
       <FormControl required>
         <FormLabel htmlFor="enteredIn">학번</FormLabel>
-        <Select
+        <Select<number>
           placeholder="학번을 선택해 주세요."
           options={enteredInOptions}
           value={enteredIn}
