@@ -8,13 +8,13 @@ import { Toggle } from "@/components/Toggle";
 import { languageTypeText } from "@/constants/language";
 import { LanguageType } from "@/types/user";
 import { cn } from "@/utils/cn";
-import type { SignupForm as SignupFormType } from "../../types/mentorForm";
+import type { SignupForm as ISignupForm } from "../../types/mentorForm";
 
 const enteredInOptions = ["18학번", "19학번", "20학번", " 21학번", "22학번", "23학번", "24학번"];
 const languagesOptions = Object.entries(languageTypeText) as Array<[LanguageType, string]>;
 
 interface SignupFormProps {
-  onSubmitForm: (data: SignupFormType) => void;
+  onSubmitForm: (data: ISignupForm) => void;
 }
 
 export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
@@ -23,7 +23,7 @@ export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<SignupFormType>();
+  } = useForm<ISignupForm>();
 
   /* enteredIn controller */
   const { field: enteredInField } = useController({

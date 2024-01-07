@@ -8,13 +8,13 @@ import { Toggle } from "@/components/Toggle";
 import { languageTypeText } from "@/constants/language";
 import { LanguageType } from "@/types/user";
 import { cn } from "@/utils/cn";
-import type { SignupForm as SignupFormType } from "../../types/menteeForm";
+import type { SignupForm as ISignupForm } from "../../types/menteeForm";
 
 const nationalityOptions = ["한국", "미국", "일본", "중국", "베트남", "Others"];
 const languagesOptions = Object.entries(languageTypeText) as Array<[LanguageType, string]>;
 
 interface SignupFormProps {
-  onSubmitForm: (data: SignupFormType) => void;
+  onSubmitForm: (data: ISignupForm) => void;
 }
 
 export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
@@ -23,7 +23,7 @@ export const SignupForm = ({ onSubmitForm }: SignupFormProps) => {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<SignupFormType>();
+  } = useForm<ISignupForm>();
 
   /* nationality controller */
   const { field: nationalityField } = useController({
