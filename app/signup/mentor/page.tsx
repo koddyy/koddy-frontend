@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { SignupSuccess } from "../components/SignupSuccess";
-import { TermsOfService } from "../components/TermsOfService/TermsOfService";
+import { TermsOfService } from "../components/TermsOfService";
 import { SignupForm as ISignupForm } from "../types/mentorForm";
 import { SignupForm } from "./components/SignupForm";
 
