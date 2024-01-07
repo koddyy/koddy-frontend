@@ -6,13 +6,19 @@ import { LoginButton } from "@/components/LoginButton";
 import { isValidProvider, type OauthProvider } from "@/types/oauth";
 import { Login } from "./Login";
 
-const Page = ({ searchParams }: { searchParams: { [key: string]: string | undefined } }) => {
+const Page = ({
+  params,
+  searchParams,
+}: {
+  params: { provider: string[] };
+  searchParams: { [key: string]: string | undefined };
+}) => {
   const [selectedProvider, setSelectedProvider] = useState<OauthProvider>();
   const { data: oauthUrl, isSuccess } = useGetOauthUrl(selectedProvider);
 
   if (isSuccess) window.location.href = oauthUrl;
 
-  const provider = searchParams.provider;
+  const [provider] = params.provider ?? [];
   const authorizationCode = searchParams.code;
   const state = searchParams.state;
 
