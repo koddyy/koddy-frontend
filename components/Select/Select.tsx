@@ -5,29 +5,29 @@ import { useFormControl } from "@/components/FormControl/FormControlContext";
 import useClickOutside from "@/hooks/useClickOutside";
 import { cn } from "@/utils/cn";
 
-export interface SelectProps extends FormOptions {
+export interface SelectProps<T = string> extends FormOptions {
   className?: string;
-  options: string[];
-  value?: string;
-  onChangeValue?: (value: string) => void;
+  options: T[];
+  value?: T;
+  onChangeValue?: (value: T) => void;
   placeholder?: string;
   rightContent?: ElementType;
 }
 
-export const Select = ({
+export const Select = <T extends string | number>({
   className,
   options,
-  value = "",
+  value,
   onChangeValue,
   placeholder,
   rightContent: RightContent = ArrowDown,
   ...props
-}: PropsWithChildren<SelectProps>) => {
+}: PropsWithChildren<SelectProps<T>>) => {
   const { hasError } = useFormControl(props);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useClickOutside(() => setIsOpen(false));
 
-  const handleChange = (value: string) => {
+  const handleChange = (value: T) => {
     onChangeValue?.(value);
     setIsOpen(false);
   };
