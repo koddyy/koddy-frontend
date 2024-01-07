@@ -2,7 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSignupAsMentor } from "@/apis/user/hooks/useSignupAsMentor";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { useUserStore } from "@/stores/user";
 import { SignupSuccess } from "../components/SignupSuccess";
 import { TermsOfService } from "../components/TermsOfService";
 import { SignupForm as ISignupForm } from "../types/mentorForm";
@@ -11,6 +13,8 @@ import { SignupForm } from "./components/SignupForm";
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
+  const { user } = useUserStore();
+  const { mutate: signup } = useSignupAsMentor();
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
@@ -22,9 +26,16 @@ const Page = () => {
   };
 
   const handleSubmitForm = (data: ISignupForm) => {
-    console.log(data);
+    if (!user) return;
 
-    handleClickNextStep(); // @TODO signup
+    signup(
+      { ...user, ...data },
+      {
+        onSuccess: () => {
+          handleClickNextStep();
+        },
+      }
+    );
   };
 
   return (

@@ -3,11 +3,19 @@ import type { ResponseType } from "@/apis/types";
 import { PostAvailableTimesRequest } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
-import type { Mentee, Mentor } from "@/types/user";
+import type { Mentee, Mentor, User } from "@/types/user";
 
 class UserApi {
   signup = (signupForm: MentorSignupForm | MenteeSignupForm) => {
     return apiInstance.post("/api/oauth/signup", signupForm);
+  };
+
+  signupAsMentor = (signupForm: MentorSignupForm & User) => {
+    return apiInstance.post("/api/mentors", signupForm);
+  };
+
+  signupAsMentee = (signupForm: MenteeSignupForm & User) => {
+    return apiInstance.post("/api/mentees", signupForm);
   };
 
   login = (loginFormData: { email: string; password: string }) => {
