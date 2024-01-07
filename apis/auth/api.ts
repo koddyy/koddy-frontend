@@ -1,15 +1,15 @@
 import type { OauthProvider } from "@/types/oauth";
 import { apiInstance } from "../axios";
 
-const redirectUri =
-  process.env.NODE_ENV === "development"
+const redirectUri = (provider: OauthProvider) =>
+  (process.env.NODE_ENV === "development"
     ? "http://localhost:3000/login"
-    : `${process.env.NEXT_PUBLIC_APP_URL}/login`;
+    : `${process.env.NEXT_PUBLIC_APP_URL}/login`) + `/${provider}`;
 
 export const authApi = {
   getOauthUrl: async ({ provider }: { provider: OauthProvider }) => {
     const response = await apiInstance.get(
-      `/api/oauth/access/${provider}?redirectUri=${redirectUri}`
+      `/api/oauth/access/${provider}?redirectUri=${redirectUri(provider)}`
     );
     return response.data;
   },
@@ -26,7 +26,7 @@ export const authApi = {
     return apiInstance.post(`/api/oauth/login/${provider}`, {
       authorizationCode,
       state,
-      redirectUri,
+      redirectUri: redirectUri(provider),
     });
   },
 };
