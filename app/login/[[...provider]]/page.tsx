@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
+import { Carousel } from "@/components/Carousel";
 import { LoginButton } from "@/components/LoginButton";
 import { isValidProvider, type OauthProvider } from "@/types/oauth";
 import { Login } from "./Login";
+
+const ONBOARDING = [
+  { imageUrl: "/images/illustration_onboarding1.svg", description: "멘토/멘티 탐색하기" },
+  { imageUrl: "/images/illustration_onboarding2.svg", description: "나에게 맞는 멘토/멘티 찾기" },
+  { imageUrl: "/images/illustration_onboarding3.svg", description: "예약 내역 확인하기" },
+];
 
 const Page = ({
   params,
@@ -26,9 +33,16 @@ const Page = ({
 
   return (
     <>
-      <div className="flex flex-col items-center gap-24 px-5">
-        <div className="h-60 w-60 bg-gray-100">온보딩</div>
-        <div className="flex w-full flex-col gap-2">
+      <div className="px-5">
+        <Carousel>
+          {ONBOARDING.map(({ imageUrl, description }, i) => (
+            <div key={i} className="flex flex-col items-center gap-[24px] pb-[40px] pt-[34px]">
+              <img src={imageUrl} />
+              <div className="headline-1">{description}</div>
+            </div>
+          ))}
+        </Carousel>
+        <div className="mt-[80px] flex w-full flex-col gap-2">
           <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
           <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
         </div>
