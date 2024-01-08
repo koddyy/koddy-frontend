@@ -29,7 +29,7 @@ apiInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 && error.config.url !== "/api/token/reissue") {
       useAuthStore.getState().clear();
 
       try {
