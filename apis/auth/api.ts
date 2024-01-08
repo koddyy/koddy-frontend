@@ -29,4 +29,8 @@ export const authApi = {
       redirectUri: redirectUri(provider),
     });
   },
+
+  reissueToken: () => {
+    return apiInstance.post("/api/token/reissue");
+  },
 };
