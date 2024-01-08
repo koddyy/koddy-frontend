@@ -1,5 +1,3 @@
-import { AxiosHeaders } from "axios";
-import { useAuthStore } from "@/stores/auth";
 import type { OauthProvider } from "@/types/oauth";
 import { apiInstance } from "../axios";
 
@@ -16,7 +14,7 @@ export const authApi = {
     return response.data;
   },
 
-  oauthLogin: async ({
+  oauthLogin: ({
     provider,
     authorizationCode,
     state,
@@ -25,19 +23,14 @@ export const authApi = {
     authorizationCode: string;
     state: string;
   }) => {
-    const response = await apiInstance.post(`/api/oauth/login/${provider}`, {
+    return apiInstance.post(`/api/oauth/login/${provider}`, {
       authorizationCode,
       state,
       redirectUri: redirectUri(provider),
     });
+  },
 
-    if (response.headers instanceof AxiosHeaders && response.headers.hasAuthorization()) {
-      const accessToken = response.headers.get("Authorization");
-      if (accessToken && typeof accessToken === "string") {
-        useAuthStore.setState({ accessToken });
-      }
-    }
-
-    return response.data;
+  reissueToken: () => {
+    return apiInstance.post("/api/token/reissue");
   },
 };

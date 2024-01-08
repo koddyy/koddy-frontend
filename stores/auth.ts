@@ -4,6 +4,7 @@ import { devtools } from "zustand/middleware";
 interface AuthState {
   accessToken?: string;
   setAccessToken: (accessToken: string) => void;
+  clear: () => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -12,5 +13,6 @@ export const useAuthStore = create<AuthState>()(
       set(() => ({
         accessToken,
       })),
+    clear: () => set(() => ({ accessToken: undefined })),
   }))
 );
