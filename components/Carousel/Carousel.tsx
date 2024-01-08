@@ -4,14 +4,19 @@ import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import { Children, cloneElement, ReactElement, useState } from "react";
 import { cn } from "@/utils/cn";
 
-interface CarouselProps extends KeenSliderOptions {
+interface AutoSwitchOptions {
+  autoSwitch?: boolean;
   autoSwitchInterval?: number;
+}
+
+interface CarouselProps extends KeenSliderOptions, AutoSwitchOptions {
   animationDuration?: number;
   children: ReactElement[];
 }
 
 export const Carousel = ({
   children,
+  autoSwitch = false,
   autoSwitchInterval = 3000,
   animationDuration = 2000,
   ...options
@@ -32,7 +37,7 @@ export const Carousel = ({
       },
       ...options,
     },
-    autoSwitchInterval
+    autoSwitch
       ? [
           (slider) => {
             let timeout: NodeJS.Timeout;
