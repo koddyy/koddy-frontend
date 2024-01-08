@@ -5,22 +5,66 @@ import { Children, cloneElement, ReactElement, useState } from "react";
 import { cn } from "@/utils/cn";
 
 interface CarouselProps extends KeenSliderOptions {
+  autoSwitchInterval?: number;
+  animationDuration?: number;
   children: ReactElement[];
 }
 
-export const Carousel = ({ children, ...options }: CarouselProps) => {
+export const Carousel = ({
+  children,
+  autoSwitchInterval = 3000,
+  animationDuration = 2000,
+  ...options
+}: CarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(options.initial ?? 0);
   const [loaded, setLoaded] = useState(false);
-  const [sliderRef, instanceRef] = useKeenSlider({
-    slideChanged(s) {
-      setCurrentSlide(s.track.details.rel);
+  const [sliderRef, instanceRef] = useKeenSlider(
+    {
+      slideChanged(s) {
+        setCurrentSlide(s.track.details.rel);
+      },
+      created() {
+        setLoaded(true);
+      },
+      loop: true,
+      defaultAnimation: {
+        duration: animationDuration,
+      },
+      ...options,
     },
-    created() {
-      setLoaded(true);
-    },
-    loop: true,
-    ...options,
-  });
+    autoSwitchInterval
+      ? [
+          (slider) => {
+            let timeout: NodeJS.Timeout;
+            let mouseOver = false;
+            function clearNextTimeout() {
+              clearTimeout(timeout);
+            }
+            function nextTimeout() {
+              clearTimeout(timeout);
+              if (mouseOver) return;
+              timeout = setTimeout(() => {
+                slider.next();
+              }, autoSwitchInterval);
+            }
+            slider.on("created", () => {
+              slider.container.addEventListener("mouseover", () => {
+                mouseOver = true;
+                clearNextTimeout();
+              });
+              slider.container.addEventListener("mouseout", () => {
+                mouseOver = false;
+                nextTimeout();
+              });
+              nextTimeout();
+            });
+            slider.on("dragStarted", clearNextTimeout);
+            slider.on("animationEnded", nextTimeout);
+            slider.on("updated", nextTimeout);
+          },
+        ]
+      : undefined
+  );
 
   return (
     <>
