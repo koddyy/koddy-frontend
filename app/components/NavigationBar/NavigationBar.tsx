@@ -8,6 +8,8 @@ interface NavigationBarProps {
   title?: string;
   onClickGoback?: () => void;
   backButtonColor?: "default" | "white";
+  leftContent?: React.ReactNode;
+  rightContent?: React.ReactNode;
 }
 
 export const NavigationBar = ({
@@ -15,6 +17,8 @@ export const NavigationBar = ({
   title,
   onClickGoback,
   backButtonColor,
+  leftContent,
+  rightContent,
 }: NavigationBarProps) => {
   return (
     <div
@@ -28,7 +32,9 @@ export const NavigationBar = ({
           <Back />
         </button>
       )}
+      {leftContent && <div className="mr-auto">{leftContent}</div>}
       {title && <h1 className="subheading-bold absolute left-1/2 -translate-x-1/2">{title}</h1>}
+      {rightContent && <div className="ml-auto">{rightContent}</div>}
     </div>
   );
 };
