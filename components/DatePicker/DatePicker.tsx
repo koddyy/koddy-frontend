@@ -15,10 +15,12 @@ export interface DatePickerProps {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const DatePicker = ({ onChangeDate }: DatePickerProps) => {
   return (
-    <div className="flex h-full w-full">
-      <Wheel items={YEAR} />
-      <Wheel items={MONTH} />
-      <Wheel items={DAY} />
+    <div className="absolute inset-x-0 bottom-0 z-overlay rounded-t-xl bg-white py-5">
+      <div className="flex h-60 w-full">
+        <Wheel items={YEAR} />
+        <Wheel items={MONTH} />
+        <Wheel items={DAY} />
+      </div>
     </div>
   );
 };
