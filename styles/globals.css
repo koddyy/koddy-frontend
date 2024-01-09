@@ -9,6 +9,20 @@
   }
 }
 
+@layer components {
+  .radio-input {
+    @apply relative h-4 w-4 appearance-none rounded-full border border-gray-600 checked:border-primary;
+
+    &::after {
+      @apply absolute left-1/2 top-1/2 hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary content-[''];
+    }
+
+    &:checked::after {
+      @apply block;
+    }
+  }
+}
+
 @layer utilities {
   .headline-1 {
     @apply text-[1.75rem] font-[700] leading-[130%];
