@@ -34,7 +34,14 @@ const Page = () => {
 
   return (
     <>
-      <NavigationBar onClickGoback={handleClickGoback} />
+      <NavigationBar
+        onClickGoback={handleClickGoback}
+        rightContent={
+          <button className="body-1" onClick={handleClickNextStep}>
+            건너뛰기
+          </button>
+        }
+      />
       <div>
         <div className="my-6">
           <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
