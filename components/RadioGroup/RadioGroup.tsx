@@ -1,31 +1,25 @@
+import { PropsWithChildren, useMemo } from "react";
 import { cn } from "@/utils/cn";
-import { Radio, RadioProps } from "./Radio";
+import { RadioContext, type RadioContextProps } from "./Radio.context";
 
-interface RadioGroupProps extends Omit<RadioProps, "value"> {
+export interface RadioGroupProps extends RadioContextProps {
   name: string;
-  values: string[];
+  value: string;
   onChangeValue: (value: string) => void;
   direction?: "vertical" | "horizontal";
 }
 
 export const RadioGroup = ({
   name,
-  values,
+  value,
   onChangeValue,
   direction,
-  ...props
-}: RadioGroupProps) => {
+  children,
+}: PropsWithChildren<RadioGroupProps>) => {
+  const context = useMemo(() => ({ name, value, onChangeValue }), [name, value, onChangeValue]);
   return (
     <div className={cn("flex gap-[14px]", direction === "vertical" && "flex-col")}>
-      {values.map((value) => (
-        <Radio
-          key={value}
-          name={name}
-          value={value}
-          onChange={(e) => onChangeValue(e.target.value)}
-          {...props}
-        />
-      ))}
+      <RadioContext.Provider value={context}>{children}</RadioContext.Provider>
     </div>
   );
 };
