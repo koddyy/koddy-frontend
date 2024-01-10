@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Progress } from "@/components/Progress";
 import { Mentor } from "@/types/mentor";
@@ -17,12 +18,13 @@ type Form = Pick<Mentor, "introduction" | "schedules"> & {
   period: Period;
 };
 
-const TOTAL_STEPS = 3;
-
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const methods = useForm<Form>();
+  const { data: user } = useGetMe();
+
+  if (!user) return;
 
   const handleClickGoback = () => {
     if (currentStep === 1) router.back();
@@ -32,6 +34,8 @@ const Page = () => {
   const handleClickNextStep = () => {
     setCurrentStep((prev) => prev + 1);
   };
+
+  const TOTAL_STEPS = user.mentorYn === "Y" ? 3 : 1;
 
   return (
     <>
@@ -48,9 +52,16 @@ const Page = () => {
           <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
         </div>
         <FormProvider {...methods}>
-          {currentStep === 1 && <IntroductionStep onClickNextStep={handleClickNextStep} />}
-          {currentStep === 2 && <PeriodStep onClickNextStep={handleClickNextStep} />}
-          {currentStep === 3 && <ScheduleStep />}
+          {user.mentorYn === "Y" && (
+            <>
+              {currentStep === 1 && <IntroductionStep onClickNextStep={handleClickNextStep} />}
+              {currentStep === 2 && <PeriodStep onClickNextStep={handleClickNextStep} />}
+              {currentStep === 3 && <ScheduleStep />}
+            </>
+          )}
+          {user.mentorYn === "N" && (
+            <>{currentStep === 1 && <IntroductionStep onClickNextStep={handleClickNextStep} />}</>
+          )}
         </FormProvider>
       </div>
     </>
