@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef, useEffect } from "react";
 import Google from "@/assets/google.svg";
 import Kakao from "@/assets/kakao.svg";
 import { Tooltip } from "@/components/Tooltip";
@@ -11,6 +11,10 @@ interface LoginButtonProps extends ComponentPropsWithoutRef<"button"> {
 
 export const LoginButton = ({ provider, ...props }: LoginButtonProps) => {
   const { selectedProvider, loggedIn } = useProviderStore();
+
+  useEffect(() => {
+    useProviderStore.persist.rehydrate();
+  }, []);
 
   const isRecentLoggedIn = loggedIn && selectedProvider === provider;
 

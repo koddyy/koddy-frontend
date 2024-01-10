@@ -27,8 +27,8 @@ export const useProviderStore = create<ProviderState & ProviderAction>()(
           loggedIn,
         })),
     }),
-
     {
+      skipHydration: true,
       name: "provider",
     }
   )
