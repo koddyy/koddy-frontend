@@ -14,7 +14,7 @@ interface PeriodStepProps {
 export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
   const [periodType, setPeriodType] = useState<keyof Period>();
 
-  const { control, watch } = useFormContext();
+  const { control } = useFormContext();
 
   const TODAY = toYYYYMMDD(new Date());
   const { field: periodField } = useController({
@@ -26,8 +26,6 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
     },
     rules: { required: true },
   });
-
-  const watchPeriod = watch("period");
 
   const handleChangeDate = (YYYYMMDD: string) => {
     if (periodType) {
@@ -45,12 +43,12 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
       </div>
       <div className="body-1 mb-2 text-gray-500">이때부터 시작할 예정이에요 (시작)</div>
       <button className="headline-3" type="button" onClick={() => setPeriodType("start")}>
-        {watchPeriod.start.toString()}
+        {periodField.value.start.toString()}
       </button>
       <Divider className="my-6" />
       <div className="body-1 mb-2 text-gray-500">이때까지 가능해요 (완료)</div>
       <button className="headline-3" type="button" onClick={() => setPeriodType("end")}>
-        {watchPeriod.end.toString()}
+        {periodField.value.end.toString()}
       </button>
       <BottomButton onClick={onClickNextStep}>다음</BottomButton>
       {periodType && (
