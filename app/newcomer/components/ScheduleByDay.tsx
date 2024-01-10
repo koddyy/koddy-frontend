@@ -61,8 +61,8 @@ export const ScheduleByDay = () => {
           추가
         </Button>
       </div>
-      <Divider className="border-8 border-gray-100" />
-      <ul className="mt-[20px] flex flex-col gap-[12px]">
+      <Divider className="border-4 border-gray-100" />
+      <ul className="my-[20px] flex flex-col gap-[12px]">
         {scheduleFields.map((field, i) => (
           <li key={field.id} className="flex justify-between gap-[8px]">
             <Toggle>{field.day}</Toggle>

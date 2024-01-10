@@ -43,7 +43,7 @@ const Page = () => {
           </button>
         }
       />
-      <div>
+      <div className="px-[20px] pb-[104px]">
         <div className="my-6">
           <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
         </div>
