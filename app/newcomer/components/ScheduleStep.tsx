@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { RadioGroup } from "@/components/RadioGroup";
-import { Radio } from "@/components/RadioGroup/Radio";
+import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByDay } from "./ScheduleByDay";
 import { ScheduleByWeek } from "./ScheduleByWeek";
 
