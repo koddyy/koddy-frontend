@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useOauthLogin } from "@/apis/auth/hooks/useOauthLogin";
+import { useProviderStore } from "@/stores/provider";
 import { OauthProvider } from "@/types/oauth";
 
 interface LoginProps {
@@ -12,10 +13,21 @@ interface LoginProps {
 
 export const Login = ({ provider, authorizationCode, state }: LoginProps) => {
   const { mutate: login, isPending } = useOauthLogin();
+  const { setSelectedProvider, setLoggedIn } = useProviderStore();
 
   useEffect(() => {
-    login({ provider, state, authorizationCode });
-  }, [provider, authorizationCode, state, login]);
+    login(
+      { provider, state, authorizationCode },
+      {
+        onSuccess: () => {
+          setLoggedIn(true);
+        },
+        onSettled: () => {
+          setSelectedProvider(provider);
+        },
+      }
+    );
+  }, [provider, authorizationCode, state, login, setLoggedIn, setSelectedProvider]);
 
   return (
     isPending && (

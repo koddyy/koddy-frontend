@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignupAsMentor } from "@/apis/user/hooks/useSignupAsMentor";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
 import { SignupSuccess } from "../components/SignupSuccess";
 import { TermsOfService } from "../components/TermsOfService";
@@ -14,6 +15,7 @@ const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const { user } = useUserStore();
+  const { setLoggedIn } = useProviderStore();
   const { mutate: signup } = useSignupAsMentor();
 
   const handleClickGoback = () => {
@@ -33,6 +35,7 @@ const Page = () => {
       {
         onSuccess: () => {
           handleClickNextStep();
+          setLoggedIn(true);
         },
       }
     );

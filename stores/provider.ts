@@ -8,7 +8,7 @@ interface ProviderState {
 }
 
 interface ProviderAction {
-  setSelectedProvider: (provider: OauthProvider) => void;
+  setSelectedProvider: (selectedProvider: OauthProvider) => void;
   setLoggedIn: (loggedIn: boolean) => void;
 }
 
@@ -16,19 +16,14 @@ export const useProviderStore = create<ProviderState & ProviderAction>()(
   persist(
     (set) => ({
       loggedIn: false,
-      setSelectedProvider: (provider) =>
+      setSelectedProvider: (selectedProvider) =>
         set((state) => ({
           ...state,
-          selectedProvider: provider,
+          selectedProvider,
         })),
       setLoggedIn: (loggedIn) =>
         set((state) => ({
           ...state,
-          loggedIn,
-        })),
-      setProviderState: ({ selectedProvider, loggedIn }: ProviderState) =>
-        set(() => ({
-          selectedProvider,
           loggedIn,
         })),
     }),
