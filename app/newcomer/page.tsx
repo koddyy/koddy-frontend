@@ -8,6 +8,7 @@ import { Progress } from "@/components/Progress";
 import { Mentor } from "@/types/mentor";
 import { IntroductionStep } from "./components/IntroductionStep";
 import { PeriodStep } from "./components/PeriodStep";
+import { ScheduleStep } from "./components/ScheduleStep";
 
 /** @TODO api 스펙에 따라 변경 필요함 */
 export type Period = { start: string; end: string };
@@ -16,7 +17,7 @@ type Form = Pick<Mentor, "introduction" | "schedules"> & {
   period: Period;
 };
 
-const TOTAL_STEPS = 2;
+const TOTAL_STEPS = 3;
 
 const Page = () => {
   const router = useRouter();
@@ -49,6 +50,7 @@ const Page = () => {
         <FormProvider {...methods}>
           {currentStep === 1 && <IntroductionStep onClickNextStep={handleClickNextStep} />}
           {currentStep === 2 && <PeriodStep onClickNextStep={handleClickNextStep} />}
+          {currentStep === 3 && <ScheduleStep />}
         </FormProvider>
       </div>
     </>
