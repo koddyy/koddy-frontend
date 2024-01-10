@@ -10,7 +10,7 @@ export const Tooltip = ({ content, open = true, children }: PropsWithChildren<To
     <div className="relative">
       {children}
       <div className="absolute bottom-[calc(100%+3px)] left-1/2 -translate-x-1/2">
-        <div className="relative w-fit">
+        <div className="relative z-tooltip w-fit">
           <div className="body-3 rounded-lg bg-gray-600 p-2 text-gray-100 shadow-md">{content}</div>
           <svg
             className="absolute bottom-[-8px] left-1/2 -translate-x-1/2"
