@@ -2,10 +2,11 @@ import { PropsWithChildren, ReactNode } from "react";
 
 interface TooltipProps {
   content: ReactNode;
+  open?: boolean;
 }
 
-export const Tooltip = ({ content, children }: PropsWithChildren<TooltipProps>) => {
-  return (
+export const Tooltip = ({ content, open = true, children }: PropsWithChildren<TooltipProps>) => {
+  return open ? (
     <div className="relative">
       {children}
       <div className="absolute bottom-[calc(100%+3px)] left-1/2 -translate-x-1/2">
@@ -27,5 +28,7 @@ export const Tooltip = ({ content, children }: PropsWithChildren<TooltipProps>) 
         </div>
       </div>
     </div>
+  ) : (
+    children
   );
 };
