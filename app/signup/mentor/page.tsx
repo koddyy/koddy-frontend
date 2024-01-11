@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSignupAsMentor } from "@/apis/user/hooks/useSignupAsMentor";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { Progress } from "@/components/Progress";
 import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
 import { MainLanguageSelect } from "../components/MainLanguageSelect";
@@ -13,6 +14,8 @@ import { SubLanguageSelect } from "../components/SubLanguageSelect";
 import { TermsOfService } from "../components/TermsOfService";
 import { SignupForm as ISignupForm } from "../types/mentorForm";
 import { SignupForm } from "./components/SignupForm";
+
+const TOTAL_STEPS = 3;
 
 const Page = () => {
   const router = useRouter();
@@ -49,6 +52,11 @@ const Page = () => {
     <>
       <NavigationBar onClickGoback={handleClickGoback} />
       <div className="px-5 pt-6">
+        {2 <= currentStep && currentStep <= 4 && (
+          <div className="mb-[23px] mt-[17px]">
+            <Progress percent={((currentStep - 1) / TOTAL_STEPS) * 100} />
+          </div>
+        )}
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmitForm)}>
             {currentStep === 1 && <TermsOfService onClickNextStep={handleClickNextStep} />}
