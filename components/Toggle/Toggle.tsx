@@ -32,7 +32,7 @@ export const Toggle = ({
     <button
       type="button"
       className={cn(
-        "text-body-2 rounded-[10px] border border-gray-300 px-[13px] py-[11px]",
+        "body-2 rounded-[10px] border border-gray-300 px-[13px] py-[11px]",
         pressed && ToggleVariants({ variant }),
         className
       )}
