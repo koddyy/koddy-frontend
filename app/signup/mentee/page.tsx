@@ -2,18 +2,22 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useSignupAsMentee } from "@/apis/user/hooks/useSignupAsMentee";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { SignupForm as ISignupForm } from "@/app/signup/types/menteeForm";
 import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
+import { MainLanguageSelect } from "../components/MainLanguageSelect";
 import { SignupSuccess } from "../components/SignupSuccess";
+import { SubLanguageSelect } from "../components/SubLanguageSelect";
 import { TermsOfService } from "../components/TermsOfService";
 import { SignupForm } from "./components/SignupForm";
 
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
+  const methods = useForm<ISignupForm>();
   const { user } = useUserStore();
   const { setLoggedIn } = useProviderStore();
   const { mutate: signup } = useSignupAsMentee();
@@ -27,7 +31,7 @@ const Page = () => {
     setCurrentStep((prev) => prev + 1);
   };
 
-  const handleSubmitForm = (data: ISignupForm) => {
+  const onSubmitForm = (data: ISignupForm) => {
     if (!user) return;
 
     signup(
@@ -45,9 +49,15 @@ const Page = () => {
     <div>
       <NavigationBar onClickGoback={handleClickGoback} />
       <div className="px-5 pt-6">
-        {currentStep === 1 && <TermsOfService onClickNextStep={handleClickNextStep} />}
-        {currentStep === 2 && <SignupForm onSubmitForm={handleSubmitForm} />}
-        {currentStep === 3 && <SignupSuccess />}
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmitForm)}>
+            {currentStep === 1 && <TermsOfService onClickNextStep={handleClickNextStep} />}
+            {currentStep === 2 && <SignupForm onClickNextStep={handleClickNextStep} />}
+            {currentStep === 3 && <MainLanguageSelect onClickNextStep={handleClickNextStep} />}
+            {currentStep === 4 && <SubLanguageSelect />}
+            {currentStep === 5 && <SignupSuccess />}
+          </form>
+        </FormProvider>
       </div>
     </div>
   );
