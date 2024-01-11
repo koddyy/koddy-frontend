@@ -33,7 +33,7 @@ const Page = ({
 
   return (
     <>
-      <Carousel>
+      <Carousel autoSwitch autoSwitchInterval={1100}>
         {ONBOARDING.map(({ imageUrl, description }, i) => (
           <div key={i} className="flex flex-col items-center gap-[24px] pb-[40px] pt-[34px]">
             <img src={imageUrl} />
