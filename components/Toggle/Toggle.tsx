@@ -1,7 +1,21 @@
+import { cva, VariantProps } from "cva";
 import { PropsWithChildren } from "react";
 import { cn } from "@/utils/cn";
 
-export interface ToggleProps {
+export const ToggleVariants = cva("border-primary", {
+  variants: {
+    variant: {
+      solid: "bg-primary font-bold text-white",
+      surface: "bg-[#DCFEEB]",
+      outline: "",
+    },
+  },
+  defaultVariants: {
+    variant: "solid",
+  },
+});
+
+export interface ToggleProps extends VariantProps<typeof ToggleVariants> {
   className?: string;
   pressed?: boolean;
   onChangePressed?: () => void;
@@ -9,6 +23,7 @@ export interface ToggleProps {
 
 export const Toggle = ({
   className,
+  variant = "solid",
   pressed,
   onChangePressed,
   children,
@@ -17,8 +32,8 @@ export const Toggle = ({
     <button
       type="button"
       className={cn(
-        "rounded-[0.625rem] border border-gray-300 px-[0.8125rem] py-[0.6875rem]",
-        pressed && "border-primary bg-primary text-white",
+        "text-body-2 rounded-[10px] border border-gray-300 px-[13px] py-[11px]",
+        pressed && ToggleVariants({ variant }),
         className
       )}
       onClick={onChangePressed}
