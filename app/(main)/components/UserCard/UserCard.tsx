@@ -1,5 +1,5 @@
 import { Tag } from "@/components/Tag";
-import { languageTypeText } from "@/constants/language";
+import { languageCodeText } from "@/constants/language";
 import type { Mentee, Mentor } from "@/types/user";
 import { cn } from "@/utils/cn";
 
@@ -93,7 +93,7 @@ const VerticalUserCard = ({
           <Tag variant="primary-dark">{nationality}</Tag>
           <div className="flex flex-wrap justify-end gap-2">
             {languages.map(({ languageId }) => (
-              <Tag key={languageId}>{languageTypeText[languageId]}</Tag>
+              <Tag key={languageId}>{languageCodeText[languageId]}</Tag>
             ))}
           </div>
         </div>

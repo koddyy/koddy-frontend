@@ -1,5 +1,5 @@
 import { AvailableTimeRange } from "@/types/coffeechat";
-import { LanguageType, WeekType } from "@/types/user";
+import { LanguageCode, LanguageType, WeekType } from "@/types/user";
 
 /**
  * =========================
@@ -38,7 +38,7 @@ type SignupForm = {
   school: string;
   enteredIn: number;
   major: string;
-  languages: LanguageType[];
+  languages: Array<{ category: LanguageCode; type: LanguageType }>;
 };
 
 export type { FirstStepForm, FourthStepForm, SecondStepForm, SignupForm, ThirdStepForm };

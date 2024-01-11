@@ -5,13 +5,13 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
-import { languageTypeText } from "@/constants/language";
-import { LanguageType } from "@/types/user";
+import { languageCodeText } from "@/constants/language";
+import { LanguageCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 import type { SignupForm as ISignupForm } from "../../types/menteeForm";
 
 const nationalityOptions = ["한국", "미국", "일본", "중국", "베트남", "Others"];
-const languagesOptions = Object.entries(languageTypeText) as Array<[LanguageType, string]>;
+const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
 
 interface SignupFormProps {
   onSubmitForm: (data: ISignupForm) => void;
