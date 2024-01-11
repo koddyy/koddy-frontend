@@ -4,20 +4,20 @@ import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
-import type { SignupForm as ISignupForm } from "../../types/mentorForm";
+import type { SignupForm } from "../../types/mentorForm";
 
 const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
 
-interface SignupFormProps {
+interface BasicInformationFormProps {
   onClickNextStep: () => void;
 }
 
-export const SignupForm = ({ onClickNextStep }: SignupFormProps) => {
+export const BasicInformationForm = ({ onClickNextStep }: BasicInformationFormProps) => {
   const {
     register,
     control,
     formState: { isValid },
-  } = useFormContext<Omit<ISignupForm, "languages">>();
+  } = useFormContext<Omit<SignupForm, "languages">>();
 
   /* enteredIn controller */
   const { field: enteredInField } = useController({

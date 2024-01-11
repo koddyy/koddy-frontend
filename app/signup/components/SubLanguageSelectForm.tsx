@@ -9,7 +9,7 @@ import { SignupForm } from "../types/mentorForm";
 
 const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
 
-export const SubLanguageSelect = () => {
+export const SubLanguageSelectForm = () => {
   const {
     control,
     formState: { isValid },

@@ -8,11 +8,11 @@ import type { SignupForm } from "../types/mentorForm";
 
 const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
 
-interface MainLanguageSelectProps {
+interface MainLanguageSelectFormProps {
   onClickNextStep: () => void;
 }
 
-export const MainLanguageSelect = ({ onClickNextStep }: MainLanguageSelectProps) => {
+export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFormProps) => {
   const {
     control,
     formState: { isValid },

@@ -9,11 +9,11 @@ import { SignupForm as ISignupForm } from "@/app/signup/types/menteeForm";
 import { Progress } from "@/components/Progress";
 import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
-import { MainLanguageSelect } from "../components/MainLanguageSelect";
+import { MainLanguageSelectForm } from "../components/MainLanguageSelectForm";
 import { SignupSuccess } from "../components/SignupSuccess";
-import { SubLanguageSelect } from "../components/SubLanguageSelect";
+import { SubLanguageSelectForm } from "../components/SubLanguageSelectForm";
 import { TermsOfService } from "../components/TermsOfService";
-import { SignupForm } from "./components/SignupForm";
+import { BasicInformationForm } from "./components/BasicInformationForm";
 
 const TOTAL_STEPS = 3;
 
@@ -57,15 +57,15 @@ const Page = () => {
             <Progress percent={((currentStep - 1) / TOTAL_STEPS) * 100} />
           </div>
         )}
+        {currentStep === 1 && <TermsOfService onClickNextStep={handleClickNextStep} />}
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmitForm)}>
-            {currentStep === 1 && <TermsOfService onClickNextStep={handleClickNextStep} />}
-            {currentStep === 2 && <SignupForm onClickNextStep={handleClickNextStep} />}
-            {currentStep === 3 && <MainLanguageSelect onClickNextStep={handleClickNextStep} />}
-            {currentStep === 4 && <SubLanguageSelect />}
-            {currentStep === 5 && <SignupSuccess />}
+            {currentStep === 2 && <BasicInformationForm onClickNextStep={handleClickNextStep} />}
+            {currentStep === 3 && <MainLanguageSelectForm onClickNextStep={handleClickNextStep} />}
+            {currentStep === 4 && <SubLanguageSelectForm />}
           </form>
         </FormProvider>
+        {currentStep === 5 && <SignupSuccess />}
       </div>
     </div>
   );

@@ -8,11 +8,11 @@ import type { SignupForm as ISignupForm } from "../../types/menteeForm";
 
 const nationalityOptions = ["한국", "미국", "일본", "중국", "베트남", "Others"];
 
-interface SignupFormProps {
+interface BasicInformationProps {
   onClickNextStep: () => void;
 }
 
-export const SignupForm = ({ onClickNextStep }: SignupFormProps) => {
+export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps) => {
   const {
     register,
     control,
