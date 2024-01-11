@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useSignupAsMentee } from "@/apis/user/hooks/useSignupAsMentee";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { SignupForm as ISignupForm } from "@/app/signup/types/menteeForm";
+import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
 import { SignupSuccess } from "../components/SignupSuccess";
 import { TermsOfService } from "../components/TermsOfService";
@@ -14,6 +15,7 @@ const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const { user } = useUserStore();
+  const { setLoggedIn } = useProviderStore();
   const { mutate: signup } = useSignupAsMentee();
 
   const handleClickGoback = () => {
@@ -33,6 +35,7 @@ const Page = () => {
       {
         onSuccess: () => {
           handleClickNextStep();
+          setLoggedIn(true);
         },
       }
     );
