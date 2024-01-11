@@ -10,7 +10,6 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { TextArea } from "@/components/TextArea";
 import { Toggle } from "@/components/Toggle";
 import type { AvailableTimes } from "@/types/user";
-import { cn } from "@/utils/cn";
 
 interface FirstStepProps {
   availableTimes: AvailableTimes;
@@ -68,7 +67,7 @@ const FirstStep = ({ availableTimes, onClickNextStep }: FirstStepProps) => {
                 return (
                   <Toggle
                     key={i}
-                    className={cn(field.value === value && "bg-[#DCFEEB] text-gray-600")}
+                    variant="surface"
                     pressed={field.value === value}
                     onChangePressed={() => field.onChange(value)}
                   >

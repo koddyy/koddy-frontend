@@ -1,6 +1,6 @@
-import { LanguageType } from "@/types/user";
+import { LanguageCode } from "@/types/user";
 
-export const languageTypeText: Record<LanguageType, string> = {
+export const languageCodeText: Record<LanguageCode, string> = {
   KR: "한국어",
   EN: "영어",
   CH: "중국어",

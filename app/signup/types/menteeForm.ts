@@ -1,5 +1,5 @@
 import * as mentorForm from "@/app/signup/types/mentorForm";
-import { LanguageType } from "@/types/user";
+import { LanguageCode, LanguageType } from "@/types/user";
 
 /**
  * =========================
@@ -21,7 +21,7 @@ interface SignupForm {
   interestSchool: string;
   interestMajor: string;
   nationality: string;
-  languages: LanguageType[];
+  languages: Array<{ category: LanguageCode; type: LanguageType }>;
 }
 
 export type { FirstStepForm, SecondStepForm, SignupForm, ThirdStepForm };
