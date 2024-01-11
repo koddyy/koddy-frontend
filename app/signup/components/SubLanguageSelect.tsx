@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -39,6 +40,10 @@ export const SubLanguageSelect = () => {
     }
   };
 
+  const mainLanguage = useMemo(() => {
+    return languageField.value.find(({ type }) => type === "메인 언어");
+  }, []);
+
   const subLanguages = new Set(
     languageField.value.filter(({ type }) => type === "서브 언어").map(({ category }) => category)
   );
@@ -55,6 +60,7 @@ export const SubLanguageSelect = () => {
               variant="outline"
               pressed={subLanguages.has(key)}
               onChangePressed={() => handleChangeSubLanguages(key)}
+              disabled={mainLanguage && key === mainLanguage.category}
             >
               {value}
             </Toggle>
