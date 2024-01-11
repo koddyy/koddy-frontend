@@ -33,19 +33,17 @@ const Page = ({
 
   return (
     <>
-      <div className="px-5">
-        <Carousel>
-          {ONBOARDING.map(({ imageUrl, description }, i) => (
-            <div key={i} className="flex flex-col items-center gap-[24px] pb-[40px] pt-[34px]">
-              <img src={imageUrl} />
-              <div className="headline-1">{description}</div>
-            </div>
-          ))}
-        </Carousel>
-        <div className="mt-[80px] flex w-full flex-col gap-2">
-          <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
-          <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
-        </div>
+      <Carousel>
+        {ONBOARDING.map(({ imageUrl, description }, i) => (
+          <div key={i} className="flex flex-col items-center gap-[24px] pb-[40px] pt-[34px]">
+            <img src={imageUrl} />
+            <div className="headline-1">{description}</div>
+          </div>
+        ))}
+      </Carousel>
+      <div className="mt-[80px] flex w-full flex-col gap-2 px-5">
+        <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
+        <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
       </div>
       {isRedirected && (
         <Login provider={provider} authorizationCode={authorizationCode} state={state} />
