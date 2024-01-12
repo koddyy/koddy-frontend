@@ -7,6 +7,19 @@
     font-family: Pretendard;
     color: theme(colors[gray].700);
   }
+
+  /* accent color */
+  [data-accent-color="primary"] {
+    --accent: theme(colors.primary.DEFAULT);
+    --accent-dark: theme(colors.primary.dark);
+    --accent-light: theme(colors.primary.light);
+  }
+
+  [data-accent-color="grayscale"] {
+    --accent: theme(colors.gray.500);
+    --accent-dark: theme(colors.gray.600);
+    --accent-light: theme(colors.gray.400);
+  }
 }
 
 @layer components {
