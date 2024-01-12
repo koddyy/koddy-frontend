@@ -41,6 +41,9 @@ module.exports = {
         700: "#212121",
       },
       transparent: "transparent",
+      accent: "var(--accent)",
+      "accent-dark": "var(--accent-dark)",
+      "accent-light": "var(--accent-light)",
     },
     backgroundImage: {
       "dimmed-gradient":

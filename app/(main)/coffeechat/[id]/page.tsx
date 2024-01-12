@@ -109,7 +109,8 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           {isCancelable && (
             <Button
               variant="outline"
-              className="border-[0.5px] border-gray-500 text-gray-500"
+              color="grayscale"
+              className="border-[0.5px]"
               onClick={openCancelBottomSheet}
             >
               커피챗 취소하기
@@ -226,7 +227,8 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
           {isCancelable && (
             <Button
               variant="outline"
-              className="border-[0.5px] border-gray-500 text-gray-500"
+              color="grayscale"
+              className="border-[0.5px]"
               onClick={openPendingBottomSheet}
             >
               커피챗 취소하기
