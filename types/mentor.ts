@@ -10,6 +10,7 @@ export type TimeRange = {
 };
 
 export interface Mentor extends User {
+  id: number;
   introduction?: string;
   languages: LanguageType[];
   school: string;
@@ -20,4 +21,6 @@ export interface Mentor extends User {
     start: Time;
     end: Time;
   }>;
+  profileComplete: boolean;
+  role: "mentor";
 }
