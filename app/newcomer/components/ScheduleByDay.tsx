@@ -57,7 +57,7 @@ export const ScheduleByDay = () => {
           onChangeDays={changeDays}
           onChangeTimeRange={changeTimeRange}
         />
-        <Button variant="outline" onClick={addSchedules}>
+        <Button variant="outline" className="h-[46px] border" onClick={addSchedules}>
           추가
         </Button>
       </div>

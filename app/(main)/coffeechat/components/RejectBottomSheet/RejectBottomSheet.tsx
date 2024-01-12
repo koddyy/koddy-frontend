@@ -44,8 +44,9 @@ export const RejectBottomSheet = ({
             <Button
               key={i}
               variant="outline"
+              size="sm"
               className={cn(
-                "body-2 rounded-[0.625rem] border border-gray-400 px-3 py-[0.66rem] text-start text-gray-700",
+                "border border-gray-400 text-start text-gray-700",
                 isSelected && "body-2-bold border-primary"
               )}
               onClick={() => {
