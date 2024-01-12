@@ -35,7 +35,7 @@ const Page = () => {
     setCurrentStep((prev) => prev + 1);
   };
 
-  const TOTAL_STEPS = user.mentorYn === "Y" ? 3 : 1;
+  const TOTAL_STEPS = user.role === "mentor" ? 3 : 1;
 
   return (
     <>
@@ -52,14 +52,14 @@ const Page = () => {
           <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
         </div>
         <FormProvider {...methods}>
-          {user.mentorYn === "Y" && (
+          {user.role === "mentor" && (
             <>
               {currentStep === 1 && <IntroductionStep onClickNextStep={handleClickNextStep} />}
               {currentStep === 2 && <PeriodStep onClickNextStep={handleClickNextStep} />}
               {currentStep === 3 && <ScheduleStep />}
             </>
           )}
-          {user.mentorYn === "N" && (
+          {user.role === "mentee" && (
             <>{currentStep === 1 && <IntroductionStep onClickNextStep={handleClickNextStep} />}</>
           )}
         </FormProvider>

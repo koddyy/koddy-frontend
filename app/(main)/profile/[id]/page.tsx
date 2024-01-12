@@ -11,12 +11,13 @@ import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button, LinkButton } from "@/components/Button";
 
 const Page = ({ params }: { params: { id: string } }) => {
+  const userId = Number(params.id);
   const router = useRouter();
   const { data: me } = useGetMe();
 
   if (!me) return null;
 
-  const isMentor = me.mentorYn === "Y";
+  if (isNaN(userId)) return null;
 
   return (
     <>
@@ -25,11 +26,9 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {isMentor ? (
-        <MenteeProfile menteeId={params.id} mentorId={me.userId} />
-      ) : (
-        <MentorProfile mentorId={params.id} />
-      )}
+      {/** @TODO 임시로 기존 id 타입(string)을 따르기 위한 타입 캐스팅 */}
+      {me.role === "mentor" && <MenteeProfile menteeId={String(userId)} mentorId={String(me.id)} />}
+      {me.role === "mentee" && <MentorProfile mentorId={String(userId)} />}
     </>
   );
 };
@@ -47,7 +46,7 @@ const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
     closePendingBottomSheet,
     requestCoffeeChat,
   } = useRequestCoffeeChat();
-  const { data: user, isLoading } = useGetUserById(menteeId);
+  const { data: user, isLoading } = useGetUserById(String(menteeId));
 
   if (isLoading) return null;
 

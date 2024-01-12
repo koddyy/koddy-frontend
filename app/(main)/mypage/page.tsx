@@ -11,11 +11,11 @@ const Page = () => {
 
   if (!me) return;
 
-  const isMentor = me.mentorYn === "Y";
+  const isMentor = me.role === "mentor";
 
   const description = isMentor
-    ? `${me.school} ${me.major} ${me.grade}학년`
-    : `관심 : ${me.school}, ${me.major}`;
+    ? `${me.school} ${me.major} ${me.enteredIn}학번`
+    : `관심 : ${me.interestSchool}, ${me.interestMajor}`;
 
   return (
     <>
@@ -26,7 +26,7 @@ const Page = () => {
             "h-[6.75rem] w-[6.75rem] rounded-xl object-cover",
             "border border-gray-300 bg-gray-100 object-contain p-[0.3rem]"
           )}
-          src={me.mentorYn === "Y" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg"}
+          src={isMentor ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg"}
         />
         <div className="flex flex-col items-center gap-1">
           <span className="headline-2">{me.name}</span>

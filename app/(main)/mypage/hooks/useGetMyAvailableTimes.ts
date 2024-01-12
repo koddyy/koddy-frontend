@@ -1,10 +1,4 @@
-import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { convertAvailableTimes } from "@/utils/availableTimes";
-
+/** @TODO 마이페이지 화면 변경 이후 수정 예정 */
 export const useGetMyAvailableTimes = () => {
-  const { data: me } = useGetMe();
-
-  if (!me || me.mentorYn === "N") return { startTime: "", endTime: "", weeks: [] };
-
-  return convertAvailableTimes(me.availableTimes);
+  return { startTime: "", endTime: "", weeks: [] };
 };

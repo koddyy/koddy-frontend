@@ -3,7 +3,9 @@ import type { ResponseType } from "@/apis/types";
 import { PostAvailableTimesRequest } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
-import type { Mentee, Mentor, User } from "@/types/user";
+import type { Mentee } from "@/types/mentee";
+import type { Mentor } from "@/types/mentor";
+import type { Mentee as DeprecatedMentee, Mentor as DeprecatedMentor, User } from "@/types/user";
 
 class UserApi {
   signupAsMentor = (signupForm: MentorSignupForm & User) => {
@@ -15,22 +17,24 @@ class UserApi {
   };
 
   getMe = async () => {
-    const response = await apiInstance.get<ResponseType<Mentor | Mentee>>("/api/users/me");
+    const response = await apiInstance.get<Mentor | Mentee>("/api/members/me");
     return response.data;
   };
 
   getUserById = async (id: string) => {
-    const response = await apiInstance.get<ResponseType<Mentor | Mentee>>(`/api/users/${id}`);
+    const response = await apiInstance.get<ResponseType<DeprecatedMentor | DeprecatedMentee>>(
+      `/api/users/${id}`
+    );
     return response.data;
   };
 
   getMentorList = async () => {
-    const response = await apiInstance.get<ResponseType<Mentor[]>>("/api/users/mentor");
+    const response = await apiInstance.get<ResponseType<DeprecatedMentor[]>>("/api/users/mentor");
     return response.data;
   };
 
   getMenteeList = async () => {
-    const response = await apiInstance.get<ResponseType<Mentee[]>>("/api/users/mentee");
+    const response = await apiInstance.get<ResponseType<DeprecatedMentee[]>>("/api/users/mentee");
     return response.data;
   };
 
