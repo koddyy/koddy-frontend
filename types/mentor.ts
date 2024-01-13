@@ -4,9 +4,9 @@ export type Day = "월" | "화" | "수" | "목" | "금" | "토" | "일";
 
 export type Time = { hour: number; minute: number };
 
-export type TimeRange = {
-  start: Time;
-  end: Time;
+export type Period = {
+  startDate?: string;
+  endDate?: string;
 };
 
 export interface Mentor extends User {
@@ -16,11 +16,13 @@ export interface Mentor extends User {
   school: string;
   major: string;
   enteredIn: number;
-  schedules?: Array<{
-    day: Day;
-    start: Time;
-    end: Time;
-  }>;
+  schedules?: Array<
+    {
+      dayOfWeek?: Day;
+      startTime?: Time;
+      endTime?: Time;
+    } & Period
+  >;
   profileComplete: boolean;
   role: "mentor";
 }
