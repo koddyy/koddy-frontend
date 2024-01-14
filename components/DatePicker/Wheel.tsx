@@ -3,7 +3,7 @@ import "./Wheel.css";
 import { TrackDetails, useKeenSlider } from "keen-slider/react";
 import { useEffect, useRef, useState } from "react";
 
-const wheelSize = 20;
+const wheelSize = 15;
 const slideDgree = 360 / wheelSize;
 
 interface WheelProps<T> {
@@ -80,7 +80,7 @@ export const Wheel = <T extends string | number>({
       <div className="wheel__inner">
         <div className="wheel__slides">
           {getSlideStyles().map((style, idx) => (
-            <div className="wheel__slide subheading" style={style} key={idx}>
+            <div className="wheel__slide" style={style} key={idx}>
               <span>{items[idx]}</span>
             </div>
           ))}

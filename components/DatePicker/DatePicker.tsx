@@ -39,8 +39,8 @@ export const DatePicker = ({ defaultDate = new Date(), onChangeDate }: DatePicke
   };
 
   return (
-    <div className="absolute inset-x-0 bottom-0 z-overlay rounded-t-xl bg-white py-5">
-      <div className="flex h-60 w-full">
+    <div className="absolute inset-x-0 bottom-0 z-overlay rounded-t-xl bg-white py-5 text-2xl">
+      <div className="flex h-60 w-full px-5">
         <Wheel //
           items={YEAR}
           onChangeItemIndex={(index) => handleChangeItem("year", YEAR[index])}
@@ -54,7 +54,9 @@ export const DatePicker = ({ defaultDate = new Date(), onChangeDate }: DatePicke
           onChangeItemIndex={(index) => handleChangeItem("day", DAY[index])}
         />
       </div>
-      <Button onClick={handleChangeDate}>선택</Button>
+      <div className="px-5 pb-4 pt-6">
+        <Button onClick={handleChangeDate}>선택</Button>
+      </div>
     </div>
   );
 };

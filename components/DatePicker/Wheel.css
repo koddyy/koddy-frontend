@@ -9,7 +9,7 @@
   justify-content: center;
   perspective: 1000px;
   transform-style: preserve-3d;
-  height: 16%;
+  height: 50px;
   width: 100%;
 }
 
@@ -30,6 +30,14 @@
   height: 42%;
   width: 100%;
   z-index: 5;
+}
+
+.wheel__shadow-top {
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.wheel__shadow-bottom {
+  border-top: 1px solid #d9d9d9;
 }
 
 .wheel__shadow-bottom {
