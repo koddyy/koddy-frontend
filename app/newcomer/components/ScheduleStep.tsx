@@ -1,8 +1,11 @@
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useUpdateMentorProfile } from "@/apis/user/hooks/useUpdateMentorProfile";
 import { BottomButton } from "@/app/components/BottomButton";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
-import { ProfileForm } from "../stores";
+import { toTime } from "@/utils/time";
+import { ProfileForm, useProfileFormStore } from "../stores";
 import { ScheduleByDay } from "./ScheduleByDay";
 import { ScheduleByWeek } from "./ScheduleByWeek";
 
@@ -14,16 +17,46 @@ const ScheduleByOption: Record<ScheduleByOptionType, string> = {
 } as const;
 
 export const ScheduleStep = () => {
+  const router = useRouter();
   const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>("REPEAT");
+
+  const { introduction, period } = useProfileFormStore();
 
   const schedulesByWeekMethods = useForm<Pick<ProfileForm, "schedulesByWeek">>();
   const schedulesByDayMethods = useForm<Pick<ProfileForm, "schedulesByDay">>();
+
+  const { mutate: updateMentorProfile } = useUpdateMentorProfile();
 
   const handleClickComplete = ({
     schedulesByWeek,
     schedulesByDay,
   }: Pick<ProfileForm, "schedulesByWeek" | "schedulesByDay">) => {
-    console.log(schedulesByWeek, schedulesByDay);
+    const schedules = (() => {
+      if (scheduleBy === "REPEAT" && schedulesByWeek) {
+        return [...schedulesByWeek.dayOfWeek].map((dayOfWeek) => ({
+          ...period,
+          dayOfWeek,
+          startTime: toTime(schedulesByWeek.startTime),
+          endTime: toTime(schedulesByWeek.endTime),
+        }));
+      } else if (scheduleBy === "NOT_REPEAT" && schedulesByDay) {
+        return schedulesByDay.map((schedule) => ({
+          ...period,
+          dayOfWeek: schedule.dayOfWeek,
+          startTime: toTime(schedule.startTime),
+          endTime: toTime(schedule.endTime),
+        }));
+      }
+    })();
+
+    updateMentorProfile(
+      { introduction, schedules },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+      }
+    );
   };
 
   return (
