@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { getDaysInMonth, toYYYYMMDD } from "@/utils/dateUtils";
 import { range } from "@/utils/number";
 import { Button } from "../Button";
@@ -83,23 +83,29 @@ export const DatePicker = ({
     selectedDate.month,
   ]);
 
+  const initalIndex = useRef({
+    year: selectedDate.year - min.year,
+    month: selectedDate.month - 1,
+    day: selectedDate.day - 1,
+  });
+
   return (
     <div className="absolute inset-x-0 bottom-0 z-overlay rounded-t-xl bg-white py-5 text-2xl">
       <div className="flex h-60 w-full px-5">
         <Wheel //
           items={YEAR}
           onChangeItemIndex={(index) => handleChangeItem("year", YEAR[index])}
-          initialIndex={selectedDate.year - min.year}
+          initialIndex={initalIndex.current.year}
         />
         <Wheel
           items={MONTH}
           onChangeItemIndex={(index) => handleChangeItem("month", MONTH[index])}
-          initialIndex={selectedDate.month - 1}
+          initialIndex={initalIndex.current.month}
         />
         <Wheel //
           items={DAY}
           onChangeItemIndex={(index) => handleChangeItem("day", DAY[index])}
-          initialIndex={selectedDate.day - 1}
+          initialIndex={initalIndex.current.day}
         />
       </div>
       <div className="px-5 pb-4 pt-6">
