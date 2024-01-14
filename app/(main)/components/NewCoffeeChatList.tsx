@@ -14,7 +14,7 @@ export const NewCoffeeChatList = () => {
       <>
         <div className="subheading-bold mb-3">
           {me.role === "mentor" && "예약을 신청한 멘티가 있어요"}
-          {me.role === "mentor" && "제안 온 커피챗"}
+          {me.role === "mentee" && "제안 온 커피챗"}
         </div>
         <div className="mb-4 flex flex-col gap-[0.81rem]">
           {newCoffeeChatList.map(({ applicationId, mentee, mentor }) => {

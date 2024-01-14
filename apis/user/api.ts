@@ -26,7 +26,7 @@ class UserApi {
   };
 
   patchMenteeProfile = (profile: Pick<Mentee, "introduction">) => {
-    return apiInstance.patch("/api/mentors/me/complete", profile);
+    return apiInstance.patch("/api/mentees/me/complete", profile);
   };
 
   getUserById = async (id: string) => {
