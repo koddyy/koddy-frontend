@@ -6,6 +6,7 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Progress } from "@/components/Progress";
 import { IntroductionStep } from "./components/IntroductionStep";
+import { IntroductionStepForMentee } from "./components/IntroductionStepForMentee";
 import { PeriodStep } from "./components/PeriodStep";
 import { ScheduleStep } from "./components/ScheduleStep";
 
@@ -48,7 +49,7 @@ const Page = () => {
             {currentStep === 3 && <ScheduleStep />}
           </>
         )}
-        {user.role === "mentee" && <IntroductionStep onClickNextStep={handleClickNextStep} />}
+        {user.role === "mentee" && <IntroductionStepForMentee />}
       </div>
     </>
   );
