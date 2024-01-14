@@ -13,17 +13,14 @@ const Home = () => {
 
   if (!me) return;
 
-  const isMentor = me.mentorYn === "Y";
-  const isMentee = me.mentorYn === "N";
-
   return (
     <>
       <Header />
       <div className="px-5 py-[0.87rem]">
         <Suspense fallback={<HomeSkeleton />}>
           <NewCoffeeChatList />
-          {isMentor && <BrowseMenteeList />}
-          {isMentee && <BrowseMentorList />}
+          {me.role === "mentor" && <BrowseMenteeList />}
+          {me.role === "mentee" && <BrowseMentorList />}
         </Suspense>
       </div>
     </>

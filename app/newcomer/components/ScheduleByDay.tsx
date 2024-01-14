@@ -1,26 +1,29 @@
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { BottomButton } from "@/app/components/BottomButton";
 import TrashBin from "@/assets/trash_bin.svg";
 import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
 import { TIMES } from "@/constants/date";
-import { Day, Mentor } from "@/types/mentor";
-import { toHHMM, toTime } from "@/utils/time";
+import { Day } from "@/types/mentor";
+import { ProfileForm } from "../stores";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
 export const ScheduleByDay = () => {
-  const { control } = useFormContext<Pick<Mentor, "schedules">>();
+  const { control } = useFormContext<Pick<ProfileForm, "schedulesByDay">>();
+
   const {
     fields: scheduleFields,
     append,
     remove,
     update,
-  } = useFieldArray<Pick<Mentor, "schedules">>({
+  } = useFieldArray({
     control,
-    name: "schedules",
+    name: "schedulesByDay",
+    rules: {
+      validate: (value) => value.length > 0,
+    },
   });
 
   const [days, setDays] = useState<Set<Day>>(new Set());
@@ -41,8 +44,8 @@ export const ScheduleByDay = () => {
 
   const addSchedules = () => {
     if (days.size === 0) return;
-    days.forEach((day) =>
-      append({ day, start: toTime(timeRange.start), end: toTime(timeRange.end) })
+    days.forEach((dayOfWeek) =>
+      append({ dayOfWeek, startTime: timeRange.start, endTime: timeRange.end })
     );
     setDays(new Set());
     setTimeRange({ start: "09:00", end: "17:00" });
@@ -65,18 +68,18 @@ export const ScheduleByDay = () => {
       <ul className="my-[20px] flex flex-col gap-[12px]">
         {scheduleFields.map((field, i) => (
           <li key={field.id} className="flex justify-between gap-[8px]">
-            <Toggle>{field.day}</Toggle>
+            <Toggle>{field.dayOfWeek}</Toggle>
             <div className="flex grow items-center gap-[10px]">
               <Select
                 options={TIMES}
-                value={toHHMM(field.start)}
-                onChangeValue={(value) => update(i, { ...field, start: toTime(value) })}
+                value={field.startTime ?? "09:00"}
+                onChangeValue={(value) => update(i, { ...field, startTime: value })}
               />
               <span>~</span>
               <Select
                 options={TIMES}
-                value={toHHMM(field.end)}
-                onChangeValue={(value) => update(i, { ...field, end: toTime(value) })}
+                value={field.endTime}
+                onChangeValue={(value) => update(i, { ...field, endTime: value })}
               />
             </div>
             <button onClick={() => remove(i)}>
@@ -85,7 +88,6 @@ export const ScheduleByDay = () => {
           </li>
         ))}
       </ul>
-      <BottomButton onClick={() => console.log(scheduleFields)}>다음</BottomButton>
     </>
   );
 };

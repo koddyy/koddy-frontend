@@ -23,9 +23,6 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   if (!me) return;
 
-  const isMentor = me.mentorYn === "Y";
-  const isMentee = me.mentorYn === "N";
-
   return (
     <>
       <NavigationBar
@@ -33,8 +30,8 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {isMentor && <CoffeeChatDetailForMentor id={params.id} />}
-      {isMentee && <CoffeeChatDetailForMentee id={params.id} />}
+      {me.role === "mentor" && <CoffeeChatDetailForMentor id={params.id} />}
+      {me.role === "mentee" && <CoffeeChatDetailForMentee id={params.id} />}
     </>
   );
 };

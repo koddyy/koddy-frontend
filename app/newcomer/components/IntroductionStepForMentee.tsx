@@ -1,25 +1,28 @@
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { useUpdateMenteeProfile } from "@/apis/user/hooks/useUpdateMenteeProfile";
 import { BottomButton } from "@/app/components/BottomButton";
 import { TextArea } from "@/components/TextArea";
-import { type ProfileForm, useProfileFormStore } from "../stores";
+import type { ProfileForm } from "../stores";
 
-interface IntroductionStepProps {
-  onClickNextStep: () => void;
-}
-
-export const IntroductionStep = ({ onClickNextStep }: IntroductionStepProps) => {
-  const { introduction, setProfileData } = useProfileFormStore();
+export const IntroductionStepForMentee = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<Pick<ProfileForm, "introduction">>({
-    defaultValues: { introduction: introduction || "" },
-  });
+  } = useForm<Pick<ProfileForm, "introduction">>();
+  const { mutate: updateMenteeProfile } = useUpdateMenteeProfile();
 
   const onSubmit = ({ introduction }: Pick<ProfileForm, "introduction">) => {
-    setProfileData({ introduction });
-    onClickNextStep();
+    updateMenteeProfile(
+      { introduction },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+      }
+    );
   };
 
   return (

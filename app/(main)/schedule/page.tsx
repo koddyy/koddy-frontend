@@ -30,7 +30,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
 
   if (!me || !user) return;
 
-  if (me.mentorYn === "Y" || user.mentorYn === "N") {
+  if (me.role === "mentor" || user.mentorYn === "N") {
     router.replace("/");
     return;
   }
@@ -46,7 +46,8 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   };
 
   const handleSubmitSchedule = (data: SecondStep) => {
-    reserveCoffeeChat({ ...formData, ...data }, { mentor, mentee: me.userId });
+    /** @TODO 임시로 기존 id 타입(string)을 따르기 위한 타입 캐스팅 */
+    reserveCoffeeChat({ ...formData, ...data }, { mentor, mentee: String(me.id) });
   };
 
   return (
