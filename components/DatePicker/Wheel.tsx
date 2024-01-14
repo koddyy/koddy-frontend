@@ -3,19 +3,21 @@ import "./Wheel.css";
 import { TrackDetails, useKeenSlider } from "keen-slider/react";
 import { useEffect, useRef, useState } from "react";
 
-const wheelSize = 20;
+const wheelSize = 15;
 const slideDgree = 360 / wheelSize;
 
 interface WheelProps<T> {
   items: T[];
   onChangeItemIndex?: (index: number) => void;
   loop?: boolean;
+  initialIndex?: number;
 }
 
 export const Wheel = <T extends string | number>({
   items,
   onChangeItemIndex,
   loop,
+  initialIndex = 0,
 }: WheelProps<T>) => {
   const size = useRef(0);
   const slidesPerView = loop ? 9 : 1;
@@ -27,6 +29,7 @@ export const Wheel = <T extends string | number>({
       origin: loop ? "center" : "auto",
       perView: slidesPerView,
     },
+    initial: initialIndex,
     vertical: true,
     loop,
     rubberband: !loop,
@@ -62,7 +65,7 @@ export const Wheel = <T extends string | number>({
     const offset = loop ? (1 - 1 / slidesPerView) / 2 : 0;
 
     const styles = [];
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < sliderState.length + 1; i++) {
       const distance = (sliderState.slides[i].distance - offset) * slidesPerView;
       const rotate = Math.abs(distance) > wheelSize / 2 ? 180 : distance * (360 / wheelSize) * -1;
       const style = {
@@ -80,7 +83,7 @@ export const Wheel = <T extends string | number>({
       <div className="wheel__inner">
         <div className="wheel__slides">
           {getSlideStyles().map((style, idx) => (
-            <div className="wheel__slide subheading" style={style} key={idx}>
+            <div className="wheel__slide" style={style} key={idx}>
               <span>{items[idx]}</span>
             </div>
           ))}
