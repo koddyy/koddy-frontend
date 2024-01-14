@@ -89,14 +89,17 @@ export const DatePicker = ({
         <Wheel //
           items={YEAR}
           onChangeItemIndex={(index) => handleChangeItem("year", YEAR[index])}
+          initialIndex={selectedDate.year - min.year}
         />
         <Wheel
           items={MONTH}
           onChangeItemIndex={(index) => handleChangeItem("month", MONTH[index])}
+          initialIndex={selectedDate.month - 1}
         />
         <Wheel //
           items={DAY}
           onChangeItemIndex={(index) => handleChangeItem("day", DAY[index])}
+          initialIndex={selectedDate.day - 1}
         />
       </div>
       <div className="px-5 pb-4 pt-6">
