@@ -3,6 +3,9 @@ import { DatePicker } from "./DatePicker";
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,
+  parameters: {
+    backgrounds: { default: "dark" },
+  },
 };
 
 export default meta;
