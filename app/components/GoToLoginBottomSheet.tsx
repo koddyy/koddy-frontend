@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import { BottomSheet, BottomSheetProps, ButtonArea } from "@/components/BottomSheet";
+import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
 import { LinkButton } from "@/components/Button";
 import { PATH } from "@/constants/path";
 
@@ -25,9 +25,9 @@ export const GoToLoginBottomSheet = ({ onClose }: GoToLoginBottomSheetProps) => 
             모든 기능을 이용해 보세요!
           </div>
         </div>
-        <ButtonArea>
+        <div className="flex py-[20px]">
           <LinkButton href={PATH.LOGIN}>로그인하러 가기</LinkButton>
-        </ButtonArea>
+        </div>
       </BottomSheet>
     </div>
   );
