@@ -1,6 +1,5 @@
 "use client";
 
-import { notFound } from "next/navigation";
 import { BottomNavigation } from "@/app/components/BottomNavigation";
 import { Header } from "@/app/components/Header";
 import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
