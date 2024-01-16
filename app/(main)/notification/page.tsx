@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { GoToLogin } from "@/app/components/GoToLogin";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Divider } from "@/components/Divider/Divider";
 import { CoffeeChatStatus, NotificationText } from "@/constants/notification";
+import { useAuth } from "@/hooks/useAuth";
 
 const MOCK_NOTIFICATIIONS: Array<{
   id: number;
@@ -26,26 +28,33 @@ const Page = ({
 }) => {
   const userType = searchParams.type ?? "mentor";
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
       <NavigationBar title="알림" onClickGoback={() => router.back()} />
-      {MOCK_NOTIFICATIIONS.map(({ id, name, status, reason }) => (
-        <>
-          <Link
-            href={`/coffeechat/${id}`}
-            key={id}
-            className="flex items-center justify-between px-5 py-4"
-          >
-            <div className="body-2">
-              <div>{name + NotificationText[userType][status]}</div>
-              {status === "canceled" && <div>(사유 : {reason})</div>}
-            </div>
-            <ArrowRight />
-          </Link>
-          <Divider />
-        </>
-      ))}
+      {isAuthenticated ? (
+        MOCK_NOTIFICATIIONS.map(({ id, name, status, reason }) => (
+          <>
+            <Link
+              href={`/coffeechat/${id}`}
+              key={id}
+              className="flex items-center justify-between px-5 py-4"
+            >
+              <div className="body-2">
+                <div>{name + NotificationText[userType][status]}</div>
+                {status === "canceled" && <div>(사유 : {reason})</div>}
+              </div>
+              <ArrowRight />
+            </Link>
+            <Divider />
+          </>
+        ))
+      ) : (
+        <div className="mt-[195px]">
+          <GoToLogin />
+        </div>
+      )}
     </>
   );
 };

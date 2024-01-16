@@ -9,15 +9,19 @@ import { cn } from "@/utils/cn";
 
 const NAVIGATION_LINK = [
   { segment: "", icon: Home, label: "홈" },
-  { segment: "coffeechat", icon: Reservation, label: "예약" },
+  { segment: "coffeechat", icon: Reservation, label: "내 일정" },
   { segment: "mypage", icon: My, label: "마이" },
 ];
 
-export const BottomNavigation = () => {
+interface BottomNavigationProps {
+  baseUrl?: string;
+}
+
+export const BottomNavigation = ({ baseUrl = "" }: BottomNavigationProps) => {
   const currentSegment = useSelectedLayoutSegment() ?? "";
 
   return (
-    <div className="fixed bottom-0 left-1/2 z-overlay flex h-[3.625rem] w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white text-gray-500">
+    <div className="fixed bottom-0 left-1/2 z-header flex h-[3.625rem] w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white text-gray-500">
       {NAVIGATION_LINK.map(({ segment, icon: Icon, label }, i) => {
         const isCurrentSegment = segment === currentSegment;
 
@@ -28,7 +32,7 @@ export const BottomNavigation = () => {
               "flex grow flex-col items-center gap-[0.13rem] pb-3 pt-2",
               isCurrentSegment ? "text-primary" : "text-gray-400"
             )}
-            href={`/${segment}`}
+            href={`/${baseUrl}/${segment}`}
           >
             <span>
               <Icon />

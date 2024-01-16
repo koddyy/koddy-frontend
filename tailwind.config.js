@@ -11,6 +11,7 @@ module.exports = {
         lowest: -1,
         dropdown: 1000,
         header: 1100,
+        dimmed: 1100,
         overlay: 1200,
         tooltip: 1300,
         highest: 9999,
