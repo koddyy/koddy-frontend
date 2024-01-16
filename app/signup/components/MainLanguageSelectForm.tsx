@@ -18,15 +18,13 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
     formState: { isValid },
   } = useFormContext<Pick<SignupForm, "languages">>();
 
-  const { field: languageField } = useController({
+  const { field: mainLanguage } = useController({
     control,
-    name: "languages",
+    name: "languages.main",
     rules: {
-      validate: (value) => value?.length > 0,
+      required: true,
     },
   });
-
-  const mainLanguage = languageField.value?.[0]?.category;
 
   return (
     <>
@@ -38,12 +36,12 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
               className="p-4 text-start"
               key={key}
               variant="outline"
-              pressed={key === mainLanguage}
+              pressed={key === mainLanguage.value}
               onChangePressed={() => {
-                if (key === mainLanguage) {
-                  languageField.onChange([]);
+                if (key === mainLanguage.value) {
+                  mainLanguage.onChange();
                 } else {
-                  languageField.onChange([{ type: "메인 언어", category: key }]);
+                  mainLanguage.onChange(key);
                 }
               }}
             >
