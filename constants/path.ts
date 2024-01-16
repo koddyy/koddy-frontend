@@ -11,6 +11,7 @@ export const PATH = {
   NOTIFICATION: "/notification",
   MYPAGE: "/mypage",
   MYPAGE_EDIT: "/mypage/edit",
+  EXPLORE: "/explore",
 };
 
 export const PUBLIC_PATH = [
@@ -22,6 +23,7 @@ export const PUBLIC_PATH = [
   PATH.PROFILE,
   PATH.NOTIFICATION,
   PATH.MYPAGE,
+  PATH.EXPLORE,
 ];
 
 export const PRIVATE_PATH = [

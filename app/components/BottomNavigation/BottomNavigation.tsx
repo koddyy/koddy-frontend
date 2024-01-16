@@ -13,7 +13,11 @@ const NAVIGATION_LINK = [
   { segment: "mypage", icon: My, label: "마이" },
 ];
 
-export const BottomNavigation = () => {
+interface BottomNavigationProps {
+  baseUrl?: string;
+}
+
+export const BottomNavigation = ({ baseUrl = "" }: BottomNavigationProps) => {
   const currentSegment = useSelectedLayoutSegment() ?? "";
 
   return (
@@ -28,7 +32,7 @@ export const BottomNavigation = () => {
               "flex grow flex-col items-center gap-[0.13rem] pb-3 pt-2",
               isCurrentSegment ? "text-primary" : "text-gray-400"
             )}
-            href={`/${segment}`}
+            href={`/${baseUrl}/${segment}`}
           >
             <span>
               <Icon />

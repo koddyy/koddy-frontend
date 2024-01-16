@@ -1,9 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
 import { Carousel } from "@/components/Carousel";
 import { LoginButton } from "@/components/LoginButton";
+import { PATH } from "@/constants/path";
 import { isValidProvider, type OauthProvider } from "@/types/oauth";
 import { Login } from "./Login";
 
@@ -41,9 +43,12 @@ const Page = ({
           </div>
         ))}
       </Carousel>
-      <div className="mt-[80px] flex w-full flex-col gap-2 px-5">
+      <div className="mt-[80px] flex w-full flex-col gap-2  px-5">
         <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
         <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
+        <Link className="body-1 mt-[32px] text-center text-gray-600" href={PATH.EXPLORE}>
+          로그인없이 둘러보기
+        </Link>
       </div>
       {isRedirected && (
         <Login provider={provider} authorizationCode={authorizationCode} state={state} />
