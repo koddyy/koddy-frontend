@@ -1,21 +1,23 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { UserCard } from "@/app/(main)/components/UserCard";
 import { useRequestCoffeeChat } from "@/app/(main)/profile/hooks/useRequestCoffeeChat";
+import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button, LinkButton } from "@/components/Button";
+import { useAuth } from "@/hooks/useAuth";
+import { useToggle } from "@/hooks/useToggle";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const userId = Number(params.id);
   const router = useRouter();
-  const { data: me } = useGetMe();
+  const { data: user } = useGetUserById(String(userId));
 
-  if (!me) return null;
+  if (!user) return null;
 
   if (isNaN(userId)) return null;
 
@@ -27,18 +29,17 @@ const Page = ({ params }: { params: { id: string } }) => {
         backButtonColor="white"
       />
       {/** @TODO 임시로 기존 id 타입(string)을 따르기 위한 타입 캐스팅 */}
-      {me.role === "mentor" && <MenteeProfile menteeId={String(userId)} mentorId={String(me.id)} />}
-      {me.role === "mentee" && <MentorProfile mentorId={String(userId)} />}
+      {user.mentorYn === "Y" && <MentorProfile userId={String(userId)} />}
+      {user.mentorYn === "N" && <MenteeProfile userId={String(userId)} />}
     </>
   );
 };
 
 interface ProfileProps {
-  mentorId: string;
-  menteeId: string;
+  userId: string;
 }
 
-const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
+const MenteeProfile = ({ userId }: ProfileProps) => {
   const {
     isPending,
     isRequested,
@@ -46,7 +47,8 @@ const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
     closePendingBottomSheet,
     requestCoffeeChat,
   } = useRequestCoffeeChat();
-  const { data: user, isLoading } = useGetUserById(String(menteeId));
+  const { data: user, isLoading } = useGetUserById(String(userId));
+  const { isAuthenticated, me } = useAuth();
 
   if (isLoading) return null;
 
@@ -64,14 +66,18 @@ const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
         <Button onClick={openPendingBottomSheet}>커피챗 제안하기</Button>
       </div>
-      {isPending && (
-        <PendingBottomSheet
-          resultType="positive"
-          description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
-          onClickNo={closePendingBottomSheet}
-          onClickYes={() => requestCoffeeChat({ mentor: mentorId, mentee: menteeId })}
-        />
-      )}
+      {isPending &&
+        (isAuthenticated ? (
+          <PendingBottomSheet
+            resultType="positive"
+            description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
+            onClickNo={closePendingBottomSheet}
+            onClickYes={() => requestCoffeeChat({ mentor: String(me!.id), mentee: userId })}
+          />
+        ) : (
+          <GoToLoginBottomSheet onClose={closePendingBottomSheet} />
+        ))}
+
       {isRequested && (
         <ResultBottomSheet
           resultType="positive"
@@ -83,8 +89,10 @@ const MenteeProfile = ({ menteeId, mentorId }: ProfileProps) => {
   );
 };
 
-const MentorProfile = ({ mentorId }: Omit<ProfileProps, "menteeId">) => {
-  const { data: user, isLoading } = useGetUserById(mentorId);
+const MentorProfile = ({ userId }: ProfileProps) => {
+  const { data: user, isLoading } = useGetUserById(userId);
+  const { isAuthenticated } = useAuth();
+  const [isGoToLoginBottomSheet, toggleGoToLoginBottomSheet] = useToggle();
 
   if (isLoading) return null;
 
@@ -100,10 +108,19 @@ const MentorProfile = ({ mentorId }: Omit<ProfileProps, "menteeId">) => {
         </p>
       </div>
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-        <LinkButton className="inline-block" href={`/schedule?id=${mentorId}`}>
+        <LinkButton
+          href={`/schedule?id=${userId}`}
+          onClick={(e) => {
+            if (!isAuthenticated) {
+              e.preventDefault();
+              toggleGoToLoginBottomSheet();
+            }
+          }}
+        >
           커피챗 신청하기
         </LinkButton>
       </div>
+      {isGoToLoginBottomSheet && <GoToLoginBottomSheet onClose={toggleGoToLoginBottomSheet} />}
     </>
   );
 };
