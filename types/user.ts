@@ -1,8 +1,6 @@
 type Role = "mentor" | "mentee";
 
-type LanguageType = "메인 언어" | "서브 언어";
-
-type LanguageCode = "KR" | "EN" | "CH" | "JP" | "VN";
+type LanguageCode = "KR" | "EN" | "CN" | "JP" | "VN";
 
 interface User {
   name: string;
@@ -55,4 +53,4 @@ interface Mentee {
  *  =========================
  */
 
-export type { AvailableTimes, LanguageCode, LanguageType, Mentee, Mentor, Role, User, WeekType };
+export type { AvailableTimes, LanguageCode, Mentee, Mentor, Role, User, WeekType };

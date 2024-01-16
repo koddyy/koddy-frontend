@@ -1,5 +1,5 @@
 import * as mentorForm from "@/app/signup/types/mentorForm";
-import { LanguageCode, LanguageType } from "@/types/user";
+import { Mentee } from "@/types/mentee";
 
 /**
  * =========================
@@ -17,11 +17,6 @@ type ThirdStepForm = Omit<mentorForm.ThirdStepForm, "zoomLink">;
  *  =========================
  */
 
-interface SignupForm {
-  interestSchool: string;
-  interestMajor: string;
-  nationality: string;
-  languages: Array<{ category: LanguageCode; type: LanguageType }>;
-}
+type SignupForm = Pick<Mentee, "interestSchool" | "interestMajor" | "nationality" | "languages">;
 
 export type { FirstStepForm, SecondStepForm, SignupForm, ThirdStepForm };
