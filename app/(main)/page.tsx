@@ -6,6 +6,7 @@ import { BrowseMenteeList } from "@/app/(main)/components/BrowseMenteeList";
 import { BrowseMentorList } from "@/app/(main)/components/BrowseMentorList";
 import { NewCoffeeChatList } from "@/app/(main)/components/NewCoffeeChatList";
 import { Header } from "@/app/components/Header";
+import { ProfileCompleteBanner } from "./components/ProfileCompleteBanner";
 import { UserCardListSkeleton } from "./components/UserCardListSkeleton";
 
 const Home = () => {
@@ -16,7 +17,10 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div className="px-5 py-[0.87rem]">
+      <div className="px-5">
+        <div className="mb-[26px] mt-[18px]">
+          {!me.profileComplete && <ProfileCompleteBanner />}
+        </div>
         <Suspense fallback={<UserCardListSkeleton />}>
           <NewCoffeeChatList />
           {me.role === "mentor" && <BrowseMenteeList />}
