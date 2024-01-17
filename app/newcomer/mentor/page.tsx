@@ -14,8 +14,8 @@ import { CompleteProfileForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 import { toTime } from "@/utils/time";
 import { PeriodStep } from "../components/PeriodStep";
-import { ScheduleByDay } from "../components/ScheduleByDay";
-import { ScheduleByWeek } from "../components/ScheduleByWeek";
+import { ScheduleByNotRepeat } from "../components/ScheduleByNotRepeat";
+import { ScheduleByRepeat } from "../components/ScheduleByRepeat";
 
 type ScheduleByOptionType = "REPEAT" | "NOT_REPEAT";
 
@@ -30,15 +30,15 @@ const formLabelStyle =
 const Page = () => {
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
-  const { isScheduleBy, introduction, period, schedulesByWeek, schedulesByDay } = me ?? {};
+  const { isScheduleBy, introduction, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
   const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
   const methods = useForm<CompleteProfileForm>({
     values: {
       introduction,
       period,
-      schedulesByWeek,
-      schedulesByDay,
+      schedulesByRepeat,
+      schedulesByNotRepeat,
     },
   });
 
@@ -47,25 +47,25 @@ const Page = () => {
   const handleClickComplete = ({
     introduction,
     period,
-    schedulesByWeek,
-    schedulesByDay,
+    schedulesByRepeat,
+    schedulesByNotRepeat,
   }: Pick<
     CompleteProfileForm,
-    "introduction" | "period" | "schedulesByWeek" | "schedulesByDay"
+    "introduction" | "period" | "schedulesByRepeat" | "schedulesByNotRepeat"
   >) => {
     const _period = (() => {
       if (period && period.startDate && period.endDate) return period;
     })();
 
     const schedules = (() => {
-      if (scheduleBy === "REPEAT" && schedulesByWeek) {
-        return [...schedulesByWeek.dayOfWeek].map((dayOfWeek) => ({
+      if (scheduleBy === "REPEAT" && schedulesByRepeat) {
+        return [...schedulesByRepeat.dayOfWeek].map((dayOfWeek) => ({
           dayOfWeek,
-          start: toTime(schedulesByWeek.start),
-          end: toTime(schedulesByWeek.end),
+          start: toTime(schedulesByRepeat.start),
+          end: toTime(schedulesByRepeat.end),
         }));
-      } else if (scheduleBy === "NOT_REPEAT" && schedulesByDay) {
-        return schedulesByDay.map((schedule) => ({
+      } else if (scheduleBy === "NOT_REPEAT" && schedulesByNotRepeat) {
+        return schedulesByNotRepeat.map((schedule) => ({
           dayOfWeek: schedule.dayOfWeek,
           start: toTime(schedule.start),
           end: toTime(schedule.end),
@@ -123,12 +123,12 @@ const Page = () => {
             </RadioGroup>
             {scheduleBy === "REPEAT" && (
               <div className="mt-[20px]">
-                <ScheduleByWeek />
+                <ScheduleByRepeat />
               </div>
             )}
             {scheduleBy === "NOT_REPEAT" && (
               <div className="mt-[24px]">
-                <ScheduleByDay />
+                <ScheduleByNotRepeat />
               </div>
             )}
           </div>

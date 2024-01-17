@@ -24,7 +24,7 @@ export const useGetMeAsMentor = () => {
         return {
           ...me,
           isScheduleBy,
-          schedulesByWeek:
+          schedulesByRepeat:
             isScheduleBy === "REPEAT" && schedules.length > 0
               ? {
                   dayOfWeek: new Set(schedules.map(({ dayOfWeek }) => dayOfWeek)),
@@ -32,7 +32,7 @@ export const useGetMeAsMentor = () => {
                   end: schedules[0].end,
                 }
               : undefined,
-          schedulesByDay:
+          schedulesByNotRepeat:
             isScheduleBy === "NOT_REPEAT"
               ? schedules?.map((v) => ({
                   ...v,

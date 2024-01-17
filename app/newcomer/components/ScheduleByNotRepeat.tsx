@@ -9,8 +9,8 @@ import { TIMES } from "@/constants/date";
 import { CompleteProfileForm, Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
-export const ScheduleByDay = () => {
-  const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByDay">>();
+export const ScheduleByNotRepeat = () => {
+  const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByNotRepeat">>();
 
   const {
     fields: scheduleFields,
@@ -19,7 +19,7 @@ export const ScheduleByDay = () => {
     update,
   } = useFieldArray({
     control,
-    name: "schedulesByDay",
+    name: "schedulesByNotRepeat",
   });
 
   const [days, setDays] = useState<Set<Day>>(new Set());

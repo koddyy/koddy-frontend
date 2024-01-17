@@ -30,12 +30,12 @@ export interface Mentor extends User {
 }
 
 export interface CompleteProfileForm extends Pick<Mentor, "introduction" | "period"> {
-  schedulesByWeek?: {
+  schedulesByRepeat?: {
     dayOfWeek: Set<Day>;
     start: string;
     end: string;
   };
-  schedulesByDay?: Array<{
+  schedulesByNotRepeat?: Array<{
     dayOfWeek: Day;
     start: string;
     end: string;
