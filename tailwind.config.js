@@ -49,6 +49,7 @@ module.exports = {
     backgroundImage: {
       "dimmed-gradient":
         "linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.00) 100%)",
+      "primary-gradient": "linear-gradient(155deg, #0EB05C 32.22%, #FFD15C 124.26%)",
     },
   },
   plugins: [],
