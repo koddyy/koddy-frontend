@@ -9,9 +9,6 @@ export const ScheduleByWeek = () => {
     control,
     name: "schedulesByWeek.dayOfWeek",
     defaultValue: new Set<Day>(),
-    rules: {
-      validate: (value) => value.size > 0,
-    },
   });
 
   const { field: startTime } = useController({

@@ -12,7 +12,7 @@ export const ProfileCompleteBanner = () => {
     );
 
     return (
-      <Banner href={PATH.NEWCOMER} actionText="입력하러 가기">
+      <Banner href={PATH.NEWCOMER + "/mentor"} actionText="입력하러 가기">
         <Progress percent={percent} color="secondary" tickness="thin" />
         <div className="mb-[10px] mt-[8px] flex flex-col gap-[4px]">
           <span className="subheading-bold">
@@ -28,7 +28,7 @@ export const ProfileCompleteBanner = () => {
 
   if (me?.role === "mentee") {
     return (
-      <Banner href={PATH.NEWCOMER} actionText="입력하러 가기">
+      <Banner href={PATH.NEWCOMER + "/mentee"} actionText="입력하러 가기">
         {me?.role === "mentee" && (
           <div className="mb-[10px] flex flex-col gap-[4px]">
             <span className="subheading-bold">멘티님의 소개가 궁금해요.</span>

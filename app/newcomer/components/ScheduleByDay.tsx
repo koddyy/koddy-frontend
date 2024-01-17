@@ -21,9 +21,6 @@ export const ScheduleByDay = () => {
   } = useFieldArray({
     control,
     name: "schedulesByDay",
-    rules: {
-      validate: (value) => value.length > 0,
-    },
   });
 
   const [days, setDays] = useState<Set<Day>>(new Set());
