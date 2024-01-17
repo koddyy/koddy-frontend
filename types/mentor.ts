@@ -5,8 +5,8 @@ export type Day = "월" | "화" | "수" | "목" | "금" | "토" | "일";
 export type Time = { hour: number; minute: number };
 
 export type Period = {
-  startDate?: string;
-  endDate?: string;
+  startDate: string;
+  endDate: string;
 };
 
 export interface Mentor extends User {
@@ -21,9 +21,9 @@ export interface Mentor extends User {
   enteredIn: number;
   period?: Period;
   schedules?: Array<{
-    dayOfWeek?: Day;
-    start?: Time;
-    end?: Time;
+    dayOfWeek: Day;
+    start: Time;
+    end: Time;
   }>;
   profileComplete: boolean;
   role: "mentor";
