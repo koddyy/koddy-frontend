@@ -1,41 +1,69 @@
-import { useEffect, useState } from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { ChangeEvent, ComponentProps, forwardRef, useRef } from "react";
+import Camera from "@/assets/camera.svg";
+import { useImagePreview } from "@/hooks/useImagePreview";
 import { Role } from "@/types/user";
 import { cn } from "@/utils/cn";
 
-interface ProfileImageUploadProps {
-  register?: UseFormRegisterReturn;
-  watchImage?: FileList;
+interface ProfileImageUploadProps extends ComponentProps<"input"> {
+  imageUrl?: string;
+  isEditable?: boolean;
   role?: Role;
 }
 
-export const ProfileImageUpload = ({ register, watchImage, role }: ProfileImageUploadProps) => {
-  const [imageFile, setImageFile] = useState("");
+export const ProfileImageUpload = forwardRef<HTMLInputElement, ProfileImageUploadProps>(
+  ({ imageUrl, isEditable = false, role, onChange, ...props }, ref) => {
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const { previewImage, onChangeImage } = useImagePreview();
 
-  useEffect(() => {
-    if (watchImage && watchImage.length > 0) {
-      setImageFile(URL.createObjectURL(watchImage[0]));
-    }
-  }, [watchImage]);
+    const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(e);
 
-  const defaultImageUrl =
-    role === "mentor" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg";
+      const file = e.target.files?.[0];
+      if (file) onChangeImage(file);
+    };
 
-  return (
-    <div className="flex flex-col items-center gap-3">
-      <input className="hidden" id="image" type="file" accept="image/*" {...register} />
-      <div>
-        <img
-          className={cn(
-            "h-[7.5rem] w-[7.5rem] rounded-xl border border-gray-200 bg-gray-100 object-contain p-[0.3rem]",
-            imageFile && "object-cover p-0"
-          )}
-          src={imageFile || defaultImageUrl}
+    const defaultImageUrl =
+      role === "mentor" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg";
+
+    return (
+      <div className="flex flex-col items-center gap-3">
+        <label htmlFor="profile-image" className="hidden">
+          프로필 이미지 등록
+        </label>
+        <input
+          className="hidden"
+          id="profile-image"
+          type="file"
+          accept="image/*"
+          onChange={handleChangeImage}
+          ref={(e) => {
+            if (typeof ref === "function") ref(e);
+            else if (ref) ref.current = e;
+            inputRef.current = e;
+          }}
+          {...props}
         />
+        <div className="relative">
+          <img
+            className={cn(
+              "h-[108px] w-[108px] rounded-xl border border-gray-200 bg-gray-100 object-contain p-[7px]",
+              previewImage && "object-cover p-0"
+            )}
+            src={imageUrl || previewImage || defaultImageUrl}
+          />
+          {isEditable && (
+            <button
+              aria-label="프로필 이미지 등록하기"
+              className="absolute bottom-[-4px] right-[-4px] flex h-[24px] w-[24px] items-center justify-center rounded-full bg-gray-400"
+              onClick={() => inputRef?.current?.click()}
+            >
+              <Camera />
+            </button>
+          )}
+        </div>
       </div>
-      <label htmlFor="image" className="label-bold rounded-[0.625rem] border border-gray-300 p-2">
-        {!imageFile ? "프로필 등록하기" : "프로필 수정하기"}
-      </label>
-    </div>
-  );
-};
+    );
+  }
+);
+
+ProfileImageUpload.displayName = "ProfileImageUpload";
