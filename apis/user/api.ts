@@ -21,7 +21,7 @@ class UserApi {
     return response.data;
   };
 
-  patchMentorProfile = (profile: Pick<Mentor, "introduction" | "schedules">) => {
+  patchMentorProfile = (profile: Pick<Mentor, "introduction" | "period" | "schedules">) => {
     return apiInstance.patch("/api/mentors/me/complete", profile);
   };
 

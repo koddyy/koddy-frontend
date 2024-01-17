@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -15,38 +14,21 @@ export const SubLanguageSelectForm = () => {
     formState: { isValid },
   } = useFormContext<Pick<SignupForm, "languages">>();
 
-  const { field: languageField } = useController({
+  const { field: mainLanguage } = useController({ control, name: "languages.main" });
+
+  const { field: subLanguages } = useController({
     control,
-    name: "languages",
-    rules: {
-      validate: (value) => value?.length > 0,
-    },
+    name: "languages.sub",
   });
 
   const handleChangeSubLanguages = (languageCode: LanguageCode) => {
-    const hasLanguageCode = languageField.value.findIndex(
-      ({ type, category }) => type === "서브 언어" && category === languageCode
-    );
+    const hasLanguageCode = subLanguages.value.findIndex((v) => v === languageCode);
     if (hasLanguageCode === -1) {
-      languageField.onChange(
-        languageField.value.concat([{ type: "서브 언어", category: languageCode }])
-      );
+      subLanguages.onChange(subLanguages.value.concat([languageCode]));
     } else {
-      languageField.onChange(
-        languageField.value.filter(
-          ({ type, category }) => type === "메인 언어" || category !== languageCode
-        )
-      );
+      subLanguages.onChange(subLanguages.value.filter((v) => v !== languageCode));
     }
   };
-
-  const mainLanguage = useMemo(() => {
-    return languageField.value.find(({ type }) => type === "메인 언어");
-  }, []);
-
-  const subLanguages = new Set(
-    languageField.value.filter(({ type }) => type === "서브 언어").map(({ category }) => category)
-  );
 
   return (
     <>
@@ -58,9 +40,9 @@ export const SubLanguageSelectForm = () => {
               className="p-4 text-start"
               key={key}
               variant="outline"
-              pressed={subLanguages.has(key)}
+              pressed={subLanguages.value?.some((v) => v === key)}
               onChangePressed={() => handleChangeSubLanguages(key)}
-              disabled={mainLanguage && key === mainLanguage.category}
+              disabled={mainLanguage && key === mainLanguage.value}
             >
               {value}
             </Toggle>

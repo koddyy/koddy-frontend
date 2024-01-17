@@ -1,4 +1,4 @@
-import { LanguageType, User } from "./user";
+import { LanguageCode, User } from "./user";
 
 export type Day = "월" | "화" | "수" | "목" | "금" | "토" | "일";
 
@@ -12,17 +12,19 @@ export type Period = {
 export interface Mentor extends User {
   id: number;
   introduction?: string;
-  languages: LanguageType[];
+  languages: {
+    main: LanguageCode;
+    sub: LanguageCode[];
+  };
   school: string;
   major: string;
   enteredIn: number;
-  schedules?: Array<
-    {
-      dayOfWeek?: Day;
-      startTime?: Time;
-      endTime?: Time;
-    } & Period
-  >;
+  period?: Period;
+  schedules?: Array<{
+    dayOfWeek?: Day;
+    start?: Time;
+    end?: Time;
+  }>;
   profileComplete: boolean;
   role: "mentor";
 }
