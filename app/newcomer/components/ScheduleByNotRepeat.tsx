@@ -6,12 +6,11 @@ import { Divider } from "@/components/Divider/Divider";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
 import { TIMES } from "@/constants/date";
-import { Day } from "@/types/mentor";
-import { ProfileForm } from "../stores";
+import { CompleteProfileForm, Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
-export const ScheduleByDay = () => {
-  const { control } = useFormContext<Pick<ProfileForm, "schedulesByDay">>();
+export const ScheduleByNotRepeat = () => {
+  const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByNotRepeat">>();
 
   const {
     fields: scheduleFields,
@@ -20,10 +19,7 @@ export const ScheduleByDay = () => {
     update,
   } = useFieldArray({
     control,
-    name: "schedulesByDay",
-    rules: {
-      validate: (value) => value.length > 0,
-    },
+    name: "schedulesByNotRepeat",
   });
 
   const [days, setDays] = useState<Set<Day>>(new Set());
@@ -44,9 +40,7 @@ export const ScheduleByDay = () => {
 
   const addSchedules = () => {
     if (days.size === 0) return;
-    days.forEach((dayOfWeek) =>
-      append({ dayOfWeek, startTime: timeRange.start, endTime: timeRange.end })
-    );
+    days.forEach((dayOfWeek) => append({ dayOfWeek, start: timeRange.start, end: timeRange.end }));
     setDays(new Set());
     setTimeRange({ start: "09:00", end: "17:00" });
   };
@@ -72,14 +66,14 @@ export const ScheduleByDay = () => {
             <div className="flex grow items-center gap-[10px]">
               <Select
                 options={TIMES}
-                value={field.startTime ?? "09:00"}
-                onChangeValue={(value) => update(i, { ...field, startTime: value })}
+                value={field.start ?? "09:00"}
+                onChangeValue={(value) => update(i, { ...field, start: value })}
               />
               <span>~</span>
               <Select
                 options={TIMES}
-                value={field.endTime}
-                onChangeValue={(value) => update(i, { ...field, endTime: value })}
+                value={field.end}
+                onChangeValue={(value) => update(i, { ...field, end: value })}
               />
             </div>
             <button onClick={() => remove(i)}>

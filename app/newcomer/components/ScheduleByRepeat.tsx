@@ -2,21 +2,18 @@ import { useController, useFormContext } from "react-hook-form";
 import { Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
-export const ScheduleByWeek = () => {
+export const ScheduleByRepeat = () => {
   const { control } = useFormContext();
 
   const { field: dayOfWeek } = useController({
     control,
-    name: "schedulesByWeek.dayOfWeek",
+    name: "schedulesByRepeat.dayOfWeek",
     defaultValue: new Set<Day>(),
-    rules: {
-      validate: (value) => value.size > 0,
-    },
   });
 
   const { field: startTime } = useController({
     control,
-    name: "schedulesByWeek.startTime",
+    name: "schedulesByRepeat.start",
     defaultValue: "09:00",
     rules: {
       required: true,
@@ -25,7 +22,7 @@ export const ScheduleByWeek = () => {
 
   const { field: endTime } = useController({
     control,
-    name: "schedulesByWeek.endTime",
+    name: "schedulesByRepeat.end",
     defaultValue: "17:00",
     rules: {
       required: true,

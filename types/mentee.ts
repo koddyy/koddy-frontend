@@ -13,3 +13,5 @@ export interface Mentee extends User {
   profileComplete: boolean;
   role: "mentee";
 }
+
+export type CompleteProfileForm = Pick<Mentee, "introduction">;
