@@ -3,15 +3,14 @@ import { useController, useFormContext } from "react-hook-form";
 import { DatePicker } from "@/components/DatePicker";
 import { Dimmed } from "@/components/Dimmed";
 import { Divider } from "@/components/Divider/Divider";
-import { Period } from "@/types/mentor";
+import { CompleteProfileForm, Period } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 import { toYYYYMMDD } from "@/utils/dateUtils";
-import { ProfileForm } from "../stores";
 
 export const PeriodStep = () => {
   const [periodType, setPeriodType] = useState<keyof Period>();
 
-  const { control } = useFormContext<Pick<ProfileForm, "period">>();
+  const { control } = useFormContext<Pick<CompleteProfileForm, "period">>();
 
   const TODAY = toYYYYMMDD(new Date());
   const { field: startDate } = useController({

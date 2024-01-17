@@ -7,7 +7,7 @@ import { useUpdateMenteeProfile } from "@/apis/user/hooks/useUpdateMenteeProfile
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { TextArea } from "@/components/TextArea";
-import type { ProfileForm } from "../stores";
+import { CompleteProfileForm } from "@/types/mentee";
 
 const Page = () => {
   const router = useRouter();
@@ -16,14 +16,14 @@ const Page = () => {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<Pick<ProfileForm, "introduction">>({
+  } = useForm<CompleteProfileForm>({
     values: {
       introduction: me?.introduction,
     },
   });
   const { mutate: updateMenteeProfile } = useUpdateMenteeProfile();
 
-  const onSubmit = ({ introduction }: Pick<ProfileForm, "introduction">) => {
+  const onSubmit = ({ introduction }: CompleteProfileForm) => {
     updateMenteeProfile(
       { introduction },
       {

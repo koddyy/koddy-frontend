@@ -10,12 +10,12 @@ import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { TextArea } from "@/components/TextArea";
+import { CompleteProfileForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 import { toTime } from "@/utils/time";
 import { PeriodStep } from "../components/PeriodStep";
 import { ScheduleByDay } from "../components/ScheduleByDay";
 import { ScheduleByWeek } from "../components/ScheduleByWeek";
-import { ProfileForm } from "../stores";
 
 type ScheduleByOptionType = "REPEAT" | "NOT_REPEAT";
 
@@ -33,7 +33,7 @@ const Page = () => {
   const { isScheduleBy, introduction, period, schedulesByWeek, schedulesByDay } = me ?? {};
   const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
-  const methods = useForm<ProfileForm>({
+  const methods = useForm<CompleteProfileForm>({
     values: {
       introduction,
       period,
@@ -49,7 +49,10 @@ const Page = () => {
     period,
     schedulesByWeek,
     schedulesByDay,
-  }: Pick<ProfileForm, "introduction" | "period" | "schedulesByWeek" | "schedulesByDay">) => {
+  }: Pick<
+    CompleteProfileForm,
+    "introduction" | "period" | "schedulesByWeek" | "schedulesByDay"
+  >) => {
     const _period = (() => {
       if (period && period.startDate && period.endDate) return period;
     })();

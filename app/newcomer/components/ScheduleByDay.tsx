@@ -6,12 +6,11 @@ import { Divider } from "@/components/Divider/Divider";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
 import { TIMES } from "@/constants/date";
-import { Day } from "@/types/mentor";
-import { ProfileForm } from "../stores";
+import { CompleteProfileForm, Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
 export const ScheduleByDay = () => {
-  const { control } = useFormContext<Pick<ProfileForm, "schedulesByDay">>();
+  const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByDay">>();
 
   const {
     fields: scheduleFields,

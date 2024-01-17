@@ -28,3 +28,16 @@ export interface Mentor extends User {
   profileComplete: boolean;
   role: "mentor";
 }
+
+export interface CompleteProfileForm extends Pick<Mentor, "introduction" | "period"> {
+  schedulesByWeek?: {
+    dayOfWeek: Set<Day>;
+    start: string;
+    end: string;
+  };
+  schedulesByDay?: Array<{
+    dayOfWeek: Day;
+    start: string;
+    end: string;
+  }>;
+}
