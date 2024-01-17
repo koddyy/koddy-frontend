@@ -41,9 +41,7 @@ export const ScheduleByDay = () => {
 
   const addSchedules = () => {
     if (days.size === 0) return;
-    days.forEach((dayOfWeek) =>
-      append({ dayOfWeek, startTime: timeRange.start, endTime: timeRange.end })
-    );
+    days.forEach((dayOfWeek) => append({ dayOfWeek, start: timeRange.start, end: timeRange.end }));
     setDays(new Set());
     setTimeRange({ start: "09:00", end: "17:00" });
   };
@@ -69,14 +67,14 @@ export const ScheduleByDay = () => {
             <div className="flex grow items-center gap-[10px]">
               <Select
                 options={TIMES}
-                value={field.startTime ?? "09:00"}
-                onChangeValue={(value) => update(i, { ...field, startTime: value })}
+                value={field.start ?? "09:00"}
+                onChangeValue={(value) => update(i, { ...field, start: value })}
               />
               <span>~</span>
               <Select
                 options={TIMES}
-                value={field.endTime}
-                onChangeValue={(value) => update(i, { ...field, endTime: value })}
+                value={field.end}
+                onChangeValue={(value) => update(i, { ...field, end: value })}
               />
             </div>
             <button onClick={() => remove(i)}>

@@ -13,7 +13,7 @@ export const ScheduleByWeek = () => {
 
   const { field: startTime } = useController({
     control,
-    name: "schedulesByWeek.startTime",
+    name: "schedulesByWeek.start",
     defaultValue: "09:00",
     rules: {
       required: true,
@@ -22,7 +22,7 @@ export const ScheduleByWeek = () => {
 
   const { field: endTime } = useController({
     control,
-    name: "schedulesByWeek.endTime",
+    name: "schedulesByWeek.end",
     defaultValue: "17:00",
     rules: {
       required: true,

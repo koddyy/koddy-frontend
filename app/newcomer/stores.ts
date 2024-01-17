@@ -7,13 +7,13 @@ export interface ProfileForm {
   period?: Period;
   schedulesByWeek?: {
     dayOfWeek: Set<Day>;
-    startTime: string;
-    endTime: string;
+    start: string;
+    end: string;
   };
   schedulesByDay?: Array<{
     dayOfWeek: Day;
-    startTime: string;
-    endTime: string;
+    start: string;
+    end: string;
   }>;
 }
 

@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { useUpdateMentorProfile } from "@/apis/user/hooks/useUpdateMentorProfile";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button } from "@/components/Button";
@@ -28,8 +29,19 @@ const formLabelStyle =
 
 const Page = () => {
   const router = useRouter();
-  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>("REPEAT");
-  const methods = useForm<ProfileForm>();
+  const { data: me } = useGetMeAsMentor();
+  const { isScheduleBy, introduction, period, schedulesByWeek, schedulesByDay } = me ?? {};
+  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
+
+  const methods = useForm<ProfileForm>({
+    values: {
+      introduction,
+      period,
+      schedulesByWeek,
+      schedulesByDay,
+    },
+  });
+
   const { mutate: updateMentorProfile } = useUpdateMentorProfile();
 
   const handleClickComplete = ({
@@ -46,14 +58,14 @@ const Page = () => {
       if (scheduleBy === "REPEAT" && schedulesByWeek) {
         return [...schedulesByWeek.dayOfWeek].map((dayOfWeek) => ({
           dayOfWeek,
-          start: toTime(schedulesByWeek.startTime),
-          end: toTime(schedulesByWeek.endTime),
+          start: toTime(schedulesByWeek.start),
+          end: toTime(schedulesByWeek.end),
         }));
       } else if (scheduleBy === "NOT_REPEAT" && schedulesByDay) {
         return schedulesByDay.map((schedule) => ({
           dayOfWeek: schedule.dayOfWeek,
-          start: toTime(schedule.startTime),
-          end: toTime(schedule.endTime),
+          start: toTime(schedule.start),
+          end: toTime(schedule.end),
         }));
       }
     })();
