@@ -20,7 +20,13 @@ const TOTAL_STEPS = 3;
 const Page = () => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const methods = useForm<SignupForm>();
+  const methods = useForm<SignupForm>({
+    defaultValues: {
+      languages: {
+        sub: [],
+      },
+    },
+  });
   const { user } = useUserStore();
   const { setLoggedIn } = useProviderStore();
   const { mutate: signup } = useSignupAsMentor();

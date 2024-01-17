@@ -34,23 +34,21 @@ export const ScheduleStep = () => {
     const schedules = (() => {
       if (scheduleBy === "REPEAT" && schedulesByWeek) {
         return [...schedulesByWeek.dayOfWeek].map((dayOfWeek) => ({
-          ...period,
           dayOfWeek,
-          startTime: toTime(schedulesByWeek.startTime),
-          endTime: toTime(schedulesByWeek.endTime),
+          start: toTime(schedulesByWeek.startTime),
+          end: toTime(schedulesByWeek.endTime),
         }));
       } else if (scheduleBy === "NOT_REPEAT" && schedulesByDay) {
         return schedulesByDay.map((schedule) => ({
-          ...period,
           dayOfWeek: schedule.dayOfWeek,
-          startTime: toTime(schedule.startTime),
-          endTime: toTime(schedule.endTime),
+          start: toTime(schedule.startTime),
+          end: toTime(schedule.endTime),
         }));
       }
     })();
 
     updateMentorProfile(
-      { introduction, schedules },
+      { introduction, period, schedules },
       {
         onSuccess: () => {
           router.push("/");
