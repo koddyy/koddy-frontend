@@ -8,7 +8,7 @@ export const ProfileCompleteBanner = () => {
 
   if (me?.role === "mentor") {
     const percent = Math.floor(
-      ((Number(!!me.introduction) + Number(!!me.period) + Number(me.schedules?.length)) / 3) * 100
+      ((Number(!!me.introduction) + Number(!!me.period) + Number(!!me.schedules?.length)) / 3) * 100
     );
 
     return (
