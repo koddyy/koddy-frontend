@@ -15,7 +15,7 @@ const Page = () => {
   const {
     register,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, isDirty },
   } = useForm<CompleteProfileForm>({
     values: {
       introduction: me?.introduction,
@@ -47,7 +47,7 @@ const Page = () => {
           placeholder="간단한 소개와 커피챗을 하게 된 이유, 현재는 어떤 경험을 하고 계신지 알려주시면 좋아요!"
           {...register("introduction", { required: true })}
         />
-        <BottomButton type="submit" disabled={!isValid}>
+        <BottomButton type="submit" disabled={!isValid || !isDirty}>
           다음
         </BottomButton>
       </form>
