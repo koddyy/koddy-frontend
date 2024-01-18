@@ -55,7 +55,11 @@ const Page = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleClickEdit)}>
-        <NavigationBar title="커피챗 기간 수정" onClickGoback={() => router.back()} />
+        <NavigationBar
+          title="커피챗 기간 수정"
+          titleFontWeight="regular"
+          onClickGoback={() => router.back()}
+        />
         <div className="my-[24px] px-[20px]">
           <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>
           <PeriodStep />
