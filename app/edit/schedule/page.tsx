@@ -15,7 +15,6 @@ import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
 import { UpdateSchedulesForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
-import { toTime } from "@/utils/time";
 
 const formLabelStyle =
   "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
@@ -42,28 +41,8 @@ const Page = () => {
     schedulesByRepeat,
     schedulesByNotRepeat,
   }: UpdateSchedulesForm) => {
-    const _period = (() => {
-      if (period && period.startDate && period.endDate) return period;
-    })();
-
-    const schedules = (() => {
-      if (scheduleBy === "REPEAT" && schedulesByRepeat) {
-        return [...schedulesByRepeat.dayOfWeek].map((dayOfWeek) => ({
-          dayOfWeek,
-          start: toTime(schedulesByRepeat.start),
-          end: toTime(schedulesByRepeat.end),
-        }));
-      } else if (scheduleBy === "NOT_REPEAT" && schedulesByNotRepeat) {
-        return schedulesByNotRepeat.map((schedule) => ({
-          dayOfWeek: schedule.dayOfWeek,
-          start: toTime(schedule.start),
-          end: toTime(schedule.end),
-        }));
-      }
-    })();
-
     updateMentorSchedules(
-      { period: _period, schedules },
+      { period, schedulesByRepeat, schedulesByNotRepeat },
       {
         onSuccess: () => {
           alert("수정되었습니다");

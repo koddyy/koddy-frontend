@@ -13,7 +13,6 @@ import { TextArea } from "@/components/TextArea";
 import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
 import { CompleteProfileForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
-import { toTime } from "@/utils/time";
 import { PeriodStep } from "../components/PeriodStep";
 import { ScheduleByNotRepeat } from "../components/ScheduleByNotRepeat";
 import { ScheduleByRepeat } from "../components/ScheduleByRepeat";
@@ -47,28 +46,8 @@ const Page = () => {
     CompleteProfileForm,
     "introduction" | "period" | "schedulesByRepeat" | "schedulesByNotRepeat"
   >) => {
-    const _period = (() => {
-      if (period && period.startDate && period.endDate) return period;
-    })();
-
-    const schedules = (() => {
-      if (scheduleBy === "REPEAT" && schedulesByRepeat) {
-        return [...schedulesByRepeat.dayOfWeek].map((dayOfWeek) => ({
-          dayOfWeek,
-          start: toTime(schedulesByRepeat.start),
-          end: toTime(schedulesByRepeat.end),
-        }));
-      } else if (scheduleBy === "NOT_REPEAT" && schedulesByNotRepeat) {
-        return schedulesByNotRepeat.map((schedule) => ({
-          dayOfWeek: schedule.dayOfWeek,
-          start: toTime(schedule.start),
-          end: toTime(schedule.end),
-        }));
-      }
-    })();
-
     updateMentorProfile(
-      { introduction, period: _period, schedules },
+      { introduction, period, schedulesByRepeat, schedulesByNotRepeat },
       {
         onSuccess: () => {
           alert("수정되었습니다");
