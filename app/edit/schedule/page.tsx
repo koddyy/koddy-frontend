@@ -4,18 +4,17 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
-import { useUpdateMentorProfile } from "@/apis/user/hooks/useUpdateMentorProfile";
+import { useUpdateMentorSchedules } from "@/apis/user/hooks/useUpdateMentorSchedules";
+import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
-import { Button } from "@/components/Button";
+import { PeriodStep } from "@/app/newcomer/components/PeriodStep";
+import { ScheduleByNotRepeat } from "@/app/newcomer/components/ScheduleByNotRepeat";
+import { ScheduleByRepeat } from "@/app/newcomer/components/ScheduleByRepeat";
 import { Divider } from "@/components/Divider/Divider";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
-import { TextArea } from "@/components/TextArea";
 import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
-import { CompleteProfileForm } from "@/types/mentor";
+import { UpdateSchedulesForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
-import { PeriodStep } from "../components/PeriodStep";
-import { ScheduleByNotRepeat } from "../components/ScheduleByNotRepeat";
-import { ScheduleByRepeat } from "../components/ScheduleByRepeat";
 
 const formLabelStyle =
   "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
@@ -23,35 +22,31 @@ const formLabelStyle =
 const Page = () => {
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
-  const { isScheduleBy, introduction, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
+  const { mutate: updateMentorSchedules } = useUpdateMentorSchedules();
+  const { isScheduleBy, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
   const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
-  const methods = useForm<CompleteProfileForm>({
+  const methods = useForm({
     values: {
-      introduction,
       period,
       schedulesByRepeat,
       schedulesByNotRepeat,
     },
   });
 
-  const { mutate: updateMentorProfile } = useUpdateMentorProfile();
+  const { isDirty } = methods.formState;
 
-  const handleClickComplete = ({
-    introduction,
+  const handleClickEdit = ({
     period,
     schedulesByRepeat,
     schedulesByNotRepeat,
-  }: Pick<
-    CompleteProfileForm,
-    "introduction" | "period" | "schedulesByRepeat" | "schedulesByNotRepeat"
-  >) => {
-    updateMentorProfile(
-      { introduction, period, schedulesByRepeat, schedulesByNotRepeat },
+  }: UpdateSchedulesForm) => {
+    updateMentorSchedules(
+      { period, schedulesByRepeat, schedulesByNotRepeat },
       {
         onSuccess: () => {
           alert("수정되었습니다");
-          router.push("/");
+          router.push("/mypage");
         },
       }
     );
@@ -59,24 +54,13 @@ const Page = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleClickComplete)}>
+      <form onSubmit={methods.handleSubmit(handleClickEdit)}>
         <NavigationBar
+          title="커피챗 기간 수정"
+          titleFontWeight="regular"
           onClickGoback={() => router.back()}
-          rightContent={
-            <Button type="submit" variant="ghost" size="xs" className="text-gray-700">
-              완료
-            </Button>
-          }
         />
-        <div className="my-[20px] px-[20px]">
-          <div className={cn(formLabelStyle, "mb-[8px]")}>자기소개</div>
-          <TextArea
-            placeholder="간단한 소개와 커피챗을 하게 된 이유, 현재는 어떤 경험을 하고 계신지 알려주시면 좋아요!"
-            {...methods.register("introduction")}
-          />
-        </div>
-        <Divider className="border-[4px] border-gray-100" />
-        <div className="my-[26px] px-[20px]">
+        <div className="my-[24px] px-[20px]">
           <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>
           <PeriodStep />
         </div>
@@ -104,6 +88,9 @@ const Page = () => {
             </div>
           )}
         </div>
+        <BottomButton type="submit" disabled={!isDirty}>
+          수정하기
+        </BottomButton>
       </form>
     </FormProvider>
   );

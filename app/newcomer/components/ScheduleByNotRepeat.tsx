@@ -22,15 +22,16 @@ export const ScheduleByNotRepeat = () => {
     name: "schedulesByNotRepeat",
   });
 
-  const [days, setDays] = useState<Set<Day>>(new Set());
+  const [days, setDays] = useState<Day[]>([]);
   const [timeRange, setTimeRange] = useState({ start: "09:00", end: "17:00" });
 
   const changeDays = (day: Day) => {
     setDays((prev) => {
-      const copy = new Set(prev);
-      if (copy.has(day)) copy.delete(day);
-      else copy.add(day);
-      return copy;
+      const copy = [...prev];
+      const index = copy.indexOf(day);
+      if (index === -1) copy.push(day);
+      else copy.splice(index, 1);
+      return prev;
     });
   };
 
@@ -39,9 +40,9 @@ export const ScheduleByNotRepeat = () => {
   };
 
   const addSchedules = () => {
-    if (days.size === 0) return;
+    if (days.length === 0) return;
     days.forEach((dayOfWeek) => append({ dayOfWeek, start: timeRange.start, end: timeRange.end }));
-    setDays(new Set());
+    setDays([]);
     setTimeRange({ start: "09:00", end: "17:00" });
   };
 

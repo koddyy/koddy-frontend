@@ -5,7 +5,8 @@ import { cn } from "@/utils/cn";
 
 interface NavigationBarProps {
   className?: string;
-  title?: string;
+  title?: React.ReactNode;
+  titleFontWeight?: "bold" | "regular";
   onClickGoback?: () => void;
   backButtonColor?: "default" | "white";
   leftContent?: React.ReactNode;
@@ -15,6 +16,7 @@ interface NavigationBarProps {
 export const NavigationBar = ({
   className,
   title,
+  titleFontWeight = "bold",
   onClickGoback,
   backButtonColor,
   leftContent,
@@ -33,7 +35,16 @@ export const NavigationBar = ({
         </button>
       )}
       {leftContent && <div className="mr-auto">{leftContent}</div>}
-      {title && <h1 className="subheading-bold absolute left-1/2 -translate-x-1/2">{title}</h1>}
+      {title && (
+        <h1
+          className={cn(
+            "subheading-bold absolute left-1/2 -translate-x-1/2",
+            titleFontWeight === "regular" && "subheading"
+          )}
+        >
+          {title}
+        </h1>
+      )}
       {rightContent && <div className="ml-auto">{rightContent}</div>}
     </div>
   );

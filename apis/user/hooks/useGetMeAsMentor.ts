@@ -27,7 +27,7 @@ export const useGetMeAsMentor = () => {
           schedulesByRepeat:
             isScheduleBy === "REPEAT" && schedules.length > 0
               ? {
-                  dayOfWeek: new Set(schedules.map(({ dayOfWeek }) => dayOfWeek)),
+                  dayOfWeek: schedules.map(({ dayOfWeek }) => dayOfWeek),
                   start: schedules[0].start,
                   end: schedules[0].end,
                 }

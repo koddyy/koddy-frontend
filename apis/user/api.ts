@@ -29,6 +29,10 @@ class UserApi {
     return apiInstance.patch("/api/mentees/me/complete", profile);
   };
 
+  patchMentorSchedules = (schedules: Pick<Mentor, "period" | "schedules">) => {
+    return apiInstance.patch("/api/mentors/me/schedules", schedules);
+  };
+
   getUserById = async (id: string) => {
     const response = await apiInstance.get<ResponseType<DeprecatedMentor | DeprecatedMentee>>(
       `/api/users/${id}`

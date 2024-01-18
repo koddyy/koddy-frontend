@@ -4,7 +4,7 @@ import { DAYS, TIMES } from "@/constants/date";
 import type { Day } from "@/types/mentor";
 
 interface DaysAndTimeRangeSelectProps {
-  days: Set<Day>;
+  days: Day[];
   timeRange: { start: string; end: string };
   onChangeDays: (day: Day) => void;
   onChangeTimeRange: (timeRange: { start: string; end: string }) => void;
@@ -21,7 +21,7 @@ export const DaysAndTimeRangeSelect = ({
       <div className="mb-[13px] flex justify-between">
         {DAYS.map((day, i) => {
           return (
-            <Toggle key={i} pressed={days.has(day)} onChangePressed={() => onChangeDays(day)}>
+            <Toggle key={i} pressed={days.includes(day)} onChangePressed={() => onChangeDays(day)}>
               {day}
             </Toggle>
           );
