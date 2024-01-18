@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
+import { useUpdateMentorSchedules } from "@/apis/user/hooks/useUpdateMentorSchedules";
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { PeriodStep } from "@/app/newcomer/components/PeriodStep";
@@ -12,7 +13,9 @@ import { ScheduleByRepeat } from "@/app/newcomer/components/ScheduleByRepeat";
 import { Divider } from "@/components/Divider/Divider";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
+import { UpdateSchedulesForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
+import { toTime } from "@/utils/time";
 
 const formLabelStyle =
   "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
@@ -20,6 +23,7 @@ const formLabelStyle =
 const Page = () => {
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
+  const { mutate: updateMentorSchedules } = useUpdateMentorSchedules();
   const { isScheduleBy, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
   const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
@@ -33,9 +37,45 @@ const Page = () => {
 
   const { isDirty } = methods.formState;
 
+  const handleClickEdit = ({
+    period,
+    schedulesByRepeat,
+    schedulesByNotRepeat,
+  }: UpdateSchedulesForm) => {
+    const _period = (() => {
+      if (period && period.startDate && period.endDate) return period;
+    })();
+
+    const schedules = (() => {
+      if (scheduleBy === "REPEAT" && schedulesByRepeat) {
+        return [...schedulesByRepeat.dayOfWeek].map((dayOfWeek) => ({
+          dayOfWeek,
+          start: toTime(schedulesByRepeat.start),
+          end: toTime(schedulesByRepeat.end),
+        }));
+      } else if (scheduleBy === "NOT_REPEAT" && schedulesByNotRepeat) {
+        return schedulesByNotRepeat.map((schedule) => ({
+          dayOfWeek: schedule.dayOfWeek,
+          start: toTime(schedule.start),
+          end: toTime(schedule.end),
+        }));
+      }
+    })();
+
+    updateMentorSchedules(
+      { period: _period, schedules },
+      {
+        onSuccess: () => {
+          alert("수정되었습니다");
+          router.push("/mypage");
+        },
+      }
+    );
+  };
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit((data) => console.log(data))}>
+      <form onSubmit={methods.handleSubmit(handleClickEdit)}>
         <NavigationBar title="커피챗 기간 수정" onClickGoback={() => router.back()} />
         <div className="my-[24px] px-[20px]">
           <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>

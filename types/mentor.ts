@@ -29,6 +29,19 @@ export interface Mentor extends User {
   role: "mentor";
 }
 
+export interface UpdateSchedulesForm extends Pick<Mentor, "period"> {
+  schedulesByRepeat?: {
+    dayOfWeek: Set<Day>;
+    start: string;
+    end: string;
+  };
+  schedulesByNotRepeat?: Array<{
+    dayOfWeek: Day;
+    start: string;
+    end: string;
+  }>;
+}
+
 export interface CompleteProfileForm extends Pick<Mentor, "introduction" | "period"> {
   schedulesByRepeat?: {
     dayOfWeek: Set<Day>;
