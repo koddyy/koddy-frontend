@@ -8,31 +8,26 @@ export const ScheduleByRepeat = () => {
   const { field: dayOfWeek } = useController({
     control,
     name: "schedulesByRepeat.dayOfWeek",
-    defaultValue: new Set<Day>(),
+    defaultValue: [],
   });
 
   const { field: startTime } = useController({
     control,
     name: "schedulesByRepeat.start",
     defaultValue: "09:00",
-    rules: {
-      required: true,
-    },
   });
 
   const { field: endTime } = useController({
     control,
     name: "schedulesByRepeat.end",
     defaultValue: "17:00",
-    rules: {
-      required: true,
-    },
   });
 
   const changeDays = (day: Day) => {
-    const copy = new Set(dayOfWeek.value);
-    if (copy.has(day)) copy.delete(day);
-    else copy.add(day);
+    const copy = [...dayOfWeek.value];
+    const index = copy.indexOf(day);
+    if (index === -1) copy.push(day);
+    else copy.splice(index, 1);
     dayOfWeek.onChange(copy);
   };
 
