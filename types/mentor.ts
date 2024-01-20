@@ -47,6 +47,7 @@ export interface UpdateSchedulesForm extends Pick<Mentor, "period">, Schedules {
 export interface CompleteProfileForm extends Pick<Mentor, "introduction">, UpdateSchedulesForm {}
 
 export interface UpdateMentorInfoForm
-  extends Pick<Mentor, "name" | "school" | "major" | "enteredIn" | "languages" | "introduction"> {
-  profileImageFile: File;
-}
+  extends Pick<
+    Mentor,
+    "name" | "school" | "major" | "enteredIn" | "languages" | "introduction" | "profileImageUrl"
+  > {}

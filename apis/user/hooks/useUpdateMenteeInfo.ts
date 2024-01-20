@@ -9,12 +9,21 @@ export const useUpdateMenteeInfo = () => {
   const { mutateAsync: uploadImageFile } = useUploadImageFile();
 
   return useMutation({
-    mutationFn: async ({ profileImageFile, ...rest }: UpdateMenteeInfoForm) => {
-      const { preSignedUrl, uploadFileUrl } = await fileApi.getPresignedUrl(profileImageFile.name);
+    mutationFn: async ({
+      profileImageFile,
+      profileImageUrl,
+      ...rest
+    }: UpdateMenteeInfoForm & { profileImageFile?: File }) => {
+      if (profileImageFile) {
+        const { preSignedUrl, uploadFileUrl } = await fileApi.getPresignedUrl(
+          profileImageFile.name
+        );
+        await uploadImageFile({ preSignedUrl, file: profileImageFile });
 
-      await uploadImageFile({ preSignedUrl, file: profileImageFile });
+        return await userApi.patchMenteeInfo({ profileImageUrl: uploadFileUrl, ...rest });
+      }
 
-      return await userApi.patchMenteeInfo({ profileImageUrl: uploadFileUrl, ...rest });
+      return await userApi.patchMenteeInfo({ profileImageUrl, ...rest });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

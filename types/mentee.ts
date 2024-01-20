@@ -19,7 +19,11 @@ export type CompleteProfileForm = Pick<Mentee, "introduction">;
 export interface UpdateMenteeInfoForm
   extends Pick<
     Mentee,
-    "name" | "interestSchool" | "interestMajor" | "nationality" | "languages" | "introduction"
-  > {
-  profileImageFile: File;
-}
+    | "name"
+    | "interestSchool"
+    | "interestMajor"
+    | "nationality"
+    | "languages"
+    | "introduction"
+    | "profileImageUrl"
+  > {}

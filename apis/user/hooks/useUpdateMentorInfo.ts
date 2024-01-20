@@ -9,12 +9,21 @@ export const useUpdateMentorInfo = () => {
   const { mutateAsync: uploadImageFile } = useUploadImageFile();
 
   return useMutation({
-    mutationFn: async ({ profileImageFile, ...rest }: UpdateMentorInfoForm) => {
-      const { preSignedUrl, uploadFileUrl } = await fileApi.getPresignedUrl(profileImageFile.name);
+    mutationFn: async ({
+      profileImageFile,
+      profileImageUrl,
+      ...rest
+    }: UpdateMentorInfoForm & { profileImageFile?: File }) => {
+      if (profileImageFile) {
+        const { preSignedUrl, uploadFileUrl } = await fileApi.getPresignedUrl(
+          profileImageFile.name
+        );
+        await uploadImageFile({ preSignedUrl, file: profileImageFile });
 
-      await uploadImageFile({ preSignedUrl, file: profileImageFile });
+        return await userApi.patchMentorInfo({ profileImageUrl: uploadFileUrl, ...rest });
+      }
 
-      return await userApi.patchMentorInfo({ profileImageUrl: uploadFileUrl, ...rest });
+      return userApi.patchMentorInfo({ profileImageUrl, ...rest });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({

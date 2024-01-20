@@ -22,10 +22,18 @@ export const MentorInfoForm = () => {
   const { mutate: updateMentorInfo } = useUpdateMentorInfo();
 
   const values = (
-    ["name", "school", "major", "enteredIn", "languages", "introduction"] as Array<keyof typeof me>
+    [
+      "name",
+      "school",
+      "major",
+      "enteredIn",
+      "languages",
+      "introduction",
+      "profileImageUrl",
+    ] as Array<keyof typeof me>
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMentorInfoForm;
 
-  const methods = useForm<UpdateMentorInfoForm>({
+  const methods = useForm<UpdateMentorInfoForm & { profileImageFile?: File }>({
     values,
   });
 

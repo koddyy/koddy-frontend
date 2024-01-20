@@ -26,7 +26,7 @@ export const MenteeInfoForm = () => {
     >
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMenteeInfoForm;
 
-  const methods = useForm<UpdateMenteeInfoForm>({
+  const methods = useForm<UpdateMenteeInfoForm & { profileImageFile?: File }>({
     values,
   });
 
