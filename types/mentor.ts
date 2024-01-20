@@ -48,5 +48,5 @@ export interface CompleteProfileForm extends Pick<Mentor, "introduction">, Updat
 
 export interface UpdateMentorInfoForm
   extends Pick<Mentor, "name" | "school" | "major" | "enteredIn" | "languages" | "introduction"> {
-  profileImage: File;
+  profileImageFile: File;
 }
