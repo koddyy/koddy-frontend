@@ -1,4 +1,4 @@
-import { ElementType, PropsWithChildren, useState } from "react";
+import { ElementType, PropsWithChildren, ReactNode, useState } from "react";
 import ArrowDown from "@/assets/arrow_down.svg";
 import { FormOptions } from "@/components/FormControl/FormControl.type";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
@@ -11,6 +11,7 @@ export interface SelectProps<T = string> extends FormOptions {
   value?: T;
   onChangeValue?: (value: T) => void;
   placeholder?: string;
+  renderValue?: (value?: T) => ReactNode;
   rightContent?: ElementType;
 }
 
@@ -20,6 +21,7 @@ export const Select = <T extends string | number>({
   value,
   onChangeValue,
   placeholder,
+  renderValue,
   rightContent: RightContent = ArrowDown,
   ...props
 }: PropsWithChildren<SelectProps<T>>) => {
@@ -33,7 +35,7 @@ export const Select = <T extends string | number>({
   };
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative grow" ref={ref}>
       <button
         className={cn(
           "body-1 flex w-full appearance-none items-center rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem] outline-none focus-within:border-primary",
@@ -43,7 +45,11 @@ export const Select = <T extends string | number>({
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <span className={cn(!value && "text-gray-400")}>{value || placeholder}</span>
+        {renderValue ? (
+          renderValue(value)
+        ) : (
+          <span className={cn(!value && "text-gray-400")}>{value || placeholder}</span>
+        )}
         {RightContent && <RightContent className="ml-auto" />}
       </button>
       {isOpen && (

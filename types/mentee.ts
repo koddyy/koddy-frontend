@@ -15,3 +15,15 @@ export interface Mentee extends User {
 }
 
 export type CompleteProfileForm = Pick<Mentee, "introduction">;
+
+export interface UpdateMenteeInfoForm
+  extends Pick<
+    Mentee,
+    | "name"
+    | "interestSchool"
+    | "interestMajor"
+    | "nationality"
+    | "languages"
+    | "introduction"
+    | "profileImageUrl"
+  > {}

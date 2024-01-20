@@ -18,7 +18,7 @@ const ControlledSelect = (args: SelectProps) => {
     setSelectedValue(value);
   };
 
-  return <Select value={selectedValue} onChangeValue={handleChangeValue} {...args} />;
+  return <Select {...args} value={selectedValue} onChangeValue={handleChangeValue} />;
 };
 
 export const Controlled: StoryObj<typeof Select<string>> = {
@@ -27,5 +27,36 @@ export const Controlled: StoryObj<typeof Select<string>> = {
     options: ["Korea", "US", "Japen", "France", "Germany"],
     placeholder: "국적을 선택해 주세요",
     rightContent: TriangleDown,
+  },
+};
+
+const CustomValueSelect = (args: SelectProps) => {
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChangeValue = (value: string) => {
+    setSelectedValue(value);
+  };
+
+  return (
+    <Select
+      {...args}
+      value={selectedValue}
+      onChangeValue={handleChangeValue}
+      renderValue={(value) => (
+        <div className="flex gap-[6px]">
+          <span className="body-2-bold">selected option</span>
+          <span className="body-2 text-gray-300">|</span>
+          <span className="body-2-bold">{value}</span>
+        </div>
+      )}
+    />
+  );
+};
+
+export const CustomValue: StoryObj<typeof Select<string>> = {
+  render: (args: SelectProps) => <CustomValueSelect {...args} />,
+  args: {
+    options: ["option1", "option2", "option3", "option4", "option5"],
+    placeholder: "placeholder",
   },
 };
