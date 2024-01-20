@@ -4,7 +4,10 @@ import Link from "next/link";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
+import { PATH } from "@/constants/path";
 import { cn } from "@/utils/cn";
+
+const linkStyle = "inline-block w-full px-[20px] py-[14px]";
 
 const Page = () => {
   const { data: me } = useGetMe();
@@ -35,23 +38,21 @@ const Page = () => {
       </div>
       <Divider className="border-4 border-gray-100" />
       <div>
-        {isMentor && (
-          <>
-            <Link href="/mypage/edit" className="inline-block w-full px-5 py-[0.88rem]">
-              커피챗 시간 수정
-            </Link>
-            <Divider className="border-gray-100" />
-          </>
-        )}
-        <div className="px-5 py-[0.88rem]">회원 정보 수정</div>
+        <Link href={PATH.MYPAGE_EDIT} className={linkStyle}>
+          회원 정보 수정
+        </Link>
         <Divider className="border-gray-100" />
-        <div className="px-5 py-[0.88rem]">비밀번호 변경</div>
+        {isMentor && (
+          <Link href={PATH.MYPAGE_EDIT + "/schedule"} className={linkStyle}>
+            커피챗 기간 수정
+          </Link>
+        )}
       </div>
       <Divider className="border-4 border-gray-100" />
       <div>
-        <div className="px-5 py-[0.88rem]">고객 센터</div>
+        <div className="px-5 py-[0.88rem]">언어 변경</div>
         <Divider className="border-gray-100" />
-        <div className="px-5 py-[0.88rem]">개인정보 처리방침</div>
+        <div className="px-5 py-[0.88rem]">문의하기</div>
         <Divider className="border-gray-100" />
       </div>
     </>
