@@ -1,7 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
+import { useUpdateMentorInfo } from "@/apis/user/hooks/useUpdateMentorInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
 import { Divider } from "@/components/Divider/Divider";
@@ -15,7 +17,9 @@ import { LanguageSelectForm } from "./LanguageSelectForm";
 const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
 
 export const MentorInfoForm = () => {
+  const router = useRouter();
   const { data: me } = useGetMeAsMentor();
+  const { mutate: updateMentorInfo } = useUpdateMentorInfo();
 
   const values = (
     ["name", "school", "major", "enteredIn", "languages", "introduction"] as Array<keyof typeof me>
@@ -33,7 +37,11 @@ export const MentorInfoForm = () => {
   } = methods;
 
   const onSubmitForm = (form: UpdateMentorInfoForm) => {
-    console.log(form);
+    updateMentorInfo(form, {
+      onSuccess: () => {
+        router.push("/");
+      },
+    });
   };
 
   return (

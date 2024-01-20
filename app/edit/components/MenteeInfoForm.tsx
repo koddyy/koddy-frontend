@@ -1,7 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentee } from "@/apis/user/hooks/useGetMeAsMentee";
+import { useUpdateMenteeInfo } from "@/apis/user/hooks/useUpdateMenteeInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
 import { Divider } from "@/components/Divider/Divider";
@@ -14,7 +16,9 @@ import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
 export const MenteeInfoForm = () => {
+  const router = useRouter();
   const { data: me } = useGetMeAsMentee();
+  const { mutate: updateMenteeInfo } = useUpdateMenteeInfo();
 
   const values = (
     ["name", "interestSchool", "interestMajor", "languages", "introduction"] as Array<
@@ -34,7 +38,11 @@ export const MenteeInfoForm = () => {
   } = methods;
 
   const onSubmitForm = (form: UpdateMenteeInfoForm) => {
-    console.log(form);
+    updateMenteeInfo(form, {
+      onSuccess: () => {
+        router.push("/");
+      },
+    });
   };
 
   return (

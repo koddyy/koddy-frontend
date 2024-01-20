@@ -3,8 +3,8 @@ import type { ResponseType } from "@/apis/types";
 import { PostAvailableTimesRequest } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
-import type { Mentee } from "@/types/mentee";
-import type { Mentor } from "@/types/mentor";
+import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
+import type { Mentor, UpdateMentorInfoForm } from "@/types/mentor";
 import type { Mentee as DeprecatedMentee, Mentor as DeprecatedMentor, User } from "@/types/user";
 
 class UserApi {
@@ -31,6 +31,18 @@ class UserApi {
 
   patchMentorSchedules = (schedules: Pick<Mentor, "period" | "schedules">) => {
     return apiInstance.patch("/api/mentors/me/schedules", schedules);
+  };
+
+  patchMentorInfo = (
+    info: Omit<UpdateMentorInfoForm, "profileImageFile"> & Pick<Mentor, "profileImageUrl">
+  ) => {
+    return apiInstance.patch("/api/mentors/me/basic-info", info);
+  };
+
+  patchMenteeInfo = (
+    info: Omit<UpdateMenteeInfoForm, "profileImageFile"> & Pick<Mentee, "profileImageUrl">
+  ) => {
+    return apiInstance.patch("/api/mentees/me/basic-info", info);
   };
 
   getUserById = async (id: string) => {
