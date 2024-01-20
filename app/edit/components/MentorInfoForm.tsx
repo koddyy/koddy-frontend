@@ -12,6 +12,7 @@ import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { UpdateMentorInfoForm } from "@/types/mentor";
+import { useLanguageStore } from "../language/store";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
 const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
@@ -20,6 +21,7 @@ export const MentorInfoForm = () => {
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorInfo } = useUpdateMentorInfo();
+  const { languages } = useLanguageStore();
 
   const values = (
     [
@@ -34,7 +36,7 @@ export const MentorInfoForm = () => {
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMentorInfoForm;
 
   const methods = useForm<UpdateMentorInfoForm & { profileImageFile?: File }>({
-    values,
+    values: { ...values, languages: languages ?? values.languages },
   });
 
   const {
@@ -51,6 +53,9 @@ export const MentorInfoForm = () => {
       },
     });
   };
+
+  const mainLanguage = languages?.main ?? me?.languages.main;
+  const subLanguages = languages?.sub ?? me?.languages.sub ?? [];
 
   return (
     <FormProvider {...methods}>
@@ -100,7 +105,7 @@ export const MentorInfoForm = () => {
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[24px] mt-[20px] px-[20px]">
-          <LanguageSelectForm languages={me ? [me.languages.main, ...me.languages.sub] : []} />
+          <LanguageSelectForm languages={mainLanguage ? [mainLanguage, ...subLanguages] : []} />
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[104px] mt-[20px] px-[20px]">

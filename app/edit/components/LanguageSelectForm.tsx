@@ -1,8 +1,9 @@
 import { useController, useFormContext } from "react-hook-form";
-import { Button } from "@/components/Button";
+import { LinkButton } from "@/components/Button";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { languageCodeText } from "@/constants/language";
+import { PATH } from "@/constants/path";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { UpdateMentorInfoForm } from "@/types/mentor";
 import { LanguageCode } from "@/types/user";
@@ -61,9 +62,12 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
           />
         ))}
         <FormErrorMessage>메인 언어는 필수값입니다</FormErrorMessage>
-        <Button variant="ghost" className="body-2 bg-gray-100 text-primary-dark">
+        <LinkButton
+          href={PATH.MYPAGE_EDIT + "/language"}
+          className="body-2 bg-gray-100 text-primary-dark"
+        >
           추가하기
-        </Button>
+        </LinkButton>
       </div>
     </FormControl>
   );

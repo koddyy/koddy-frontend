@@ -5,14 +5,21 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { MenteeInfoForm } from "./components/MenteeInfoForm";
 import { MentorInfoForm } from "./components/MentorInfoForm";
+import { useLanguageStore } from "./language/store";
 
 const Page = () => {
   const router = useRouter();
   const { data: me } = useGetMe();
+  const { clear } = useLanguageStore();
 
   return (
     <>
-      <NavigationBar onClickGoback={() => router.back()} />
+      <NavigationBar
+        onClickGoback={() => {
+          clear();
+          router.back();
+        }}
+      />
       {me?.role === "mentor" && <MentorInfoForm />}
       {me?.role === "mentee" && <MenteeInfoForm />}
     </>

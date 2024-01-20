@@ -10,7 +10,7 @@ export const PATH = {
   SCHEDULE: "/schedule",
   NOTIFICATION: "/notification",
   MYPAGE: "/mypage",
-  MYPAGE_EDIT: "/mypage/edit",
+  MYPAGE_EDIT: "/edit",
   EXPLORE: "/explore",
 };
 

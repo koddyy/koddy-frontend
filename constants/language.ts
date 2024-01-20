@@ -7,3 +7,5 @@ export const languageCodeText: Record<LanguageCode, string> = {
   JP: "일본어",
   VN: "베트남어",
 };
+
+export const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
