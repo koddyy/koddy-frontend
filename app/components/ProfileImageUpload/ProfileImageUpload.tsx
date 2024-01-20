@@ -47,9 +47,9 @@ export const ProfileImageUpload = forwardRef<HTMLInputElement, ProfileImageUploa
           <img
             className={cn(
               "h-[108px] w-[108px] rounded-xl border border-gray-200 bg-gray-100 object-contain p-[7px]",
-              previewImage && "object-cover p-0"
+              (previewImage || imageUrl) && "object-cover p-0"
             )}
-            src={imageUrl || previewImage || defaultImageUrl}
+            src={previewImage || imageUrl || defaultImageUrl}
           />
           {isEditable && (
             <button
