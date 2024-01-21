@@ -2,7 +2,7 @@ import { cva, VariantProps } from "cva";
 import { PropsWithChildren } from "react";
 
 const TagVariants = cva(
-  "body-3 inline-block h-[32px] rounded-[20px] px-[10px] py-[6px] text-gray-700",
+  "body-3-bold inline-block h-[32px] whitespace-nowrap rounded-[20px] px-[10px] py-[6px] text-gray-700",
   {
     variants: {
       variant: {
