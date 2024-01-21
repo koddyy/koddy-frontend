@@ -11,15 +11,17 @@ import { NavigationBar } from "@/app/components/NavigationBar";
 import { LinkButton } from "@/components/Button";
 import { MenteeApplyForm } from "@/types/coffeechat";
 import { ScheduleStep } from "./components/ScheduleStep";
-import useReserveCoffeeChat from "./hooks/useReserveCoffeeChat";
+import { useApproveCoffeeChat } from "./hooks/useApproveCoffeeChat";
 
-const Page = ({ searchParams }: { searchParams: { id: string } }) => {
-  const mentor = Number(searchParams.id);
+/** @NOTE coffeechat id의 유무로 신청/수락 구분 */
+const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: string } }) => {
+  const mentorId = Number(searchParams.mentor);
+  const coffeeChatId = Number(searchParams.coffeechat);
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const methods = useForm<MenteeApplyForm>();
-  const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
-  const { data: user, isLoading: isLoadingMentor } = useGetUserById(mentor);
+  const { isApproved, approveCoffeeChat } = useApproveCoffeeChat();
+  const { data: user, isLoading: isLoadingMentor } = useGetUserById(mentorId);
   const { data: me, isLoading: isLoadingMe } = useGetMe();
 
   if (isLoadingMentor || isLoadingMe) return null;
@@ -39,7 +41,7 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   };
 
   const onSubmitForm = (data: MenteeApplyForm) => {
-    reserveCoffeeChat(mentor, data);
+    if (coffeeChatId) approveCoffeeChat(coffeeChatId, data);
   };
 
   return (
@@ -52,10 +54,10 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
           )}
           {currentStep === 2 && <QuestionStep />}
         </div>
-        {isReserved && (
+        {isApproved && (
           <ResultBottomSheet
             resultType="positive"
-            description={["OOO님과의", "커피챗이 신청되었습니다."]}
+            description={[`${user.name}님과의`, "커피챗이 신청되었습니다."]}
             confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
           />
         )}

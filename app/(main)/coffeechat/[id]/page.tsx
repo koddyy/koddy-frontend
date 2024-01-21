@@ -28,18 +28,18 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {me.role === "mentor" && <CoffeeChatDetailForMentor id={params.id} />}
-      {me.role === "mentee" && <CoffeeChatDetailForMentee id={params.id} />}
+      {me.role === "mentor" && <CoffeeChatDetailForMentor id={Number(params.id)} />}
+      {me.role === "mentee" && <CoffeeChatDetailForMentee id={Number(params.id)} />}
     </>
   );
 };
 
 interface CoffeeChatDetailProps {
-  id: string;
+  id: number;
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
-  const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat(id);
+  const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat(String(id));
   const {
     isRejecting,
     isRejected,
@@ -53,8 +53,8 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     openCancelBottomSheet,
     closeCancelBottomSheet,
     cancelCoffeeChat,
-  } = useCancelCoffeeChat(id);
-  const { data: coffeechat, isLoading } = useGetCoffeeChatById(id);
+  } = useCancelCoffeeChat(String(id));
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
@@ -133,7 +133,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {isRejecting && (
         <RejectBottomSheet
           userName={coffeechat.mentee.name}
-          onClickRejectButton={(reason) => rejectCoffeeChat({ statusDesc: reason })}
+          onClickRejectButton={(rejectReason) => rejectCoffeeChat({ rejectReason })}
           onClose={closeRejectBottomSheet}
         />
       )}
@@ -177,8 +177,8 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
     openPendingBottomSheet,
     closePendingBottomSheet,
     cancelCoffeeChat,
-  } = useCancelCoffeeChat(id);
-  const { data: coffeechat, isLoading } = useGetCoffeeChatById(id);
+  } = useCancelCoffeeChat(String(id));
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
@@ -244,7 +244,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       {isRejecting && (
         <RejectBottomSheet
           userName={coffeechat.mentor.name}
-          onClickRejectButton={(reason: string) => rejectCoffeeChat({ statusDesc: reason })}
+          onClickRejectButton={(rejectReason: string) => rejectCoffeeChat({ rejectReason })}
           onClose={closeRejectBottomSheet}
         />
       )}
