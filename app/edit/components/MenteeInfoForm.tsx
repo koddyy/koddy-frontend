@@ -11,7 +11,7 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { NationalityOptions } from "@/constants/nation";
+import { NationalityOptions } from "@/constants/nationality";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { useLanguageStore } from "../language/store";
 import { LanguageSelectForm } from "./LanguageSelectForm";

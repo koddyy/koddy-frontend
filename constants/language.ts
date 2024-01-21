@@ -9,3 +9,13 @@ export const NationCodeText: Record<NationCode, string> = {
 };
 
 export const languagesOptions = Object.entries(NationCodeText) as Array<[NationCode, string]>;
+
+export type LanguageCode = "KO" | "EN" | "CN" | "JA" | "VI";
+
+export const NationAndLanguageCodeMapping: Record<NationCode, LanguageCode> = {
+  KR: "KO",
+  EN: "EN",
+  CN: "CN",
+  JP: "JA",
+  VN: "VI",
+};
