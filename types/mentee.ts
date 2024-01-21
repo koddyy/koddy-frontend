@@ -1,12 +1,12 @@
-import { LanguageCode, User } from "./user";
+import { NationCode, User } from "./user";
 
 export interface Mentee extends User {
   id: number;
   nationality: string;
   introduction?: string;
   languages: {
-    main: LanguageCode;
-    sub: LanguageCode[];
+    main: NationCode;
+    sub: NationCode[];
   };
   interestSchool: string;
   interestMajor: string;

@@ -2,11 +2,8 @@ import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
-import { languageCodeText } from "@/constants/language";
-import { LanguageCode } from "@/types/user";
+import { languagesOptions } from "@/constants/language";
 import type { SignupForm } from "../types/mentorForm";
-
-const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
 
 interface MainLanguageSelectFormProps {
   onClickNextStep: () => void;

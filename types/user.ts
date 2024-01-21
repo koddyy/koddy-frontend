@@ -1,6 +1,6 @@
 type Role = "mentor" | "mentee";
 
-type LanguageCode = "KR" | "EN" | "CN" | "JP" | "VN";
+type NationCode = "KR" | "EN" | "CN" | "JP" | "VN";
 
 interface User {
   name: string;
@@ -29,7 +29,7 @@ interface Mentor {
   school: string;
   major: string;
   nationality: string;
-  languages: Array<{ languageId: LanguageCode }>;
+  languages: Array<{ languageId: NationCode }>;
   introduce?: string;
   mentorYn: "Y";
   grade: number;
@@ -44,7 +44,7 @@ interface Mentee {
   school: string;
   major: string;
   nationality: string;
-  languages: Array<{ languageId: LanguageCode }>;
+  languages: Array<{ languageId: NationCode }>;
   introduce?: string;
   mentorYn: "N";
 }
@@ -53,4 +53,4 @@ interface Mentee {
  *  =========================
  */
 
-export type { AvailableTimes, LanguageCode, Mentee, Mentor, Role, User, WeekType };
+export type { AvailableTimes, Mentee, Mentor, NationCode, Role, User, WeekType };

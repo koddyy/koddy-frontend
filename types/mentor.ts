@@ -1,4 +1,4 @@
-import { LanguageCode, User } from "./user";
+import { NationCode, User } from "./user";
 
 export type Day = "월" | "화" | "수" | "목" | "금" | "토" | "일";
 
@@ -13,8 +13,8 @@ export interface Mentor extends User {
   id: number;
   introduction?: string;
   languages: {
-    main: LanguageCode;
-    sub: LanguageCode[];
+    main: NationCode;
+    sub: NationCode[];
   };
   school: string;
   major: string;

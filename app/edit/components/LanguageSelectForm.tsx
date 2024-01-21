@@ -2,16 +2,16 @@ import { useController, useFormContext } from "react-hook-form";
 import { LinkButton } from "@/components/Button";
 import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
-import { languageCodeText } from "@/constants/language";
+import { NationCodeText } from "@/constants/language";
 import { PATH } from "@/constants/path";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { UpdateMentorInfoForm } from "@/types/mentor";
-import { LanguageCode } from "@/types/user";
+import { NationCode } from "@/types/user";
 
 const languageCategoryOptions = ["메인 언어", "서브 언어"];
 
 interface LanguageSelectFormProps {
-  languages: LanguageCode[];
+  languages: NationCode[];
 }
 
 export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
@@ -53,7 +53,7 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
             }}
             renderValue={(value) => (
               <div className="flex gap-[6px]">
-                <span className="body-2-bold">{languageCodeText[language]}</span>
+                <span className="body-2-bold">{NationCodeText[language]}</span>
                 <span className="body-2 text-gray-300">|</span>
                 <span className="body-2-bold">{value}</span>
               </div>
