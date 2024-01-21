@@ -1,5 +1,4 @@
 import { Nullable } from "primereact/ts-helpers";
-import { useMemo } from "react";
 import { Controller, useController, useFormContext } from "react-hook-form";
 import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
@@ -8,8 +7,7 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
 import { Day, Mentor } from "@/types/mentor";
-import { toHHMM } from "@/utils/time";
-import { createTimeRangeList, getDisabledDays } from "../utils/scheduleUtils";
+import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
   schedules: NonNullable<Mentor["schedules"]>;
@@ -30,20 +28,7 @@ export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => 
     },
   });
 
-  const disabledDays = useMemo(
-    () => getDisabledDays(schedules.map(({ dayOfWeek }) => dayOfWeek)),
-    [schedules]
-  );
-
-  const timeRangeListPerDay = useMemo(() => {
-    return schedules?.reduce(
-      (acc, { dayOfWeek, start, end }) => ({
-        ...acc,
-        [dayOfWeek]: createTimeRangeList(toHHMM(start), toHHMM(end)),
-      }),
-      {} as { [key in Day]: string[][] }
-    );
-  }, [schedules]);
+  const { disabledDays, timeRangeListPerDay } = useSchedules(schedules);
 
   const day = new Intl.DateTimeFormat("ko-KR", {
     weekday: "short",
