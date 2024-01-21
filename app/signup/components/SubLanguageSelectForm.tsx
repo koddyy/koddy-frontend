@@ -2,11 +2,9 @@ import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
-import { languageCodeText } from "@/constants/language";
-import { LanguageCode } from "@/types/user";
+import { languagesOptions } from "@/constants/language";
+import { NationCode } from "@/types/user";
 import { SignupForm } from "../types/mentorForm";
-
-const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
 
 export const SubLanguageSelectForm = () => {
   const {
@@ -21,7 +19,7 @@ export const SubLanguageSelectForm = () => {
     name: "languages.sub",
   });
 
-  const handleChangeSubLanguages = (languageCode: LanguageCode) => {
+  const handleChangeSubLanguages = (languageCode: NationCode) => {
     const hasLanguageCode = subLanguages.value.findIndex((v) => v === languageCode);
     if (hasLanguageCode === -1) {
       subLanguages.onChange(subLanguages.value.concat([languageCode]));

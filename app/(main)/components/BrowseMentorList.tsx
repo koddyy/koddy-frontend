@@ -10,7 +10,7 @@ export const BrowseMentorList = () => {
       <div className="subheading-bold mb-3">멘토 둘러보기</div>
       <div className="flex flex-col gap-[0.81rem]">
         {mentorList.map((mentor) => (
-          <Link key={mentor.userId} href={`/profile/${mentor.userId}`}>
+          <Link key={mentor.id} href={`/profile/${mentor.id}`}>
             <UserCard {...mentor} />
           </Link>
         ))}

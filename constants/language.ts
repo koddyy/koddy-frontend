@@ -1,6 +1,6 @@
-import { LanguageCode } from "@/types/user";
+import { NationCode } from "@/types/user";
 
-export const languageCodeText: Record<LanguageCode, string> = {
+export const NationCodeText: Record<NationCode, string> = {
   KR: "한국어",
   EN: "영어",
   CN: "중국어",
@@ -8,4 +8,14 @@ export const languageCodeText: Record<LanguageCode, string> = {
   VN: "베트남어",
 };
 
-export const languagesOptions = Object.entries(languageCodeText) as Array<[LanguageCode, string]>;
+export const languagesOptions = Object.entries(NationCodeText) as Array<[NationCode, string]>;
+
+export type LanguageCode = "KO" | "EN" | "CN" | "JA" | "VI";
+
+export const NationAndLanguageCodeMapping: Record<NationCode, LanguageCode> = {
+  KR: "KO",
+  EN: "EN",
+  CN: "CN",
+  JP: "JA",
+  VN: "VI",
+};

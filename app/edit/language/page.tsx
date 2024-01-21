@@ -8,7 +8,7 @@ import { Toggle } from "@/components/Toggle";
 import { languagesOptions } from "@/constants/language";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
-import { LanguageCode } from "@/types/user";
+import { NationCode } from "@/types/user";
 import { useLanguageStore } from "./store";
 
 const Page = () => {
@@ -19,7 +19,7 @@ const Page = () => {
     defaultValues: {
       languages: {
         main: undefined,
-        sub: [] as LanguageCode[],
+        sub: [] as NationCode[],
       },
     },
   });
@@ -32,34 +32,34 @@ const Page = () => {
     },
   });
 
-  const handleChangeMainLanguage = (languageCode: LanguageCode) => {
-    const isPressed = languageCode === languagesField.value.main;
+  const handleChangeMainLanguage = (language: NationCode) => {
+    const isPressed = language === languagesField.value.main;
     if (isPressed) {
       languagesField.onChange({
         main: "",
-        sub: languagesField.value.sub.filter((v) => v !== languageCode),
+        sub: languagesField.value.sub.filter((v) => v !== language),
       });
     } else {
       languagesField.onChange({
-        main: languageCode,
-        sub: languagesField.value.sub.filter((v) => v !== languageCode),
+        main: language,
+        sub: languagesField.value.sub.filter((v) => v !== language),
       });
     }
   };
 
-  const handleChangeSubLanguages = (languageCode: LanguageCode) => {
+  const handleChangeSubLanguages = (language: NationCode) => {
     if (!languagesField.value) return;
 
-    const hasLanguageCode = languagesField.value.sub.findIndex((v) => v === languageCode);
+    const hasLanguageCode = languagesField.value.sub.findIndex((v) => v === language);
     if (hasLanguageCode === -1) {
       languagesField.onChange({
         ...languagesField.value,
-        sub: languagesField.value.sub.concat([languageCode]),
+        sub: languagesField.value.sub.concat([language]),
       });
     } else {
       languagesField.onChange({
         ...languagesField.value,
-        sub: languagesField.value.sub.filter((v) => v !== languageCode),
+        sub: languagesField.value.sub.filter((v) => v !== language),
       });
     }
   };

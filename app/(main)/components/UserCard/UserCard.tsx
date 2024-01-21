@@ -1,7 +1,23 @@
+import { cva } from "cva";
 import { Tag } from "@/components/Tag";
-import { languageCodeText } from "@/constants/language";
-import type { Mentee, Mentor } from "@/types/user";
+import { LanguageCode, NationAndLanguageCodeMapping, NationCodeText } from "@/constants/language";
+import { NationalityImage } from "@/constants/nationality";
+import { Mentee } from "@/types/mentee";
+import { Mentor } from "@/types/mentor";
 import { cn } from "@/utils/cn";
+import { capitalize } from "@/utils/string";
+
+export const LanguageTextColorVariants = cva("", {
+  variants: {
+    language: {
+      KO: "text-[#FF3FE0]",
+      EN: "text-[#2C79EC]",
+      CN: "text-[#F53A3A]",
+      JA: "text-[#24CE49]",
+      VI: "text-[#F6752D]",
+    } as Record<LanguageCode, string>,
+  },
+});
 
 type CardType = "horizontal" | "vertical";
 
@@ -18,7 +34,7 @@ export const UserCard = ({
   ...user
 }: UserCardProps) => {
   const defaultImageUrl =
-    user.mentorYn === "Y" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg";
+    user.role === "mentor" ? "/images/empty_mentor.svg" : "/images/empty_mentee.svg";
 
   if (cardType === "horizontal")
     return <HorizontalUserCard defaultImageUrl={defaultImageUrl} {...user} />;
@@ -33,9 +49,11 @@ export const UserCard = ({
 };
 
 const HorizontalUserCard = ({ imageUrl, defaultImageUrl, ...user }: UserCardProps) => {
-  const { mentorYn, name, school, major } = user;
+  const { role, name } = user;
   const description =
-    mentorYn === "Y" ? `${school} ${major} ${user.grade}학년` : `관심 : ${school}, ${major}`;
+    role === "mentor"
+      ? `${user.school} ${user.major} ${user.enteredIn}학년`
+      : `관심 : ${user.interestSchool}, ${user.interestMajor}`;
 
   return (
     <div className="flex justify-between gap-[1.13rem] rounded-xl bg-gray-100 p-3">
@@ -68,9 +86,13 @@ const VerticalUserCard = ({
   coffeeChatStatusText,
   ...user
 }: UserCardProps) => {
-  const { mentorYn, name, school, major, nationality, languages } = user;
+  const { role, name, languages } = user;
   const description =
-    mentorYn === "Y" ? `${school} ${major} ${user.grade}학년` : `관심 : ${school}, ${major}`;
+    role === "mentor"
+      ? `${user.school} ${user.major} ${user.enteredIn}학년`
+      : `관심 : ${user.interestSchool}, ${user.interestMajor}`;
+
+  const mainLanguageCode = NationAndLanguageCodeMapping[languages.main];
 
   return (
     <>
@@ -82,19 +104,55 @@ const VerticalUserCard = ({
         <div className="absolute inset-0 z-10 bg-dimmed-gradient"></div>
       </div>
       <div className="px-5 py-3">
-        <div className="mb-2">
+        <div className="mb-[14px]">
           {coffeeChatStatusText && (
             <div className="body-2-bold text-primary-dark">{coffeeChatStatusText}</div>
           )}
-          <span className="headline-2">{name}</span>
-          <p className="body-3-bold">{description}</p>
+          {role === "mentee" && (
+            <div className="mb-[4px] flex items-center gap-[6px]">
+              <img className="h-[18px] w-[18px]" src={NationalityImage[user.nationality]} />
+              {user.nationality}
+            </div>
+          )}
+          <span className="headline-1">{name}</span>
+          <p className="body-1-bold text-gray-500">{description}</p>
         </div>
-        <div className="flex justify-between">
-          <Tag variant="primary-dark">{nationality}</Tag>
-          <div className="flex flex-wrap justify-end gap-2">
-            {languages.map(({ languageId }) => (
-              <Tag key={languageId}>{languageCodeText[languageId]}</Tag>
-            ))}
+        <div className="flex gap-[16px]">
+          <div>
+            <div className="label mb-[4px]">메인 언어</div>
+            <Tag variant="solid" color="grayscale">
+              <span
+                className={cn(
+                  "body-3-bold mr-[4px]",
+                  LanguageTextColorVariants({ language: mainLanguageCode })
+                )}
+              >
+                {capitalize(mainLanguageCode)}
+              </span>
+              {NationCodeText[languages.main]}
+            </Tag>
+          </div>
+          <div className="grow">
+            <div className="label mb-[4px]">서브 언어</div>
+            <div className="flex flex-wrap gap-[6px]">
+              {languages.sub.map((language) => {
+                const subLanguageCode = NationAndLanguageCodeMapping[language];
+
+                return (
+                  <Tag key={language} variant="outline" color="grayscale">
+                    <span
+                      className={cn(
+                        "body-3-bold mr-[4px]",
+                        LanguageTextColorVariants({ language: subLanguageCode })
+                      )}
+                    >
+                      {capitalize(subLanguageCode)}
+                    </span>
+                    {NationCodeText[language]}
+                  </Tag>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

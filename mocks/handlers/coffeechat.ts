@@ -1,7 +1,6 @@
 import { delay, http, HttpResponse, PathParams } from "msw";
 import { PatchCoffeeChatStatusRequest, PostCoffeeChatRequest } from "@/apis/coffeechat/types";
-import { coffeechatList } from "../fixture/coffeechat";
-import { menteeList, mentorList } from "../fixture/user";
+import { coffeechatList, menteeList, mentorList } from "../fixture/coffeechat";
 
 export const handlers = [
   http.get("/api/application", async () => {
