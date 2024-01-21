@@ -5,6 +5,5 @@ export const useGetMentorList = () => {
   return useSuspenseQuery({
     queryKey: ["getMentorList"],
     queryFn: userApi.getMentorList,
-    select: (data) => data.data,
   });
 };

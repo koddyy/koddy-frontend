@@ -15,7 +15,7 @@ import { useToggle } from "@/hooks/useToggle";
 const Page = ({ params }: { params: { id: string } }) => {
   const userId = Number(params.id);
   const router = useRouter();
-  const { data: user } = useGetUserById(String(userId));
+  const { data: user } = useGetUserById(userId);
 
   if (!user) return null;
 
@@ -28,15 +28,14 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {/** @TODO 임시로 기존 id 타입(string)을 따르기 위한 타입 캐스팅 */}
-      {user.mentorYn === "Y" && <MentorProfile userId={String(userId)} />}
-      {user.mentorYn === "N" && <MenteeProfile userId={String(userId)} />}
+      {user.role === "mentor" && <MentorProfile userId={userId} />}
+      {user.role === "mentee" && <MenteeProfile userId={userId} />}
     </>
   );
 };
 
 interface ProfileProps {
-  userId: string;
+  userId: number;
 }
 
 const MenteeProfile = ({ userId }: ProfileProps) => {
@@ -47,7 +46,7 @@ const MenteeProfile = ({ userId }: ProfileProps) => {
     closePendingBottomSheet,
     requestCoffeeChat,
   } = useRequestCoffeeChat();
-  const { data: user, isLoading } = useGetUserById(String(userId));
+  const { data: user, isLoading } = useGetUserById(userId);
   const { isAuthenticated, me } = useAuth();
 
   if (isLoading) return null;
@@ -60,7 +59,7 @@ const MenteeProfile = ({ userId }: ProfileProps) => {
       <div className="px-5 py-3">
         <div className="body-3-bold mb-[0.38rem]">자기소개</div>
         <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-          {user.introduce || "자기소개가 없습니다."}
+          {user.introduction || "자기소개가 없습니다."}
         </p>
       </div>
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
@@ -72,7 +71,7 @@ const MenteeProfile = ({ userId }: ProfileProps) => {
             resultType="positive"
             description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
             onClickNo={closePendingBottomSheet}
-            onClickYes={() => requestCoffeeChat({ mentor: String(me!.id), mentee: userId })}
+            onClickYes={() => requestCoffeeChat({ mentor: String(me!.id), mentee: String(userId) })}
           />
         ) : (
           <GoToLoginBottomSheet onClose={closePendingBottomSheet} />
@@ -101,10 +100,10 @@ const MentorProfile = ({ userId }: ProfileProps) => {
   return (
     <>
       <UserCard cardType="vertical" {...user} />
-      <div className="px-5 py-3">
+      <div className="px-5 py-[20px]">
         <div className="body-3-bold mb-[0.38rem]">자기소개</div>
         <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-          {user.introduce || "자기소개가 없습니다."}
+          {user.introduction || "자기소개가 없습니다."}
         </p>
       </div>
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">

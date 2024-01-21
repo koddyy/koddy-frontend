@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
 import useGetNewCoffeeChatList from "@/apis/coffeechat/hooks/useGetNewCoffeeChatList";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
@@ -17,11 +18,11 @@ export const NewCoffeeChatList = () => {
           {me.role === "mentee" && "제안 온 커피챗"}
         </div>
         <div className="mb-4 flex flex-col gap-[0.81rem]">
-          {newCoffeeChatList.map(({ applicationId, mentee, mentor }) => {
-            const user = me.role === "mentor" ? mentee : mentor;
+          {newCoffeeChatList.map(({ applicationId }) => {
+            // const user = me.role === "mentor" ? mentee : mentor;
             return (
               <Link href={`/coffeechat/${applicationId}`} key={applicationId}>
-                <UserCard {...user} />
+                {/* <UserCard {...user} /> */}
               </Link>
             );
           })}

@@ -1,11 +1,10 @@
 import { apiInstance } from "@/apis/axios";
-import type { ResponseType } from "@/apis/types";
 import { PostAvailableTimesRequest } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
 import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
 import type { Mentor, UpdateMentorInfoForm } from "@/types/mentor";
-import type { Mentee as DeprecatedMentee, Mentor as DeprecatedMentor, User } from "@/types/user";
+import type { User } from "@/types/user";
 
 class UserApi {
   signupAsMentor = (signupForm: MentorSignupForm & User) => {
@@ -51,12 +50,12 @@ class UserApi {
   };
 
   getMentorList = async () => {
-    const response = await apiInstance.get<ResponseType<DeprecatedMentor[]>>("/api/users/mentor");
+    const response = await apiInstance.get<Mentor[]>("/api/users/mentor");
     return response.data;
   };
 
   getMenteeList = async () => {
-    const response = await apiInstance.get<ResponseType<DeprecatedMentee[]>>("/api/users/mentee");
+    const response = await apiInstance.get<Mentee[]>("/api/users/mentee");
     return response.data;
   };
 
