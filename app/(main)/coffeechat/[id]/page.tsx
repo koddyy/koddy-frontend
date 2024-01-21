@@ -5,12 +5,10 @@ import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import useCancelCoffeeChat from "@/app/(main)/coffeechat/hooks/useCancelCoffeeChat";
-import { UserCard } from "@/app/(main)/components/UserCard";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
-import { CoffeeChatStatusText } from "@/constants/coffeechat";
 import useClipboard from "@/hooks/useClipboard";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
@@ -67,11 +65,11 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 
   return (
     <>
-      <UserCard
+      {/* <UserCard
         cardType="vertical"
         {...coffeechat.mentee}
         coffeeChatStatusText={CoffeeChatStatusText.mentor[coffeechat.status]}
-      />
+      /> */}
       <div className="px-5">
         <Divider />
         {coffeechat.status === "AGREE" && (
@@ -191,11 +189,11 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
 
   return (
     <>
-      <UserCard
+      {/* <UserCard
         cardType="vertical"
         {...coffeechat.mentor}
         coffeeChatStatusText={CoffeeChatStatusText.mentee[coffeechat.status]}
-      />
+      /> */}
       <div className="px-5">
         <Divider />
         {coffeechat.status === "AGREE" && (

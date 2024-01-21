@@ -10,10 +10,10 @@ export const NationalityOptions: Nationality[] = [
 ];
 
 export const NationalityImage: Record<Nationality, string> = {
-  한국: "@/assets/south_korea.svg",
-  미국: "@/assets/united_states.svg",
-  일본: "@/assets/japan.svg",
-  중국: "@/assets/china.svg",
-  베트남: "@assets/vietnam.svg",
+  한국: "/images/south_korea.png",
+  미국: "/images/united_states.png",
+  일본: "/images/japan.png",
+  중국: "/images/china.png",
+  베트남: "/images/vietnam.png",
   Others: "",
 };

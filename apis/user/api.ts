@@ -45,10 +45,8 @@ class UserApi {
     return apiInstance.patch("/api/mentees/me/basic-info", info);
   };
 
-  getUserById = async (id: string) => {
-    const response = await apiInstance.get<ResponseType<DeprecatedMentor | DeprecatedMentee>>(
-      `/api/users/${id}`
-    );
+  getUserById = async (id: number) => {
+    const response = await apiInstance.get<Mentor | Mentee>(`/api/users/${id}`);
     return response.data;
   };
 
