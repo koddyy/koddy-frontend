@@ -64,7 +64,7 @@ export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => 
                       key={i}
                       className="px-[12px] py-[9px]"
                       variant="surface"
-                      pressed={field.value.join(delimiter) === value}
+                      pressed={field.value?.join(delimiter) === value}
                       onChangePressed={() => field.onChange(timeRange)}
                     >
                       {value}
