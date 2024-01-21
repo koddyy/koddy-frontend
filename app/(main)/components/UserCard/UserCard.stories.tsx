@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { mentee, mentor } from "@/mocks/fixture/user";
 import { UserCard } from "./UserCard";
 
 const meta = {
@@ -9,30 +10,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const Mentor: Story = {
   args: {
-    mentorYn: "Y",
-    userId: "1",
-    name: "Hường",
-    email: "",
-    school: "OO대학교",
-    major: "OO학부",
-    grade: 0,
-    nationality: "베트남인",
-    languages: [{ languageId: "KR" }, { languageId: "EN" }],
-    availableTimes: [],
+    ...mentor,
   },
 };
 
 export const Mentee: Story = {
   args: {
-    mentorYn: "N",
-    userId: "1",
-    name: "Hường",
-    email: "",
-    school: "OO대학교",
-    major: "OO학부",
-    nationality: "베트남인",
-    languages: [{ languageId: "KR" }, { languageId: "EN" }],
+    ...mentee,
   },
 };
