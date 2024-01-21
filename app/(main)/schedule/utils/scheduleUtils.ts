@@ -3,7 +3,7 @@ import { Day } from "@/types/mentor";
 
 export const getDisabledDays = (availableDays: Day[]) => {
   const disabledDays = DAYS.reduce((acc, cur, i) => {
-    if (!availableDays.includes(cur)) return [...acc, i];
+    if (!availableDays.includes(cur)) return [...acc, i === 6 ? 0 : i + 1];
     return acc;
   }, [] as number[]);
 
