@@ -1,37 +1,30 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
-import { ScheduleForm } from "@/app/(main)/schedule/components/ScheduleForm";
-import type {
-  FirstStep,
-  ScheduleForm as ScheduleFormType,
-  SecondStep,
-} from "@/app/(main)/schedule/types/scheduleForm";
+import { QuestionStep } from "@/app/(main)/schedule/components/QuestionStep";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { LinkButton } from "@/components/Button";
+import { MenteeApplyForm } from "@/types/coffeechat";
+import { ScheduleStep } from "./components/ScheduleStep";
 import useReserveCoffeeChat from "./hooks/useReserveCoffeeChat";
 
 const Page = ({ searchParams }: { searchParams: { id: string } }) => {
   const mentor = Number(searchParams.id);
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<ScheduleFormType>({
-    date: new Date(),
-    timeRange: "",
-    question: "",
-  });
+  const methods = useForm<MenteeApplyForm>();
   const { isReserved, reserveCoffeeChat } = useReserveCoffeeChat();
-  const { data: user } = useGetUserById(mentor);
-  const { data: me } = useGetMe();
+  const { data: user, isLoading: isLoadingMentor } = useGetUserById(mentor);
+  const { data: me, isLoading: isLoadingMe } = useGetMe();
 
-  if (!me || !user) return;
+  if (isLoadingMentor || isLoadingMe) return null;
 
-  if (me.role === "mentor" || user.role === "mentee") {
+  if (me?.role === "mentor" || !user || user.role === "mentee" || !user.schedules) {
     router.replace("/");
     return;
   }
@@ -41,36 +34,33 @@ const Page = ({ searchParams }: { searchParams: { id: string } }) => {
     else setCurrentStep((prev) => prev - 1);
   };
 
-  const handleClickNextStep = (data: FirstStep) => {
+  const handleClickNextStep = () => {
     setCurrentStep((prev) => prev + 1);
-    setFormData((prev) => ({ ...prev, ...data }));
   };
 
-  const handleSubmitSchedule = (data: SecondStep) => {
-    /** @TODO 임시로 기존 id 타입(string)을 따르기 위한 타입 캐스팅 */
-    reserveCoffeeChat({ ...formData, ...data }, { mentor: String(mentor), mentee: String(me.id) });
+  const onSubmitForm = (data: MenteeApplyForm) => {
+    reserveCoffeeChat(mentor, data);
   };
 
   return (
-    <>
-      <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
-      <div className="px-5 pb-[4.5rem] pt-4">
-        {/* {currentStep === 1 && (
-          <ScheduleForm.FirstStep
-            availableTimes={user.availableTimes}
-            onClickNextStep={handleClickNextStep}
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmitForm)}>
+        <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
+        <div className="px-5 pb-[4.5rem] pt-4">
+          {currentStep === 1 && (
+            <ScheduleStep schedules={user.schedules} onClickNextStep={handleClickNextStep} />
+          )}
+          {currentStep === 2 && <QuestionStep />}
+        </div>
+        {isReserved && (
+          <ResultBottomSheet
+            resultType="positive"
+            description={["OOO님과의", "커피챗이 신청되었습니다."]}
+            confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
           />
-        )} */}
-        {currentStep === 2 && <ScheduleForm.SecondStep onSubmitSchedule={handleSubmitSchedule} />}
-      </div>
-      {isReserved && (
-        <ResultBottomSheet
-          resultType="positive"
-          description={["OOO님과의", "커피챗이 신청되었습니다."]}
-          confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
-        />
-      )}
-    </>
+        )}
+      </form>
+    </FormProvider>
   );
 };
 

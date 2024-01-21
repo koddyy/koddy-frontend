@@ -1,9 +1,8 @@
-import { WeekType } from "@/types/user";
+import { DAYS } from "@/constants/date";
+import { Day } from "@/types/mentor";
 
-export const getDisabledDays = (availableDays: WeekType[]) => {
-  const days: WeekType[] = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-
-  const disabledDays = days.reduce((acc, cur, i) => {
+export const getDisabledDays = (availableDays: Day[]) => {
+  const disabledDays = DAYS.reduce((acc, cur, i) => {
     if (!availableDays.includes(cur)) return [...acc, i];
     return acc;
   }, [] as number[]);
