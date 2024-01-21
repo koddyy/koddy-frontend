@@ -1,12 +1,11 @@
-import { Button } from "primereact/button";
 import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
-import { LinkButton } from "@/components/Button";
+import { Button, LinkButton } from "@/components/Button";
 import { useAuth } from "@/hooks/useAuth";
 import { PendingBottomSheet } from "../../coffeechat/components/PendingBottomSheet";
 import { ResultBottomSheet } from "../../coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { UserCard } from "../../components/UserCard";
-import { useRequestCoffeeChat } from "../hooks/useRequestCoffeeChat";
+import { useSuggestCoffeeChat } from "../hooks/useSuggestCoffeeChat";
 
 interface MenteeProfileProps {
   menteeId: number;
@@ -18,10 +17,10 @@ export const MenteeProfile = ({ menteeId }: MenteeProfileProps) => {
     isRequested,
     openPendingBottomSheet,
     closePendingBottomSheet,
-    requestCoffeeChat,
-  } = useRequestCoffeeChat();
+    suggestCoffeeChat,
+  } = useSuggestCoffeeChat();
   const { data: user, isLoading } = useGetUserById(menteeId);
-  const { isAuthenticated, me } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   if (isLoading) return null;
 
@@ -45,9 +44,8 @@ export const MenteeProfile = ({ menteeId }: MenteeProfileProps) => {
             resultType="positive"
             description={[`${user.name}님에게`, "커피챗을 제안하시겠습니까?"]}
             onClickNo={closePendingBottomSheet}
-            onClickYes={() =>
-              requestCoffeeChat({ mentor: String(me!.id), mentee: String(menteeId) })
-            }
+            /** @TODO applyReason 입력 단계 추가 */
+            onClickYes={() => suggestCoffeeChat({ menteeId, applyReason: "temp" })}
           />
         ) : (
           <GoToLoginBottomSheet onClose={closePendingBottomSheet} />

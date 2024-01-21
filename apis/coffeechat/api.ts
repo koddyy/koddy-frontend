@@ -3,6 +3,8 @@ import {
   GetCoffeeChatByIdResponse,
   GetCoffeeChatListResponse,
   PatchCoffeeChatStatusRequest,
+  PostCoffeeChatFromMentorToMenteeRequest,
+  PostCoffeeChatFromMentorToMenteeResponse,
   PostCoffeeChatRequest,
 } from "@/apis/coffeechat/types";
 import { ResponseType } from "@/apis/types";
@@ -31,6 +33,18 @@ class CoffeeChatApi {
     const response =
       await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application/alarm");
     return response.data;
+  };
+
+  postCoffeeChatFromMentorToMentee = ({
+    menteeId,
+    applyReason,
+  }: PostCoffeeChatFromMentorToMenteeRequest) => {
+    return apiInstance.post<PostCoffeeChatFromMentorToMenteeResponse>(
+      `/api/coffeechats/suggest/${menteeId}`,
+      {
+        applyReason,
+      }
+    );
   };
 
   postCoffeeChat = (coffeeChatFormData: PostCoffeeChatRequest) => {

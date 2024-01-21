@@ -1,6 +1,21 @@
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { Mentee, Mentor } from "@/types/user";
 
+export interface PostCoffeeChatFromMentorToMenteeRequest {
+  menteeId: number;
+  applyReason: string;
+}
+
+export interface PostCoffeeChatFromMentorToMenteeResponse {
+  coffeeChatId: number;
+}
+
+/**
+ * =========================
+ * @TODO remove
+ * =========================
+ */
+
 export interface GetCoffeeChatByIdResponse {
   applicationId: string;
   mentor: Mentor;
