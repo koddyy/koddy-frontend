@@ -9,7 +9,8 @@
     "lint": "next lint",
     "test": "jest --watch",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "swagger-typescript-api": "swagger-typescript-api -p https://dev-api.koddy.site/api-docs -o ./models -d -r --union-enums --add-readonly --extract-request-params --extract-request-body --extract-response-body --modular --axios"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.8.1",
@@ -24,6 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
+    "swagger-typescript-api": "^13.0.3",
     "tailwind-merge": "^2.0.0",
     "zustand": "^4.4.7"
   },
