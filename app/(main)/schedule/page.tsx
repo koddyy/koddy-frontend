@@ -25,7 +25,7 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
   const methods = useForm<MenteeApplyForm>();
 
   const { isApplySuccess, applyCoffeeChat } = useApplyCoffeeChat();
-  const { isApproved, approveCoffeeChat } = useApproveCoffeeChat();
+  const { isApproveSuccess, approveCoffeeChat } = useApproveCoffeeChat();
   const { data: user, isLoading: isLoadingMentor } = useGetUserById(mentorId);
   const { data: me, isLoading: isLoadingMe } = useGetMe();
 
@@ -60,14 +60,14 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
           )}
           {currentStep === 2 && <QuestionStep />}
         </div>
-        {isApproved && (
-          <ResultBottomSheet
-            resultType="positive"
-            description={[`${user.name}님과의`, "커피챗이 신청되었습니다."]}
-            confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
-          />
-        )}
       </form>
+      {isApproveSuccess && (
+        <ResultBottomSheet
+          resultType="positive"
+          description={[`${user.name}님과의`, "커피챗이 신청되었습니다."]}
+          confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
+        />
+      )}
       {isApplySuccess && (
         <ResultBottomSheet
           resultType="positive"
