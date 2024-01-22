@@ -10,6 +10,17 @@ export interface PostCoffeeChatFromMentorToMenteeResponse {
   coffeeChatId: number;
 }
 
+export interface PostCoffeeChatFromMenteeToMentorRequest {
+  mentorId: number;
+  applyReason: string;
+  start: string;
+  end: string;
+}
+
+export interface PostCoffeeChatFromMenteeToMentorResponse {
+  coffeeChatId: number;
+}
+
 /**
  * =========================
  * @TODO remove

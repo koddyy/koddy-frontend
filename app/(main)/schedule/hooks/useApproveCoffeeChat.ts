@@ -3,7 +3,8 @@ import { MenteeApplyForm } from "@/types/coffeechat";
 import { toYYYYMMDD } from "@/utils/dateUtils";
 
 export const useApproveCoffeeChat = () => {
-  const { isSuccess, mutate: updateCoffeeChatMenteeApproved } = useUpdateCoffeeChatMenteeApproved();
+  const { mutate: updateCoffeeChatMenteeApproved, isSuccess: isApproveSuccess } =
+    useUpdateCoffeeChatMenteeApproved();
 
   const approveCoffeeChat = (
     coffeeChatId: number,
@@ -20,5 +21,5 @@ export const useApproveCoffeeChat = () => {
     });
   };
 
-  return { isApproved: isSuccess, approveCoffeeChat };
+  return { isApproveSuccess, approveCoffeeChat };
 };

@@ -14,6 +14,7 @@ import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSel
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
 import { useApproveCoffeeChatForMentor } from "../hooks/useApproveCoffeeChatForMentor";
+import { useRejectCoffeeChatForMentee } from "../hooks/useRejectCoffeeChatForMentee";
 import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
 
 const Page = ({ params }: { params: { id: string } }) => {
@@ -40,11 +41,14 @@ interface CoffeeChatDetailProps {
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
+
+  /** @TODO 커피챗 조회 api의 응답 데이터를 통해 초기 status를 지정해야함 */
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
-    useApproveCoffeeChatForMentor();
+    useApproveCoffeeChatForMentor("APPLY");
 
   const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor();
+    useRejectCoffeeChatForMentor("APPLY");
 
   const {
     isCanceling,
@@ -53,7 +57,6 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     closeCancelBottomSheet,
     cancelCoffeeChat,
   } = useCancelCoffeeChat(String(id));
-  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
@@ -174,7 +177,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 
 const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
   const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor();
+    useRejectCoffeeChatForMentee();
 
   const {
     isPending,

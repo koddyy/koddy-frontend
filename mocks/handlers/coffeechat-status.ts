@@ -24,4 +24,16 @@ export const handlers = [
 
     return new HttpResponse(null, { status: 204 });
   }),
+
+  http.patch("/api/coffeechats/applied/approve/:coffeeChatId", async () => {
+    await delay(1500);
+
+    return new HttpResponse(null, { status: 204 });
+  }),
+
+  http.patch("/api/coffeechats/applied/reject/:coffeeChatId", async () => {
+    await delay(1500);
+
+    return new HttpResponse(null, { status: 204 });
+  }),
 ];

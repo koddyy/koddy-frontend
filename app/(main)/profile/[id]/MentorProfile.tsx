@@ -1,6 +1,7 @@
 import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
 import { LinkButton } from "@/components/Button";
+import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
 import { useToggle } from "@/hooks/useToggle";
 import { UserCard } from "../../components/UserCard";
@@ -29,7 +30,7 @@ export const MentorProfile = ({ mentorId }: MentorProfileProps) => {
       </div>
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
         <LinkButton
-          href={`/schedule?id=${mentorId}`}
+          href={PATH.SCHEDULE + `?mentor=${mentorId}`}
           onClick={(e) => {
             if (!isAuthenticated) {
               e.preventDefault();

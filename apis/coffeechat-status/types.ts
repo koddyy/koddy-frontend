@@ -17,3 +17,14 @@ export interface PatchCoffeeChatMentorApprovedRequest {
   chatType: CoffeeChatType;
   chatValue: string;
 }
+
+export interface PatchCoffeeChatApplyToApproveRequest {
+  coffeeChatId: number;
+  chatType: CoffeeChatType;
+  chatValue: string;
+}
+
+export interface PatchCoffeeChatApplyToRejectRequest {
+  coffeeChatId: number;
+  rejectReason: string;
+}
