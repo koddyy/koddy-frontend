@@ -1,5 +1,7 @@
 import { apiInstance } from "../axios";
 import {
+  PatchCoffeeChatApplyToApproveRequest,
+  PatchCoffeeChatApplyToRejectRequest,
   PatchCoffeeChatMenteeApprovedRequest,
   PatchCoffeeChatMentorApprovedRequest,
   PatchCoffeeChatRejectedRequest,
@@ -43,6 +45,26 @@ class CoffeeChatStatusApi {
     return apiInstance.patch(`/api/coffeechats/pending/approve/${coffeeChatId}`, {
       chatType,
       chatValue,
+    });
+  };
+
+  patchCoffeeChatApplyToApprove = ({
+    coffeeChatId,
+    chatType,
+    chatValue,
+  }: PatchCoffeeChatApplyToApproveRequest) => {
+    return apiInstance.patch(`/api/coffeechats/applied/approve/${coffeeChatId}`, {
+      chatType,
+      chatValue,
+    });
+  };
+
+  patchCoffeeChatApplyToReject = ({
+    coffeeChatId,
+    rejectReason,
+  }: PatchCoffeeChatApplyToRejectRequest) => {
+    return apiInstance.patch(`/api/coffeechats/applied/reject/${coffeeChatId}`, {
+      rejectReason,
     });
   };
 }

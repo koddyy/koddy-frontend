@@ -40,11 +40,14 @@ interface CoffeeChatDetailProps {
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
+
+  /** @TODO 커피챗 조회 api의 응답 데이터를 통해 초기 status를 지정해야함 */
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
-    useApproveCoffeeChatForMentor();
+    useApproveCoffeeChatForMentor("APPLY");
 
   const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor();
+    useRejectCoffeeChatForMentor("APPLY");
 
   const {
     isCanceling,
@@ -53,7 +56,6 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     closeCancelBottomSheet,
     cancelCoffeeChat,
   } = useCancelCoffeeChat(String(id));
-  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
