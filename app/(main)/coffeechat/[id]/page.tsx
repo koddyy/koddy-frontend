@@ -10,10 +10,11 @@ import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import useClipboard from "@/hooks/useClipboard";
+import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
-import useAcceptCoffeeChat from "../hooks/useAcceptCoffeeChat";
-import useRejectCoffeeChat from "../hooks/useRejectCoffeeChat";
+import { useApproveCoffeeChatForMentor } from "../hooks/useApproveCoffeeChatForMentor";
+import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -28,33 +29,31 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {me.role === "mentor" && <CoffeeChatDetailForMentor id={params.id} />}
-      {me.role === "mentee" && <CoffeeChatDetailForMentee id={params.id} />}
+      {me.role === "mentor" && <CoffeeChatDetailForMentor id={Number(params.id)} />}
+      {me.role === "mentee" && <CoffeeChatDetailForMentee id={Number(params.id)} />}
     </>
   );
 };
 
 interface CoffeeChatDetailProps {
-  id: string;
+  id: number;
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
-  const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat(id);
-  const {
-    isRejecting,
-    isRejected,
-    openRejectBottomSheet,
-    closeRejectBottomSheet,
-    rejectCoffeeChat,
-  } = useRejectCoffeeChat(id);
+  const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
+    useApproveCoffeeChatForMentor();
+
+  const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
+    useRejectCoffeeChatForMentor();
+
   const {
     isCanceling,
     isCanceled,
     openCancelBottomSheet,
     closeCancelBottomSheet,
     cancelCoffeeChat,
-  } = useCancelCoffeeChat(id);
-  const { data: coffeechat, isLoading } = useGetCoffeeChatById(id);
+  } = useCancelCoffeeChat(String(id));
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
@@ -116,30 +115,40 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {coffeechat.status === "REQUEST" && (
         <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
-            <Button variant="outline" onClick={openRejectBottomSheet}>
+            <Button variant="outline" onClick={toggleIsReject}>
               거절하기
             </Button>
-            <Button onClick={() => acceptCoffeeChat()}>수락하기</Button>
+            <Button onClick={setIsApproveTrue}>수락하기</Button>
           </div>
         </div>
       )}
-      {isAccepted && (
+      {isApprove && (
+        <CoffeeChatTypeSelectBottomSheet
+          onClose={setIsApproveFalse}
+          onSubmit={({ chatType, chatValue }) =>
+            approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
+          }
+        />
+      )}
+      {isApproveSuccess && (
         <ResultBottomSheet
           resultType="positive"
           description={[`${coffeechat.mentee.name}님과의`, "커피챗이 예약되었습니다."]}
           confirmButton={<LinkButton href="/">예약페이지로 가기</LinkButton>}
         />
       )}
-      {isRejecting && (
+      {isReject && (
         <RejectBottomSheet
           userName={coffeechat.mentee.name}
-          onClickRejectButton={(reason) => rejectCoffeeChat({ statusDesc: reason })}
-          onClose={closeRejectBottomSheet}
+          onClickRejectButton={(rejectReason) =>
+            rejectCoffeeChat({ coffeeChatId: id, rejectReason })
+          }
+          onClose={toggleIsReject}
         />
       )}
-      {isRejected && (
+      {isRejectSuccess && (
         <ResultBottomSheet
-          resultType="positive"
+          resultType="negative"
           description={[`${coffeechat.mentee.name}님과의`, "커피챗이 거절되었습니다."]}
           confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
         />
@@ -164,21 +173,17 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 };
 
 const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
-  const {
-    isRejecting,
-    isRejected,
-    openRejectBottomSheet,
-    closeRejectBottomSheet,
-    rejectCoffeeChat,
-  } = useRejectCoffeeChat(id);
+  const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
+    useRejectCoffeeChatForMentor();
+
   const {
     isPending,
     isCanceled,
     openPendingBottomSheet,
     closePendingBottomSheet,
     cancelCoffeeChat,
-  } = useCancelCoffeeChat(id);
-  const { data: coffeechat, isLoading } = useGetCoffeeChatById(id);
+  } = useCancelCoffeeChat(String(id));
+  const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
@@ -234,21 +239,25 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       {coffeechat.status === "SUGGEST" && (
         <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
-            <Button variant="outline" onClick={openRejectBottomSheet}>
+            <Button variant="outline" onClick={setIsRejectTrue}>
               거절하기
             </Button>
-            <LinkButton href={`/schedule?id=${coffeechat.mentor.userId}`}>수락하기</LinkButton>
+            <LinkButton href={`/schedule?mentor=${coffeechat.mentor.userId}&coffeechat=${id}`}>
+              수락하기
+            </LinkButton>
           </div>
         </div>
       )}
-      {isRejecting && (
+      {isReject && (
         <RejectBottomSheet
           userName={coffeechat.mentor.name}
-          onClickRejectButton={(reason: string) => rejectCoffeeChat({ statusDesc: reason })}
-          onClose={closeRejectBottomSheet}
+          onClickRejectButton={(rejectReason: string) =>
+            rejectCoffeeChat({ coffeeChatId: id, rejectReason })
+          }
+          onClose={setIsRejectFalse}
         />
       )}
-      {isRejected && (
+      {isRejectSuccess && (
         <ResultBottomSheet
           resultType="negative"
           description={[`${coffeechat.mentor.name}님과의`, "커피챗이 거절되었습니다."]}

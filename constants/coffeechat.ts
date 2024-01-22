@@ -1,6 +1,18 @@
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 
+export type CoffeeChatType = "zoom" | "google" | "kakao" | "line" | "wechat";
+
+export const CoffeeChatTypeLabel: Record<CoffeeChatType, string> = {
+  zoom: "Zoom",
+  google: "Google meet",
+  kakao: "카카오톡",
+  line: "라인",
+  wechat: "위챗",
+};
+
+export const CoffeeChatTypeOptions = Object.keys(CoffeeChatTypeLabel) as Array<CoffeeChatType>;
+
 type CoffeeChatStatusTextType = Record<CoffeeChatStatus, string>;
 
 export const CoffeeChatStatusText: Record<Role, CoffeeChatStatusTextType> = {

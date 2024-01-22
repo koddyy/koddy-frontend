@@ -1,0 +1,25 @@
+import { useUpdateCoffeeChatMentorApproved } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMentorApproved";
+import { useToggle } from "@/hooks/useToggle";
+
+export const useApproveCoffeeChatForMentor = () => {
+  const [isApprove, toggleIsApprove, setIsApprove] = useToggle();
+  const { mutate: approveCoffeeChat, isSuccess: isApproveSuccess } =
+    useUpdateCoffeeChatMentorApproved();
+
+  const setIsApproveTrue = () => {
+    setIsApprove(true);
+  };
+
+  const setIsApproveFalse = () => {
+    setIsApprove(false);
+  };
+
+  return {
+    isApprove,
+    isApproveSuccess,
+    toggleIsApprove,
+    setIsApproveTrue,
+    setIsApproveFalse,
+    approveCoffeeChat,
+  };
+};
