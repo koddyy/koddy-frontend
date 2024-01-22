@@ -7,7 +7,6 @@ export const useApproveCoffeeChat = () => {
 
   const approveCoffeeChat = (
     coffeeChatId: number,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { date, timeRange, question }: MenteeApplyForm
   ) => {
     const [startTime, endTime] = timeRange;
@@ -17,6 +16,7 @@ export const useApproveCoffeeChat = () => {
       coffeeChatId,
       start: YYYYMMDD + "T" + startTime,
       end: YYYYMMDD + "T" + endTime,
+      question,
     });
   };
 

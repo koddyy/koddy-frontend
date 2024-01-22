@@ -2,6 +2,7 @@ export interface PatchCoffeeChatMenteeApprovedRequest {
   coffeeChatId: number;
   start: string;
   end: string;
+  question: string;
 }
 
 export interface PatchCoffeeChatRejectedRequest {

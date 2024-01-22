@@ -10,8 +10,13 @@ class CoffeeChatStatusApi {
     coffeeChatId,
     start,
     end,
+    question,
   }: PatchCoffeeChatMenteeApprovedRequest) => {
-    return apiInstance.patch(`/api/coffeechats/suggested/pending/${coffeeChatId}`, { start, end });
+    return apiInstance.patch(`/api/coffeechats/suggested/pending/${coffeeChatId}`, {
+      start,
+      end,
+      question,
+    });
   };
 
   patchCoffeeChatMenteeRejected = ({
