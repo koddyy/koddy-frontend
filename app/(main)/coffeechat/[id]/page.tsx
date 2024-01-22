@@ -14,6 +14,7 @@ import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSel
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
 import { useApproveCoffeeChatForMentor } from "../hooks/useApproveCoffeeChatForMentor";
+import { useRejectCoffeeChatForMentee } from "../hooks/useRejectCoffeeChatForMentee";
 import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
 
 const Page = ({ params }: { params: { id: string } }) => {
@@ -176,7 +177,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 
 const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
   const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor();
+    useRejectCoffeeChatForMentee();
 
   const {
     isPending,
