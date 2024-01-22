@@ -21,13 +21,13 @@ const Page = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <UserCard cardType="vertical" {...mentor} />
-      <div className="px-5 py-[20px]">
+      <div className="px-[20px] py-[12px]">
         <div className="body-3-bold mb-[0.38rem]">자기소개</div>
-        <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+        <p className="body-1 rounded-[10px] border border-gray-300 px-[18px] py-[11px]">
           {mentor.introduction || "자기소개가 없습니다."}
         </p>
       </div>
-      <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+      <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay flex w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-[20px] py-[11px]">
         <LinkButton
           href={PATH.SCHEDULE + `?mentor=${mentorId}`}
           onClick={(e) => {
