@@ -1,5 +1,9 @@
 import { apiInstance } from "@/apis/axios";
-import { PostAvailableTimesRequest } from "@/apis/user/types";
+import {
+  GetMenteeByIdResponse,
+  GetMentorByIdResponse,
+  PostAvailableTimesRequest,
+} from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
 import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
@@ -17,6 +21,16 @@ class UserApi {
 
   getMe = async () => {
     const response = await apiInstance.get<Mentor | Mentee>("/api/members/me");
+    return response.data;
+  };
+
+  getMentorById = async (mentorId: number) => {
+    const response = await apiInstance.get<GetMentorByIdResponse>(`/api/mentors/${mentorId}`);
+    return response.data;
+  };
+
+  getMenteeById = async (menteeId: number) => {
+    const response = await apiInstance.get<GetMenteeByIdResponse>(`/api/mentors/${menteeId}`);
     return response.data;
   };
 
@@ -43,6 +57,8 @@ class UserApi {
   ) => {
     return apiInstance.patch("/api/mentees/me/basic-info", info);
   };
+
+  /** deprecated */
 
   getUserById = async (id: number) => {
     const response = await apiInstance.get<Mentor | Mentee>(`/api/users/${id}`);

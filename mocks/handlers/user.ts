@@ -8,6 +8,22 @@ export const handlers = [
     return HttpResponse.json(role === "mentor" ? mentor : mentee, { status: 200 });
   }),
 
+  http.get("/api/mentors/:id", async ({ params }) => {
+    const mentor = mentorList.find(({ id }) => id === Number(params.id));
+
+    await delay(1500);
+
+    return HttpResponse.json(mentor, { status: 200 });
+  }),
+
+  http.get("/api/mentees/:id", async ({ params }) => {
+    const mentee = menteeList.find(({ id }) => id === Number(params.id));
+
+    await delay(1500);
+
+    return HttpResponse.json(mentee, { status: 200 });
+  }),
+
   http.get("/api/users/mentor", async () => {
     await delay(1500);
 
