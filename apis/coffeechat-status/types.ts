@@ -1,3 +1,5 @@
+import { CoffeeChatType } from "@/constants/coffeechat";
+
 export interface PatchCoffeeChatMenteeApprovedRequest {
   coffeeChatId: number;
   start: string;
@@ -12,6 +14,6 @@ export interface PatchCoffeeChatRejectedRequest {
 
 export interface PatchCoffeeChatMentorApprovedRequest {
   coffeeChatId: number;
-  chatType: "zoom" | "google" | "kakao" | "link" | "wechat";
+  chatType: CoffeeChatType;
   chatValue: string;
 }

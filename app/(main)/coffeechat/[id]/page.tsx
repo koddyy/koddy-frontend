@@ -1,7 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
+import { useUpdateCoffeeChatMentorApproved } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMentorApproved";
+import { useUpdateCoffeeChatMentorRejected } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMentorRejected";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import useCancelCoffeeChat from "@/app/(main)/coffeechat/hooks/useCancelCoffeeChat";
@@ -10,9 +13,9 @@ import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import useClipboard from "@/hooks/useClipboard";
+import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
-import useAcceptCoffeeChat from "../hooks/useAcceptCoffeeChat";
 import useRejectCoffeeChat from "../hooks/useRejectCoffeeChat";
 
 const Page = ({ params }: { params: { id: string } }) => {
@@ -39,14 +42,14 @@ interface CoffeeChatDetailProps {
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
-  const { isAccepted, acceptCoffeeChat } = useAcceptCoffeeChat(String(id));
-  const {
-    isRejecting,
-    isRejected,
-    openRejectBottomSheet,
-    closeRejectBottomSheet,
-    rejectCoffeeChat,
-  } = useRejectCoffeeChat(id);
+  const [isApprove, setIsApprove] = useState(false);
+  const { mutate: approveCoffeeChat, isSuccess: isApproveSuccess } =
+    useUpdateCoffeeChatMentorApproved();
+
+  const [isReject, setIsReject] = useState(false);
+  const { mutate: rejectCoffeeChat, isSuccess: isRejectSuccess } =
+    useUpdateCoffeeChatMentorRejected();
+
   const {
     isCanceling,
     isCanceled,
@@ -116,30 +119,40 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {coffeechat.status === "REQUEST" && (
         <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
-            <Button variant="outline" onClick={openRejectBottomSheet}>
+            <Button variant="outline" onClick={() => setIsReject(true)}>
               거절하기
             </Button>
-            <Button onClick={() => acceptCoffeeChat()}>수락하기</Button>
+            <Button onClick={() => setIsApprove(true)}>수락하기</Button>
           </div>
         </div>
       )}
-      {isAccepted && (
+      {isApprove && (
+        <CoffeeChatTypeSelectBottomSheet
+          onClose={() => setIsApprove(false)}
+          onSubmit={({ chatType, chatValue }) =>
+            approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
+          }
+        />
+      )}
+      {isApproveSuccess && (
         <ResultBottomSheet
           resultType="positive"
           description={[`${coffeechat.mentee.name}님과의`, "커피챗이 예약되었습니다."]}
           confirmButton={<LinkButton href="/">예약페이지로 가기</LinkButton>}
         />
       )}
-      {isRejecting && (
+      {isReject && (
         <RejectBottomSheet
           userName={coffeechat.mentee.name}
-          onClickRejectButton={(rejectReason) => rejectCoffeeChat({ rejectReason })}
-          onClose={closeRejectBottomSheet}
+          onClickRejectButton={(rejectReason) =>
+            rejectCoffeeChat({ coffeeChatId: id, rejectReason })
+          }
+          onClose={() => setIsReject(false)}
         />
       )}
-      {isRejected && (
+      {isRejectSuccess && (
         <ResultBottomSheet
-          resultType="positive"
+          resultType="negative"
           description={[`${coffeechat.mentee.name}님과의`, "커피챗이 거절되었습니다."]}
           confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
         />
@@ -237,7 +250,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
             <Button variant="outline" onClick={openRejectBottomSheet}>
               거절하기
             </Button>
-            <LinkButton href={`/schedule?id=${coffeechat.mentor.userId}`}>수락하기</LinkButton>
+            <LinkButton href={`/schedule?mentor=${6}&coffeechat=${id}`}>수락하기</LinkButton>
           </div>
         </div>
       )}
