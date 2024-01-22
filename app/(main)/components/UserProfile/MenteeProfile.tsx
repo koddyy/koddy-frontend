@@ -19,17 +19,17 @@ export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfilePr
       <div className="relative">
         <img
           className={cn(
-            "h-60 w-full object-cover",
-            !profileImageUrl && "object-contain py-[0.69rem]"
+            "h-[240px] w-full object-cover",
+            !profileImageUrl && "object-contain py-[11px]"
           )}
           src={profileImageUrl || DefaultProfileImageUrl["mentee"]}
         />
-        <div className="absolute inset-0 z-10 bg-dimmed-gradient"></div>
+        <div className="absolute inset-0 z-10 bg-dimmed-gradient" />
       </div>
-      <div className="px-5 py-3">
+      <div className="px-[20px] py-[12px]">
         <div className="mb-[14px]">
           {coffeeChatStatusText && (
-            <div className="body-2-bold text-primary-dark">{coffeeChatStatusText}</div>
+            <div className="body-2-bold mb-[2px] text-primary-dark">{coffeeChatStatusText}</div>
           )}
           {nationality && (
             <div className="mb-[4px] flex items-center gap-[6px]">

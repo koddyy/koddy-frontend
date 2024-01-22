@@ -18,17 +18,17 @@ export const MentorProfile = ({ coffeeChatStatusText, ...user }: MentorProfilePr
       <div className="relative">
         <img
           className={cn(
-            "h-60 w-full object-cover",
-            !profileImageUrl && "object-contain py-[0.69rem]"
+            "h-[240px] w-full object-cover",
+            !profileImageUrl && "object-contain py-[11px]"
           )}
           src={profileImageUrl || DefaultProfileImageUrl["mentor"]}
         />
         <div className="absolute inset-0 z-10 bg-dimmed-gradient"></div>
       </div>
-      <div className="px-5 py-3">
+      <div className="px-[20px] py-[12px]">
         <div className="mb-[14px]">
           {coffeeChatStatusText && (
-            <div className="body-2-bold text-primary-dark">{coffeeChatStatusText}</div>
+            <div className="body-2-bold mb-[2px] text-primary-dark">{coffeeChatStatusText}</div>
           )}
           <span className="headline-1">{name}</span>
           <p className="body-1-bold text-gray-500">{description}</p>
