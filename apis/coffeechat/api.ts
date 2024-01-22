@@ -10,6 +10,20 @@ import {
 import { ResponseType } from "@/apis/types";
 
 class CoffeeChatApi {
+  postCoffeeChatFromMentorToMentee = ({
+    menteeId,
+    applyReason,
+  }: PostCoffeeChatFromMentorToMenteeRequest) => {
+    return apiInstance.post<PostCoffeeChatFromMentorToMenteeResponse>(
+      `/api/coffeechats/suggest/${menteeId}`,
+      {
+        applyReason,
+      }
+    );
+  };
+
+  /** deprecated */
+
   getCoffeeChatById = async (id: string) => {
     const response = await apiInstance.get<ResponseType<GetCoffeeChatByIdResponse>>(
       `/api/application/${id}`
@@ -33,18 +47,6 @@ class CoffeeChatApi {
     const response =
       await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application/alarm");
     return response.data;
-  };
-
-  postCoffeeChatFromMentorToMentee = ({
-    menteeId,
-    applyReason,
-  }: PostCoffeeChatFromMentorToMenteeRequest) => {
-    return apiInstance.post<PostCoffeeChatFromMentorToMenteeResponse>(
-      `/api/coffeechats/suggest/${menteeId}`,
-      {
-        applyReason,
-      }
-    );
   };
 
   postCoffeeChat = (coffeeChatFormData: PostCoffeeChatRequest) => {
