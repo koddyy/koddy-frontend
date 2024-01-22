@@ -40,7 +40,7 @@ export const menteeList = new Array(10)
   .fill(mentee)
   .map((v, i) => ({ ...v, userId: `${(i + 1) * 10}`, name: `멘티${(i + 1) * 10}` }));
 
-export const coffeechatList: GetCoffeeChatListResponse = [
+export const depreactedCoffeeChatList: GetCoffeeChatListResponse = [
   {
     applicationId: "1",
     mentee: menteeList[0],
@@ -75,7 +75,7 @@ export const coffeechatList: GetCoffeeChatListResponse = [
     applicationId: "4",
     mentee: menteeList[3],
     mentor: mentorList[3],
-    status: "CANCEL",
+    status: "SUGGEST",
     date: "2024-01-01",
     startTime: "17:00",
     endTime: "20:00",

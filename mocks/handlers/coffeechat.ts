@@ -1,13 +1,24 @@
 import { delay, http, HttpResponse, PathParams } from "msw";
 import { PatchCoffeeChatStatusRequest, PostCoffeeChatRequest } from "@/apis/coffeechat/types";
-import { coffeechatList, menteeList, mentorList } from "../fixture/coffeechat";
+import { depreactedCoffeeChatList, menteeList, mentorList } from "../fixture/coffeechat";
 
 export const handlers = [
+  http.post("/api/coffeechats/suggest/:menteeId", async () => {
+    await delay(1500);
+
+    return HttpResponse.json({ coffeeChatId: 1 }, { status: 200 });
+  }),
+
+  /** deprecated */
   http.get("/api/application", async () => {
     await delay(1500);
 
     return HttpResponse.json(
-      { data: coffeechatList.filter(({ status }) => status === "CANCEL" || status === "DONE") },
+      {
+        data: depreactedCoffeeChatList.filter(
+          ({ status }) => status === "CANCEL" || status === "DONE"
+        ),
+      },
       { status: 200 }
     );
   }),
@@ -17,7 +28,7 @@ export const handlers = [
 
     return HttpResponse.json(
       {
-        data: coffeechatList.filter(
+        data: depreactedCoffeeChatList.filter(
           ({ status }) => status === "AGREE" || status === "REQUEST" || status === "SUGGEST"
         ),
       },
@@ -29,7 +40,7 @@ export const handlers = [
     await delay(1500);
 
     return HttpResponse.json(
-      { data: coffeechatList.find(({ applicationId }) => applicationId === params.id) },
+      { data: depreactedCoffeeChatList.find(({ applicationId }) => applicationId === params.id) },
       { status: 200 }
     );
   }),
@@ -42,10 +53,10 @@ export const handlers = [
 
     if (!mentor || !mentee) return new HttpResponse(null, { status: 400 });
 
-    const newApplicationId = (Number(coffeechatList.at(-1)?.applicationId) ?? 0) + 1;
+    const newApplicationId = (Number(depreactedCoffeeChatList.at(-1)?.applicationId) ?? 0) + 1;
     const role = new URL(window.location.href).searchParams.get("role");
 
-    coffeechatList.push({
+    depreactedCoffeeChatList.push({
       applicationId: String(newApplicationId),
       mentor,
       mentee,
@@ -61,7 +72,7 @@ export const handlers = [
   http.patch<PathParams, PatchCoffeeChatStatusRequest>("/api/application", async ({ request }) => {
     const coffeechat = await request.json();
 
-    const idx = coffeechatList.findIndex(
+    const idx = depreactedCoffeeChatList.findIndex(
       ({ applicationId }) => applicationId === coffeechat.applicationId
     );
 
