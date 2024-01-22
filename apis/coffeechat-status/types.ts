@@ -4,7 +4,13 @@ export interface PatchCoffeeChatMenteeApprovedRequest {
   end: string;
 }
 
-export interface PatchCoffeeChatMenteeRejectedRequest {
+export interface PatchCoffeeChatRejectedRequest {
   coffeeChatId: number;
   rejectReason: string;
+}
+
+export interface PatchCoffeeChatMentorApprovedRequest {
+  coffeeChatId: number;
+  chatType: "zoom" | "google" | "kakao" | "link" | "wechat";
+  chatValue: string;
 }

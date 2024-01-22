@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUpdateCoffeeChatMenteeRejected } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMenteeRejected";
-import { PatchCoffeeChatMenteeRejectedRequest } from "@/apis/coffeechat-status/types";
+import { PatchCoffeeChatRejectedRequest } from "@/apis/coffeechat-status/types";
 
 const useRejectCoffeeChat = (coffeeChatId: number) => {
   const [isRejecting, setIsRejecting] = useState(false);
@@ -14,7 +14,7 @@ const useRejectCoffeeChat = (coffeeChatId: number) => {
     setIsRejecting(false);
   };
 
-  const rejectCoffeeChat = (args: Omit<PatchCoffeeChatMenteeRejectedRequest, "coffeeChatId">) => {
+  const rejectCoffeeChat = (args: Omit<PatchCoffeeChatRejectedRequest, "coffeeChatId">) => {
     updateCoffeeChatMenteeRejected({ ...args, coffeeChatId });
   };
 
