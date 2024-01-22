@@ -3,6 +3,8 @@ import {
   GetCoffeeChatByIdResponse,
   GetCoffeeChatListResponse,
   PatchCoffeeChatStatusRequest,
+  PostCoffeeChatFromMenteeToMentorRequest,
+  PostCoffeeChatFromMenteeToMentorResponse,
   PostCoffeeChatFromMentorToMenteeRequest,
   PostCoffeeChatFromMentorToMenteeResponse,
   PostCoffeeChatRequest,
@@ -18,6 +20,22 @@ class CoffeeChatApi {
       `/api/coffeechats/suggest/${menteeId}`,
       {
         applyReason,
+      }
+    );
+  };
+
+  postCoffeeChatFromMenteeToMentor = ({
+    mentorId,
+    applyReason,
+    start,
+    end,
+  }: PostCoffeeChatFromMenteeToMentorRequest) => {
+    return apiInstance.post<PostCoffeeChatFromMenteeToMentorResponse>(
+      `/api/coffeechats/apply/${mentorId}`,
+      {
+        applyReason,
+        start,
+        end,
       }
     );
   };

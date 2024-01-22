@@ -11,15 +11,20 @@ import { NavigationBar } from "@/app/components/NavigationBar";
 import { LinkButton } from "@/components/Button";
 import { MenteeApplyForm } from "@/types/coffeechat";
 import { ScheduleStep } from "./components/ScheduleStep";
+import { useApplyCoffeeChat } from "./hooks/useApplyCoffeeChat";
 import { useApproveCoffeeChat } from "./hooks/useApproveCoffeeChat";
 
 /** @NOTE coffeechat id의 유무로 신청/수락 구분 */
+
 const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: string } }) => {
   const mentorId = Number(searchParams.mentor);
   const coffeeChatId = Number(searchParams.coffeechat);
+
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const methods = useForm<MenteeApplyForm>();
+
+  const { isApplySuccess, applyCoffeeChat } = useApplyCoffeeChat();
   const { isApproved, approveCoffeeChat } = useApproveCoffeeChat();
   const { data: user, isLoading: isLoadingMentor } = useGetUserById(mentorId);
   const { data: me, isLoading: isLoadingMe } = useGetMe();
@@ -42,6 +47,7 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
 
   const onSubmitForm = (data: MenteeApplyForm) => {
     if (coffeeChatId) approveCoffeeChat(coffeeChatId, data);
+    else applyCoffeeChat(mentorId, data);
   };
 
   return (
@@ -62,6 +68,13 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
           />
         )}
       </form>
+      {isApplySuccess && (
+        <ResultBottomSheet
+          resultType="positive"
+          description={[`${user.name}님과의`, "커피챗이 신청되었습니다."]}
+          confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
+        />
+      )}
     </FormProvider>
   );
 };
