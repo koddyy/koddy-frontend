@@ -1,10 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
-import { useUpdateCoffeeChatMentorApproved } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMentorApproved";
-import { useUpdateCoffeeChatMentorRejected } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMentorRejected";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import useCancelCoffeeChat from "@/app/(main)/coffeechat/hooks/useCancelCoffeeChat";
@@ -16,7 +13,8 @@ import useClipboard from "@/hooks/useClipboard";
 import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
-import useRejectCoffeeChat from "../hooks/useRejectCoffeeChat";
+import { useApproveCoffeeChatForMentor } from "../hooks/useApproveCoffeeChatForMentor";
+import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -42,13 +40,11 @@ interface CoffeeChatDetailProps {
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
-  const [isApprove, setIsApprove] = useState(false);
-  const { mutate: approveCoffeeChat, isSuccess: isApproveSuccess } =
-    useUpdateCoffeeChatMentorApproved();
+  const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
+    useApproveCoffeeChatForMentor();
 
-  const [isReject, setIsReject] = useState(false);
-  const { mutate: rejectCoffeeChat, isSuccess: isRejectSuccess } =
-    useUpdateCoffeeChatMentorRejected();
+  const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
+    useRejectCoffeeChatForMentor();
 
   const {
     isCanceling,
@@ -119,16 +115,16 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {coffeechat.status === "REQUEST" && (
         <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
-            <Button variant="outline" onClick={() => setIsReject(true)}>
+            <Button variant="outline" onClick={toggleIsReject}>
               거절하기
             </Button>
-            <Button onClick={() => setIsApprove(true)}>수락하기</Button>
+            <Button onClick={setIsApproveTrue}>수락하기</Button>
           </div>
         </div>
       )}
       {isApprove && (
         <CoffeeChatTypeSelectBottomSheet
-          onClose={() => setIsApprove(false)}
+          onClose={setIsApproveFalse}
           onSubmit={({ chatType, chatValue }) =>
             approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
           }
@@ -147,7 +143,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           onClickRejectButton={(rejectReason) =>
             rejectCoffeeChat({ coffeeChatId: id, rejectReason })
           }
-          onClose={() => setIsReject(false)}
+          onClose={toggleIsReject}
         />
       )}
       {isRejectSuccess && (
@@ -177,13 +173,9 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 };
 
 const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
-  const {
-    isRejecting,
-    isRejected,
-    openRejectBottomSheet,
-    closeRejectBottomSheet,
-    rejectCoffeeChat,
-  } = useRejectCoffeeChat(id);
+  const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
+    useRejectCoffeeChatForMentor();
+
   const {
     isPending,
     isCanceled,
@@ -247,21 +239,25 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       {coffeechat.status === "SUGGEST" && (
         <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
           <div className="flex gap-5">
-            <Button variant="outline" onClick={openRejectBottomSheet}>
+            <Button variant="outline" onClick={setIsRejectTrue}>
               거절하기
             </Button>
-            <LinkButton href={`/schedule?mentor=${6}&coffeechat=${id}`}>수락하기</LinkButton>
+            <LinkButton href={`/schedule?mentor=${coffeechat.mentor.userId}&coffeechat=${id}`}>
+              수락하기
+            </LinkButton>
           </div>
         </div>
       )}
-      {isRejecting && (
+      {isReject && (
         <RejectBottomSheet
           userName={coffeechat.mentor.name}
-          onClickRejectButton={(rejectReason: string) => rejectCoffeeChat({ rejectReason })}
-          onClose={closeRejectBottomSheet}
+          onClickRejectButton={(rejectReason: string) =>
+            rejectCoffeeChat({ coffeeChatId: id, rejectReason })
+          }
+          onClose={setIsRejectFalse}
         />
       )}
-      {isRejected && (
+      {isRejectSuccess && (
         <ResultBottomSheet
           resultType="negative"
           description={[`${coffeechat.mentor.name}님과의`, "커피챗이 거절되었습니다."]}
