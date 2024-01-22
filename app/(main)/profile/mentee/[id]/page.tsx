@@ -3,7 +3,7 @@
 import { useGetMenteeById } from "@/apis/user/hooks/useGetMenteeById";
 import { PendingBottomSheet } from "@/app/(main)/coffeechat/components/PendingBottomSheet";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
-import { UserCard } from "@/app/(main)/components/UserCard";
+import { MenteeProfile } from "@/app/(main)/components/UserProfile";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
 import { Button, LinkButton } from "@/components/Button";
 import { useAuth } from "@/hooks/useAuth";
@@ -28,7 +28,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <UserCard cardType="vertical" {...mentee} />
+      <MenteeProfile {...mentee} />
       <div className="px-[20px] py-[12px]">
         <div className="body-3-bold mb-[6px]">자기소개</div>
         <p className="body-1 rounded-[10px] border border-gray-300 px-[18px] py-[11px]">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetMentorById } from "@/apis/user/hooks/useGetMentorById";
-import { UserCard } from "@/app/(main)/components/UserCard";
+import { MentorProfile } from "@/app/(main)/components/UserProfile";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
 import { LinkButton } from "@/components/Button";
 import { PATH } from "@/constants/path";
@@ -20,7 +20,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <UserCard cardType="vertical" {...mentor} />
+      <MentorProfile {...mentor} />
       <div className="px-[20px] py-[12px]">
         <div className="body-3-bold mb-[0.38rem]">자기소개</div>
         <p className="body-1 rounded-[10px] border border-gray-300 px-[18px] py-[11px]">
