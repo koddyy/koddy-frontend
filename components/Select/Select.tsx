@@ -14,6 +14,7 @@ export interface SelectProps<T = string> extends FormOptions {
   renderValue?: (value?: T) => ReactNode;
   renderOption?: (value: T) => ReactNode;
   rightContent?: ElementType;
+  dropdownClassName?: string;
 }
 
 export const Select = <T extends string | number>({
@@ -25,6 +26,7 @@ export const Select = <T extends string | number>({
   renderValue,
   renderOption,
   rightContent: RightContent = ArrowDown,
+  dropdownClassName,
   ...props
 }: PropsWithChildren<SelectProps<T>>) => {
   const { hasError } = useFormControl(props);
@@ -55,7 +57,12 @@ export const Select = <T extends string | number>({
         {RightContent && <RightContent className="ml-auto" />}
       </button>
       {isOpen && (
-        <ul className="absolute top-14 z-dropdown max-h-[12rem] w-full overflow-y-scroll rounded-[0.625rem] border border-gray-300 bg-white shadow-md">
+        <ul
+          className={cn(
+            "absolute top-14 z-dropdown max-h-[12rem] w-full overflow-y-scroll rounded-[0.625rem] border border-gray-300 bg-white shadow-md",
+            dropdownClassName
+          )}
+        >
           {options.map((value) => (
             <li
               key={value}

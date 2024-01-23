@@ -37,7 +37,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
 
   return (
     <BottomSheet onClose={onClose}>
-      <div className="mb-[12px] flex h-[228px] flex-col gap-[12px]">
+      <div className="mb-[23px] flex h-[228px] flex-col gap-[12px]">
         <div>
           <div className="subheading-bold mb-[4px]">커피챗 방식</div>
           <div className="body-2 text-gray-600">
@@ -74,6 +74,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
               </div>
             );
           }}
+          dropdownClassName="border-none scrollbar-hidden shadow-[0_4px_20px_0px_rgba(0,0,0,0.15)]"
         />
         {selectedType === "SNS ID" && (
           <div className="flex gap-[14px]">
