@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { useGetUserById } from "@/apis/user/hooks/useGetUserById";
+import { useGetMentorById } from "@/apis/user/hooks/useGetMentorById";
 import { ResultBottomSheet } from "@/app/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { QuestionStep } from "@/app/(main)/schedule/components/QuestionStep";
 import { NavigationBar } from "@/app/components/NavigationBar";
@@ -26,12 +26,12 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
 
   const { isApplySuccess, applyCoffeeChat } = useApplyCoffeeChat();
   const { isApproveSuccess, approveCoffeeChat } = useApproveCoffeeChat();
-  const { data: user, isLoading: isLoadingMentor } = useGetUserById(mentorId);
+  const { data: user, isLoading: isLoadingMentor } = useGetMentorById(mentorId);
   const { data: me, isLoading: isLoadingMe } = useGetMe();
 
   if (isLoadingMentor || isLoadingMe) return null;
 
-  if (me?.role === "mentor" || !user || user.role === "mentee" || !user.schedules) {
+  if (me?.role === "mentor" || !user) {
     router.replace("/");
     return;
   }
@@ -56,7 +56,7 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
         <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
         <div className="px-5 pb-[4.5rem] pt-4">
           {currentStep === 1 && (
-            <ScheduleStep schedules={user.schedules} onClickNextStep={handleClickNextStep} />
+            <ScheduleStep mentorId={mentorId} onClickNextStep={handleClickNextStep} />
           )}
           {currentStep === 2 && <QuestionStep />}
         </div>

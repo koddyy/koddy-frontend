@@ -1,20 +1,23 @@
 import { Nullable } from "primereact/ts-helpers";
+import { useMemo } from "react";
 import { Controller, useController, useFormContext } from "react-hook-form";
+import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
 import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { Day, Mentor } from "@/types/mentor";
+import { Day } from "@/types/mentor";
+import { toYYYYMMDD } from "@/utils/dateUtils";
 import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
-  schedules: NonNullable<Mentor["schedules"]>;
+  mentorId: number;
   onClickNextStep: () => void;
 }
 
-export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => {
+export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
   const {
     control,
     formState: { isValid },
@@ -28,11 +31,28 @@ export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => 
     },
   });
 
-  const { disabledDays, timeRangeListPerDay } = useSchedules(schedules);
+  const today = new Date();
+  const { data } = useGetReservedSchedules(mentorId, {
+    year: dateField.value?.getFullYear() ?? today.getFullYear(),
+    month: (dateField.value?.getMonth() ?? today.getMonth()) + 1,
+  });
+  const { schedules, reserved } = data ?? {};
+
+  const { disabledDays, timeRangeListPerDay } = useSchedules(schedules ?? []);
 
   const day = new Intl.DateTimeFormat("ko-KR", {
     weekday: "short",
   }).format(dateField.value) as Day;
+
+  const availableTimeRangeList = useMemo(
+    () =>
+      timeRangeListPerDay[day]?.filter((timeRange) => {
+        return !reserved?.[toYYYYMMDD(dateField.value)].some(
+          ([start, end]) => start.startsWith(timeRange[0]) && end.startsWith(timeRange[1])
+        );
+      }),
+    [dateField.value, day, reserved, timeRangeListPerDay]
+  );
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
 
@@ -56,7 +76,7 @@ export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => 
             name="timeRange"
             render={({ field }) => (
               <div className="flex flex-wrap gap-3">
-                {timeRangeListPerDay[day].map((timeRange, i) => {
+                {availableTimeRangeList?.map((timeRange, i) => {
                   const delimiter = " ~ ";
                   const value = timeRange.join(delimiter);
                   return (
