@@ -48,7 +48,7 @@ export const Select = <T extends string | number>({
         onClick={() => setIsOpen((prev) => !prev)}
       >
         {renderValue ? (
-          renderValue(value)
+          renderValue(value) || <span className="text-gray-400">{placeholder}</span>
         ) : (
           <span className={cn(!value && "text-gray-400")}>{value || placeholder}</span>
         )}
