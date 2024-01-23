@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import TriangleDown from "@/assets/triangle-down.svg";
+import { CoffeeChatTypeIcon, CoffeeChatTypeLabel, Meeting } from "@/constants/coffeechat";
 import { Select, SelectProps } from "./Select";
 
 const meta = {
@@ -59,4 +60,31 @@ export const CustomValue: StoryObj<typeof Select<string>> = {
     options: ["option1", "option2", "option3", "option4", "option5"],
     placeholder: "placeholder",
   },
+};
+
+const CustomOptionSelect = (args: SelectProps<Meeting>) => {
+  const [selectedValue, setSelectedValue] = useState<Meeting>();
+
+  return (
+    <Select
+      {...args}
+      options={["zoom", "google"]}
+      value={selectedValue}
+      onChangeValue={(value) => setSelectedValue(value)}
+      renderOption={(value) => {
+        const Icon = CoffeeChatTypeIcon[value];
+        return (
+          <div className="flex gap-[6px] py-[8px]">
+            {Icon && <Icon />}
+            {CoffeeChatTypeLabel[value]}
+          </div>
+        );
+      }}
+    />
+  );
+};
+
+export const CustomOption: StoryObj<typeof Select<Meeting>> = {
+  render: (args: SelectProps<Meeting>) => <CustomOptionSelect {...args} />,
+  args: {},
 };
