@@ -6,15 +6,14 @@ import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { Day, Mentor } from "@/types/mentor";
 import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
-  schedules: NonNullable<Mentor["schedules"]>;
+  mentorId: number;
   onClickNextStep: () => void;
 }
 
-export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => {
+export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
   const {
     control,
     formState: { isValid },
@@ -28,11 +27,10 @@ export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => 
     },
   });
 
-  const { disabledDays, timeRangeListPerDay } = useSchedules(schedules);
-
-  const day = new Intl.DateTimeFormat("ko-KR", {
-    weekday: "short",
-  }).format(dateField.value) as Day;
+  const { disabledDays, availableTimeRangeList } = useSchedules(
+    mentorId,
+    dateField.value ?? new Date()
+  );
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
 
@@ -56,7 +54,7 @@ export const ScheduleStep = ({ schedules, onClickNextStep }: FirstStepProps) => 
             name="timeRange"
             render={({ field }) => (
               <div className="flex flex-wrap gap-3">
-                {timeRangeListPerDay[day].map((timeRange, i) => {
+                {availableTimeRangeList?.map((timeRange, i) => {
                   const delimiter = " ~ ";
                   const value = timeRange.join(delimiter);
                   return (

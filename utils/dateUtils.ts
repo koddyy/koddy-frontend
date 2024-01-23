@@ -9,3 +9,9 @@ export const toYYYYMMDD = (date: Date) => {
 export const getDaysInMonth = (year: number, month: number) => {
   return new Date(year, month, 0).getDate();
 };
+
+export const parseLocalDateTime = (localDateTime: string) => {
+  const [yyyymmdd, hhmmss] = localDateTime.split("T");
+
+  return { yyyymmdd, hhmmss };
+};
