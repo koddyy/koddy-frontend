@@ -4,7 +4,11 @@ import Zoom from "@/assets/zoom.svg";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 
-export type CoffeeChatType = "zoom" | "google" | "kakao" | "line" | "wechat";
+export type Meeting = "zoom" | "google";
+
+export type SNS = "kakao" | "line" | "wechat";
+
+export type CoffeeChatType = Meeting | SNS;
 
 export const CoffeeChatTypeLabel: Record<CoffeeChatType, string> = {
   zoom: "Zoom",
@@ -14,14 +18,13 @@ export const CoffeeChatTypeLabel: Record<CoffeeChatType, string> = {
   wechat: "위챗",
 };
 
-export const CoffeeChatTypeOptions = Object.keys(CoffeeChatTypeLabel) as Array<CoffeeChatType>;
+export const MeetingOptions: Meeting[] = ["zoom", "google"];
 
-export const CoffeeChatTypeIcon: Record<CoffeeChatType, ElementType | null> = {
+export const SNSOptions: SNS[] = ["kakao", "line", "wechat"];
+
+export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
   zoom: Zoom,
   google: GoogleMeet,
-  kakao: null,
-  line: null,
-  wechat: null,
 };
 
 type CoffeeChatStatusTextType = Record<CoffeeChatStatus, string>;

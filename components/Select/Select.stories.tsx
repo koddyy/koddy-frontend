@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import TriangleDown from "@/assets/triangle-down.svg";
-import { CoffeeChatType, CoffeeChatTypeIcon, CoffeeChatTypeLabel } from "@/constants/coffeechat";
+import { CoffeeChatTypeIcon, CoffeeChatTypeLabel, Meeting } from "@/constants/coffeechat";
 import { Select, SelectProps } from "./Select";
 
 const meta = {
@@ -62,8 +62,8 @@ export const CustomValue: StoryObj<typeof Select<string>> = {
   },
 };
 
-const CustomOptionSelect = (args: SelectProps<CoffeeChatType>) => {
-  const [selectedValue, setSelectedValue] = useState<CoffeeChatType>();
+const CustomOptionSelect = (args: SelectProps<Meeting>) => {
+  const [selectedValue, setSelectedValue] = useState<Meeting>();
 
   return (
     <Select
@@ -84,7 +84,7 @@ const CustomOptionSelect = (args: SelectProps<CoffeeChatType>) => {
   );
 };
 
-export const CustomOption: StoryObj<typeof Select<CoffeeChatType>> = {
-  render: (args: SelectProps<CoffeeChatType>) => <CustomOptionSelect {...args} />,
+export const CustomOption: StoryObj<typeof Select<Meeting>> = {
+  render: (args: SelectProps<Meeting>) => <CustomOptionSelect {...args} />,
   args: {},
 };
