@@ -93,6 +93,11 @@ export const CoffeeChatTypeSelectBottomSheet = ({
         )}
         <TextArea
           className="h-full"
+          placeholder={(() => {
+            if (!selectedType) return "";
+            else if (selectedType === "SNS ID") return "ID를 입력해 주세요.";
+            return `${CoffeeChatTypeLabel[selectedType]} 링크를 입력해 주세요.`;
+          })()}
           value={chatValue}
           onChange={(e) => setChatValue(e.target.value)}
         />
