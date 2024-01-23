@@ -3,7 +3,12 @@ import { BottomSheet, BottomSheetProps, ButtonArea } from "@/components/BottomSh
 import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { CoffeeChatType, CoffeeChatTypeOptions } from "@/constants/coffeechat";
+import {
+  CoffeeChatType,
+  CoffeeChatTypeIcon,
+  CoffeeChatTypeLabel,
+  CoffeeChatTypeOptions,
+} from "@/constants/coffeechat";
 
 interface CoffeeChatTypeSelectBottomSheetProps extends BottomSheetProps {
   onSubmit: ({ chatType, chatValue }: { chatType: CoffeeChatType; chatValue: string }) => void;
@@ -37,6 +42,15 @@ export const CoffeeChatTypeSelectBottomSheet = ({
           options={CoffeeChatTypeOptions}
           value={chatType}
           onChangeValue={setChatType}
+          renderOption={(value) => {
+            const Icon = CoffeeChatTypeIcon[value];
+            return (
+              <div className="flex gap-[6px] py-[8px]">
+                {Icon && <Icon />}
+                {CoffeeChatTypeLabel[value]}
+              </div>
+            );
+          }}
         />
         <TextArea height="sm" value={chatValue} onChange={(e) => setChatValue(e.target.value)} />
       </div>
