@@ -1,15 +1,11 @@
 import { Nullable } from "primereact/ts-helpers";
-import { useMemo } from "react";
 import { Controller, useController, useFormContext } from "react-hook-form";
-import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
 import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { Day } from "@/types/mentor";
-import { toYYYYMMDD } from "@/utils/dateUtils";
 import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
@@ -31,27 +27,9 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     },
   });
 
-  const today = new Date();
-  const { data } = useGetReservedSchedules(mentorId, {
-    year: dateField.value?.getFullYear() ?? today.getFullYear(),
-    month: (dateField.value?.getMonth() ?? today.getMonth()) + 1,
-  });
-  const { schedules, reserved } = data ?? {};
-
-  const { disabledDays, timeRangeListPerDay } = useSchedules(schedules ?? []);
-
-  const day = new Intl.DateTimeFormat("ko-KR", {
-    weekday: "short",
-  }).format(dateField.value) as Day;
-
-  const availableTimeRangeList = useMemo(
-    () =>
-      timeRangeListPerDay[day]?.filter((timeRange) => {
-        return !reserved?.[toYYYYMMDD(dateField.value)].some(
-          ([start, end]) => start.startsWith(timeRange[0]) && end.startsWith(timeRange[1])
-        );
-      }),
-    [dateField.value, day, reserved, timeRangeListPerDay]
+  const { disabledDays, availableTimeRangeList } = useSchedules(
+    mentorId,
+    dateField.value ?? new Date()
   );
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
