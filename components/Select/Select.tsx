@@ -12,6 +12,7 @@ export interface SelectProps<T = string> extends FormOptions {
   onChangeValue?: (value: T) => void;
   placeholder?: string;
   renderValue?: (value?: T) => ReactNode;
+  renderOption?: (value: T) => ReactNode;
   rightContent?: ElementType;
 }
 
@@ -22,6 +23,7 @@ export const Select = <T extends string | number>({
   onChangeValue,
   placeholder,
   renderValue,
+  renderOption,
   rightContent: RightContent = ArrowDown,
   ...props
 }: PropsWithChildren<SelectProps<T>>) => {
@@ -60,7 +62,7 @@ export const Select = <T extends string | number>({
               className="body-3 rounded-[0.625rem] px-3 py-2 hover:bg-gray-100"
               onClick={() => handleChange(value)}
             >
-              {value}
+              {renderOption ? renderOption(value) : value}
             </li>
           ))}
         </ul>

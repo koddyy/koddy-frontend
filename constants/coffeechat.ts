@@ -1,3 +1,6 @@
+import { ElementType } from "react";
+import GoogleMeet from "@/assets/google_meet.svg";
+import Zoom from "@/assets/zoom.svg";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 
@@ -12,6 +15,14 @@ export const CoffeeChatTypeLabel: Record<CoffeeChatType, string> = {
 };
 
 export const CoffeeChatTypeOptions = Object.keys(CoffeeChatTypeLabel) as Array<CoffeeChatType>;
+
+export const CoffeeChatTypeIcon: Record<CoffeeChatType, ElementType | null> = {
+  zoom: Zoom,
+  google: GoogleMeet,
+  kakao: null,
+  line: null,
+  wechat: null,
+};
 
 type CoffeeChatStatusTextType = Record<CoffeeChatStatus, string>;
 
