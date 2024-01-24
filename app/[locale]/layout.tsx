@@ -1,6 +1,12 @@
 import "@/styles/globals.css";
+import { unstable_setRequestLocale } from "next-intl/server";
 import QueryClientProvider from "@/app/providers/QueryClientProvider";
+import { locales } from "@/constants/locale";
 import MswInit from "@/mocks/MswInit";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default function RootLayout({
   params: { locale },
@@ -9,6 +15,8 @@ export default function RootLayout({
   params: { locale: string };
   children: React.ReactNode;
 }) {
+  unstable_setRequestLocale(locale);
+
   return (
     <html lang={locale}>
       <head>
