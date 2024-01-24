@@ -33,9 +33,15 @@ export const SubLanguageSelectForm = () => {
 
   return (
     <>
-      <FormControl required>
-        <FormLabel>{t("signup.SubLanguageSelectForm.title")}</FormLabel>
-        <div>{t("signup.SubLanguageSelectForm.description")}</div>
+      <FormControl>
+        <FormLabel className="headline-1 mb-[9px]">
+          {t.rich("signup.SubLanguageSelectForm.title", {
+            line: (chunks) => <div>{chunks}</div>,
+          })}
+        </FormLabel>
+        <div className="body-1 mb-[14px] text-gray-600">
+          {t("signup.SubLanguageSelectForm.description")}
+        </div>
         <div className="flex flex-col gap-[6px]">
           {languagesOptions.map(([key]) => (
             <Toggle

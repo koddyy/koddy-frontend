@@ -28,13 +28,15 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
 
   return (
     <>
-      <FormControl required>
-        <FormLabel>
+      <FormControl>
+        <FormLabel className="headline-1 mb-[9px]">
           {t.rich("signup.MainLanguageSelectForm.title", {
             line: (chunks) => <div>{chunks}</div>,
           })}
         </FormLabel>
-        <div>{t("signup.SubLanguageSelectForm.description")}</div>
+        <div className="body-1 mb-[14px] text-gray-600">
+          {t("signup.SubLanguageSelectForm.description")}
+        </div>
         <div className="flex flex-col gap-[6px]">
           {languagesOptions.map(([key]) => (
             <Toggle

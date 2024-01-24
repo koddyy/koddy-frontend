@@ -17,7 +17,7 @@ export const SignupSuccess = () => {
       </div>
       <div className="flex flex-col gap-[14px]">
         <LinkButton href="/newcomer">{t("정보 입력하러 가기")}</LinkButton>
-        <Link className="body-1 text-gray-600" href="/">
+        <Link className="body-1 text-center text-gray-600" href="/">
           {t("다음에 입력할게요")}
         </Link>
       </div>

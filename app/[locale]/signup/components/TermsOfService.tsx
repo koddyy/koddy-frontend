@@ -50,16 +50,22 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
       <Divider className="my-4" />
       <div className="flex flex-col gap-4">
         {TOS_ITEMS.map(({ text, url }, i) => (
-          <Checkbox key={i} checked={isChecked[i]} onChangeChecked={() => handleChangeChecked(i)}>
-            {t("agreement.prefix")}
-            <button
-              className="body-2-bold font-bold text-primary-dark underline"
-              type="button"
-              onClick={() => window.open(url)}
-            >
-              {t(`agreement.${text}`)}
-            </button>
-            {t("agreement.postfix")}
+          <Checkbox
+            key={i}
+            className="items-start"
+            checked={isChecked[i]}
+            onChangeChecked={() => handleChangeChecked(i)}
+          >
+            <span>
+              {t("agreement.prefix")}{" "}
+              <a
+                className="body-2-bold font-bold text-primary-dark underline"
+                onClick={() => window.open(url)}
+              >
+                {t(`agreement.${text}`)}
+              </a>{" "}
+              {t("agreement.postfix")}
+            </span>
           </Checkbox>
         ))}
       </div>
