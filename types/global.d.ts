@@ -5,3 +5,6 @@ declare module "*.svg" {
   const src: string;
   export default src;
 }
+
+type Messages = typeof import("../messages/ko.json") & typeof import("../messages/en.json");
+declare interface IntlMessages extends Messages {}
