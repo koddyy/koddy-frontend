@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNextIntl = require("next-intl/plugin")();
 
 /** @type {import('next').NextConfig} */
@@ -29,14 +30,14 @@ const nextConfig = withNextIntl({
     return config;
   },
 
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/api/:path*",
+  //       destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
+  //     },
+  //   ];
+  // },
 });
 
 module.exports = nextConfig;
