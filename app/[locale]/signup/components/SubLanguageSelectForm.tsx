@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -7,6 +8,8 @@ import { NationCode } from "@/types/user";
 import { SignupForm } from "../types/mentorForm";
 
 export const SubLanguageSelectForm = () => {
+  const t = useTranslations();
+
   const {
     control,
     formState: { isValid },
@@ -31,9 +34,10 @@ export const SubLanguageSelectForm = () => {
   return (
     <>
       <FormControl required>
-        <FormLabel>서브 언어를 선택해주세요 (다중 선택 가능)</FormLabel>
+        <FormLabel>{t("signup.SubLanguageSelectForm.title")}</FormLabel>
+        <div>{t("signup.SubLanguageSelectForm.description")}</div>
         <div className="flex flex-col gap-[6px]">
-          {languagesOptions.map(([key, value]) => (
+          {languagesOptions.map(([key]) => (
             <Toggle
               className="p-4 text-start"
               key={key}
@@ -42,13 +46,13 @@ export const SubLanguageSelectForm = () => {
               onChangePressed={() => handleChangeSubLanguages(key)}
               disabled={mainLanguage && key === mainLanguage.value}
             >
-              {value}
+              {t(`languages-options.${key}`)}
             </Toggle>
           ))}
         </div>
       </FormControl>
       <BottomButton type="submit" disabled={!isValid}>
-        완료
+        {t("signup.SubLanguageSelectForm.next-button")}
       </BottomButton>
     </>
   );

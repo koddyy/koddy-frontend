@@ -1,1 +1,67 @@
-{}
+{
+  "signup": {
+    "TermsOfService": {
+      "title": "<line>코띠 서비스 이용에</line><line>동의해주세요</line>",
+      "agreement": {
+        "all": "아래 항목에 전부 동의합니다.",
+        "개인정보 수집 및 이용": "개인정보 수집 및 이용",
+        "이용약관": "이용약관",
+        "개인정보의 제 3자 제공": "개인정보의 제 3자 제공",
+        "prefix": "",
+        "postfix": "에 동의합니다. (필수)"
+      },
+      "next-button": "다음"
+    },
+
+    "BasicInformationForm": {
+      "interestSchool": {
+        "label": "관심 학교",
+        "placeholder": "관심있는 학교를 입력해 주세요."
+      },
+      "interestMajor": {
+        "label": "관심 전공",
+        "placeholder": "관심있는 전공을 입력해 주세요."
+      },
+      "nationality": {
+        "label": "국적",
+        "placeholder": "국적을 선택해 주세요."
+      },
+      "next-button": "다음"
+    },
+
+    "MainLanguageSelectForm": {
+      "title": "<line>메인 언어를</line><line>설정해 주세요</line>",
+      "description": "가장 편안하고 원활하게 대화할 수 있는 언어를 선택해 주세요.",
+      "next-button": "다음"
+    },
+
+    "SubLanguageSelectForm": {
+      "title": "<line>서브 언어를</line><line>설정해 주세요</line>",
+      "description": "어느 정도 소통이 가능한 수준의 언어를 선택해 주세요.",
+      "next-button": "다음"
+    },
+
+    "SignupSuccess": {
+      "success": "가입이 완료됐어요 🎉",
+      "guide": "<line>커피챗을 위한 정보를 입력해주시면</line><line>멘토멘티 신청이 들어올 수 있어요</line>",
+      "정보 입력하러 가기": "정보 입력하러 가기",
+      "다음에 입력할게요": "다음에 입력할게요"
+    }
+  },
+
+  "newcomer": {
+    "introduction": {
+      "label": "<line>자기소개를</line><line>입력해 주세요</line>",
+      "placeholder": "간단한 소개와 커피챗을 하게 된 이유, 현재는 어떤 경험을 하고 계신지 알려주시면 좋아요!"
+    },
+    "complete-button": "완료"
+  },
+
+  "languages-options": {
+    "KR": "한국어",
+    "EN": "영어",
+    "CN": "중국어",
+    "JP": "일본어",
+    "VN": "베트남어"
+  }
+}

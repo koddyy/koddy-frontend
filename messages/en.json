@@ -1,1 +1,67 @@
-{}
+{
+  "signup": {
+    "TermsOfService": {
+      "title": "<line>terms of service</line><line>agreement</line>",
+      "agreement": {
+        "all": "I agree to all of the items below.",
+        "개인정보 수집 및 이용": "the collection and use of personal information",
+        "이용약관": "Terms and Conditions",
+        "개인정보의 제 3자 제공": "the provision of personal information to third parties",
+        "prefix": "I agree to",
+        "postfix": "(essentials)"
+      },
+      "next-button": "Next"
+    },
+
+    "BasicInformationForm": {
+      "interestSchool": {
+        "label": "School of interest",
+        "placeholder": "Please enter the school of interest."
+      },
+      "interestMajor": {
+        "label": "Major of interest",
+        "placeholder": "Please enter your major of interest."
+      },
+      "nationality": {
+        "label": "country",
+        "placeholder": "please select your country"
+      },
+      "next-button": "Next"
+    },
+
+    "MainLanguageSelectForm": {
+      "title": "<line>please select</line><line>your main language</line>",
+      "description": "Select the language you feel most comfortable and can converse smoothly in.",
+      "next-button": "Next"
+    },
+
+    "SubLanguageSelectForm": {
+      "title": "<line>please select</line><line>your sub language</line>",
+      "description": "Select a language that, while not as proficient as the main language, allows for a certain level of communication.",
+      "next-button": "Next"
+    },
+
+    "SignupSuccess": {
+      "success": "I'm done signing up 🎉",
+      "guide": "<line>If you enter the information for Coffee Chat</line><line>Mentor message applications can come in</line>",
+      "정보 입력하러 가기": "To enter information",
+      "다음에 입력할게요": "I'll enter it next time"
+    }
+  },
+
+  "newcomer": {
+    "introduction": {
+      "label": "<line>Please introduce</line><line>yourself</line>",
+      "placeholder": "It would be great if you could tell us a brief introduction, why you're doing this coffee chat, and what your current experiences are like"
+    },
+    "complete-button": "Complete"
+  },
+
+  "languages-options": {
+    "KR": "Korean",
+    "EN": "English",
+    "CN": "Chinese",
+    "JP": "Japanese",
+    "VN": "Vietnamese"
+  }
+}

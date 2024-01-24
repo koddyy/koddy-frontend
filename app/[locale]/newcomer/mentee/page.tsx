@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { useUpdateMenteeProfile } from "@/apis/user/hooks/useUpdateMenteeProfile";
@@ -10,6 +11,8 @@ import { TextArea } from "@/components/TextArea";
 import { CompleteProfileForm } from "@/types/mentee";
 
 const Page = () => {
+  const t = useTranslations("newcomer");
+
   const router = useRouter();
   const { data: me } = useGetMe();
   const {
@@ -39,12 +42,12 @@ const Page = () => {
       <NavigationBar onClickGoback={() => router.back()} />
       <form className="my-[24px] px-[20px]" onSubmit={handleSubmit(onSubmit)}>
         <div className="headline-1 mb-[15px]">
-          {me?.name ?? "OOO"}님을
-          <br />
-          소개해 주세요
+          {t.rich("introduction.label", {
+            line: (chunks) => <div>{chunks}</div>,
+          })}
         </div>
         <TextArea
-          placeholder="간단한 소개와 커피챗을 하게 된 이유, 현재는 어떤 경험을 하고 계신지 알려주시면 좋아요!"
+          placeholder={t("introduction.placeholder")}
           {...register("introduction", { required: true })}
         />
         <BottomButton type="submit" disabled={!isValid || !isDirty}>

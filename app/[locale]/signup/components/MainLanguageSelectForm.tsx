@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -10,6 +11,8 @@ interface MainLanguageSelectFormProps {
 }
 
 export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFormProps) => {
+  const t = useTranslations();
+
   const {
     control,
     formState: { isValid },
@@ -26,9 +29,14 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
   return (
     <>
       <FormControl required>
-        <FormLabel>메인 언어를 선택해주세요 (1개 선택 가능)</FormLabel>
+        <FormLabel>
+          {t.rich("signup.MainLanguageSelectForm.title", {
+            line: (chunks) => <div>{chunks}</div>,
+          })}
+        </FormLabel>
+        <div>{t("signup.SubLanguageSelectForm.description")}</div>
         <div className="flex flex-col gap-[6px]">
-          {languagesOptions.map(([key, value]) => (
+          {languagesOptions.map(([key]) => (
             <Toggle
               className="p-4 text-start"
               key={key}
@@ -42,13 +50,13 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
                 }
               }}
             >
-              {value}
+              {t(`languages-options.${key}`)}
             </Toggle>
           ))}
         </div>
       </FormControl>
       <BottomButton disabled={!isValid} onClick={onClickNextStep}>
-        다음
+        {t("signup.MainLanguageSelectForm.next-button")}
       </BottomButton>
     </>
   );

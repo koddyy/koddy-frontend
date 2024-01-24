@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
@@ -13,6 +14,8 @@ interface BasicInformationProps {
 }
 
 export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps) => {
+  const t = useTranslations("signup.BasicInformationForm");
+
   const {
     register,
     control,
@@ -36,25 +39,25 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
   return (
     <div className="flex flex-col gap-4">
       <FormControl required>
-        <FormLabel htmlFor="interestSchool">관심 학교</FormLabel>
+        <FormLabel htmlFor="interestSchool">{t("interestSchool.label")}</FormLabel>
         <Input
-          placeholder="관심있는 학교를 입력해 주세요."
+          placeholder={t("interestSchool.placeholder")}
           {...register("interestSchool", { required: true })}
         />
       </FormControl>
 
       <FormControl required>
-        <FormLabel htmlFor="interestMajor">관심 전공</FormLabel>
+        <FormLabel htmlFor="interestMajor">{t("interestMajor.label")}</FormLabel>
         <Input
-          placeholder="관심있는 전공을 입력해 주세요."
+          placeholder={t("interestMajor.placeholder")}
           {...register("interestMajor", { required: true })}
         />
       </FormControl>
 
       <FormControl required>
-        <FormLabel htmlFor="nationality">국적</FormLabel>
+        <FormLabel htmlFor="nationality">{t("nationality.label")}</FormLabel>
         <Select
-          placeholder="국적을 선택해 주세요."
+          placeholder={t("nationality.placeholder")}
           options={nationalityOptions}
           value={nationality}
           onChangeValue={handleChangeNationality}
@@ -62,7 +65,7 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
       </FormControl>
 
       <BottomButton disabled={!isValid} onClick={onClickNextStep}>
-        완료
+        {t("next-button")}
       </BottomButton>
     </div>
   );

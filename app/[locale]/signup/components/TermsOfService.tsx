@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { BottomButton } from "@/app/components/BottomButton";
 import { Checkbox } from "@/components/Checkbox";
@@ -7,13 +8,15 @@ const TOS_ITEMS = [
   { text: "개인정보 수집 및 이용", url: "https://www.google.com" },
   { text: "이용약관", url: "https://www.google.com" },
   { text: "개인정보의 제 3자 제공", url: "https://www.google.com" },
-];
+] as const;
 
 interface TermsOfServiceProps {
   onClickNextStep: () => void;
 }
 
 export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
+  const t = useTranslations("signup.TermsOfService");
+
   const [isChecked, setIsChecked] = useState(() => new Array<boolean>(3).fill(false));
 
   const handleChangeCheckedAll = () => {
@@ -33,34 +36,35 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
   return (
     <>
       <div className="headline-1 mb-[27px] mt-[21px]">
-        코띠 서비스 이용에
-        <br />
-        동의해주세요
+        {t.rich("title", {
+          line: (chunks) => <div>{chunks}</div>,
+        })}
       </div>
       <Checkbox
         className="body-2-bold"
         checked={isCheckedAll}
         onChangeChecked={handleChangeCheckedAll}
       >
-        아래 항목에 전부 동의합니다.
+        {t("agreement.all")}
       </Checkbox>
       <Divider className="my-4" />
       <div className="flex flex-col gap-4">
         {TOS_ITEMS.map(({ text, url }, i) => (
           <Checkbox key={i} checked={isChecked[i]} onChangeChecked={() => handleChangeChecked(i)}>
+            {t("agreement.prefix")}
             <button
               className="body-2-bold font-bold text-primary-dark underline"
               type="button"
               onClick={() => window.open(url)}
             >
-              {text}
+              {t(`agreement.${text}`)}
             </button>
-            에 동의합니다. (필수)
+            {t("agreement.postfix")}
           </Checkbox>
         ))}
       </div>
       <BottomButton disabled={!isCheckedAll} onClick={onClickNextStep}>
-        다음
+        {t("next-button")}
       </BottomButton>
     </>
   );
