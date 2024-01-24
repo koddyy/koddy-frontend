@@ -4,8 +4,8 @@ import {
   GetMentorByIdResponse,
   PostAvailableTimesRequest,
 } from "@/apis/user/types";
-import type { SignupForm as MenteeSignupForm } from "@/app/signup/types/menteeForm";
-import type { SignupForm as MentorSignupForm } from "@/app/signup/types/mentorForm";
+import type { SignupForm as MenteeSignupForm } from "@/app/[locale]/signup/types/menteeForm";
+import type { SignupForm as MentorSignupForm } from "@/app/[locale]/signup/types/mentorForm";
 import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
 import type { Mentor, UpdateMentorInfoForm } from "@/types/mentor";
 import type { User } from "@/types/user";

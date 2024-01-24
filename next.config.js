@@ -1,5 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withNextIntl = require("next-intl/plugin")();
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withNextIntl({
   webpack(config, context) {
     // https://react-svgr.com/docs/next/#usage
     config.module.rules.push({
@@ -26,6 +29,15 @@ const nextConfig = {
 
     return config;
   },
-};
+
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/api/:path*",
+  //       destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
+  //     },
+  //   ];
+  // },
+});
 
 module.exports = nextConfig;
