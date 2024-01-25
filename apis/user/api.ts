@@ -19,6 +19,10 @@ class UserApi {
     return apiInstance.post("/api/mentees", signupForm);
   };
 
+  signout = () => {
+    return apiInstance.delete("/api/members");
+  };
+
   getMe = async () => {
     const response = await apiInstance.get<Mentor | Mentee>("/api/members/me");
     return response.data;
