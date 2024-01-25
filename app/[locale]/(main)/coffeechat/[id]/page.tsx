@@ -50,13 +50,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
   const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
     useRejectCoffeeChatForMentor("APPLY");
 
-  const {
-    isCanceling,
-    isCanceled,
-    openCancelBottomSheet,
-    closeCancelBottomSheet,
-    cancelCoffeeChat,
-  } = useCancelCoffeeChat(String(id));
+  const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
   const { copyText } = useClipboard();
 
   if (isLoading) return null;
@@ -108,7 +102,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
               variant="outline"
               color="grayscale"
               className="border-[0.5px]"
-              onClick={openCancelBottomSheet}
+              onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
             >
               커피챗 취소하기
             </Button>
@@ -156,15 +150,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
         />
       )}
-      {isCanceling && (
-        <RejectBottomSheet
-          type="cancel"
-          userName={coffeechat.mentee.name}
-          onClickRejectButton={(reason: string) => cancelCoffeeChat({ statusDesc: reason })}
-          onClose={closeCancelBottomSheet}
-        />
-      )}
-      {isCanceled && (
+      {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
           description={[`${coffeechat.mentee.name}님과의`, "커피챗이 취소되었습니다."]}
@@ -179,13 +165,8 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
   const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
     useRejectCoffeeChatForMentee();
 
-  const {
-    isPending,
-    isCanceled,
-    openPendingBottomSheet,
-    closePendingBottomSheet,
-    cancelCoffeeChat,
-  } = useCancelCoffeeChat(String(id));
+  const { isCancel, isCancelSuccess, setIsCancelTrue, setIsCancelFalse, cancelCoffeeChat } =
+    useCancelCoffeeChat();
   const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
   const { copyText } = useClipboard();
 
@@ -232,7 +213,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
               variant="outline"
               color="grayscale"
               className="border-[0.5px]"
-              onClick={openPendingBottomSheet}
+              onClick={setIsCancelTrue}
             >
               커피챗 취소하기
             </Button>
@@ -267,15 +248,15 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
           confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
         />
       )}
-      {isPending && (
+      {isCancel && (
         <PendingBottomSheet
           resultType="negative"
           description={[`${coffeechat.mentor.name}님과의`, "커피챗을 취소하시겠습니까?"]}
-          onClickNo={closePendingBottomSheet}
-          onClickYes={() => cancelCoffeeChat()}
+          onClickNo={setIsCancelFalse}
+          onClickYes={() => cancelCoffeeChat({ coffeeChatId: id })}
         />
       )}
-      {isCanceled && (
+      {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
           description={[`${coffeechat.mentor.name}님과의`, "커피챗이 취소되었습니다."]}
