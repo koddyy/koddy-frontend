@@ -1,41 +1,17 @@
-import { useState } from "react";
-import useUpdateCoffeeChatStatus from "@/apis/coffeechat/hooks/usePatchCoffeeChatStatus";
-import { PatchCoffeeChatStatusRequest } from "@/apis/coffeechat/types";
+import { useDeleteCoffeeChat } from "@/apis/coffeechat-status/hooks/useDeleteCoffeeChat";
+import { useToggle } from "@/hooks/useToggle";
 
-const useCancelCoffeeChat = (applicationId: string) => {
-  const [isCanceling, setIsCanceling] = useState(false);
-  const [isPending, setIsPending] = useState(false);
-  const { isSuccess, mutate: updateCoffeeChatStatus } = useUpdateCoffeeChatStatus();
-
-  // for mentor
-  const openCancelBottomSheet = () => {
-    setIsCanceling(true);
-  };
-  const closeCancelBottomSheet = () => {
-    setIsCanceling(false);
-  };
-
-  // for mentee
-  const openPendingBottomSheet = () => {
-    setIsPending(true);
-  };
-  const closePendingBottomSheet = () => {
-    setIsPending(false);
-  };
-
-  const cancelCoffeeChat = (args?: Pick<PatchCoffeeChatStatusRequest, "statusDesc">) => {
-    updateCoffeeChatStatus({ ...args, applicationId, status: "CANCEL" });
-  };
+const useCancelCoffeeChat = () => {
+  const { mutate: deleteCoffeeChat, isSuccess: isCancelSuccess } = useDeleteCoffeeChat();
+  const [isCancel, toggleIsCancel, setIsCancel] = useToggle();
 
   return {
-    isCanceling: isCanceling && !isSuccess,
-    isPending: isPending && !isSuccess,
-    isCanceled: isSuccess,
-    openPendingBottomSheet,
-    closePendingBottomSheet,
-    openCancelBottomSheet,
-    closeCancelBottomSheet,
-    cancelCoffeeChat,
+    isCancel: isCancel && !isCancelSuccess,
+    isCancelSuccess,
+    toggleIsCancel,
+    setIsCancelTrue: () => setIsCancel(true),
+    setIsCancelFalse: () => setIsCancel(false),
+    cancelCoffeeChat: deleteCoffeeChat,
   };
 };
 

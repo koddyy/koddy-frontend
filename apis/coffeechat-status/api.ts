@@ -67,6 +67,10 @@ class CoffeeChatStatusApi {
       rejectReason,
     });
   };
+
+  deleteCoffeeChat = ({ coffeeChatId }: { coffeeChatId: number }) => {
+    return apiInstance.delete(`/api/coffeechats/cancel/${coffeeChatId}`);
+  };
 }
 
 export const coffeeChatStatusApi = new CoffeeChatStatusApi();
