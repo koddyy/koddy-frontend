@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import ThreeDots from "@/assets/three_dots.svg";
 import { Divider } from "@/components/Divider/Divider";
 import { PATH } from "@/constants/path";
 import { cn } from "@/utils/cn";
@@ -22,7 +23,14 @@ const Page = () => {
 
   return (
     <>
-      <NavigationBar title="마이페이지" />
+      <NavigationBar
+        title="마이페이지"
+        rightContent={
+          <Link href={PATH.MYPAGE_ACCOUNT}>
+            <ThreeDots />
+          </Link>
+        }
+      />
       <div className="flex flex-col items-center gap-3 px-11 pb-5 pt-[1.38rem]">
         <img
           className={cn(

@@ -33,4 +33,8 @@ export const authApi = {
   reissueToken: () => {
     return apiInstance.post("/api/token/reissue");
   },
+
+  oauthLogout: () => {
+    return apiInstance.post("/api/oauth/logout");
+  },
 };
