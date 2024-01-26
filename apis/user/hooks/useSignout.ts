@@ -12,7 +12,7 @@ export const useSignout = () => {
     mutationFn: userApi.signout,
     onSuccess: () => {
       clear();
-      queryClient.clear();
+      queryClient.removeQueries();
       router.push("/login");
     },
   });

@@ -12,7 +12,7 @@ export const useOauthLogout = () => {
     mutationFn: authApi.oauthLogout,
     onSuccess: () => {
       clear();
-      queryClient.clear();
+      queryClient.removeQueries();
       router.push("/login");
     },
   });
