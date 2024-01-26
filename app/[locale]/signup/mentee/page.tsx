@@ -28,7 +28,7 @@ const Page = () => {
     },
   });
   const { user } = useUserStore();
-  const { setLoggedIn } = useProviderStore();
+  const { provider, socialId, setLoggedIn } = useProviderStore();
   const { mutate: signup } = useSignupAsMentee();
 
   const handleClickGoback = () => {
@@ -41,10 +41,10 @@ const Page = () => {
   };
 
   const onSubmitForm = (data: ISignupForm) => {
-    if (!user) return;
+    if (!user || !provider || !socialId) return;
 
     signup(
-      { ...user, ...data },
+      { provider, socialId, ...user, ...data },
       {
         onSuccess: () => {
           handleClickNextStep();
