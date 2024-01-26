@@ -13,7 +13,7 @@ interface LoginProps {
 
 export const Login = ({ provider, authorizationCode, state }: LoginProps) => {
   const { mutate: login, isPending } = useOauthLogin();
-  const { setSelectedProvider, setLoggedIn } = useProviderStore();
+  const { setProvider, setLoggedIn } = useProviderStore();
 
   useEffect(() => {
     login(
@@ -23,11 +23,11 @@ export const Login = ({ provider, authorizationCode, state }: LoginProps) => {
           setLoggedIn(true);
         },
         onSettled: () => {
-          setSelectedProvider(provider);
+          setProvider(provider);
         },
       }
     );
-  }, [provider, authorizationCode, state, login, setLoggedIn, setSelectedProvider]);
+  }, [provider, authorizationCode, state, login, setLoggedIn, setProvider]);
 
   return (
     isPending && (

@@ -2,13 +2,15 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { OauthProvider } from "@/types/oauth";
 
-interface ProviderState {
-  selectedProvider?: OauthProvider;
+export interface ProviderState {
+  provider?: OauthProvider;
+  socialId?: string;
   loggedIn: boolean;
 }
 
 interface ProviderAction {
-  setSelectedProvider: (selectedProvider: OauthProvider) => void;
+  setProvider: (selectedProvider: OauthProvider) => void;
+  setSocialId: (id: string) => void;
   setLoggedIn: (loggedIn: boolean) => void;
 }
 
@@ -16,10 +18,15 @@ export const useProviderStore = create<ProviderState & ProviderAction>()(
   persist(
     (set) => ({
       loggedIn: false,
-      setSelectedProvider: (selectedProvider) =>
+      setSocialId: (id) =>
         set((state) => ({
           ...state,
-          selectedProvider,
+          id,
+        })),
+      setProvider: (provider) =>
+        set((state) => ({
+          ...state,
+          provider,
         })),
       setLoggedIn: (loggedIn) =>
         set((state) => ({
