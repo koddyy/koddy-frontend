@@ -36,11 +36,13 @@ const TagVariants = cva(
 );
 
 export interface TagProps extends VariantProps<typeof TagVariants> {
+  className?: string;
   onClick?: () => void;
   rightContent?: ReactNode;
 }
 
 export const Tag = ({
+  className,
   variant = "solid",
   color = "primary",
   onClick,
@@ -52,7 +54,8 @@ export const Tag = ({
       className={cn(
         TagVariants({ variant, color }),
         onClick && "cursor-pointer",
-        rightContent && "flex w-fit items-center gap-[2px]"
+        rightContent && "flex w-fit items-center gap-[2px]",
+        className
       )}
       onClick={onClick}
     >

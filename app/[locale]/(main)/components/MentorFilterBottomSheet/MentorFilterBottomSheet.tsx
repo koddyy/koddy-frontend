@@ -5,11 +5,18 @@ import { BottomSheet } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
 import { languagesOptions, NationCodeText } from "@/constants/language";
-import { Nationality } from "@/constants/nationality";
 import { NationCode } from "@/types/user";
 
-export const MentorFilterBottomSheet = () => {
-  const [languages, setLanguages] = useState<Set<NationCode> | null>(null);
+interface MentorFilterBottomSheetProps {
+  onSelectFilter: (languages: Array<NationCode>) => void;
+  onClose: () => void;
+}
+
+export const MentorFilterBottomSheet = ({
+  onSelectFilter,
+  onClose,
+}: MentorFilterBottomSheetProps) => {
+  const [languages, setLanguages] = useState<Set<NationCode>>(new Set([]));
 
   const addLanguage = (language: NationCode) => {
     setLanguages((prev) => {
@@ -30,7 +37,16 @@ export const MentorFilterBottomSheet = () => {
   };
 
   const resetOptions = () => {
-    setLanguages(null);
+    setLanguages(new Set([]));
+  };
+
+  const selectFilter = () => {
+    if (languages.size === 0) {
+      onClose();
+      return;
+    }
+
+    onSelectFilter([...languages]);
   };
 
   return (
@@ -54,7 +70,7 @@ export const MentorFilterBottomSheet = () => {
         ))}
       </div>
       <div className="flex flex-wrap gap-[8px]">
-        {[...(languages ?? [])].map((option) => (
+        {[...languages].map((option) => (
           <Tag
             key={option}
             rightContent={<Close className="h-[18px] w-[18px]" />}
@@ -74,7 +90,7 @@ export const MentorFilterBottomSheet = () => {
           <Refresh />
           초기화
         </Button>
-        <Button fullWidth={false} className="grow-[4]">
+        <Button fullWidth={false} className="grow-[4]" onClick={selectFilter}>
           결과 보기
         </Button>
       </div>
