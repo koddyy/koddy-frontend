@@ -1,5 +1,6 @@
 import { CoffeeChatStatus } from "@/types/coffeechat";
-import { Mentee, Mentor } from "@/types/user";
+import { Mentee } from "@/types/mentee";
+import { Mentor } from "@/types/mentor";
 
 export interface PostCoffeeChatFromMentorToMenteeRequest {
   menteeId: number;
