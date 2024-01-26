@@ -1,6 +1,5 @@
-import { delay, http, HttpResponse, PathParams } from "msw";
-import { PatchCoffeeChatStatusRequest, PostCoffeeChatRequest } from "@/apis/coffeechat/types";
-import { depreactedCoffeeChatList, menteeList, mentorList } from "../fixture/coffeechat";
+import { delay, http, HttpResponse } from "msw";
+import { depreactedCoffeeChatList } from "../fixture/coffeechat";
 
 export const handlers = [
   http.post("/api/coffeechats/suggest/:menteeId", async () => {
@@ -45,43 +44,43 @@ export const handlers = [
     );
   }),
 
-  http.post<PathParams, PostCoffeeChatRequest>("/api/application", async ({ request }) => {
-    const { mentor: mentorId, mentee: menteeId, ...coffeechat } = await request.json();
+  // http.post<PathParams, PostCoffeeChatRequest>("/api/application", async ({ request }) => {
+  //   const { mentor: mentorId, mentee: menteeId, ...coffeechat } = await request.json();
 
-    const mentor = mentorList.find(({ userId }) => userId === mentorId);
-    const mentee = menteeList.find(({ userId }) => userId === menteeId);
+  //   const mentor = mentorList.find(({ userId }) => userId === mentorId);
+  //   const mentee = menteeList.find(({ userId }) => userId === menteeId);
 
-    if (!mentor || !mentee) return new HttpResponse(null, { status: 400 });
+  //   if (!mentor || !mentee) return new HttpResponse(null, { status: 400 });
 
-    const newApplicationId = (Number(depreactedCoffeeChatList.at(-1)?.applicationId) ?? 0) + 1;
-    const role = new URL(window.location.href).searchParams.get("role");
+  //   const newApplicationId = (Number(depreactedCoffeeChatList.at(-1)?.applicationId) ?? 0) + 1;
+  //   const role = new URL(window.location.href).searchParams.get("role");
 
-    depreactedCoffeeChatList.push({
-      applicationId: String(newApplicationId),
-      mentor,
-      mentee,
-      status: role === "mentor" ? "SUGGEST" : "REQUEST",
-      ...coffeechat,
-    });
+  //   depreactedCoffeeChatList.push({
+  //     applicationId: String(newApplicationId),
+  //     mentor,
+  //     mentee,
+  //     status: role === "mentor" ? "SUGGEST" : "REQUEST",
+  //     ...coffeechat,
+  //   });
 
-    await delay(1500);
+  //   await delay(1500);
 
-    return new HttpResponse(null, { status: 201 });
-  }),
+  //   return new HttpResponse(null, { status: 201 });
+  // }),
 
-  http.patch<PathParams, PatchCoffeeChatStatusRequest>("/api/application", async ({ request }) => {
-    const coffeechat = await request.json();
+  // http.patch<PathParams, PatchCoffeeChatStatusRequest>("/api/application", async ({ request }) => {
+  //   const coffeechat = await request.json();
 
-    const idx = depreactedCoffeeChatList.findIndex(
-      ({ applicationId }) => applicationId === coffeechat.applicationId
-    );
+  //   const idx = depreactedCoffeeChatList.findIndex(
+  //     ({ applicationId }) => applicationId === coffeechat.applicationId
+  //   );
 
-    await delay(1500);
+  //   await delay(1500);
 
-    if (idx === -1) {
-      return new HttpResponse(null, { status: 404 });
-    }
+  //   if (idx === -1) {
+  //     return new HttpResponse(null, { status: 404 });
+  //   }
 
-    return new HttpResponse(null, { status: 204 });
-  }),
+  //   return new HttpResponse(null, { status: 204 });
+  // }),
 ];
