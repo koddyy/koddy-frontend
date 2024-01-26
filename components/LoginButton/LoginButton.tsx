@@ -10,7 +10,7 @@ interface LoginButtonProps extends ComponentPropsWithoutRef<"button"> {
 }
 
 export const LoginButton = ({ provider, ...props }: LoginButtonProps) => {
-  const { selectedProvider, loggedIn } = useProviderStore();
+  const { provider: selectedProvider, loggedIn } = useProviderStore();
 
   useEffect(() => {
     useProviderStore.persist.rehydrate();
