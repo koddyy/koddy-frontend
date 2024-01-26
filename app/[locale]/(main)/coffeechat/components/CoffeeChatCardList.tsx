@@ -1,7 +1,7 @@
 import Link from "next/link";
 import useGetCoffeeChatList from "@/apis/coffeechat/hooks/useGetCoffeeChatList";
-import { CoffeeChatCard } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCard/CoffeeChatCard";
 import { Role } from "@/types/user";
+import { CoffeeChatCard } from "./CoffeeChatCard";
 
 interface CoffeeChatCardListProps {
   userRole: Role;
@@ -16,7 +16,7 @@ export const CoffeeChatCardList = ({ userRole }: CoffeeChatCardListProps) => {
         const user = userRole === "mentor" ? mentee : mentor;
         return (
           <Link key={applicationId} href={`/coffeechat/${applicationId}`}>
-            <CoffeeChatCard userRole={userRole} status={status} {...user} />
+            <CoffeeChatCard status={status} {...user} />
           </Link>
         );
       })}

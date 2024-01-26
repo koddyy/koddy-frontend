@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { mentee, mentor } from "@/mocks/fixture/user";
 import { CoffeeChatCard } from "./CoffeeChatCard";
 
 const meta = {
@@ -9,13 +10,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
+export const MentorCard: Story = {
   args: {
-    userRole: "mentor",
     status: "AGREE",
-    name: "Hường",
-    school: "코띠대학교",
-    major: "코띠학부",
-    grade: 1,
+    ...mentor,
+  },
+};
+
+export const MenteeCard: Story = {
+  args: {
+    status: "AGREE",
+    ...mentee,
   },
 };

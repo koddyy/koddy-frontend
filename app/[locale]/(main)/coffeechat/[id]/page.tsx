@@ -6,10 +6,11 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/PendingBottomSheet";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { NavigationBar } from "@/app/components/NavigationBar";
-import Clip from "@/assets/link.svg";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
-import useClipboard from "@/hooks/useClipboard";
+import { CoffeeChatStatusText } from "@/constants/coffeechat";
+import { MenteeProfile, MentorProfile } from "../../components/UserProfile";
+import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
 import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
@@ -51,7 +52,6 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     useRejectCoffeeChatForMentor("APPLY");
 
   const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
-  const { copyText } = useClipboard();
 
   if (isLoading) return null;
 
@@ -61,63 +61,55 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 
   return (
     <>
-      {/* <UserCard
-        cardType="vertical"
+      <MenteeProfile
         {...coffeechat.mentee}
         coffeeChatStatusText={CoffeeChatStatusText.mentor[coffeechat.status]}
-      /> */}
-      <div className="px-5">
-        <Divider />
-        {coffeechat.status === "AGREE" && (
-          <div className="flex flex-col items-start gap-[0.38rem] py-4">
-            <div className="body-3-bold text-gray-600">{`${coffeechat.date} ${coffeechat.startTime} ~ ${coffeechat.endTime}`}</div>
-            <button
-              className="label-bold flex items-center gap-2 rounded bg-gray-200 px-2 py-1"
-              type="button"
-              onClick={() => copyText(coffeechat.mentor.zoomLink ?? "")}
-            >
-              <span>
-                <Clip />
-              </span>
-              <span>줌 링크 복사하기</span>
-            </button>
-          </div>
-        )}
-        <Divider />
-        <div className="flex flex-col gap-5 py-3">
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">멘티의 자기소개</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeechat.mentee.introduce ?? "자기소개를 입력하지 않았어요."}
-            </p>
-          </div>
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">멘토에게 궁금한 점</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeechat.question ?? "궁금한 점을 입력하지 않았어요."}
-            </p>
-          </div>
-          {isCancelable && (
-            <Button
-              variant="outline"
-              color="grayscale"
-              className="border-[0.5px]"
-              onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
-            >
-              커피챗 취소하기
-            </Button>
-          )}
+      />
+      {(coffeechat.status === "AGREE" ||
+        coffeechat.status === "REQUEST" ||
+        coffeechat.status === "DONE") && (
+        <CoffeeChatSchedule
+          status={coffeechat.status}
+          schedule={`${coffeechat.date} ${coffeechat.startTime}~${coffeechat.endTime} (한국 시간 기준)`}
+        />
+      )}
+      <Divider />
+      <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">멘티의 자기소개</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeechat.mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+          </p>
         </div>
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">멘토에게 궁금한 점</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeechat.question ?? "궁금한 점을 입력하지 않았어요."}
+          </p>
+        </div>
+        {isCancelable && (
+          <Button
+            variant="outline"
+            color="grayscale"
+            className="border-[0.5px]"
+            onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
+          >
+            커피챗 취소하기
+          </Button>
+        )}
       </div>
       {coffeechat.status === "REQUEST" && (
-        <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-          <div className="flex gap-5">
-            <Button variant="outline" onClick={toggleIsReject}>
-              거절하기
-            </Button>
-            <Button onClick={setIsApproveTrue}>수락하기</Button>
+        <>
+          <div className="h-[96px]" />
+          <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+            <div className="flex gap-5">
+              <Button variant="outline" onClick={toggleIsReject}>
+                거절하기
+              </Button>
+              <Button onClick={setIsApproveTrue}>수락하기</Button>
+            </div>
           </div>
-        </div>
+        </>
       )}
       {isApprove && (
         <CoffeeChatTypeSelectBottomSheet
@@ -168,7 +160,6 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
   const { isCancel, isCancelSuccess, setIsCancelTrue, setIsCancelFalse, cancelCoffeeChat } =
     useCancelCoffeeChat();
   const { data: coffeechat, isLoading } = useGetCoffeeChatById(String(id));
-  const { copyText } = useClipboard();
 
   if (isLoading) return null;
 
@@ -178,59 +169,51 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
 
   return (
     <>
-      {/* <UserCard
-        cardType="vertical"
+      <MentorProfile
         {...coffeechat.mentor}
         coffeeChatStatusText={CoffeeChatStatusText.mentee[coffeechat.status]}
-      /> */}
-      <div className="px-5">
-        <Divider />
-        {coffeechat.status === "AGREE" && (
-          <div className="flex flex-col items-start gap-[0.38rem] py-4">
-            <div className="body-3-bold text-gray-600">{`${coffeechat.date} ${coffeechat.startTime} ~ ${coffeechat.endTime}`}</div>
-            <button
-              className="label-bold flex items-center gap-2 rounded bg-gray-200 px-2 py-1"
-              type="button"
-              onClick={() => copyText(coffeechat.mentor.zoomLink ?? "")}
-            >
-              <span>
-                <Clip />
-              </span>
-              <span>줌 링크 복사하기</span>
-            </button>
-          </div>
-        )}
-        <Divider />
-        <div className="flex flex-col gap-5 py-3">
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">멘토의 자기소개</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeechat.mentor.introduce || "자기소개를 입력하지 않았어요."}
-            </p>
-          </div>
-          {isCancelable && (
-            <Button
-              variant="outline"
-              color="grayscale"
-              className="border-[0.5px]"
-              onClick={setIsCancelTrue}
-            >
-              커피챗 취소하기
-            </Button>
-          )}
+      />
+      {(coffeechat.status === "AGREE" ||
+        coffeechat.status === "REQUEST" ||
+        coffeechat.status === "DONE") && (
+        <CoffeeChatSchedule
+          status={coffeechat.status}
+          schedule={`${coffeechat.date} ${coffeechat.startTime}~${coffeechat.endTime} (한국 시간 기준)`}
+        />
+      )}
+      <Divider />
+      <div className="px-[20px] py-[12px]">
+        <div className="mb-[20px]">
+          <span className="body-3-bold mb-[0.38rem] inline-block">멘토의 자기소개</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeechat.mentor.introduction || "자기소개를 입력하지 않았어요."}
+          </p>
         </div>
+        {isCancelable && (
+          <Button
+            variant="outline"
+            color="grayscale"
+            className="border-[0.5px]"
+            onClick={setIsCancelTrue}
+          >
+            커피챗 취소하기
+          </Button>
+        )}
       </div>
       {coffeechat.status === "SUGGEST" && (
-        <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
-          <div className="flex gap-5">
-            <Button variant="outline" onClick={setIsRejectTrue}>
-              거절하기
-            </Button>
-            <LinkButton href={`/schedule?mentor=${coffeechat.mentor.userId}&coffeechat=${id}`}>
-              수락하기
-            </LinkButton>
+        <>
+          <div className="h-[96px]" />
+          <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
+            <div className="flex gap-5">
+              <Button variant="outline" onClick={setIsRejectTrue}>
+                거절하기
+              </Button>
+              <LinkButton href={`/schedule?mentor=${coffeechat.mentor.id}&coffeechat=${id}`}>
+                수락하기
+              </LinkButton>
+            </div>
           </div>
-        </div>
+        </>
       )}
       {isReject && (
         <RejectBottomSheet

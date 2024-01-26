@@ -4,7 +4,9 @@ import { Mentor } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 import { getDescription } from "@/utils/profile";
 
-export const UserCard = ({ ...user }: Mentor | Mentee) => {
+export type UserCardProps = Mentor | Mentee;
+
+export const UserCard = ({ ...user }: UserCardProps) => {
   const description = getDescription(user);
   const { profileImageUrl, name } = user;
 
