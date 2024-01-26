@@ -52,7 +52,7 @@ export const Tag = ({
       className={cn(
         TagVariants({ variant, color }),
         onClick && "cursor-pointer",
-        rightContent && "flex w-fit items-center"
+        rightContent && "flex w-fit items-center gap-[2px]"
       )}
       onClick={onClick}
     >
