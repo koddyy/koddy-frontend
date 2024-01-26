@@ -6,16 +6,21 @@ import {
 } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/[locale]/signup/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/app/[locale]/signup/types/mentorForm";
+import { ProviderState } from "@/stores/provider";
 import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
 import type { Mentor, UpdateMentorInfoForm } from "@/types/mentor";
 import type { User } from "@/types/user";
 
 class UserApi {
-  signupAsMentor = (signupForm: MentorSignupForm & User) => {
+  signupAsMentor = (
+    signupForm: MentorSignupForm & User & Required<Pick<ProviderState, "provider" | "socialId">>
+  ) => {
     return apiInstance.post("/api/mentors", signupForm);
   };
 
-  signupAsMentee = (signupForm: MenteeSignupForm & User) => {
+  signupAsMentee = (
+    signupForm: MenteeSignupForm & User & Required<Pick<ProviderState, "provider" | "socialId">>
+  ) => {
     return apiInstance.post("/api/mentees", signupForm);
   };
 
