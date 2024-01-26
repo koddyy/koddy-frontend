@@ -10,7 +10,7 @@ export interface ProviderState {
 
 interface ProviderAction {
   setProvider: (selectedProvider: OauthProvider) => void;
-  setSocialId: (id: string) => void;
+  setSocialId: (socialId: string) => void;
   setLoggedIn: (loggedIn: boolean) => void;
 }
 
@@ -18,10 +18,10 @@ export const useProviderStore = create<ProviderState & ProviderAction>()(
   persist(
     (set) => ({
       loggedIn: false,
-      setSocialId: (id) =>
+      setSocialId: (socialId) =>
         set((state) => ({
           ...state,
-          id,
+          socialId,
         })),
       setProvider: (provider) =>
         set((state) => ({
