@@ -5,11 +5,11 @@ export interface UseIntersectProps {
   options?: IntersectionObserverInit;
 }
 
-export const useIntersect = (
+export const useIntersect = <T extends HTMLElement = HTMLDivElement>(
   onIntersect: () => void,
   options: IntersectionObserverInit = { rootMargin: "50px 0px" }
 ) => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
   const optionsRef = useRef(options);
 
   const callback = useCallback(
