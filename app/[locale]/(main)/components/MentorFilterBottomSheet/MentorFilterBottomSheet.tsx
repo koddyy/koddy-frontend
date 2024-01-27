@@ -81,7 +81,7 @@ export const MentorFilterBottomSheet = ({
         {[...languages].map((option) => (
           <Tag
             key={option}
-            rightContent={<Close className="h-[18px] w-[18px]" />}
+            rightContent={<Close width={16} height={16} />}
             onClick={() => deleteLanguage(option)}
           >
             {NationCodeText[option]}
@@ -95,7 +95,7 @@ export const MentorFilterBottomSheet = ({
           className="body-1 flex grow-[1] items-center justify-center gap-[4px] border-[1px] border-gray-300 text-gray-700"
           onClick={resetOptions}
         >
-          <Refresh />
+          <Refresh width={20} height={20} />
           초기화
         </Button>
         <Button fullWidth={false} className="grow-[4]" onClick={selectFilter}>
