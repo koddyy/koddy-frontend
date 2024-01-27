@@ -67,7 +67,7 @@ const Page = () => {
             <PeriodStep />
           </div>
           <Divider className="border-[4px] border-gray-100" />
-          <div className="my-[26px] px-[20px]">
+          <div className="mb-[109px] mt-[26px] px-[20px]">
             <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 가능 시간대</div>
             <RadioGroup
               name="scheduleBy"
