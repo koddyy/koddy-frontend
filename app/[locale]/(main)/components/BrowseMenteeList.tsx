@@ -5,6 +5,7 @@ import { UserCard } from "@/app/[locale]/(main)/components/UserCard";
 import ArrowDown from "@/assets/arrow_down.svg";
 import { Tag } from "@/components/Tag";
 import { Nationality } from "@/constants/nationality";
+import { useIntersect } from "@/hooks/useIntersect";
 import { useToggle } from "@/hooks/useToggle";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
 import { NationCode } from "@/types/user";
@@ -13,10 +14,18 @@ import { MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
 export const BrowseMenteeList = () => {
   const [isOpenFilterBottomSheet, toggleOpenFilterBottomSheet] = useToggle();
   const { searchParams, setSearchParams } = useTypedSearchParams<GetMenteeListRequest>();
-  const { data: menteeList } = useGetMenteeList({
-    page: 1,
+  const {
+    data: menteeList,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useGetMenteeList(1, {
     nationalities: searchParams.getAll("nationalities"),
     languages: searchParams.getAll("languages"),
+  });
+
+  const ref = useIntersect(() => {
+    if (hasNextPage && !isFetching) fetchNextPage();
   });
 
   const handleSelectFilter = (nationality: Nationality | null, languages: NationCode[]) => {
@@ -46,11 +55,12 @@ export const BrowseMenteeList = () => {
         </Tag>
       </div>
       <div className="flex flex-col gap-[0.81rem]">
-        {menteeList.result.map((mentee) => (
+        {menteeList.map((mentee) => (
           <Link key={mentee.id} href={`/profile/${mentee.id}`}>
             <UserCard role="mentee" {...mentee} />
           </Link>
         ))}
+        <div ref={ref} />
       </div>
       {isOpenFilterBottomSheet && (
         <MenteeFilterBottomSheet

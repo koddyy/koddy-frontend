@@ -1,10 +1,16 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { userApi } from "@/apis/user/api";
 import { GetMentorListRequest } from "../types";
 
-export const useGetMentorList = ({ page, languages }: GetMentorListRequest) => {
-  return useSuspenseQuery({
-    queryKey: ["getMentorList", { page, languages }],
-    queryFn: () => userApi.getMentorList({ page, languages }),
+export const useGetMentorList = (
+  initialPageParam: number,
+  { languages }: Pick<GetMentorListRequest, "languages">
+) => {
+  return useSuspenseInfiniteQuery({
+    queryKey: ["getMentorList"],
+    queryFn: ({ pageParam }) => userApi.getMentorList({ page: pageParam, languages }),
+    initialPageParam,
+    getNextPageParam: (lastPage, _, lastPageParam) => (lastPage.hasNext ? lastPageParam + 1 : null),
+    select: (data) => data.pages.map(({ result }) => result).flat(),
   });
 };
