@@ -16,14 +16,11 @@ import { MentorFilterBottomSheet } from "./MentorFilterBottomSheet";
 export const BrowseMentorList = () => {
   const [isOpenFilterBottomSheet, toggleOpenFilterBottomSheet] = useToggle();
   const { searchParams, setSearchParams } = useTypedSearchParams<GetMentorListRequest>();
-  const {
-    data: mentorList,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-  } = useGetMentorList(1, {
-    languages: searchParams.getAll("languages"),
-  });
+
+  const params = {
+    languages: searchParams.getAll("languages") ?? [],
+  };
+  const { data: mentorList, fetchNextPage, hasNextPage, isFetching } = useGetMentorList(1, params);
 
   const ref = useIntersect(() => {
     if (hasNextPage && !isFetching) fetchNextPage();
@@ -77,6 +74,7 @@ export const BrowseMentorList = () => {
       </div>
       {isOpenFilterBottomSheet && (
         <MentorFilterBottomSheet
+          initial={params}
           onSelectFilter={handleSelectFilter}
           onClose={toggleOpenFilterBottomSheet}
         />

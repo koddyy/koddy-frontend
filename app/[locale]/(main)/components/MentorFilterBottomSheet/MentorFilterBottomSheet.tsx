@@ -6,17 +6,22 @@ import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
 import { languagesOptions, NationCodeText } from "@/constants/language";
 import { NationCode } from "@/types/user";
+import { cn } from "@/utils/cn";
 
 interface MentorFilterBottomSheetProps {
+  initial: {
+    languages?: NationCode[];
+  };
   onSelectFilter: (languages: Array<NationCode>) => void;
   onClose: () => void;
 }
 
 export const MentorFilterBottomSheet = ({
+  initial,
   onSelectFilter,
   onClose,
 }: MentorFilterBottomSheetProps) => {
-  const [languages, setLanguages] = useState<Set<NationCode>>(new Set([]));
+  const [languages, setLanguages] = useState<Set<NationCode>>(new Set(initial.languages ?? []));
 
   const addLanguage = (language: NationCode) => {
     setLanguages((prev) => {
@@ -58,7 +63,10 @@ export const MentorFilterBottomSheet = ({
         {languagesOptions.map(([code, text]) => (
           <button
             key={code}
-            className="flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]"
+            className={cn(
+              "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
+              languages.has(code) && "body-2-bold"
+            )}
             type="button"
             onClick={() => addLanguage(code)}
           >

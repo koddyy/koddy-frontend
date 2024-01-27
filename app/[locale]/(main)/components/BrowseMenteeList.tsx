@@ -16,15 +16,13 @@ import { MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
 export const BrowseMenteeList = () => {
   const [isOpenFilterBottomSheet, toggleOpenFilterBottomSheet] = useToggle();
   const { searchParams, setSearchParams } = useTypedSearchParams<GetMenteeListRequest>();
-  const {
-    data: menteeList,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-  } = useGetMenteeList(1, {
-    nationalities: searchParams.getAll("nationalities"),
-    languages: searchParams.getAll("languages"),
-  });
+
+  const params = {
+    nationalities: searchParams.getAll("nationalities") ?? [],
+    languages: searchParams.getAll("languages") ?? [],
+  };
+
+  const { data: menteeList, fetchNextPage, hasNextPage, isFetching } = useGetMenteeList(1, params);
 
   const ref = useIntersect(() => {
     if (hasNextPage && !isFetching) fetchNextPage();
@@ -93,6 +91,7 @@ export const BrowseMenteeList = () => {
       </div>
       {isOpenFilterBottomSheet && (
         <MenteeFilterBottomSheet
+          initial={params}
           onSelectFilter={handleSelectFilters}
           onClose={toggleOpenFilterBottomSheet}
         />

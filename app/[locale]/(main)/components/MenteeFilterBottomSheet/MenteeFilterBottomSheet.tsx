@@ -14,17 +14,24 @@ type Filter = "국적" | "언어";
 const FilterOptions = ["국적", "언어"] as const;
 
 interface MenteeFilterBottomSheetProps {
+  initial: {
+    nationalities?: Nationality[];
+    languages?: NationCode[];
+  };
   onSelectFilter: (nationality: Nationality | null, languages: Array<NationCode>) => void;
   onClose: () => void;
 }
 
 export const MenteeFilterBottomSheet = ({
+  initial,
   onSelectFilter,
   onClose,
 }: MenteeFilterBottomSheetProps) => {
   const [activeTab, setActiveTab] = useState<Filter>("국적");
-  const [nationality, setNationality] = useState<Nationality | null>(null);
-  const [languages, setLanguages] = useState<Set<NationCode>>(new Set([]));
+  const [nationality, setNationality] = useState<Nationality | null>(
+    initial.nationalities?.[0] ?? null
+  );
+  const [languages, setLanguages] = useState<Set<NationCode>>(new Set(initial.languages ?? []));
 
   const addNationality = (nationality: Nationality) => {
     setNationality(nationality);
@@ -82,15 +89,18 @@ export const MenteeFilterBottomSheet = ({
       </div>
       {activeTab === "국적" && (
         <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
-          {NationalityOptions.map((nationality) => (
+          {NationalityOptions.map((option) => (
             <button
-              key={nationality}
-              className="flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]"
+              key={option}
+              className={cn(
+                "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
+                nationality === option && "body-2-bold"
+              )}
               type="button"
-              onClick={() => addNationality(nationality)}
+              onClick={() => addNationality(option)}
             >
-              <img src={NationalityImage[nationality]} />
-              {nationality}
+              <img src={NationalityImage[option]} />
+              {option}
             </button>
           ))}
           {Array.from(Array(10 - NationalityOptions.length)).map((_, i) => (
@@ -103,7 +113,10 @@ export const MenteeFilterBottomSheet = ({
           {languagesOptions.map(([code, text]) => (
             <button
               key={code}
-              className="flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]"
+              className={cn(
+                "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
+                languages.has(code) && "body-2-bold"
+              )}
               type="button"
               onClick={() => addLanguage(code)}
             >
