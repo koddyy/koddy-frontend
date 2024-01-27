@@ -55,7 +55,7 @@ class UserApi {
         languages,
       },
       paramsSerializer: (params: Record<string, string>) => {
-        return QueryString.stringify(params, { arrayFormat: "repeat" });
+        return QueryString.stringify(params, { arrayFormat: "comma" });
       },
     });
     return response.data;
@@ -69,7 +69,7 @@ class UserApi {
         languages,
       },
       paramsSerializer: (params: Record<string, string>) => {
-        return QueryString.stringify(params, { arrayFormat: "repeat" });
+        return QueryString.stringify(params, { arrayFormat: "comma" });
       },
     });
     return response.data;

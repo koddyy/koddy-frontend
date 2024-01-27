@@ -5,8 +5,8 @@ import { BottomSheet } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
 import { languagesOptions, NationCodeText } from "@/constants/language";
-import { Nationality, NationalityImage, NationalityOptions } from "@/constants/nationality";
-import { NationCode } from "@/types/user";
+import { NationalityImage, NationalityOptions, NationalityText } from "@/constants/nationality";
+import { Nationality, NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 
 export type Filter = "국적" | "언어";
@@ -91,18 +91,18 @@ export const MenteeFilterBottomSheet = ({
       </div>
       {activeFilter === "국적" && (
         <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
-          {NationalityOptions.map((option) => (
+          {NationalityOptions.map(([key, value]) => (
             <button
-              key={option}
+              key={key}
               className={cn(
                 "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
-                nationality === option && "body-2-bold"
+                nationality === key && "body-2-bold"
               )}
               type="button"
-              onClick={() => addNationality(option)}
+              onClick={() => addNationality(key)}
             >
-              <img src={NationalityImage[option]} />
-              {option}
+              <img src={NationalityImage[key]} />
+              {value}
             </button>
           ))}
           {Array.from(Array(10 - NationalityOptions.length)).map((_, i) => (
@@ -133,7 +133,7 @@ export const MenteeFilterBottomSheet = ({
       <div className="flex flex-wrap gap-[8px]">
         {nationality && (
           <Tag rightContent={<Close width={16} height={16} />} onClick={deleteNationality}>
-            {nationality}
+            {NationalityText[nationality]}
           </Tag>
         )}
         {[...languages].map((option) => (

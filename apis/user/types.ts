@@ -1,7 +1,6 @@
-import { Nationality } from "@/constants/nationality";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
-import { AvailableTimes, NationCode } from "@/types/user";
+import { AvailableTimes, Nationality, NationCode } from "@/types/user";
 
 export type GetMentorByIdResponse = Pick<
   Mentor,

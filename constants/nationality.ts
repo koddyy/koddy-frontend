@@ -1,19 +1,24 @@
-export type Nationality = "한국" | "미국" | "일본" | "중국" | "베트남" | "Others";
+import { NationCode } from "@/types/user";
+import { getEntries } from "@/utils/object";
 
-export const NationalityOptions: Nationality[] = [
-  "한국",
-  "미국",
-  "일본",
-  "중국",
-  "베트남",
-  "Others",
-];
+export type Nationality = NationCode | "ETC";
+
+export const NationalityText: Record<Nationality, string> = {
+  KR: "한국",
+  EN: "미국",
+  JP: "일본",
+  CN: "중국",
+  VN: "베트남",
+  ETC: "Others",
+};
+
+export const NationalityOptions = getEntries(NationalityText);
 
 export const NationalityImage: Record<Nationality, string> = {
-  한국: "/images/south_korea.png",
-  미국: "/images/united_states.png",
-  일본: "/images/japan.png",
-  중국: "/images/china.png",
-  베트남: "/images/vietnam.png",
-  Others: "",
+  KR: "/images/south_korea.png",
+  EN: "/images/united_states.png",
+  JP: "/images/japan.png",
+  CN: "/images/china.png",
+  VN: "/images/vietnam.png",
+  ETC: "",
 };
