@@ -1,7 +1,12 @@
+import QueryString from "qs";
 import { apiInstance } from "@/apis/axios";
 import {
   GetMenteeByIdResponse,
+  GetMenteeListRequest,
+  GetMenteeListResponse,
   GetMentorByIdResponse,
+  GetMentorListRequest,
+  GetMentorListResponse,
   PostAvailableTimesRequest,
 } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/app/[locale]/signup/types/menteeForm";
@@ -43,6 +48,33 @@ class UserApi {
     return response.data;
   };
 
+  getMentorList = async ({ page, languages }: GetMentorListRequest) => {
+    const response = await apiInstance.get<GetMentorListResponse>("/api/mentors", {
+      params: {
+        page,
+        languages,
+      },
+      paramsSerializer: (params: Record<string, string>) => {
+        return QueryString.stringify(params, { arrayFormat: "repeat" });
+      },
+    });
+    return response.data;
+  };
+
+  getMenteeList = async ({ page, nationalities, languages }: GetMenteeListRequest) => {
+    const response = await apiInstance.get<GetMenteeListResponse>("/api/mentees", {
+      params: {
+        page,
+        nationalities,
+        languages,
+      },
+      paramsSerializer: (params: Record<string, string>) => {
+        return QueryString.stringify(params, { arrayFormat: "repeat" });
+      },
+    });
+    return response.data;
+  };
+
   patchMentorProfile = (profile: Pick<Mentor, "introduction" | "period" | "schedules">) => {
     return apiInstance.patch("/api/mentors/me/complete", profile);
   };
@@ -71,16 +103,6 @@ class UserApi {
 
   getUserById = async (id: number) => {
     const response = await apiInstance.get<Mentor | Mentee>(`/api/users/${id}`);
-    return response.data;
-  };
-
-  getMentorList = async () => {
-    const response = await apiInstance.get<Mentor[]>("/api/users/mentor");
-    return response.data;
-  };
-
-  getMenteeList = async () => {
-    const response = await apiInstance.get<Mentee[]>("/api/users/mentee");
     return response.data;
   };
 

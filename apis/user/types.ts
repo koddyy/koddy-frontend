@@ -1,6 +1,7 @@
+import { Nationality } from "@/constants/nationality";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
-import { AvailableTimes } from "@/types/user";
+import { AvailableTimes, NationCode } from "@/types/user";
 
 export type GetMentorByIdResponse = Pick<
   Mentor,
@@ -25,6 +26,34 @@ export type GetMenteeByIdResponse = Pick<
   | "interestSchool"
   | "interestMajor"
 >;
+
+export interface GetMentorListRequest {
+  page: number;
+  languages?: NationCode[];
+}
+
+export interface GetMentorListResponse {
+  result: Array<
+    Pick<Mentor, "id" | "name" | "profileImageUrl" | "languages" | "school" | "major" | "enteredIn">
+  >;
+  hasNext: boolean;
+}
+
+export interface GetMenteeListRequest {
+  page: number;
+  nationalities?: Nationality[];
+  languages?: NationCode[];
+}
+
+export interface GetMenteeListResponse {
+  result: Array<
+    Pick<
+      Mentee,
+      "id" | "name" | "profileImageUrl" | "nationality" | "interestSchool" | "interestMajor"
+    >
+  >;
+  hasNext: boolean;
+}
 
 export interface PostAvailableTimesRequest {
   availableTimes: AvailableTimes;

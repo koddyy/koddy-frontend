@@ -1,5 +1,6 @@
 import { cva, VariantProps } from "cva";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
+import { cn } from "@/utils/cn";
 
 const TagVariants = cva(
   "body-3-bold inline-block h-[32px] whitespace-nowrap rounded-[20px] px-[10px] py-[6px] text-gray-700",
@@ -34,12 +35,32 @@ const TagVariants = cva(
   }
 );
 
-interface TagProps extends VariantProps<typeof TagVariants> {}
+export interface TagProps extends VariantProps<typeof TagVariants> {
+  className?: string;
+  onClick?: () => void;
+  rightContent?: ReactNode;
+}
 
 export const Tag = ({
+  className,
   variant = "solid",
   color = "primary",
+  onClick,
+  rightContent,
   children,
 }: PropsWithChildren<TagProps>) => {
-  return <span className={TagVariants({ variant, color })}>{children}</span>;
+  return (
+    <span
+      className={cn(
+        TagVariants({ variant, color }),
+        onClick && "cursor-pointer",
+        rightContent && "flex w-fit items-center gap-[2px]",
+        className
+      )}
+      onClick={onClick}
+    >
+      {children}
+      {rightContent}
+    </span>
+  );
 };
