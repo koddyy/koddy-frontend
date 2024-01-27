@@ -1,3 +1,4 @@
+import QueryString from "qs";
 import { apiInstance } from "@/apis/axios";
 import {
   GetMenteeByIdResponse,
@@ -53,6 +54,9 @@ class UserApi {
         page,
         languages,
       },
+      paramsSerializer: (params: Record<string, string>) => {
+        return QueryString.stringify(params, { arrayFormat: "repeat" });
+      },
     });
     return response.data;
   };
@@ -63,6 +67,9 @@ class UserApi {
         page,
         nationalities,
         languages,
+      },
+      paramsSerializer: (params: Record<string, string>) => {
+        return QueryString.stringify(params, { arrayFormat: "repeat" });
       },
     });
     return response.data;

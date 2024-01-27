@@ -13,10 +13,18 @@ type Filter = "국적" | "언어";
 
 const FilterOptions = ["국적", "언어"] as const;
 
-export const MenteeFilterBottomSheet = () => {
+interface MenteeFilterBottomSheetProps {
+  onSelectFilter: (nationality: Nationality | null, languages: Array<NationCode>) => void;
+  onClose: () => void;
+}
+
+export const MenteeFilterBottomSheet = ({
+  onSelectFilter,
+  onClose,
+}: MenteeFilterBottomSheetProps) => {
   const [activeTab, setActiveTab] = useState<Filter>("국적");
   const [nationality, setNationality] = useState<Nationality | null>(null);
-  const [languages, setLanguages] = useState<Set<NationCode> | null>(null);
+  const [languages, setLanguages] = useState<Set<NationCode>>(new Set([]));
 
   const addNationality = (nationality: Nationality) => {
     setNationality(nationality);
@@ -46,7 +54,16 @@ export const MenteeFilterBottomSheet = () => {
 
   const resetOptions = () => {
     setNationality(null);
-    setLanguages(null);
+    setLanguages(new Set([]));
+  };
+
+  const selectFilter = () => {
+    if (nationality === null && languages.size === 0) {
+      onClose();
+      return;
+    }
+
+    onSelectFilter(nationality, [...languages]);
   };
 
   return (
@@ -104,7 +121,7 @@ export const MenteeFilterBottomSheet = () => {
             {nationality}
           </Tag>
         )}
-        {[...(languages ?? [])].map((option) => (
+        {[...languages].map((option) => (
           <Tag
             key={option}
             rightContent={<Close className="h-[18px] w-[18px]" />}
@@ -124,7 +141,7 @@ export const MenteeFilterBottomSheet = () => {
           <Refresh />
           초기화
         </Button>
-        <Button fullWidth={false} className="grow-[4]">
+        <Button fullWidth={false} className="grow-[4]" onClick={selectFilter}>
           결과 보기
         </Button>
       </div>

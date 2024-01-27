@@ -4,7 +4,7 @@ import { GetMenteeListRequest } from "../types";
 
 export const useGetMenteeList = ({ page, nationalities, languages }: GetMenteeListRequest) => {
   return useSuspenseQuery({
-    queryKey: ["getMenteeList"],
+    queryKey: ["getMenteeList", { page, nationalities, languages }],
     queryFn: () => userApi.getMenteeList({ page, nationalities, languages }),
   });
 };

@@ -4,7 +4,7 @@ import { GetMentorListRequest } from "../types";
 
 export const useGetMentorList = ({ page, languages }: GetMentorListRequest) => {
   return useSuspenseQuery({
-    queryKey: ["getMentorList"],
+    queryKey: ["getMentorList", { page, languages }],
     queryFn: () => userApi.getMentorList({ page, languages }),
   });
 };
