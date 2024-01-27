@@ -12,7 +12,7 @@ export const useGetMeAsMentor = () => {
           me.schedules?.map((v) => ({
             ...v,
             start: toHHMM(v.start),
-            end: toHHMM(v.end),
+            end: toHHMM(v.end) === "23:59" ? "24:00" : toHHMM(v.end),
           })) ?? [];
 
         const isScheduleBy: "REPEAT" | "NOT_REPEAT" = schedules.every(
