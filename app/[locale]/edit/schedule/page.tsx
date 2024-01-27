@@ -32,6 +32,7 @@ const Page = () => {
       schedulesByRepeat,
       schedulesByNotRepeat,
     },
+    shouldUnregister: true,
   });
 
   const { isDirty } = methods.formState;

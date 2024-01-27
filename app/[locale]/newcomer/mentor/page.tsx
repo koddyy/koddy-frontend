@@ -33,6 +33,7 @@ const Page = () => {
       schedulesByRepeat,
       schedulesByNotRepeat,
     },
+    shouldUnregister: true,
   });
 
   const { mutate: updateMentorProfile } = useUpdateMentorProfile();
