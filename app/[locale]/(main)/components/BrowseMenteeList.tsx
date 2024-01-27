@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useState } from "react";
 import { useGetMenteeList } from "@/apis/user/hooks/useGetMenteeList";
 import { GetMenteeListRequest } from "@/apis/user/types";
 import { UserCard } from "@/app/[locale]/(main)/components/UserCard";
@@ -8,13 +9,12 @@ import { Divider } from "@/components/Divider";
 import { Tag } from "@/components/Tag";
 import { Nationality } from "@/constants/nationality";
 import { useIntersect } from "@/hooks/useIntersect";
-import { useToggle } from "@/hooks/useToggle";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
 import { NationCode } from "@/types/user";
-import { MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
+import { type Filter, MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
 
 export const BrowseMenteeList = () => {
-  const [isOpenFilterBottomSheet, toggleOpenFilterBottomSheet] = useToggle();
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
   const { searchParams, setSearchParams } = useTypedSearchParams<GetMenteeListRequest>();
 
   const params = {
@@ -30,7 +30,7 @@ export const BrowseMenteeList = () => {
 
   const handleSelectFilters = (nationality: Nationality | null, languages: NationCode[]) => {
     setSearchParams({ nationalities: nationality ? [nationality] : [], languages });
-    toggleOpenFilterBottomSheet();
+    setSelectedFilter(null);
   };
 
   const resetSelectedFilters = () => {
@@ -60,7 +60,7 @@ export const BrowseMenteeList = () => {
             color="grayscale"
             className="body-3"
             rightContent={<ArrowDown width={16} height={16} />}
-            onClick={toggleOpenFilterBottomSheet}
+            onClick={() => setSelectedFilter("국적")}
           >
             국적
             {nationalityCount > 0 && (
@@ -72,7 +72,7 @@ export const BrowseMenteeList = () => {
             color="grayscale"
             className="body-3"
             rightContent={<ArrowDown width={16} height={16} />}
-            onClick={toggleOpenFilterBottomSheet}
+            onClick={() => setSelectedFilter("언어")}
           >
             언어
             {languagesCount > 0 && (
@@ -89,11 +89,12 @@ export const BrowseMenteeList = () => {
         ))}
         <div ref={ref} />
       </div>
-      {isOpenFilterBottomSheet && (
+      {selectedFilter && (
         <MenteeFilterBottomSheet
           initial={params}
+          initialFilter={selectedFilter}
           onSelectFilter={handleSelectFilters}
-          onClose={toggleOpenFilterBottomSheet}
+          onClose={() => setSelectedFilter(null)}
         />
       )}
     </>

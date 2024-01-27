@@ -9,7 +9,7 @@ import { Nationality, NationalityImage, NationalityOptions } from "@/constants/n
 import { NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 
-type Filter = "국적" | "언어";
+export type Filter = "국적" | "언어";
 
 const FilterOptions = ["국적", "언어"] as const;
 
@@ -18,16 +18,18 @@ interface MenteeFilterBottomSheetProps {
     nationalities?: Nationality[];
     languages?: NationCode[];
   };
+  initialFilter: Filter;
   onSelectFilter: (nationality: Nationality | null, languages: Array<NationCode>) => void;
   onClose: () => void;
 }
 
 export const MenteeFilterBottomSheet = ({
   initial,
+  initialFilter,
   onSelectFilter,
   onClose,
 }: MenteeFilterBottomSheetProps) => {
-  const [activeTab, setActiveTab] = useState<Filter>("국적");
+  const [activeFilter, setActiveFilter] = useState<Filter>(initialFilter);
   const [nationality, setNationality] = useState<Nationality | null>(
     initial.nationalities?.[0] ?? null
   );
@@ -79,15 +81,15 @@ export const MenteeFilterBottomSheet = ({
         {FilterOptions.map((option) => (
           <button
             key={option}
-            className={cn("body-1-bold text-gray-400", activeTab === option && "text-gray-700")}
+            className={cn("body-1-bold text-gray-400", activeFilter === option && "text-gray-700")}
             type="button"
-            onClick={() => setActiveTab(option)}
+            onClick={() => setActiveFilter(option)}
           >
             {option}
           </button>
         ))}
       </div>
-      {activeTab === "국적" && (
+      {activeFilter === "국적" && (
         <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
           {NationalityOptions.map((option) => (
             <button
@@ -108,7 +110,7 @@ export const MenteeFilterBottomSheet = ({
           ))}
         </div>
       )}
-      {activeTab === "언어" && (
+      {activeFilter === "언어" && (
         <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-5">
           {languagesOptions.map(([code, text]) => (
             <button
