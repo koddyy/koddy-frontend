@@ -7,10 +7,9 @@ import ArrowDown from "@/assets/arrow_down.svg";
 import Refresh from "@/assets/refresh.svg";
 import { Divider } from "@/components/Divider";
 import { Tag } from "@/components/Tag";
-import { Nationality } from "@/constants/nationality";
 import { useIntersect } from "@/hooks/useIntersect";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
-import { NationCode } from "@/types/user";
+import { Nationality, NationCode } from "@/types/user";
 import { type Filter, MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
 
 export const BrowseMenteeList = () => {

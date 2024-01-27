@@ -62,7 +62,7 @@ export const mentee: Mentee = {
   email: "mentee1@gmail.com",
   name: "멘티1",
   profileImageUrl: "s3/Mentee1.png",
-  nationality: "미국",
+  nationality: "EN",
   introduction: "Hello World~",
   languages: {
     main: "EN",

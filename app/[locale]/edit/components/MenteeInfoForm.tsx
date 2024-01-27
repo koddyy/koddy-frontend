@@ -11,10 +11,13 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { NationalityOptions } from "@/constants/nationality";
+import { NationalityOptions, NationalityText } from "@/constants/nationality";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
+import { Nationality } from "@/types/user";
 import { useLanguageStore } from "../language/store";
 import { LanguageSelectForm } from "./LanguageSelectForm";
+
+const _NationalityOptions = NationalityOptions.map((v) => v[0]);
 
 export const MenteeInfoForm = () => {
   const router = useRouter();
@@ -23,9 +26,14 @@ export const MenteeInfoForm = () => {
   const { languages } = useLanguageStore();
 
   const values = (
-    ["name", "interestSchool", "interestMajor", "languages", "introduction"] as Array<
-      keyof typeof me
-    >
+    [
+      "name",
+      "interestSchool",
+      "interestMajor",
+      "nationality",
+      "languages",
+      "introduction",
+    ] as Array<keyof typeof me>
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMenteeInfoForm;
 
   const methods = useForm<UpdateMenteeInfoForm & { profileImageFile?: File }>({
@@ -88,7 +96,9 @@ export const MenteeInfoForm = () => {
                 <FormLabel>국적</FormLabel>
                 <Select
                   placeholder="국적을 선택해 주세요."
-                  options={NationalityOptions}
+                  options={_NationalityOptions}
+                  renderValue={() => NationalityText[value]}
+                  renderOption={(option: Nationality) => NationalityText[option]}
                   value={value}
                   onChangeValue={onChange}
                 />

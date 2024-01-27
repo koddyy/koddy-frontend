@@ -1,8 +1,10 @@
-type Role = "mentor" | "mentee";
+export type Role = "mentor" | "mentee";
 
-type NationCode = "KR" | "EN" | "CN" | "JP" | "VN";
+export type NationCode = "KR" | "EN" | "CN" | "JP" | "VN";
 
-interface User {
+export type Nationality = NationCode | "ETC";
+
+export interface User {
   name: string;
   email: string;
   profileImageUrl: string;
@@ -53,4 +55,4 @@ interface Mentee {
  *  =========================
  */
 
-export type { AvailableTimes, Mentee, Mentor, NationCode, Role, User, WeekType };
+export type { AvailableTimes, Mentee, Mentor, WeekType };

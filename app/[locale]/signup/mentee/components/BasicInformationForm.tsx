@@ -1,13 +1,13 @@
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
+import { Nationality, NationalityOptions, NationalityText } from "@/constants/nationality";
 import type { SignupForm as ISignupForm } from "../../types/menteeForm";
 
-const nationalityOptions = ["한국", "미국", "일본", "중국", "베트남", "Others"];
+const _NationalityOptions = NationalityOptions.map((v) => v[0]);
 
 interface BasicInformationProps {
   onClickNextStep: () => void;
@@ -28,13 +28,6 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
     name: "nationality",
     rules: { required: true },
   });
-
-  const [nationality, setNationality] = useState("");
-
-  const handleChangeNationality = (value: string) => {
-    nationalityField.onChange(value);
-    setNationality(value);
-  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -58,9 +51,11 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
         <FormLabel htmlFor="nationality">{t("nationality.label")}</FormLabel>
         <Select
           placeholder={t("nationality.placeholder")}
-          options={nationalityOptions}
-          value={nationality}
-          onChangeValue={handleChangeNationality}
+          options={_NationalityOptions}
+          renderValue={() => NationalityText[nationalityField.value]}
+          renderOption={(option: Nationality) => NationalityText[option]}
+          value={nationalityField.value}
+          onChangeValue={nationalityField.onChange}
         />
       </FormControl>
 

@@ -1,5 +1,4 @@
-import { Nationality } from "@/constants/nationality";
-import { NationCode, User } from "./user";
+import { Nationality, NationCode, User } from "./user";
 
 export interface Mentee extends User {
   id: number;
