@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import TrashBin from "@/assets/trash_bin.svg";
 import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
@@ -15,8 +15,8 @@ export const ScheduleByNotRepeat = () => {
   const {
     fields: scheduleFields,
     append,
-    remove,
     update,
+    remove,
   } = useFieldArray({
     control,
     name: "schedulesByNotRepeat",
@@ -31,7 +31,7 @@ export const ScheduleByNotRepeat = () => {
       const index = copy.indexOf(day);
       if (index === -1) copy.push(day);
       else copy.splice(index, 1);
-      return prev;
+      return copy;
     });
   };
 
@@ -61,27 +61,37 @@ export const ScheduleByNotRepeat = () => {
       </div>
       <Divider className="border-4 border-gray-100" />
       <ul className="my-[20px] flex flex-col gap-[12px]">
-        {scheduleFields.map((field, i) => (
-          <li key={field.id} className="flex justify-between gap-[8px]">
-            <Toggle>{field.dayOfWeek}</Toggle>
-            <div className="flex grow items-center gap-[10px]">
-              <Select
-                options={TIMES}
-                value={field.start ?? "09:00"}
-                onChangeValue={(value) => update(i, { ...field, start: value })}
-              />
-              <span>~</span>
-              <Select
-                options={TIMES}
-                value={field.end}
-                onChangeValue={(value) => update(i, { ...field, end: value })}
-              />
-            </div>
-            <button onClick={() => remove(i)}>
-              <TrashBin />
-            </button>
-          </li>
-        ))}
+        {scheduleFields.map(({ id, ...field }, i) => {
+          return (
+            <Controller
+              key={id}
+              control={control}
+              name={`schedulesByNotRepeat.${i}`}
+              defaultValue={field}
+              render={() => (
+                <li className="flex justify-between gap-[8px]">
+                  <Toggle>{field.dayOfWeek}</Toggle>
+                  <div className="flex grow items-center gap-[10px]">
+                    <Select
+                      options={TIMES}
+                      value={field.start}
+                      onChangeValue={(value) => update(i, { ...field, start: value })}
+                    />
+                    <span>~</span>
+                    <Select
+                      options={TIMES}
+                      value={field.end}
+                      onChangeValue={(value) => update(i, { ...field, end: value })}
+                    />
+                  </div>
+                  <button onClick={() => remove(i)}>
+                    <TrashBin />
+                  </button>
+                </li>
+              )}
+            />
+          );
+        })}
       </ul>
     </>
   );
