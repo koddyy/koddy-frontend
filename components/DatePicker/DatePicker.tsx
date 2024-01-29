@@ -26,7 +26,7 @@ export const DatePicker = ({
   const [selectedDate, setSelectedDate] = useState({
     year: defaultDate.getFullYear(),
     month: defaultDate.getMonth() + 1,
-    day: defaultDate.getDay(),
+    day: defaultDate.getDate(),
   });
 
   const handleChangeItem = (dateType: keyof DateType, item: number) => {
@@ -34,7 +34,9 @@ export const DatePicker = ({
   };
 
   const handleChangeDate = () => {
-    const YYYYMMDD = toYYYYMMDD(new Date(selectedDate.year, selectedDate.month, selectedDate.day));
+    const YYYYMMDD = toYYYYMMDD(
+      new Date(selectedDate.year, selectedDate.month - 1, selectedDate.day)
+    );
     onChangeDate?.(YYYYMMDD);
   };
 
@@ -90,7 +92,7 @@ export const DatePicker = ({
   });
 
   return (
-    <div className="absolute inset-x-0 bottom-0 z-overlay rounded-t-xl bg-white py-5 text-2xl">
+    <div className="fixed bottom-0 left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 rounded-t-xl bg-white py-5 text-2xl">
       <div className="flex h-60 w-full px-5">
         <Wheel //
           items={YEAR}
