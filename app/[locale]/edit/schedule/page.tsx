@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { useUpdateMentorSchedules } from "@/apis/user/hooks/useUpdateMentorSchedules";
@@ -24,7 +24,7 @@ const Page = () => {
   const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorSchedules } = useUpdateMentorSchedules();
   const { isScheduleBy, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
-  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
+  const [scheduleBy, setScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
   const methods = useForm({
     values: {
@@ -53,6 +53,12 @@ const Page = () => {
     );
   };
 
+  useEffect(() => {
+    if (isScheduleBy) {
+      setScheduleBy(isScheduleBy);
+    }
+  }, [isScheduleBy]);
+
   return (
     <>
       <NavigationBar
@@ -73,7 +79,7 @@ const Page = () => {
               name="scheduleBy"
               value={scheduleBy}
               onChangeValue={(value) => {
-                if (value === "REPEAT" || value === "NOT_REPEAT") setIsScheduleBy(value);
+                if (value === "REPEAT" || value === "NOT_REPEAT") setScheduleBy(value);
               }}
             >
               <Radio value="REPEAT">{ScheduleByOption.REPEAT}</Radio>
