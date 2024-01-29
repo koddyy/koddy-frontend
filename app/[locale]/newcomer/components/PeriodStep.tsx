@@ -32,6 +32,11 @@ export const PeriodStep = () => {
     setPeriodType(undefined);
   };
 
+  const defaultDate = {
+    startDate: new Date(startDate.value),
+    endDate: new Date(endDate.value),
+  };
+
   return (
     <>
       <div className="body-1 mb-2 text-gray-500">이때부터 시작할 예정이에요 (시작)</div>
@@ -54,7 +59,7 @@ export const PeriodStep = () => {
       {periodType && (
         <>
           <Dimmed onClick={() => setPeriodType(undefined)} />
-          <DatePicker onChangeDate={handleChangeDate} />
+          <DatePicker defaultDate={defaultDate[periodType]} onChangeDate={handleChangeDate} />
         </>
       )}
     </>
