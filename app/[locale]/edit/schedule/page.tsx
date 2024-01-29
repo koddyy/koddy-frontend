@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { useUpdateMentorSchedules } from "@/apis/user/hooks/useUpdateMentorSchedules";
@@ -24,7 +24,7 @@ const Page = () => {
   const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorSchedules } = useUpdateMentorSchedules();
   const { isScheduleBy, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
-  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
+  const [scheduleBy, setScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
   const methods = useForm({
     values: {
@@ -32,6 +32,7 @@ const Page = () => {
       schedulesByRepeat,
       schedulesByNotRepeat,
     },
+    shouldUnregister: true,
   });
 
   const { isDirty } = methods.formState;
@@ -52,47 +53,55 @@ const Page = () => {
     );
   };
 
+  useEffect(() => {
+    if (isScheduleBy) {
+      setScheduleBy(isScheduleBy);
+    }
+  }, [isScheduleBy]);
+
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleClickEdit)}>
-        <NavigationBar
-          title="커피챗 기간 수정"
-          titleFontWeight="regular"
-          onClickGoback={() => router.back()}
-        />
-        <div className="my-[24px] px-[20px]">
-          <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>
-          <PeriodStep />
-        </div>
-        <Divider className="border-[4px] border-gray-100" />
-        <div className="my-[26px] px-[20px]">
-          <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 가능 시간대</div>
-          <RadioGroup
-            name="scheduleBy"
-            value={scheduleBy}
-            onChangeValue={(value) => {
-              if (value === "REPEAT" || value === "NOT_REPEAT") setIsScheduleBy(value);
-            }}
-          >
-            <Radio value="REPEAT">{ScheduleByOption.REPEAT}</Radio>
-            <Radio value="NOT_REPEAT">{ScheduleByOption.NOT_REPEAT}</Radio>
-          </RadioGroup>
-          {scheduleBy === "REPEAT" && (
-            <div className="mt-[20px]">
-              <ScheduleByRepeat />
-            </div>
-          )}
-          {scheduleBy === "NOT_REPEAT" && (
-            <div className="mt-[24px]">
-              <ScheduleByNotRepeat />
-            </div>
-          )}
-        </div>
-        <BottomButton type="submit" disabled={!isDirty}>
-          수정하기
-        </BottomButton>
-      </form>
-    </FormProvider>
+    <>
+      <NavigationBar
+        title="커피챗 기간 수정"
+        titleFontWeight="regular"
+        onClickGoback={() => router.back()}
+      />
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleClickEdit)}>
+          <div className="my-[24px] px-[20px]">
+            <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>
+            <PeriodStep />
+          </div>
+          <Divider className="border-[4px] border-gray-100" />
+          <div className="mb-[109px] mt-[26px] px-[20px]">
+            <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 가능 시간대</div>
+            <RadioGroup
+              name="scheduleBy"
+              value={scheduleBy}
+              onChangeValue={(value) => {
+                if (value === "REPEAT" || value === "NOT_REPEAT") setScheduleBy(value);
+              }}
+            >
+              <Radio value="REPEAT">{ScheduleByOption.REPEAT}</Radio>
+              <Radio value="NOT_REPEAT">{ScheduleByOption.NOT_REPEAT}</Radio>
+            </RadioGroup>
+            {scheduleBy === "REPEAT" && (
+              <div className="mt-[20px]">
+                <ScheduleByRepeat />
+              </div>
+            )}
+            {scheduleBy === "NOT_REPEAT" && (
+              <div className="mt-[24px]">
+                <ScheduleByNotRepeat />
+              </div>
+            )}
+          </div>
+          <BottomButton type="submit" disabled={!isDirty}>
+            수정하기
+          </BottomButton>
+        </form>
+      </FormProvider>
+    </>
   );
 };
 

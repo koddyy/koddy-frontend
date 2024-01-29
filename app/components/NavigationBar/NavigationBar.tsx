@@ -30,7 +30,11 @@ export const NavigationBar = ({
       )}
     >
       {onClickGoback && (
-        <button className={cn(backButtonColor === "white" && "text-white")} onClick={onClickGoback}>
+        <button
+          className={cn(backButtonColor === "white" && "text-white")}
+          type="button"
+          onClick={onClickGoback}
+        >
           <Back />
         </button>
       )}
