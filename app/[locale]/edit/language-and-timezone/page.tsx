@@ -15,6 +15,8 @@ import { timezoneCookie } from "@/utils/timezone";
 
 const _localesOptions = getKeys(localesOptions);
 
+const _timezonesOptions = getKeys(timezones);
+
 const Page = () => {
   const router = useRouter();
   const [locale, setLocale] = useState(localeCookie.get());
@@ -46,7 +48,13 @@ const Page = () => {
         </FormControl>
         <FormControl>
           <FormLabel>타임존</FormLabel>
-          <Select options={timezones} value={timezone} onChangeValue={setTimezone} />
+          <Select
+            options={_timezonesOptions}
+            value={timezone}
+            renderValue={(value) => value && timezones[value]}
+            renderOption={(value) => timezones[value]}
+            onChangeValue={setTimezone}
+          />
         </FormControl>
       </div>
       <BottomButton onClick={handleChangeLanguageAndTimezone}>변경하기</BottomButton>
