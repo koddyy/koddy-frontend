@@ -5,14 +5,13 @@ import { Dimmed } from "@/components/Dimmed";
 import { Divider } from "@/components/Divider/Divider";
 import { CompleteProfileForm, Period } from "@/types/mentor";
 import { cn } from "@/utils/cn";
-import { toYYYYMMDD } from "@/utils/dateUtils";
+import { getNextMonth, getToday, toYYYYMMDD } from "@/utils/dateUtils";
 
 export const PeriodStep = () => {
   const [periodType, setPeriodType] = useState<keyof Period>();
 
   const { control } = useFormContext<Pick<CompleteProfileForm, "period">>();
 
-  const TODAY = toYYYYMMDD(new Date());
   const { field: startDate } = useController({
     control,
     name: "period.startDate",
@@ -32,9 +31,12 @@ export const PeriodStep = () => {
     setPeriodType(undefined);
   };
 
+  const TODAY = toYYYYMMDD(getToday());
+  const NEXT_MONTH = toYYYYMMDD(getNextMonth());
+
   const defaultDate = {
-    startDate: new Date(startDate.value),
-    endDate: new Date(endDate.value),
+    startDate: new Date(startDate.value ?? TODAY),
+    endDate: new Date(endDate.value ?? NEXT_MONTH),
   };
 
   return (
@@ -54,7 +56,7 @@ export const PeriodStep = () => {
         type="button"
         onClick={() => setPeriodType("endDate")}
       >
-        {endDate.value || TODAY}
+        {endDate.value || NEXT_MONTH}
       </button>
       {periodType && (
         <>
