@@ -58,7 +58,9 @@ const Page = () => {
       </div>
       <Divider className="border-4 border-gray-100" />
       <div>
-        <div className="px-5 py-[0.88rem]">언어 변경</div>
+        <Link href={PATH.MYPAGE_EDIT + "/language-and-timezone"} className={linkStyle}>
+          언어 & 타임존 설정
+        </Link>
         <Divider className="border-gray-100" />
         <div className="px-5 py-[0.88rem]">문의하기</div>
         <Divider className="border-gray-100" />
