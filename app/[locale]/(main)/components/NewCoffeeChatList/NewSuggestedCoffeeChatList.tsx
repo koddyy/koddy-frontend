@@ -25,7 +25,7 @@ export const NewSuggestedCoffeeChatList = () => {
           className="body-3 flex items-center text-gray-600"
         >
           더보기
-          <ArrowRight width={20} heigth={20} />
+          <ArrowRight width={20} height={20} />
         </Link>
       </div>
       <div className="mb-4">
@@ -48,6 +48,7 @@ export const NewSuggestedCoffeeChatList = () => {
             .concat(
               newCoffeeChatList.totalCount > 3 ? (
                 <Link
+                  key="more"
                   className={cn(
                     "flex min-w-[70%] max-w-[70%] items-center justify-center rounded-xl bg-gray-100"
                   )}
