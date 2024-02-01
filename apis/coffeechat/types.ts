@@ -22,6 +22,25 @@ export interface PostCoffeeChatFromMenteeToMentorResponse {
   coffeeChatId: number;
 }
 
+export interface GetAppliedCoffeeChatListResponse {
+  result: Array<
+    Pick<
+      Mentee,
+      "id" | "name" | "profileImageUrl" | "nationality" | "interestSchool" | "interestMajor"
+    >
+  >;
+  totalCount: number;
+  hasNext: boolean;
+}
+
+export interface GetSuggestedCoffeeChatListResponse {
+  result: Array<
+    Pick<Mentor, "id" | "name" | "profileImageUrl" | "languages" | "school" | "major" | "enteredIn">
+  >;
+  totalCount: number;
+  hasNext: boolean;
+}
+
 /**
  * =========================
  * @TODO remove

@@ -4,8 +4,11 @@ import { Suspense } from "react";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { BrowseMenteeList } from "@/app/[locale]/(main)/components/BrowseMenteeList";
 import { BrowseMentorList } from "@/app/[locale]/(main)/components/BrowseMentorList";
-import { NewCoffeeChatList } from "@/app/[locale]/(main)/components/NewCoffeeChatList";
 import { Header } from "@/app/components/Header";
+import {
+  NewAppliedCoffeeChatList,
+  NewSuggestedCoffeeChatList,
+} from "./components/NewCoffeeChatList";
 import { ProfileCompleteBanner } from "./components/ProfileCompleteBanner";
 import { UserCardListSkeleton } from "./components/UserCardListSkeleton";
 
@@ -22,7 +25,8 @@ const Home = () => {
           {!me.profileComplete && <ProfileCompleteBanner />}
         </div>
         <Suspense fallback={<UserCardListSkeleton />}>
-          <NewCoffeeChatList />
+          {me.role === "mentor" && <NewAppliedCoffeeChatList />}
+          {me.role === "mentee" && <NewSuggestedCoffeeChatList />}
           {me.role === "mentor" && <BrowseMenteeList />}
           {me.role === "mentee" && <BrowseMentorList />}
         </Suspense>
