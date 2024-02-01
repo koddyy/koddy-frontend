@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Suspense, useState } from "react";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { CoffeeChatCardList } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
-import { NewCoffeeChatCardList } from "@/app/[locale]/(main)/coffeechat/components/NewCoffeeChatCardList";
 import { Header } from "@/app/components/Header";
 import { cn } from "@/utils/cn";
 
@@ -31,10 +31,10 @@ const Page = () => {
         ))}
       </div>
       <div className="flex flex-col gap-[0.88rem] px-5 py-[0.87rem]">
-        <Suspense>
+        {/* <Suspense>
           {activeTab === 0 && <NewCoffeeChatCardList userRole={me.role} />}
           {activeTab === 1 && <CoffeeChatCardList userRole={me.role} />}
-        </Suspense>
+        </Suspense> */}
       </div>
     </>
   );
