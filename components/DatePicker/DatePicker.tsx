@@ -30,7 +30,15 @@ export const DatePicker = ({
   });
 
   const handleChangeItem = (dateType: keyof DateType, item: number) => {
-    setSelectedDate((prev) => ({ ...prev, [dateType]: item }));
+    if (dateType === "day") {
+      setSelectedDate((prev) => ({ ...prev, [dateType]: item }));
+    } else {
+      setSelectedDate((prev) => {
+        const copy = { ...prev, [dateType]: item };
+        const day = Math.min(getDaysInMonth(copy.year, copy.month), copy.day);
+        return { ...copy, day };
+      });
+    }
   };
 
   const handleChangeDate = () => {
@@ -66,29 +74,13 @@ export const DatePicker = ({
   }, [max.month, max.year, maxDate, min.month, min.year, minDate, selectedDate.year]);
 
   const DAY = useMemo(() => {
-    if (min.year === max.year && min.month === max.month) {
-      return range(min.day, max.day);
-    } else if (min.year === selectedDate.year && min.month === selectedDate.month) {
-      return range(min.day, getDaysInMonth(selectedDate.year, selectedDate.month));
-    } else if (max.year === selectedDate.year && max.month === selectedDate.month) {
-      return range(1, max.day);
-    }
     return range(1, getDaysInMonth(selectedDate.year, selectedDate.month));
-  }, [
-    min.year,
-    min.month,
-    min.day,
-    max.year,
-    max.month,
-    max.day,
-    selectedDate.year,
-    selectedDate.month,
-  ]);
+  }, [selectedDate.year, selectedDate.month]);
 
-  const initalIndex = useRef({
-    year: selectedDate.year - min.year,
-    month: selectedDate.month - 1,
-    day: selectedDate.day - 1,
+  const initialIndex = useRef({
+    year: YEAR.indexOf(selectedDate.year),
+    month: MONTH.indexOf(selectedDate.month),
+    day: DAY.indexOf(selectedDate.day),
   });
 
   return (
@@ -97,17 +89,17 @@ export const DatePicker = ({
         <Wheel //
           items={YEAR}
           onChangeItemIndex={(index) => handleChangeItem("year", YEAR[index])}
-          initialIndex={initalIndex.current.year}
+          initialIndex={initialIndex.current.year}
         />
         <Wheel
           items={MONTH}
           onChangeItemIndex={(index) => handleChangeItem("month", MONTH[index])}
-          initialIndex={initalIndex.current.month}
+          initialIndex={initialIndex.current.month}
         />
         <Wheel //
           items={DAY}
           onChangeItemIndex={(index) => handleChangeItem("day", DAY[index])}
-          initialIndex={initalIndex.current.day}
+          initialIndex={initialIndex.current.day}
         />
       </div>
       <div className="px-5 pb-4 pt-6">
