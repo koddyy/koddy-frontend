@@ -5,14 +5,15 @@ import { CoffeeChatStatus } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
 
 interface CoffeeChatScheduleProps {
-  status: Exclude<CoffeeChatStatus, "SUGGEST" | "CANCEL">;
+  status: Exclude<CoffeeChatStatus, "SUGGEST" | "CANCEL,REJECT">;
   schedule: string;
 }
 
 const ScheduleLabel = {
-  AGREE: "커피챗 예정 시간",
-  REQUEST: "신청 시간",
-  DONE: "시간",
+  APPROVE: "예정 시간",
+  APPLY: "신청 시간",
+  PENDING: "신청 시간",
+  COMPLETE: "시간",
 };
 
 export const CoffeeChatSchedule = ({ status, schedule }: CoffeeChatScheduleProps) => {
@@ -25,12 +26,12 @@ export const CoffeeChatSchedule = ({ status, schedule }: CoffeeChatScheduleProps
       <Divider className="border-[4px]" />
       <div className="px-[20px] py-[18px]">
         <div className="body-3 mb-[4px]">{ScheduleLabel[status]}</div>
-        <div className={cn("body-1-bold", status === "DONE" && "body-1 text-gray-500")}>
+        <div className={cn("body-1-bold", status === "COMPLETE" && "body-1 text-gray-500")}>
           {schedule}
         </div>
       </div>
       <Divider className="border-[4px]" />
-      {status === "AGREE" && (
+      {status === "APPROVE" && (
         <>
           <div className="px-[20px] pb-[24px] pt-[22px]">
             <div className="mb-[10px] flex">
