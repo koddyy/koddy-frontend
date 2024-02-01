@@ -78,9 +78,9 @@ export const DatePicker = ({
   }, [selectedDate.year, selectedDate.month]);
 
   const initialIndex = useRef({
-    year: selectedDate.year - min.year,
-    month: selectedDate.month - 1,
-    day: selectedDate.day - 1,
+    year: YEAR.indexOf(selectedDate.year),
+    month: MONTH.indexOf(selectedDate.month),
+    day: DAY.indexOf(selectedDate.day),
   });
 
   return (
