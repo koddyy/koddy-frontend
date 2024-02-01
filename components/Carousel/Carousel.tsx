@@ -11,6 +11,7 @@ interface AutoSwitchOptions {
 
 interface CarouselProps extends KeenSliderOptions, AutoSwitchOptions {
   animationDuration?: number;
+  hasIndicator?: boolean;
   children: ReactElement[];
 }
 
@@ -19,6 +20,7 @@ export const Carousel = ({
   autoSwitch = false,
   autoSwitchInterval = 3000,
   animationDuration = 2000,
+  hasIndicator = false,
   ...options
 }: CarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(options.initial ?? 0);
@@ -81,7 +83,7 @@ export const Carousel = ({
           })
         )}
       </div>
-      {loaded && instanceRef.current && (
+      {hasIndicator && loaded && instanceRef.current && (
         <div className="flex justify-center gap-[6px]">
           {[...Array(instanceRef.current?.track.details.slides.length).keys()].map((idx) => (
             <button
