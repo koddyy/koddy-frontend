@@ -14,6 +14,8 @@ export type CoffeeChatStatus =
   | "COMPLETE"
   | "CANCEL,REJECT";
 
+export type CoffeeChatCategory = "suggested" | "applied";
+
 /**
  * =========================
  * @TODO remove
