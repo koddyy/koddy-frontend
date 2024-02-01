@@ -74,24 +74,8 @@ export const DatePicker = ({
   }, [max.month, max.year, maxDate, min.month, min.year, minDate, selectedDate.year]);
 
   const DAY = useMemo(() => {
-    if (min.year === max.year && min.month === max.month) {
-      return range(min.day, max.day);
-    } else if (min.year === selectedDate.year && min.month === selectedDate.month) {
-      return range(min.day, getDaysInMonth(selectedDate.year, selectedDate.month));
-    } else if (max.year === selectedDate.year && max.month === selectedDate.month) {
-      return range(1, max.day);
-    }
     return range(1, getDaysInMonth(selectedDate.year, selectedDate.month));
-  }, [
-    min.year,
-    min.month,
-    min.day,
-    max.year,
-    max.month,
-    max.day,
-    selectedDate.year,
-    selectedDate.month,
-  ]);
+  }, [selectedDate.year, selectedDate.month]);
 
   const initialIndex = useRef({
     year: selectedDate.year - min.year,
