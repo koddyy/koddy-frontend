@@ -30,7 +30,15 @@ export const DatePicker = ({
   });
 
   const handleChangeItem = (dateType: keyof DateType, item: number) => {
-    setSelectedDate((prev) => ({ ...prev, [dateType]: item }));
+    if (dateType === "day") {
+      setSelectedDate((prev) => ({ ...prev, [dateType]: item }));
+    } else {
+      setSelectedDate((prev) => {
+        const copy = { ...prev, [dateType]: item };
+        const day = Math.min(getDaysInMonth(copy.year, copy.month), copy.day);
+        return { ...copy, day };
+      });
+    }
   };
 
   const handleChangeDate = () => {
@@ -85,7 +93,7 @@ export const DatePicker = ({
     selectedDate.month,
   ]);
 
-  const initalIndex = useRef({
+  const initialIndex = useRef({
     year: selectedDate.year - min.year,
     month: selectedDate.month - 1,
     day: selectedDate.day - 1,
@@ -97,17 +105,17 @@ export const DatePicker = ({
         <Wheel //
           items={YEAR}
           onChangeItemIndex={(index) => handleChangeItem("year", YEAR[index])}
-          initialIndex={initalIndex.current.year}
+          initialIndex={initialIndex.current.year}
         />
         <Wheel
           items={MONTH}
           onChangeItemIndex={(index) => handleChangeItem("month", MONTH[index])}
-          initialIndex={initalIndex.current.month}
+          initialIndex={initialIndex.current.month}
         />
         <Wheel //
           items={DAY}
           onChangeItemIndex={(index) => handleChangeItem("day", DAY[index])}
-          initialIndex={initalIndex.current.day}
+          initialIndex={initialIndex.current.day}
         />
       </div>
       <div className="px-5 pb-4 pt-6">
