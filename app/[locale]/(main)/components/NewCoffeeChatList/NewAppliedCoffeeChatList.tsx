@@ -30,20 +30,38 @@ export const NewAppliedCoffeeChatList = () => {
       </div>
       <div className="mb-4">
         <Carousel loop={false} slides={{ perView: "auto", spacing: 20 }}>
-          {newCoffeeChatList.result.map((user) => {
-            return (
-              <Link
-                href={`/coffeechat/${user.id}`}
-                key={user.id}
-                className={cn(
-                  "min-w-[70%] max-w-[70%]",
-                  newCoffeeChatList.result.length === 1 && "min-max-full min-w-full"
-                )}
-              >
-                <UserCard role="mentee" {...user} />
-              </Link>
-            );
-          })}
+          {newCoffeeChatList.result
+            .map((user) => {
+              return (
+                <Link
+                  href={`/coffeechat/${user.id}`}
+                  key={user.id}
+                  className={cn(
+                    "min-w-[70%] max-w-[70%]",
+                    newCoffeeChatList.result.length === 1 && "min-max-full min-w-full"
+                  )}
+                >
+                  <UserCard role="mentee" {...user} />
+                </Link>
+              );
+            })
+            .concat(
+              newCoffeeChatList.totalCount > 3 ? (
+                <Link
+                  className={cn(
+                    "flex min-w-[70%] max-w-[70%] items-center justify-center rounded-xl bg-gray-100"
+                  )}
+                  href={PATH.COFFEECHAT + "?category=applied&status=apply"}
+                >
+                  <div className="subheading-bold flex items-center gap-[4px]">
+                    <span>더보기</span>
+                    <ArrowRight width={24} height={24} />
+                  </div>
+                </Link>
+              ) : (
+                []
+              )
+            )}
         </Carousel>
       </div>
       <Divider className="border-[4px]" />
