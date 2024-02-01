@@ -1,7 +1,9 @@
 import { apiInstance } from "@/apis/axios";
 import {
+  GetAppliedCoffeeChatListResponse,
   GetCoffeeChatByIdResponse,
   GetCoffeeChatListResponse,
+  GetSuggestedCoffeeChatListResponse,
   PatchCoffeeChatStatusRequest,
   PostCoffeeChatFromMenteeToMentorRequest,
   PostCoffeeChatFromMenteeToMentorResponse,
@@ -38,6 +40,30 @@ class CoffeeChatApi {
         end,
       }
     );
+  };
+
+  getNewAppliedCoffeeChatList = async (limit: number = 3) => {
+    const response = await apiInstance.get<GetAppliedCoffeeChatListResponse>(
+      "/api/mentees/applied-coffeechats",
+      {
+        params: {
+          limit,
+        },
+      }
+    );
+    return response.data;
+  };
+
+  getNewSuggestedCoffeeChatList = async (limit: number = 3) => {
+    const response = await apiInstance.get<GetSuggestedCoffeeChatListResponse>(
+      "/api/mentors/suggested-coffeechats",
+      {
+        params: {
+          limit,
+        },
+      }
+    );
+    return response.data;
   };
 
   /** deprecated */

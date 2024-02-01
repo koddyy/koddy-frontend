@@ -77,7 +77,7 @@ export const Carousel = ({
         {Children.map(children, (child, i) =>
           cloneElement(child, {
             key: i,
-            className: cn(child.props.className, "keen-slider__slide min-w-full"),
+            className: cn("keen-slider__slide min-w-full", child.props.className),
           })
         )}
       </div>

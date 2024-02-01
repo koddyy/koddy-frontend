@@ -1,5 +1,91 @@
 import { menteeList, mentorList } from "./user";
 
+export const appliedCoffeeChatList = [
+  {
+    id: 1,
+    name: "멘티1",
+    profileImageUrl: "",
+    nationality: "EN",
+    interestSchool: "서울대학교",
+    interestMajor: "컴퓨터공학부",
+  },
+  {
+    id: 2,
+    name: "멘티2",
+    profileImageUrl: "",
+    nationality: "JP",
+    interestSchool: "연세대학교",
+    interestMajor: "컴퓨터공학부",
+  },
+  {
+    id: 3,
+    name: "멘티3",
+    profileImageUrl: "",
+    nationality: "CN",
+    interestSchool: "고려대학교",
+    interestMajor: "컴퓨터공학부",
+  },
+  {
+    id: 4,
+    name: "멘티4",
+    profileImageUrl: "",
+    nationality: "EN",
+    interestSchool: "OO대학교",
+    interestMajor: "OO학부",
+  },
+  {
+    id: 5,
+    name: "멘티5",
+    profileImageUrl: "",
+    nationality: "VN",
+    interestSchool: "OO대학교",
+    interestMajor: "OO학부",
+  },
+];
+
+export const suggestedCoffeeChatList = [
+  {
+    id: 1,
+    name: "멘토1",
+    profileImageUrl: "",
+    school: "서울대학교",
+    major: "컴퓨터공학부",
+    enteredIn: 17,
+  },
+  {
+    id: 2,
+    name: "멘토2",
+    profileImageUrl: "",
+    school: "연세대학교",
+    major: "컴퓨터공학부",
+    enteredIn: 18,
+  },
+  {
+    id: 3,
+    name: "멘토3",
+    profileImageUrl: "",
+    school: "고려대학교",
+    major: "컴퓨터공학부",
+    enteredIn: 19,
+  },
+  {
+    id: 4,
+    name: "멘토4",
+    profileImageUrl: "",
+    school: "OO대학교",
+    major: "OO학부",
+    enteredIn: 20,
+  },
+  {
+    id: 4,
+    name: "멘토5",
+    profileImageUrl: "",
+    school: "OO대학교",
+    major: "OO학부",
+    enteredIn: 21,
+  },
+];
+
 /** deprecated */
 
 export const depreactedCoffeeChatList = [

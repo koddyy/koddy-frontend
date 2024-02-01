@@ -1,11 +1,49 @@
 import { delay, http, HttpResponse } from "msw";
-import { depreactedCoffeeChatList } from "../fixture/coffeechat";
+import {
+  appliedCoffeeChatList,
+  depreactedCoffeeChatList,
+  suggestedCoffeeChatList,
+} from "../fixture/coffeechat";
 
 export const handlers = [
   http.post("/api/coffeechats/suggest/:menteeId", async () => {
     await delay(1500);
 
     return HttpResponse.json({ coffeeChatId: 1 }, { status: 200 });
+  }),
+
+  http.get("/api/mentees/applied-coffeechats", async ({ request }) => {
+    const url = new URL(request.url);
+    const limit = Number(url.searchParams.get("limit") ?? 3);
+    const result = appliedCoffeeChatList.slice(0, limit);
+
+    await delay(1500);
+
+    return HttpResponse.json(
+      {
+        result,
+        totalCount: appliedCoffeeChatList.length,
+        hasNext: true,
+      },
+      { status: 200 }
+    );
+  }),
+
+  http.get("/api/mentors/suggested-coffeechats", async ({ request }) => {
+    const url = new URL(request.url);
+    const limit = Number(url.searchParams.get("limit") ?? 3);
+    const result = suggestedCoffeeChatList.slice(0, limit);
+
+    await delay(1500);
+
+    return HttpResponse.json(
+      {
+        result,
+        totalCount: suggestedCoffeeChatList.length,
+        hasNext: true,
+      },
+      { status: 200 }
+    );
   }),
 
   /** deprecated */
