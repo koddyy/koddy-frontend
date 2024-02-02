@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { unstable_setRequestLocale } from "next-intl/server";
 import IntlClientProvider from "@/app/providers/IntlClientProvider";
 import QueryClientProvider from "@/app/providers/QueryClientProvider";
+import { ToastProvider } from "@/components/Toast";
 import { locales } from "@/constants/locale";
 import MswInit from "@/mocks/MswInit";
 
@@ -32,9 +33,11 @@ export default function RootLayout({
       </head>
       <body className="relative mx-auto min-h-screen min-w-[375px] max-w-screen-sm">
         <MswInit />
-        <QueryClientProvider>
-          <IntlClientProvider locale={locale}>{children}</IntlClientProvider>
-        </QueryClientProvider>
+        <IntlClientProvider locale={locale}>
+          <ToastProvider>
+            <QueryClientProvider>{children}</QueryClientProvider>
+          </ToastProvider>
+        </IntlClientProvider>
       </body>
     </html>
   );
