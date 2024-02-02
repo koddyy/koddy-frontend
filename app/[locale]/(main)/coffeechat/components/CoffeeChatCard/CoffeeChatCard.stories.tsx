@@ -12,14 +12,14 @@ type Story = StoryObj<typeof meta>;
 
 export const MentorCard: Story = {
   args: {
-    status: "AGREE",
+    status: "APPROVE",
     ...mentor,
   },
 };
 
 export const MenteeCard: Story = {
   args: {
-    status: "AGREE",
+    status: "APPROVE",
     ...mentee,
   },
 };

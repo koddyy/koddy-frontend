@@ -23,7 +23,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       <MentorProfile {...mentor} />
       <div className="px-[20px] py-[12px]">
         <div className="body-3-bold mb-[0.38rem]">자기소개</div>
-        <p className="body-1 rounded-[10px] border border-gray-300 px-[18px] py-[11px]">
+        <p className="body-1 whitespace-pre-line rounded-[10px] border border-gray-300 px-[18px] py-[11px]">
           {mentor.introduction || "자기소개가 없습니다."}
         </p>
       </div>

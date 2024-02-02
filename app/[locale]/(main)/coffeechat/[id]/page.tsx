@@ -57,7 +57,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요</div>;
 
-  const isCancelable = coffeechat.status === "AGREE" || coffeechat.status === "SUGGEST";
+  const isCancelable = coffeechat.status === "APPROVE" || coffeechat.status === "SUGGEST";
 
   return (
     <>
@@ -65,9 +65,9 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
         {...coffeechat.mentee}
         coffeeChatStatusText={CoffeeChatStatusText.mentor[coffeechat.status]}
       />
-      {(coffeechat.status === "AGREE" ||
-        coffeechat.status === "REQUEST" ||
-        coffeechat.status === "DONE") && (
+      {(coffeechat.status === "APPROVE" ||
+        coffeechat.status === "APPLY" ||
+        coffeechat.status === "COMPLETE") && (
         <CoffeeChatSchedule
           status={coffeechat.status}
           schedule={`${coffeechat.date} ${coffeechat.startTime}~${coffeechat.endTime} (한국 시간 기준)`}
@@ -98,7 +98,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           </Button>
         )}
       </div>
-      {coffeechat.status === "REQUEST" && (
+      {coffeechat.status === "APPLY" && (
         <>
           <div className="h-[96px]" />
           <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
@@ -165,7 +165,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
 
   if (!coffeechat) return <div>커피챗이 존재하지 않아요.</div>;
 
-  const isCancelable = coffeechat.status === "AGREE" || coffeechat.status === "REQUEST";
+  const isCancelable = coffeechat.status === "APPROVE" || coffeechat.status === "APPLY";
 
   return (
     <>
@@ -173,9 +173,9 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
         {...coffeechat.mentor}
         coffeeChatStatusText={CoffeeChatStatusText.mentee[coffeechat.status]}
       />
-      {(coffeechat.status === "AGREE" ||
-        coffeechat.status === "REQUEST" ||
-        coffeechat.status === "DONE") && (
+      {(coffeechat.status === "APPROVE" ||
+        coffeechat.status === "APPLY" ||
+        coffeechat.status === "COMPLETE") && (
         <CoffeeChatSchedule
           status={coffeechat.status}
           schedule={`${coffeechat.date} ${coffeechat.startTime}~${coffeechat.endTime} (한국 시간 기준)`}
