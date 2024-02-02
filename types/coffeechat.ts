@@ -14,7 +14,15 @@ export type CoffeeChatStatus =
   | "COMPLETE"
   | "CANCEL,REJECT";
 
+export const isValidCoffeeCathStatus = (status: string): status is CoffeeChatStatus => {
+  return ["APPROVE", "APPLY", "SUGGEST", "PENDING", "COMPLETE", "CANCEL,REJECT"].includes(status);
+};
+
 export type CoffeeChatCategory = "suggested" | "applied";
+
+export const isValidCoffeeChatCategory = (category: string): category is CoffeeChatCategory => {
+  return category === "suggested" || category === "applied";
+};
 
 /**
  * =========================

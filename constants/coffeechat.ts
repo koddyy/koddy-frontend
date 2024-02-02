@@ -27,6 +27,15 @@ export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
   google: GoogleMeet,
 };
 
+export const CoffeeChatStatusOptions: Record<CoffeeChatStatus, string> = {
+  APPROVE: "예정",
+  APPLY: "신청",
+  SUGGEST: "제안",
+  PENDING: "수락",
+  COMPLETE: "완료",
+  "CANCEL,REJECT": "취소",
+};
+
 export const CoffeeChatStatusText: Record<Role, Record<CoffeeChatStatus, string>> = {
   mentor: {
     APPROVE: "커피챗 예정이에요",

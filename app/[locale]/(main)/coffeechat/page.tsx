@@ -1,14 +1,61 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { Suspense, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import qs from "querystring";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
-import { CoffeeChatCardList } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
 import { Header } from "@/app/components/Header";
+import { Tag } from "@/components/Tag";
+import { CoffeeChatStatusOptions } from "@/constants/coffeechat";
+import {
+  CoffeeChatCategory,
+  CoffeeChatStatus,
+  isValidCoffeeCathStatus,
+  isValidCoffeeChatCategory,
+} from "@/types/coffeechat";
+import { Role } from "@/types/user";
 import { cn } from "@/utils/cn";
+import { getEntries } from "@/utils/object";
 
-const Page = () => {
-  const [activeTab, setActiveTab] = useState(0);
+const CATEGORY: Record<Role, Record<CoffeeChatCategory, string>> = {
+  mentor: {
+    applied: "신청왔어요",
+    suggested: "제안했어요",
+  },
+  mentee: {
+    applied: "신청했어요",
+    suggested: "제안왔어요",
+  },
+};
+
+const COFFEECHAT_STATUS_OPTIONS: Record<Role, Record<CoffeeChatCategory, CoffeeChatStatus[]>> = {
+  mentor: {
+    applied: ["APPLY", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
+    suggested: ["SUGGEST", "PENDING", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
+  },
+  mentee: {
+    applied: ["APPLY", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
+    suggested: ["SUGGEST", "PENDING", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
+  },
+};
+
+const Page = ({
+  searchParams,
+}: {
+  searchParams: {
+    category: string;
+    status: string;
+  };
+}) => {
+  const pathname = usePathname();
+  const activeCategory = isValidCoffeeChatCategory(searchParams.category)
+    ? searchParams.category
+    : "applied";
+  const activeStatus = isValidCoffeeCathStatus(searchParams.status)
+    ? searchParams.status
+    : undefined;
+
   const { data: me } = useGetMe();
 
   if (!me) return null;
@@ -17,25 +64,56 @@ const Page = () => {
     <>
       <Header />
       <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
-        {["대기", "지나간 일정"].map((label, i) => (
-          <button
+        {getEntries(CATEGORY[me.role]).map(([key, label], i) => (
+          <Link
             key={i}
+            href={`${pathname}?${qs.stringify({ ...searchParams, category: key })}`}
             className={cn(
-              "grow py-4",
-              activeTab === i && "border-b-[3px] border-b-primary font-bold text-primary"
+              "grow py-4 text-center",
+              activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
             )}
-            onClick={() => setActiveTab(i)}
           >
             {label}
-          </button>
+          </Link>
         ))}
       </div>
-      <div className="flex flex-col gap-[0.88rem] px-5 py-[0.87rem]">
-        {/* <Suspense>
-          {activeTab === 0 && <NewCoffeeChatCardList userRole={me.role} />}
-          {activeTab === 1 && <CoffeeChatCardList userRole={me.role} />}
-        </Suspense> */}
+      <div className="my-[13px] flex gap-[10px] px-[20px]">
+        <Link
+          href={`${pathname}?${qs.stringify({
+            ...searchParams,
+            status: undefined,
+          })}`}
+        >
+          <Tag
+            variant={!activeStatus ? "solid" : "outline"}
+            color={!activeStatus ? "primary" : "grayscale"}
+            className={cn(!activeStatus && "body-3")}
+          >
+            전체
+          </Tag>
+        </Link>
+        {COFFEECHAT_STATUS_OPTIONS[me.role][activeCategory].map((key, i) => {
+          const isActive = activeStatus === key;
+          return (
+            <Link
+              key={i}
+              href={`${pathname}?${qs.stringify({
+                ...searchParams,
+                status: key,
+              })}`}
+            >
+              <Tag
+                variant={isActive ? "solid" : "outline"}
+                color={isActive ? "primary" : "grayscale"}
+                className={cn(!isActive && "body-3")}
+              >
+                {CoffeeChatStatusOptions[key]}
+              </Tag>
+            </Link>
+          );
+        })}
       </div>
+      <div className="flex flex-col gap-[14px] px-[20px] py-[14px]"></div>
     </>
   );
 };
