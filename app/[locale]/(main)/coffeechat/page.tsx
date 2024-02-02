@@ -4,7 +4,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import qs from "querystring";
+import { Suspense } from "react";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
+import {
+  CoffeeChatCardListWithMentee,
+  CoffeeChatCardListWithMentor,
+} from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
 import { Header } from "@/app/components/Header";
 import { Tag } from "@/components/Tag";
 import { CoffeeChatStatusOptions } from "@/constants/coffeechat";
@@ -113,7 +118,16 @@ const Page = ({
           );
         })}
       </div>
-      <div className="flex flex-col gap-[14px] px-[20px] py-[14px]"></div>
+      <div className="flex flex-col gap-[14px] px-[20px] py-[14px]">
+        <Suspense>
+          {me.role === "mentor" && (
+            <CoffeeChatCardListWithMentee category={activeCategory} status={activeStatus} />
+          )}
+          {me.role === "mentee" && (
+            <CoffeeChatCardListWithMentor category={activeCategory} status={activeStatus} />
+          )}
+        </Suspense>
+      </div>
     </>
   );
 };
