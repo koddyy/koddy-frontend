@@ -9,6 +9,8 @@ const IntlClientProvider = async ({
   locale: string;
   children: React.ReactNode;
 }) => {
+  if (!locale) return <>{children}</>;
+
   const messages =
     locale === defaultLocale
       ? (await import(`../../messages/${defaultLocale}.json`)).default
