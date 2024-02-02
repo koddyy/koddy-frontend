@@ -6,13 +6,29 @@ export interface MenteeApplyForm {
   question: string;
 }
 
+export type CoffeeChatStatus =
+  | "APPROVE"
+  | "APPLY"
+  | "SUGGEST"
+  | "PENDING"
+  | "COMPLETE"
+  | "CANCEL,REJECT";
+
+export const isValidCoffeeCathStatus = (status: string): status is CoffeeChatStatus => {
+  return ["APPROVE", "APPLY", "SUGGEST", "PENDING", "COMPLETE", "CANCEL,REJECT"].includes(status);
+};
+
+export type CoffeeChatCategory = "suggested" | "applied";
+
+export const isValidCoffeeChatCategory = (category: string): category is CoffeeChatCategory => {
+  return category === "suggested" || category === "applied";
+};
+
 /**
  * =========================
  * @TODO remove
  * =========================
  */
-
-type CoffeeChatStatus = "AGREE" | "REQUEST" | "SUGGEST" | "DONE" | "CANCEL";
 
 type AvailableTimeRange = {
   startTime: string;
@@ -23,4 +39,4 @@ type AvailableTimes = AvailableTimeRange & {
   weeks: WeekType[];
 };
 
-export type { AvailableTimeRange, AvailableTimes, CoffeeChatStatus };
+export type { AvailableTimeRange, AvailableTimes };

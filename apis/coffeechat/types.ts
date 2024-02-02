@@ -1,4 +1,4 @@
-import { CoffeeChatStatus } from "@/types/coffeechat";
+import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
 
@@ -38,6 +38,34 @@ export interface GetSuggestedCoffeeChatListResponse {
     Pick<Mentor, "id" | "name" | "profileImageUrl" | "languages" | "school" | "major" | "enteredIn">
   >;
   totalCount: number;
+  hasNext: boolean;
+}
+
+export interface GetCoffeeChatListRequest {
+  category: CoffeeChatCategory;
+  status?: CoffeeChatStatus;
+  page: number;
+}
+
+export interface GetCoffeeChatListWithMentorResponse {
+  result: Array<
+    {
+      id: number;
+      status: CoffeeChatStatus;
+      mentorId: number;
+    } & Pick<Mentor, "name" | "profileImageUrl" | "school" | "major" | "enteredIn">
+  >;
+  hasNext: boolean;
+}
+
+export interface GetCoffeeChatListWithMenteeResponse {
+  result: Array<
+    {
+      id: number;
+      status: CoffeeChatStatus;
+      menteeId: number;
+    } & Pick<Mentee, "name" | "profileImageUrl" | "interestSchool" | "interestMajor">
+  >;
   hasNext: boolean;
 }
 

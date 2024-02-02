@@ -1,11 +1,16 @@
-import { GetMenteeListResponse, GetMentorListResponse } from "@/apis/user/types";
 import { DefaultProfileImageUrl } from "@/constants/profile";
+import { Mentee } from "@/types/mentee";
+import { Mentor } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 import { getDescription } from "@/utils/profile";
 
 export type UserCardProps =
-  | (GetMentorListResponse["result"][number] & { role: "mentor" })
-  | (GetMenteeListResponse["result"][number] & { role: "mentee" });
+  | (Pick<Mentor, "name" | "profileImageUrl" | "school" | "major" | "enteredIn"> & {
+      role: "mentor";
+    })
+  | (Pick<Mentee, "name" | "profileImageUrl" | "interestSchool" | "interestMajor"> & {
+      role: "mentee";
+    });
 
 export const UserCard = ({ ...user }: UserCardProps) => {
   const description = getDescription(user);
