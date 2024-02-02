@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useOauthLogin } from "@/apis/auth/hooks/useOauthLogin";
+import { Spinner } from "@/components/Spinner";
 import { useProviderStore } from "@/stores/provider";
 import { OauthProvider } from "@/types/oauth";
 
@@ -31,8 +32,15 @@ export const Login = ({ provider, authorizationCode, state }: LoginProps) => {
 
   return (
     isPending && (
-      <div className="absolute inset-0 z-overlay flex bg-black opacity-80">
-        <div className="m-auto text-white">계정에 접속하고 있어요</div>
+      <div className="absolute inset-0 z-overlay flex bg-gray-700 opacity-80">
+        <div className="m-auto flex flex-col items-center gap-[21px] text-white">
+          <Spinner />
+          <div className="body-1-bold text-center">
+            계정에
+            <br />
+            접속하고 있어요
+          </div>
+        </div>
       </div>
     )
   );
