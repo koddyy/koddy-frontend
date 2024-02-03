@@ -7,6 +7,7 @@ import ArrowDown from "@/assets/arrow_down.svg";
 import Refresh from "@/assets/refresh.svg";
 import { Divider } from "@/components/Divider";
 import { Tag } from "@/components/Tag";
+import { PATH } from "@/constants/path";
 import { useIntersect } from "@/hooks/useIntersect";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
 import { Nationality, NationCode } from "@/types/user";
@@ -82,7 +83,7 @@ export const BrowseMenteeList = () => {
       </div>
       <div className="flex flex-col gap-[0.81rem]">
         {menteeList.map((mentee) => (
-          <Link key={mentee.id} href={`/profile/${mentee.id}`}>
+          <Link key={mentee.id} href={`${PATH.PROFILE_MENTEE}/${mentee.id}`}>
             <UserCard role="mentee" {...mentee} />
           </Link>
         ))}

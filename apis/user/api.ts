@@ -44,7 +44,7 @@ class UserApi {
   };
 
   getMenteeById = async (menteeId: number) => {
-    const response = await apiInstance.get<GetMenteeByIdResponse>(`/api/mentors/${menteeId}`);
+    const response = await apiInstance.get<GetMenteeByIdResponse>(`/api/mentees/${menteeId}`);
     return response.data;
   };
 

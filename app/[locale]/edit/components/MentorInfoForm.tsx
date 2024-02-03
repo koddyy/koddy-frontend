@@ -96,6 +96,8 @@ export const MentorInfoForm = () => {
                 <Select<number>
                   placeholder="학번을 선택해 주세요."
                   options={enteredInOptions}
+                  renderValue={(value) => `${value}학번`}
+                  renderOption={(value) => `${value}학번`}
                   value={value}
                   onChangeValue={onChange}
                 />

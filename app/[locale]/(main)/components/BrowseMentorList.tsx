@@ -6,6 +6,7 @@ import ArrowDown from "@/assets/arrow_down.svg";
 import Refresh from "@/assets/refresh.svg";
 import { Divider } from "@/components/Divider";
 import { Tag } from "@/components/Tag";
+import { PATH } from "@/constants/path";
 import { useIntersect } from "@/hooks/useIntersect";
 import { useToggle } from "@/hooks/useToggle";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
@@ -66,7 +67,7 @@ export const BrowseMentorList = () => {
       </div>
       <div className="flex flex-col gap-[0.81rem]">
         {mentorList.map((mentor) => (
-          <Link key={mentor.id} href={`/profile/${mentor.id}`}>
+          <Link key={mentor.id} href={`${PATH.PROFILE_MENTOR}/${mentor.id}`}>
             <UserCard role="mentor" {...mentor} />
           </Link>
         ))}
