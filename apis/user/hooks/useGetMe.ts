@@ -6,5 +6,6 @@ export const useGetMe = () => {
     queryKey: ["me"],
     queryFn: userApi.getMe,
     staleTime: Infinity,
+    retryOnMount: false,
   });
 };
