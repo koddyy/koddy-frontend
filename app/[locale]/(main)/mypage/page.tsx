@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
 import ThreeDots from "@/assets/three_dots.svg";
 import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { PATH } from "@/constants/path";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { useAuth } from "@/hooks/useAuth";
-import { cn } from "@/utils/cn";
 
 const linkStyle = "inline-block w-full px-[20px] py-[14px]";
 
@@ -42,14 +42,10 @@ const Page = ({
         }
       />
       <div className="flex flex-col items-center gap-3 px-11 pb-5 pt-[1.38rem]">
-        <img
-          className={cn(
-            "h-[6.75rem] w-[6.75rem] rounded-xl object-cover",
-            "border border-gray-300 bg-gray-100 object-contain p-[0.3rem]"
-          )}
-          src={
+        <ProfileImageUpload
+          imageUrl={
             isAuthenticated
-              ? me.profileImageUrl || DefaultProfileImageUrl[me.role]
+              ? me.profileImageUrl
               : DefaultProfileImageUrl[explore === "mentor" ? "mentee" : "mentor"]
           }
         />
