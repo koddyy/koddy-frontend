@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { useSearchParams, useSelectedLayoutSegment } from "next/navigation";
 import Home from "@/assets/icon_home.svg";
 import My from "@/assets/icon_my.svg";
 import Reservation from "@/assets/icon_reservation.svg";
@@ -13,11 +13,8 @@ const NAVIGATION_LINK = [
   { segment: "mypage", icon: My, label: "마이" },
 ];
 
-interface BottomNavigationProps {
-  baseUrl?: string;
-}
-
-export const BottomNavigation = ({ baseUrl = "" }: BottomNavigationProps) => {
+export const BottomNavigation = () => {
+  const searchParams = useSearchParams();
   const currentSegment = useSelectedLayoutSegment() ?? "";
 
   return (
@@ -29,10 +26,10 @@ export const BottomNavigation = ({ baseUrl = "" }: BottomNavigationProps) => {
           <Link
             key={i}
             className={cn(
-              "flex grow flex-col items-center gap-[0.13rem] pb-3 pt-2",
+              "flex grow flex-col items-center gap-[2px] pb-3 pt-2",
               isCurrentSegment ? "text-primary" : "text-gray-400"
             )}
-            href={`/${baseUrl}/${segment}`}
+            href={`/${segment}?${searchParams.toString()}`}
           >
             <span>
               <Icon />
