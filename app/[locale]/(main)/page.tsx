@@ -19,25 +19,27 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
   const explore = searchParams.explore ?? "mentee";
   const { createQueryString } = useQueryString();
 
-  const { isAuthenticated, me } = useAuth();
+  const { isLoading, isAuthenticated, me } = useAuth();
+
+  if (isLoading) return null;
 
   return (
     <>
       <Header
         rightContent={
-          !isAuthenticated && (
+          !isAuthenticated ? (
             <Link href={createQueryString({ explore: explore === "mentor" ? "mentee" : "mentor" })}>
               <Button size="xs" className="body-2-bold h-[35px]" fullWidth={false}>
                 {explore === "mentor" ? "멘티 둘러보기" : "멘토 둘러보기"}
               </Button>
             </Link>
-          )
+          ) : null
         }
       />
-      <div className="px-5">
-        {isAuthenticated && (
-          <div className="mb-[26px] mt-[18px]">
-            {!me.profileComplete && <ProfileCompleteBanner />}
+      <div className="mt-[18px] px-5">
+        {isAuthenticated && !me.profileComplete && (
+          <div className="mb-[26px]">
+            <ProfileCompleteBanner />
           </div>
         )}
         <SSRSafeSuspense fallback={<UserCardListSkeleton />}>

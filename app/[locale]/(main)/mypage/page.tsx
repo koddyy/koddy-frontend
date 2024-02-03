@@ -20,7 +20,9 @@ const Page = ({
   };
 }) => {
   const explore = searchParams.explore ?? "mentee";
-  const { isAuthenticated, me } = useAuth();
+  const { isLoading, isAuthenticated, me } = useAuth();
+
+  if (isLoading) return null;
 
   const description =
     me?.role === "mentor"

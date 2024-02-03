@@ -63,7 +63,9 @@ const Page = ({
     ? searchParams.status
     : undefined;
 
-  const { isAuthenticated, me } = useAuth();
+  const { isLoading, isAuthenticated, me } = useAuth();
+
+  if (isLoading) return null;
 
   return (
     <>
