@@ -1,18 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import qs from "querystring";
 import { Suspense } from "react";
-import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import {
   CoffeeChatCardListWithMentee,
   CoffeeChatCardListWithMentor,
 } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
+import { GoToLogin } from "@/app/components/GoToLogin";
 import { Header } from "@/app/components/Header";
 import { Tag } from "@/components/Tag";
 import { CoffeeChatStatusOptions } from "@/constants/coffeechat";
+import { useAuth } from "@/hooks/useAuth";
 import {
   CoffeeChatCategory,
   CoffeeChatStatus,
@@ -49,10 +49,12 @@ const Page = ({
   searchParams,
 }: {
   searchParams: {
+    explore?: string;
     category: string;
     status: string;
   };
 }) => {
+  const explore = searchParams.explore ?? "mentee";
   const pathname = usePathname();
   const activeCategory = isValidCoffeeChatCategory(searchParams.category)
     ? searchParams.category
@@ -61,15 +63,17 @@ const Page = ({
     ? searchParams.status
     : undefined;
 
-  const { data: me } = useGetMe();
+  const { isLoading, isAuthenticated, me } = useAuth();
 
-  if (!me) return null;
+  if (isLoading) return null;
 
   return (
     <>
       <Header />
       <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
-        {getEntries(CATEGORY[me.role]).map(([key, label], i) => (
+        {getEntries(
+          CATEGORY[isAuthenticated ? me.role : explore === "mentor" ? "mentee" : "mentor"]
+        ).map(([key, label], i) => (
           <Link
             key={i}
             href={`${pathname}?${qs.stringify({ ...searchParams, category: key })}`}
@@ -82,52 +86,60 @@ const Page = ({
           </Link>
         ))}
       </div>
-      <div className="my-[13px] flex gap-[10px] px-[20px]">
-        <Link
-          href={`${pathname}?${qs.stringify({
-            ...searchParams,
-            status: undefined,
-          })}`}
-        >
-          <Tag
-            variant={!activeStatus ? "solid" : "outline"}
-            color={!activeStatus ? "primary" : "grayscale"}
-            className={cn(!activeStatus && "body-3")}
-          >
-            전체
-          </Tag>
-        </Link>
-        {COFFEECHAT_STATUS_OPTIONS[me.role][activeCategory].map((key, i) => {
-          const isActive = activeStatus === key;
-          return (
+      {isAuthenticated ? (
+        <>
+          <div className="my-[13px] flex gap-[10px] px-[20px]">
             <Link
-              key={i}
               href={`${pathname}?${qs.stringify({
                 ...searchParams,
-                status: key,
+                status: undefined,
               })}`}
             >
               <Tag
-                variant={isActive ? "solid" : "outline"}
-                color={isActive ? "primary" : "grayscale"}
-                className={cn(!isActive && "body-3")}
+                variant={!activeStatus ? "solid" : "outline"}
+                color={!activeStatus ? "primary" : "grayscale"}
+                className={cn(!activeStatus && "body-3")}
               >
-                {CoffeeChatStatusOptions[key]}
+                전체
               </Tag>
             </Link>
-          );
-        })}
-      </div>
-      <div className="flex flex-col gap-[14px] px-[20px] py-[14px]">
-        <Suspense>
-          {me.role === "mentor" && (
-            <CoffeeChatCardListWithMentee category={activeCategory} status={activeStatus} />
-          )}
-          {me.role === "mentee" && (
-            <CoffeeChatCardListWithMentor category={activeCategory} status={activeStatus} />
-          )}
-        </Suspense>
-      </div>
+            {COFFEECHAT_STATUS_OPTIONS[me.role][activeCategory].map((key, i) => {
+              const isActive = activeStatus === key;
+              return (
+                <Link
+                  key={i}
+                  href={`${pathname}?${qs.stringify({
+                    ...searchParams,
+                    status: key,
+                  })}`}
+                >
+                  <Tag
+                    variant={isActive ? "solid" : "outline"}
+                    color={isActive ? "primary" : "grayscale"}
+                    className={cn(!isActive && "body-3")}
+                  >
+                    {CoffeeChatStatusOptions[key]}
+                  </Tag>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="flex flex-col gap-[14px] px-[20px] py-[14px]">
+            <Suspense>
+              {me.role === "mentor" && (
+                <CoffeeChatCardListWithMentee category={activeCategory} status={activeStatus} />
+              )}
+              {me.role === "mentee" && (
+                <CoffeeChatCardListWithMentor category={activeCategory} status={activeStatus} />
+              )}
+            </Suspense>
+          </div>
+        </>
+      ) : (
+        <div className="py-[142px]">
+          <GoToLogin />
+        </div>
+      )}
     </>
   );
 };
