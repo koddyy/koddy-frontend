@@ -12,10 +12,17 @@ export const useAuth = () => {
     return _roles.includes(me.role);
   };
 
+  if (!me) {
+    return {
+      me: undefined,
+      isAuthenticated: false as const,
+      isAuthorized,
+    };
+  }
+
   return {
     me,
-    isAuthenticated: Boolean(me),
+    isAuthenticated: true as const,
     isAuthorized,
-    role: me?.role,
   };
 };

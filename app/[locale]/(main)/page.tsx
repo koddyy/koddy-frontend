@@ -37,16 +37,16 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
       <div className="px-5">
         {isAuthenticated && (
           <div className="mb-[26px] mt-[18px]">
-            {!me?.profileComplete && <ProfileCompleteBanner />}
+            {!me.profileComplete && <ProfileCompleteBanner />}
           </div>
         )}
         <SSRSafeSuspense fallback={<UserCardListSkeleton />}>
           {isAuthenticated ? (
             <>
-              {me?.role === "mentor" && <NewAppliedCoffeeChatList />}
-              {me?.role === "mentee" && <NewSuggestedCoffeeChatList />}
-              {me?.role === "mentor" && <BrowseMenteeList />}
-              {me?.role === "mentee" && <BrowseMentorList />}
+              {me.role === "mentor" && <NewAppliedCoffeeChatList />}
+              {me.role === "mentee" && <NewSuggestedCoffeeChatList />}
+              {me.role === "mentor" && <BrowseMenteeList />}
+              {me.role === "mentee" && <BrowseMentorList />}
             </>
           ) : (
             <>
