@@ -7,7 +7,6 @@ import ThreeDots from "@/assets/three_dots.svg";
 import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { PATH } from "@/constants/path";
-import { DefaultProfileImageUrl } from "@/constants/profile";
 import { useAuth } from "@/hooks/useAuth";
 
 const linkStyle = "inline-block w-full px-[20px] py-[14px]";
@@ -43,11 +42,8 @@ const Page = ({
       />
       <div className="flex flex-col items-center gap-3 px-11 pb-5 pt-[1.38rem]">
         <ProfileImageUpload
-          imageUrl={
-            isAuthenticated
-              ? me.profileImageUrl
-              : DefaultProfileImageUrl[explore === "mentor" ? "mentee" : "mentor"]
-          }
+          imageUrl={isAuthenticated ? me.profileImageUrl : ""}
+          role={isAuthenticated ? me.role : explore === "mentor" ? "mentee" : "mentor"}
         />
         {isAuthenticated ? (
           <div className="flex flex-col items-center gap-1">
@@ -91,7 +87,11 @@ const Page = ({
           </div>
         </>
       ) : (
-        <div className={linkStyle}>문의하기</div>
+        <>
+          <div className={linkStyle}>문의하기</div>
+          <Divider />
+          <div className={linkStyle}>개인정보 처리방침</div>
+        </>
       )}
     </>
   );
