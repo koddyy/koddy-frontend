@@ -7,7 +7,7 @@ export const useGetMentorList = (
   { languages }: Pick<GetMentorListRequest, "languages">
 ) => {
   return useSuspenseInfiniteQuery({
-    queryKey: ["getMentorList"],
+    queryKey: ["getMentorList", { languages }],
     queryFn: ({ pageParam }) => userApi.getMentorList({ page: pageParam, languages }),
     initialPageParam,
     getNextPageParam: (lastPage, _, lastPageParam) => (lastPage.hasNext ? lastPageParam + 1 : null),
