@@ -1,6 +1,6 @@
 import { useController, useFormContext } from "react-hook-form";
 import { LinkButton } from "@/components/Button";
-import { FormControl, FormErrorMessage, FormLabel } from "@/components/FormControl";
+import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { NationCodeText } from "@/constants/language";
 import { PATH } from "@/constants/path";
@@ -19,7 +19,10 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
     Pick<UpdateMentorInfoForm, "languages"> | Pick<UpdateMenteeInfoForm, "languages">
   >();
 
-  const { field: languagesField } = useController({
+  const {
+    field: languagesField,
+    formState: { isValid },
+  } = useController({
     control,
     name: "languages",
     rules: {
@@ -61,7 +64,7 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
             className="p-[16px]"
           />
         ))}
-        <FormErrorMessage>메인 언어는 필수값입니다</FormErrorMessage>
+        {!isValid && <div className="body-3 text-danger">메인 언어를 1개 이상 선택해 주세요.</div>}
         <LinkButton
           href={PATH.MYPAGE_EDIT + "/language"}
           className="body-2 bg-gray-100 text-primary-dark"
