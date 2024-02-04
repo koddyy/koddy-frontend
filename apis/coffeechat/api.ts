@@ -21,12 +21,10 @@ class CoffeeChatApi {
     menteeId,
     applyReason,
   }: PostCoffeeChatFromMentorToMenteeRequest) => {
-    return apiInstance.post<PostCoffeeChatFromMentorToMenteeResponse>(
-      `/api/coffeechats/suggest/${menteeId}`,
-      {
-        applyReason,
-      }
-    );
+    return apiInstance.post<PostCoffeeChatFromMentorToMenteeResponse>("/api/coffeechats/suggest", {
+      menteeId,
+      applyReason,
+    });
   };
 
   postCoffeeChatFromMenteeToMentor = ({
@@ -35,14 +33,12 @@ class CoffeeChatApi {
     start,
     end,
   }: PostCoffeeChatFromMenteeToMentorRequest) => {
-    return apiInstance.post<PostCoffeeChatFromMenteeToMentorResponse>(
-      `/api/coffeechats/apply/${mentorId}`,
-      {
-        applyReason,
-        start,
-        end,
-      }
-    );
+    return apiInstance.post<PostCoffeeChatFromMenteeToMentorResponse>("/api/coffeechats/apply", {
+      mentorId,
+      applyReason,
+      start,
+      end,
+    });
   };
 
   getNewAppliedCoffeeChatList = async (limit: number = 3) => {
