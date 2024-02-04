@@ -101,14 +101,12 @@ class CoffeeChatApi {
     return response.data;
   };
 
-  /** deprecated */
-
-  getCoffeeChatById = async (id: string) => {
-    const response = await apiInstance.get<ResponseType<GetCoffeeChatByIdResponse>>(
-      `/api/application/${id}`
-    );
+  getCoffeeChatById = async (id: number) => {
+    const response = await apiInstance.get<GetCoffeeChatByIdResponse>(`/api/coffeechats/${id}`);
     return response.data;
   };
+
+  /** deprecated */
 
   getCoffeeChatList = async () => {
     const response =

@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { coffeeChatApi } from "@/apis/coffeechat/api";
 
-const useGetCoffeeChatById = (id: string) => {
+const useGetCoffeeChatById = (id: number) => {
   return useQuery({
     queryKey: ["getCoffeeChatById", id],
     queryFn: () => coffeeChatApi.getCoffeeChatById(id),
-    select: (data) => data.data,
   });
 };
 

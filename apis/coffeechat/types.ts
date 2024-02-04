@@ -1,3 +1,4 @@
+import { CoffeeChatType } from "@/constants/coffeechat";
 import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
@@ -69,23 +70,54 @@ export interface GetCoffeeChatListWithMenteeResponse {
   hasNext: boolean;
 }
 
+export type GetCoffeeChatByIdResponse = {
+  coffeeChat: {
+    id: number;
+    status: CoffeeChatStatus;
+    applyReason: string;
+    question: string | null;
+    rejectReason: string | null;
+    start: string;
+    end: string;
+    chatType: CoffeeChatType;
+    chatValue: string;
+  };
+} & (
+  | {
+      mentee: Pick<
+        Mentee,
+        | "id"
+        | "name"
+        | "profileImageUrl"
+        | "nationality"
+        | "introduction"
+        | "languages"
+        | "interestSchool"
+        | "interestMajor"
+      >;
+      mentor: undefined;
+    }
+  | {
+      mentor: Pick<
+        Mentor,
+        | "id"
+        | "name"
+        | "profileImageUrl"
+        | "introduction"
+        | "languages"
+        | "school"
+        | "major"
+        | "enteredIn"
+      >;
+      mentee: undefined;
+    }
+);
+
 /**
  * =========================
  * @TODO remove
  * =========================
  */
-
-export interface GetCoffeeChatByIdResponse {
-  applicationId: string;
-  mentor: Mentor;
-  mentee: Mentee;
-  status: CoffeeChatStatus;
-  date?: string;
-  startTime?: string;
-  endTime?: string;
-  statusDesc?: string;
-  question?: string;
-}
 
 export type GetCoffeeChatListResponse = GetCoffeeChatByIdResponse[];
 
