@@ -7,12 +7,10 @@ import {
   GetCoffeeChatListWithMenteeResponse,
   GetCoffeeChatListWithMentorResponse,
   GetSuggestedCoffeeChatListResponse,
-  PatchCoffeeChatStatusRequest,
   PostCoffeeChatFromMenteeToMentorRequest,
   PostCoffeeChatFromMenteeToMentorResponse,
   PostCoffeeChatFromMentorToMenteeRequest,
   PostCoffeeChatFromMentorToMenteeResponse,
-  PostCoffeeChatRequest,
 } from "@/apis/coffeechat/types";
 import { ResponseType } from "@/apis/types";
 
@@ -108,30 +106,10 @@ class CoffeeChatApi {
 
   /** deprecated */
 
-  getCoffeeChatList = async () => {
-    const response =
-      await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application");
-    return response.data;
-  };
-
-  getNewCoffeeChatList = async () => {
-    const response =
-      await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application/new");
-    return response.data;
-  };
-
   getCoffeeChatNotification = async () => {
     const response =
       await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application/alarm");
     return response.data;
-  };
-
-  postCoffeeChat = (coffeeChatFormData: PostCoffeeChatRequest) => {
-    return apiInstance.post("/api/application", coffeeChatFormData);
-  };
-
-  patchCoffeeChatStatus = (coffeeChatStatus: PatchCoffeeChatStatusRequest) => {
-    return apiInstance.patch("/api/application", coffeeChatStatus);
   };
 }
 

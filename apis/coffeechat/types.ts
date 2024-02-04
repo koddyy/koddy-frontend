@@ -120,18 +120,3 @@ export type GetCoffeeChatByIdResponse = {
  */
 
 export type GetCoffeeChatListResponse = GetCoffeeChatByIdResponse[];
-
-export interface PostCoffeeChatRequest {
-  mentor: string;
-  mentee: string;
-  date?: string;
-  startTime?: string;
-  endTime?: string;
-  question?: string;
-}
-
-export interface PatchCoffeeChatStatusRequest {
-  applicationId: string;
-  status: CoffeeChatStatus;
-  statusDesc?: string;
-}
