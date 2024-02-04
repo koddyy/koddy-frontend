@@ -53,6 +53,7 @@ export const ProfileImageUpload = forwardRef<HTMLInputElement, ProfileImageUploa
           />
           {isEditable && (
             <button
+              type="button"
               aria-label="프로필 이미지 등록하기"
               className="absolute bottom-[-4px] right-[-4px] flex h-[24px] w-[24px] items-center justify-center rounded-full bg-gray-400"
               onClick={() => inputRef?.current?.click()}
