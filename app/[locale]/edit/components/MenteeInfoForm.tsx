@@ -6,15 +6,17 @@ import { useGetMeAsMentee } from "@/apis/user/hooks/useGetMeAsMentee";
 import { useUpdateMenteeInfo } from "@/apis/user/hooks/useUpdateMenteeInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
+import { LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { NationalityOptions, NationalityText } from "@/constants/nationality";
+import { PATH } from "@/constants/path";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { Nationality } from "@/types/user";
-import { useLanguageStore } from "../language/store";
+import { useMenteeInfoFormStore } from "../store";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
 const _NationalityOptions = NationalityOptions.map((v) => v[0]);
@@ -23,7 +25,7 @@ export const MenteeInfoForm = () => {
   const router = useRouter();
   const { data: me } = useGetMeAsMentee();
   const { mutate: updateMenteeInfo } = useUpdateMenteeInfo();
-  const { languages } = useLanguageStore();
+  const { isModified, setIsModified, userInfoForm, setUserInfoForm } = useMenteeInfoFormStore();
 
   const values = (
     [
@@ -37,12 +39,13 @@ export const MenteeInfoForm = () => {
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMenteeInfoForm;
 
   const methods = useForm<UpdateMenteeInfoForm & { profileImageFile?: File }>({
-    values: { ...values, languages: languages ?? values.languages },
+    values: { ...values, ...userInfoForm },
   });
 
   const {
     register,
     control,
+    getValues,
     handleSubmit,
     formState: { isDirty, isValid },
   } = methods;
@@ -55,8 +58,15 @@ export const MenteeInfoForm = () => {
     });
   };
 
-  const mainLanguage = languages?.main ?? me?.languages.main;
-  const subLanguages = languages?.sub ?? me?.languages.sub ?? [];
+  const handleAddLanguages = () => {
+    if (isDirty) {
+      setIsModified(true);
+    }
+    setUserInfoForm(getValues());
+  };
+
+  const mainLanguage = userInfoForm?.languages.main ?? values.languages.main;
+  const subLanguages = userInfoForm?.languages.sub ?? values.languages.sub ?? [];
 
   return (
     <FormProvider {...methods}>
@@ -107,8 +117,15 @@ export const MenteeInfoForm = () => {
           />
         </div>
         <Divider className="border-[4px]" />
-        <div className="mb-[24px] mt-[20px] px-[20px]">
+        <div className="mb-[24px] mt-[20px] flex flex-col gap-[10px] px-[20px]">
           <LanguageSelectForm languages={mainLanguage ? [mainLanguage, ...subLanguages] : []} />
+          <LinkButton
+            href={PATH.MYPAGE_EDIT + "/language"}
+            className="body-2 bg-gray-100 text-primary-dark"
+            onClick={handleAddLanguages}
+          >
+            추가하기
+          </LinkButton>
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[104px] mt-[20px] px-[20px]">
@@ -117,7 +134,7 @@ export const MenteeInfoForm = () => {
             <TextArea {...register("introduction")} />
           </FormControl>
         </div>
-        <BottomButton type="submit" disabled={!isDirty || !isValid}>
+        <BottomButton type="submit" disabled={(!isDirty && !isModified) || !isValid}>
           수정하기
         </BottomButton>
       </form>

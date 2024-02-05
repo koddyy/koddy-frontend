@@ -1,9 +1,7 @@
 import { useController, useFormContext } from "react-hook-form";
-import { LinkButton } from "@/components/Button";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { NationCodeText } from "@/constants/language";
-import { PATH } from "@/constants/path";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { UpdateMentorInfoForm } from "@/types/mentor";
 import { NationCode } from "@/types/user";
@@ -65,12 +63,6 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
           />
         ))}
         {!isValid && <div className="body-3 text-danger">메인 언어를 1개 이상 선택해 주세요.</div>}
-        <LinkButton
-          href={PATH.MYPAGE_EDIT + "/language"}
-          className="body-2 bg-gray-100 text-primary-dark"
-        >
-          추가하기
-        </LinkButton>
       </div>
     </FormControl>
   );
