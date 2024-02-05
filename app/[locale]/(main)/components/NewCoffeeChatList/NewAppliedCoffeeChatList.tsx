@@ -21,7 +21,7 @@ export const NewAppliedCoffeeChatList = () => {
           있어요
         </div>
         <Link
-          href={PATH.COFFEECHAT + "?category=applied&status=apply"}
+          href={PATH.COFFEECHAT + "?category=applied&status=APPLY"}
           className="body-3 flex items-center text-gray-600"
         >
           더보기
@@ -52,7 +52,7 @@ export const NewAppliedCoffeeChatList = () => {
                   className={cn(
                     "flex min-w-[70%] max-w-[70%] items-center justify-center rounded-xl bg-gray-100"
                   )}
-                  href={PATH.COFFEECHAT + "?category=applied&status=apply"}
+                  href={PATH.COFFEECHAT + "?category=applied&status=APPLY"}
                 >
                   <div className="subheading-bold flex items-center gap-[4px]">
                     <span>더보기</span>
