@@ -1,5 +1,5 @@
 import { GetMenteeByIdResponse } from "@/apis/user/types";
-import { NationalityImage } from "@/constants/nationality";
+import { NationalityImage, NationalityText } from "@/constants/nationality";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { cn } from "@/utils/cn";
 import { getDescription } from "@/utils/profile";
@@ -34,7 +34,7 @@ export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfilePr
           {nationality && (
             <div className="mb-[4px] flex items-center gap-[6px]">
               <img className="h-[18px] w-[18px]" src={NationalityImage[nationality]} />
-              {nationality}
+              {NationalityText[nationality]}
             </div>
           )}
           <span className="headline-1">{name}</span>
