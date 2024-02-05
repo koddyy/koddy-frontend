@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -8,6 +8,7 @@ import { Select } from "@/components/Select";
 import { localesOptions } from "@/constants/locale";
 import { PATH } from "@/constants/path";
 import { timezones } from "@/constants/timezone";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import { useRouter } from "@/libs/navigation";
 import { SupportLocale } from "@/types/locale";
 import { localeCookie } from "@/utils/locale";
@@ -20,8 +21,13 @@ const _timezonesOptions = getKeys(timezones);
 
 const Page = () => {
   const router = useRouter();
+  const initial = useRef<{ locale?: SupportLocale; timezone?: string }>({
+    locale: undefined,
+    timezone: undefined,
+  });
   const [locale, setLocale] = useState<SupportLocale>();
   const [timezone, setTimezone] = useState<string>();
+  const isMounted = useIsMounted();
 
   const handleChangeLanguageAndTimezone = () => {
     if (locale && timezone) {
@@ -32,9 +38,16 @@ const Page = () => {
   };
 
   useEffect(() => {
+    initial.current = {
+      locale: localeCookie.get(),
+      timezone: timezoneCookie.get(),
+    };
     setLocale(localeCookie.get());
     setTimezone(timezoneCookie.get());
   }, []);
+
+  const isDirty =
+    isMounted && (locale !== initial.current.locale || timezone !== initial.current.timezone);
 
   return (
     <>
@@ -65,7 +78,9 @@ const Page = () => {
           />
         </FormControl>
       </div>
-      <BottomButton onClick={handleChangeLanguageAndTimezone}>변경하기</BottomButton>
+      <BottomButton disabled={!isDirty} onClick={handleChangeLanguageAndTimezone}>
+        변경하기
+      </BottomButton>
     </>
   );
 };
