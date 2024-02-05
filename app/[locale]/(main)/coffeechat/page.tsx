@@ -98,7 +98,7 @@ const Page = ({
               <Tag
                 variant={!activeStatus ? "solid" : "outline"}
                 color={!activeStatus ? "primary" : "grayscale"}
-                className={cn(!activeStatus && "body-3")}
+                className={cn(activeStatus && "body-3")}
               >
                 전체
               </Tag>
