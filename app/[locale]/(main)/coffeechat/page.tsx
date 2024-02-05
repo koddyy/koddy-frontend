@@ -76,7 +76,7 @@ const Page = ({
         ).map(([key, label], i) => (
           <Link
             key={i}
-            href={`${pathname}?${qs.stringify({ ...searchParams, category: key })}`}
+            href={`${pathname}?${qs.stringify({ category: key })}`}
             className={cn(
               "grow py-4 text-center",
               activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
