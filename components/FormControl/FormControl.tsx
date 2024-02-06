@@ -26,7 +26,8 @@ const FormLabel = ({
   children,
   ...props
 }: PropsWithChildren<LabelHTMLAttributes<HTMLLabelElement>>) => {
-  const { id, required, ...rest } = useFormControl(props);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id, required, hasError, ...rest } = useFormControl(props);
 
   return (
     <label
