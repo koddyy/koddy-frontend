@@ -29,7 +29,9 @@ export const BottomNavigation = () => {
               "flex grow flex-col items-center gap-[2px] pb-3 pt-2",
               isCurrentSegment ? "text-primary" : "text-gray-400"
             )}
-            href={`/${segment}?${searchParams.toString()}`}
+            href={
+              searchParams.get("explore") ? `/${segment}?${searchParams.toString()}` : `/${segment}`
+            }
           >
             <span>
               <Icon />

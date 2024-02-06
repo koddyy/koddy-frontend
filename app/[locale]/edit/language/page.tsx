@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useController, useForm } from "react-hook-form";
+import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
@@ -9,11 +10,13 @@ import { languagesOptions } from "@/constants/language";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
 import { NationCode } from "@/types/user";
-import { useLanguageStore } from "./store";
+import { useMenteeInfoFormStore, useMentorInfoFormStore } from "../store";
 
 const Page = () => {
   const router = useRouter();
-  const { setLanguages } = useLanguageStore();
+  const { data: me } = useGetMe();
+  const setMenteeInfoForm = useMenteeInfoFormStore((state) => state.setLanguages);
+  const setMentorInfoForm = useMentorInfoFormStore((state) => state.setLanguages);
 
   const { control, handleSubmit } = useForm<Pick<Mentor, "languages"> | Pick<Mentee, "languages">>({
     defaultValues: {
@@ -31,6 +34,8 @@ const Page = () => {
       validate: (value) => Boolean(value.main),
     },
   });
+
+  if (!me) return null;
 
   const handleChangeMainLanguage = (language: NationCode) => {
     const isPressed = language === languagesField.value.main;
@@ -65,7 +70,9 @@ const Page = () => {
   };
 
   const onSubmit = ({ languages }: Pick<Mentor, "languages"> | Pick<Mentee, "languages">) => {
-    setLanguages(languages);
+    if (me.role === "mentor") setMentorInfoForm(languages);
+    else if (me.role === "mentee") setMenteeInfoForm(languages);
+
     router.back();
   };
 

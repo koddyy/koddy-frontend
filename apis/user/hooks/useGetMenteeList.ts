@@ -7,7 +7,7 @@ export const useGetMenteeList = (
   { nationalities, languages }: Pick<GetMenteeListRequest, "nationalities" | "languages">
 ) => {
   return useSuspenseInfiniteQuery({
-    queryKey: ["getMentorList"],
+    queryKey: ["getMentorList", { nationalities, languages }],
     queryFn: ({ pageParam }) =>
       userApi.getMenteeList({ page: pageParam, nationalities, languages }),
     initialPageParam,

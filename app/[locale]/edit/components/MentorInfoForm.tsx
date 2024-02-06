@@ -6,13 +6,15 @@ import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { useUpdateMentorInfo } from "@/apis/user/hooks/useUpdateMentorInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
+import { LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
+import { PATH } from "@/constants/path";
 import { UpdateMentorInfoForm } from "@/types/mentor";
-import { useLanguageStore } from "../language/store";
+import { useMentorInfoFormStore } from "../store";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
 const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
@@ -21,7 +23,7 @@ export const MentorInfoForm = () => {
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorInfo } = useUpdateMentorInfo();
-  const { languages } = useLanguageStore();
+  const { isModified, setIsModified, userInfoForm, setUserInfoForm } = useMentorInfoFormStore();
 
   const values = (
     [
@@ -36,12 +38,13 @@ export const MentorInfoForm = () => {
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMentorInfoForm;
 
   const methods = useForm<UpdateMentorInfoForm & { profileImageFile?: File }>({
-    values: { ...values, languages: languages ?? values.languages },
+    values: { ...values, ...userInfoForm },
   });
 
   const {
     register,
     control,
+    getValues,
     handleSubmit,
     formState: { isDirty, isValid },
   } = methods;
@@ -54,8 +57,18 @@ export const MentorInfoForm = () => {
     });
   };
 
-  const mainLanguage = languages?.main ?? me?.languages.main;
-  const subLanguages = languages?.sub ?? me?.languages.sub ?? [];
+  const handleAddLanguages = () => {
+    if (isDirty) {
+      setIsModified(true);
+    }
+    setUserInfoForm(getValues());
+  };
+
+  const languages = (
+    userInfoForm?.languages
+      ? [userInfoForm?.languages.main].concat(userInfoForm?.languages.sub)
+      : [values.languages.main].concat(values.languages.sub)
+  ).filter((e) => !!e);
 
   return (
     <FormProvider {...methods}>
@@ -107,7 +120,14 @@ export const MentorInfoForm = () => {
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[24px] mt-[20px] px-[20px]">
-          <LanguageSelectForm languages={mainLanguage ? [mainLanguage, ...subLanguages] : []} />
+          <LanguageSelectForm languages={languages} />
+          <LinkButton
+            href={PATH.MYPAGE_EDIT + "/language"}
+            className="body-2 bg-gray-100 text-primary-dark"
+            onClick={handleAddLanguages}
+          >
+            추가하기
+          </LinkButton>
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[104px] mt-[20px] px-[20px]">
@@ -116,7 +136,7 @@ export const MentorInfoForm = () => {
             <TextArea {...register("introduction")} />
           </FormControl>
         </div>
-        <BottomButton type="submit" disabled={!isDirty || !isValid}>
+        <BottomButton type="submit" disabled={(!isDirty && !isModified) || !isValid}>
           수정하기
         </BottomButton>
       </form>
