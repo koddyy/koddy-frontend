@@ -64,8 +64,11 @@ export const MentorInfoForm = () => {
     setUserInfoForm(getValues());
   };
 
-  const mainLanguage = userInfoForm?.languages.main ?? values.languages.main;
-  const subLanguages = userInfoForm?.languages.sub ?? values.languages.sub ?? [];
+  const languages = (
+    userInfoForm?.languages
+      ? [userInfoForm?.languages.main].concat(userInfoForm?.languages.sub)
+      : [values.languages.main].concat(values.languages.sub)
+  ).filter((e) => !!e);
 
   return (
     <FormProvider {...methods}>
@@ -117,7 +120,7 @@ export const MentorInfoForm = () => {
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[24px] mt-[20px] px-[20px]">
-          <LanguageSelectForm languages={mainLanguage ? [mainLanguage, ...subLanguages] : []} />
+          <LanguageSelectForm languages={languages} />
           <LinkButton
             href={PATH.MYPAGE_EDIT + "/language"}
             className="body-2 bg-gray-100 text-primary-dark"
