@@ -27,8 +27,11 @@ export interface GetAppliedCoffeeChatListResponse {
   result: Array<
     Pick<
       Mentee,
-      "id" | "name" | "profileImageUrl" | "nationality" | "interestSchool" | "interestMajor"
-    >
+      "name" | "profileImageUrl" | "nationality" | "interestSchool" | "interestMajor"
+    > & {
+      coffeeChatId: number;
+      menteeId: number;
+    }
   >;
   totalCount: number;
   hasNext: boolean;
@@ -36,7 +39,10 @@ export interface GetAppliedCoffeeChatListResponse {
 
 export interface GetSuggestedCoffeeChatListResponse {
   result: Array<
-    Pick<Mentor, "id" | "name" | "profileImageUrl" | "languages" | "school" | "major" | "enteredIn">
+    Pick<Mentor, "name" | "profileImageUrl" | "languages" | "school" | "major" | "enteredIn"> & {
+      coffeeChatId: number;
+      mentorId: number;
+    }
   >;
   totalCount: number;
   hasNext: boolean;

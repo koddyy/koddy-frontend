@@ -2,7 +2,7 @@ import { menteeList, mentorList } from "./user";
 
 export const appliedCoffeeChatList = [
   {
-    id: 1,
+    coffeeChatId: 1,
     name: "멘티1",
     profileImageUrl: "",
     nationality: "EN",
@@ -10,7 +10,7 @@ export const appliedCoffeeChatList = [
     interestMajor: "컴퓨터공학부",
   },
   {
-    id: 2,
+    coffeeChatId: 2,
     name: "멘티2",
     profileImageUrl: "",
     nationality: "JP",
@@ -18,7 +18,7 @@ export const appliedCoffeeChatList = [
     interestMajor: "컴퓨터공학부",
   },
   {
-    id: 3,
+    coffeeChatId: 3,
     name: "멘티3",
     profileImageUrl: "",
     nationality: "CN",
@@ -26,7 +26,7 @@ export const appliedCoffeeChatList = [
     interestMajor: "컴퓨터공학부",
   },
   {
-    id: 4,
+    coffeeChatId: 4,
     name: "멘티4",
     profileImageUrl: "",
     nationality: "EN",
@@ -34,7 +34,7 @@ export const appliedCoffeeChatList = [
     interestMajor: "OO학부",
   },
   {
-    id: 5,
+    coffeeChatId: 5,
     name: "멘티5",
     profileImageUrl: "",
     nationality: "VN",
@@ -45,7 +45,7 @@ export const appliedCoffeeChatList = [
 
 export const suggestedCoffeeChatList = [
   {
-    id: 1,
+    coffeeChatId: 1,
     name: "멘토1",
     profileImageUrl: "",
     school: "서울대학교",
@@ -53,7 +53,7 @@ export const suggestedCoffeeChatList = [
     enteredIn: 17,
   },
   {
-    id: 2,
+    coffeeChatId: 2,
     name: "멘토2",
     profileImageUrl: "",
     school: "연세대학교",
@@ -61,7 +61,7 @@ export const suggestedCoffeeChatList = [
     enteredIn: 18,
   },
   {
-    id: 3,
+    coffeeChatId: 3,
     name: "멘토3",
     profileImageUrl: "",
     school: "고려대학교",
@@ -69,7 +69,7 @@ export const suggestedCoffeeChatList = [
     enteredIn: 19,
   },
   {
-    id: 4,
+    coffeeChatId: 4,
     name: "멘토4",
     profileImageUrl: "",
     school: "OO대학교",
@@ -77,7 +77,7 @@ export const suggestedCoffeeChatList = [
     enteredIn: 20,
   },
   {
-    id: 4,
+    coffeeChatId: 4,
     name: "멘토5",
     profileImageUrl: "",
     school: "OO대학교",

@@ -31,11 +31,11 @@ export const NewAppliedCoffeeChatList = () => {
       <div className="mb-4">
         <Carousel loop={false} slides={{ perView: "auto", spacing: 20 }}>
           {newCoffeeChatList.result
-            .map((user) => {
+            .map(({ coffeeChatId, ...user }) => {
               return (
                 <Link
-                  href={`/coffeechat/${user.id}`}
-                  key={user.id}
+                  href={`/coffeechat/${coffeeChatId}`}
+                  key={coffeeChatId}
                   className={cn(
                     "min-w-[70%] max-w-[70%]",
                     newCoffeeChatList.result.length === 1 && "min-max-full min-w-full"
