@@ -54,7 +54,7 @@ export const Select = <T extends string | number>({
         ) : (
           <span className={cn(!value && "text-gray-400")}>{value || placeholder}</span>
         )}
-        {RightContent && <RightContent className="ml-auto" />}
+        {RightContent && <RightContent className="ml-auto" width={18} height={18} />}
       </button>
       {isOpen && (
         <ul
