@@ -1,5 +1,20 @@
 {
   "signup": {
+    "title": "회원 유형을 선택해주세요",
+    "UserTypeCard": {
+      "mentor": {
+        "roleName": "멘토",
+        "description": "한국에 적응하고 싶은 유학생들을 위해<br></br>코띠의 멘토가 되어주세요!",
+        "illustration-alt-text": "멘토 일러스트 이미지"
+      },
+      "mentee": {
+        "roleName": "멘티",
+        "description": "한국 생활을 알고 싶다면<br></br>코띠 멘토의 도움을 받아보세요!",
+        "illustration-alt-text": "멘티 일러스트 이미지"
+      }
+    },
+    "next-button": "다음",
+
     "TermsOfService": {
       "title": "<line>코띠 서비스 이용에</line><line>동의해주세요</line>",
       "agreement": {

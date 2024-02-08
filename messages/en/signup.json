@@ -1,5 +1,20 @@
 {
   "signup": {
+    "title": "Choose who you are!",
+    "UserTypeCard": {
+      "mentor": {
+        "roleName": "Mentor",
+        "description": "Become a mentor for students<br></br>who want to enjoy student life in Korea!",
+        "illustration-alt-text": "mentor illustration"
+      },
+      "mentee": {
+        "roleName": "Mentee",
+        "description": "If you want to learn about life in Korea<br></br>seek the help of a KODDY mentor!",
+        "illustration-alt-text": "mentee illustration"
+      }
+    },
+    "next-button": "Next",
+
     "TermsOfService": {
       "title": "<line>terms of service</line><line>agreement</line>",
       "agreement": {
