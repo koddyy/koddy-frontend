@@ -8,7 +8,7 @@ export const useGetCoffeeChatListWithMentorByStatus = ({
   status,
 }: GetCoffeeChatListRequest) => {
   return useSuspenseInfiniteQuery({
-    queryKey: ["getCoffeeChatListWithMentorByStatus", { category, status }],
+    queryKey: ["coffeeChat", "list", { category, status }],
     queryFn: ({ pageParam }) =>
       coffeeChatApi.getCoffeeChatListWithMentorByStatus({ page: pageParam, category, status }),
     initialPageParam: page,

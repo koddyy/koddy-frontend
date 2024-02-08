@@ -3,7 +3,7 @@ import { coffeeChatApi } from "@/apis/coffeechat/api";
 
 export const useGetNewSuggestedCoffeeChatList = (limit?: number) => {
   return useSuspenseQuery({
-    queryKey: ["getNewSuggestedCoffeeChatList"],
+    queryKey: ["coffeeChat", "list", "new"],
     queryFn: () => coffeeChatApi.getNewSuggestedCoffeeChatList(limit),
   });
 };
