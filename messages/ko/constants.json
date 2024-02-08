@@ -1,9 +1,19 @@
 {
-  "languages-options": {
-    "KR": "한국어",
-    "EN": "영어",
-    "CN": "중국어",
-    "JP": "일본어",
-    "VN": "베트남어"
+  "constants": {
+    "nationality-options": {
+      "KR": "한국",
+      "EN": "미국",
+      "JP": "일본",
+      "CN": "중국",
+      "VN": "베트남",
+      "ETC": "Others"
+    },
+    "languages-options": {
+      "KR": "한국어",
+      "EN": "영어",
+      "CN": "중국어",
+      "JP": "일본어",
+      "VN": "베트남어"
+    }
   }
 }

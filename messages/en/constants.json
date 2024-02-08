@@ -1,9 +1,19 @@
 {
-  "languages-options": {
-    "KR": "Korean",
-    "EN": "English",
-    "CN": "Chinese",
-    "JP": "Japanese",
-    "VN": "Vietnamese"
+  "constants": {
+    "nationality-options": {
+      "KR": "Korean",
+      "EN": "American",
+      "JP": "Japanese",
+      "CN": "Chinese",
+      "VN": "Vietnamese",
+      "ETC": "Other country"
+    },
+    "languages-options": {
+      "KR": "Korean",
+      "EN": "English",
+      "CN": "Chinese",
+      "JP": "Japanese",
+      "VN": "Vietnamese"
+    }
   }
 }

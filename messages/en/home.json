@@ -1,0 +1,13 @@
+{
+  "home": {
+    "explore-mentor": "Explore mentor",
+    "explore-mentee": "Explore mentee",
+
+    "filters": {
+      "language": "Language",
+      "nationality": "Nationality",
+      "reset": "Reset",
+      "show-results": "Show Results"
+    }
+  }
+}

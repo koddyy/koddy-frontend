@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { BrowseMenteeList } from "@/app/[locale]/(main)/components/BrowseMenteeList";
 import { BrowseMentorList } from "@/app/[locale]/(main)/components/BrowseMentorList";
 import { Header } from "@/app/components/Header";
@@ -16,6 +17,8 @@ import { ProfileCompleteBanner } from "./components/ProfileCompleteBanner";
 import { UserCardListSkeleton } from "./components/UserCardListSkeleton";
 
 const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
+  const t = useTranslations("home");
+
   const explore = searchParams.explore ?? "mentee";
   const { createQueryString } = useQueryString();
 
@@ -30,7 +33,7 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
           !isAuthenticated ? (
             <Link href={createQueryString({ explore: explore === "mentor" ? "mentee" : "mentor" })}>
               <Button size="xs" className="body-2-bold h-[35px]" fullWidth={false}>
-                {explore === "mentor" ? "멘티 둘러보기" : "멘토 둘러보기"}
+                {explore === "mentor" ? t("explore-mentee") : t("explore-mentor")}
               </Button>
             </Link>
           ) : null
