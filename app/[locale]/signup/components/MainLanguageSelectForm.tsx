@@ -31,7 +31,7 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
       <FormControl>
         <FormLabel className="headline-1 mb-[9px]">
           {t.rich("signup.MainLanguageSelectForm.title", {
-            line: (chunks) => <div>{chunks}</div>,
+            br: () => <br />,
           })}
         </FormLabel>
         <div className="body-1 mb-[14px] text-gray-600">

@@ -36,7 +36,7 @@ export const SubLanguageSelectForm = () => {
       <FormControl>
         <FormLabel className="headline-1 mb-[9px]">
           {t.rich("signup.SubLanguageSelectForm.title", {
-            line: (chunks) => <div>{chunks}</div>,
+            br: () => <br />,
           })}
         </FormLabel>
         <div className="body-1 mb-[14px] text-gray-600">

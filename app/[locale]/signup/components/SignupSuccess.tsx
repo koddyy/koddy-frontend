@@ -12,7 +12,7 @@ export const SignupSuccess = () => {
         <br />
         <br />
         {t.rich("guide", {
-          line: (chunks) => <div>{chunks}</div>,
+          br: () => <br />,
         })}
       </div>
       <div className="flex flex-col gap-[14px]">

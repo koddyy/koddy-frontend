@@ -16,7 +16,7 @@
     "next-button": "다음",
 
     "TermsOfService": {
-      "title": "<line>코띠 서비스 이용에</line><line>동의해주세요</line>",
+      "title": "코띠 서비스 이용에<br></br>동의해주세요",
       "agreement": {
         "all": "아래 항목에 전부 동의합니다.",
         "개인정보 수집 및 이용": "개인정보 수집 및 이용",
@@ -45,20 +45,20 @@
     },
 
     "MainLanguageSelectForm": {
-      "title": "<line>메인 언어를</line><line>설정해 주세요</line>",
+      "title": "메인 언어를<br></br>설정해 주세요",
       "description": "가장 편안하고 원활하게 대화할 수 있는 언어를 선택해 주세요.",
       "next-button": "다음"
     },
 
     "SubLanguageSelectForm": {
-      "title": "<line>서브 언어를</line><line>설정해 주세요</line>",
+      "title": "서브 언어를<br></br>설정해 주세요",
       "description": "어느 정도 소통이 가능한 수준의 언어를 선택해 주세요.",
       "next-button": "다음"
     },
 
     "SignupSuccess": {
       "success": "가입이 완료됐어요 🎉",
-      "guide": "<line>커피챗을 위한 정보를 입력해주시면</line><line>멘토멘티 신청이 들어올 수 있어요</line>",
+      "guide": "커피챗을 위한 정보를 입력해주시면<br></br>멘토멘티 신청이 들어올 수 있어요",
       "정보 입력하러 가기": "정보 입력하러 가기",
       "다음에 입력할게요": "다음에 입력할게요"
     }
