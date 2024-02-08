@@ -11,8 +11,11 @@ import {
   PostCoffeeChatFromMenteeToMentorResponse,
   PostCoffeeChatFromMentorToMenteeRequest,
   PostCoffeeChatFromMentorToMenteeResponse,
+  PostZoomMeetingLinkRequest,
+  PostZoomMeetingLinkResponse,
 } from "@/apis/coffeechat/types";
 import { ResponseType } from "@/apis/types";
+import { redirectUri } from "../auth/api";
 
 class CoffeeChatApi {
   postCoffeeChatFromMentorToMentee = ({
@@ -102,6 +105,23 @@ class CoffeeChatApi {
   getCoffeeChatById = async (id: number) => {
     const response = await apiInstance.get<GetCoffeeChatByIdResponse>(`/api/coffeechats/${id}`);
     return response.data;
+  };
+
+  postZoomMeetingLink = ({
+    authorizationCode,
+    state,
+    topic,
+    start,
+    end,
+  }: PostZoomMeetingLinkRequest) => {
+    return apiInstance.post<PostZoomMeetingLinkResponse>("/api/oauth/zoom/meetings", {
+      authorizationCode,
+      redirectUri: redirectUri("zoom"),
+      state,
+      topic,
+      start,
+      end,
+    });
   };
 
   /** deprecated */

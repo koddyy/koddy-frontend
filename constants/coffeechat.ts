@@ -4,25 +4,27 @@ import Zoom from "@/assets/zoom.svg";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 
-export type Meeting = "zoom" | "google";
+export type Meeting = "zoomAuto" | "zoom" | "google";
 
 export type SNS = "kakao" | "line" | "wechat";
 
 export type CoffeeChatType = Meeting | SNS;
 
 export const CoffeeChatTypeLabel: Record<CoffeeChatType, string> = {
-  zoom: "Zoom",
-  google: "Google meet",
+  zoomAuto: "Zoom (자동 연동)",
+  zoom: "Zoom (수동 연동)",
+  google: "Google meet (수동 연동)",
   kakao: "카카오톡",
   line: "라인",
   wechat: "위챗",
 };
 
-export const MeetingOptions: Meeting[] = ["zoom", "google"];
+export const MeetingOptions: Meeting[] = ["zoomAuto", "zoom", "google"];
 
 export const SNSOptions: SNS[] = ["kakao", "line", "wechat"];
 
 export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
+  zoomAuto: Zoom,
   zoom: Zoom,
   google: GoogleMeet,
 };

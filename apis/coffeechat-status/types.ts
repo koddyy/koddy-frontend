@@ -14,13 +14,13 @@ export interface PatchCoffeeChatRejectedRequest {
 
 export interface PatchCoffeeChatMentorApprovedRequest {
   coffeeChatId: number;
-  chatType: CoffeeChatType;
+  chatType: Exclude<CoffeeChatType, "zoomAuto">;
   chatValue: string;
 }
 
 export interface PatchCoffeeChatApplyToApproveRequest {
   coffeeChatId: number;
-  chatType: CoffeeChatType;
+  chatType: Exclude<CoffeeChatType, "zoomAuto">;
   chatValue: string;
 }
 

@@ -3,7 +3,7 @@ import { coffeeChatApi } from "@/apis/coffeechat/api";
 
 const useGetCoffeeChatById = (id: number) => {
   return useQuery({
-    queryKey: ["getCoffeeChatById", id],
+    queryKey: ["coffeeChat", id],
     queryFn: () => coffeeChatApi.getCoffeeChatById(id),
   });
 };

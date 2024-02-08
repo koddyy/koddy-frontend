@@ -1,7 +1,7 @@
 import type { OauthProvider } from "@/types/oauth";
 import { apiInstance } from "../axios";
 
-const redirectUri = (provider: OauthProvider) =>
+export const redirectUri = (provider: OauthProvider) =>
   (process.env.NODE_ENV === "development"
     ? "http://localhost:3000/login"
     : `${process.env.NEXT_PUBLIC_APP_URL}/login`) + `/${provider}`;

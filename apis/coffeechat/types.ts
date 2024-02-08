@@ -85,7 +85,7 @@ export type GetCoffeeChatByIdResponse = {
     rejectReason: string | null;
     start: string;
     end: string;
-    chatType: CoffeeChatType;
+    chatType: Exclude<CoffeeChatType, "zoomAuto">;
     chatValue: string;
   };
 } & (
@@ -118,6 +118,22 @@ export type GetCoffeeChatByIdResponse = {
       mentee: undefined;
     }
 );
+
+export interface PostZoomMeetingLinkRequest {
+  authorizationCode: string;
+  state: string;
+  topic: string;
+  start: string;
+  end: string;
+}
+
+export interface PostZoomMeetingLinkResponse {
+  id: string;
+  hostEmail: string;
+  topic: string;
+  joinUrl: string;
+  duration: number;
+}
 
 /**
  * =========================

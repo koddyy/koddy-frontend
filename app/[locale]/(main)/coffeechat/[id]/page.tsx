@@ -120,6 +120,8 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           onSubmit={({ chatType, chatValue }) =>
             approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
           }
+          startTime={coffeeChat.start}
+          endTime={coffeeChat.end}
         />
       )}
       {isApproveSuccess && (
