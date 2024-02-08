@@ -85,7 +85,7 @@ export type GetCoffeeChatByIdResponse = {
     rejectReason: string | null;
     start: string;
     end: string;
-    chatType: CoffeeChatType;
+    chatType: Exclude<CoffeeChatType, "zoomAuto">;
     chatValue: string;
   };
 } & (

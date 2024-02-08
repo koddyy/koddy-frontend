@@ -57,6 +57,16 @@
 }
 
 @layer utilities {
+  .scrollbar-hidden {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /** typography */
+
   .headline-1 {
     @apply text-[1.75rem] font-[700] leading-[130%];
   }

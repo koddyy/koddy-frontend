@@ -15,7 +15,13 @@ import {
 import { cn } from "@/utils/cn";
 
 interface CoffeeChatTypeSelectBottomSheetProps extends BottomSheetProps {
-  onSubmit: ({ chatType, chatValue }: { chatType: CoffeeChatType; chatValue: string }) => void;
+  onSubmit: ({
+    chatType,
+    chatValue,
+  }: {
+    chatType: Exclude<CoffeeChatType, "zoomAuto">;
+    chatValue: string;
+  }) => void;
 }
 
 export const CoffeeChatTypeSelectBottomSheet = ({
@@ -32,7 +38,11 @@ export const CoffeeChatTypeSelectBottomSheet = ({
 
   const handleClickNext = () => {
     if (isDisabled) return;
-    onSubmit({ chatType, chatValue });
+    if (chatType === "zoomAuto") {
+      //
+    } else {
+      onSubmit({ chatType, chatValue });
+    }
   };
 
   return (
@@ -74,7 +84,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
               </div>
             );
           }}
-          dropdownClassName="border-none scrollbar-hidden shadow-[0_4px_20px_0px_rgba(0,0,0,0.15)]"
+          dropdownClassName="border-none scrollbar-hidden shadow-[0_4px_20px_0px_rgba(0,0,0,0.15)] max-h-fit"
         />
         {selectedType === "SNS ID" && (
           <div className="flex gap-[14px]">
@@ -97,7 +107,10 @@ export const CoffeeChatTypeSelectBottomSheet = ({
           placeholder={(() => {
             if (!selectedType) return "";
             else if (selectedType === "SNS ID") return "ID를 입력해 주세요.";
-            return `${CoffeeChatTypeLabel[selectedType]} 링크를 입력해 주세요.`;
+            else if (selectedType === "zoomAuto") return "Zoom 제목을 입력해 주세요.";
+            return `${CoffeeChatTypeLabel[selectedType]
+              .replace(/\([^)]*\)/g, "")
+              .trim()} 링크를 입력해 주세요.`;
           })()}
           value={chatValue}
           onChange={(e) => setChatValue(e.target.value)}
