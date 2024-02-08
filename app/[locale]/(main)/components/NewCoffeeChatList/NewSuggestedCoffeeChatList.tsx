@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useGetNewSuggestedCoffeeChatList } from "@/apis/coffeechat/hooks/useGetNewSuggestedCoffeeChatList";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Carousel } from "@/components/Carousel";
@@ -8,6 +9,8 @@ import { cn } from "@/utils/cn";
 import { UserCard } from "../UserCard";
 
 export const NewSuggestedCoffeeChatList = () => {
+  const t = useTranslations("home.NewCoffeeChatList");
+
   const { data: newCoffeeChatList } = useGetNewSuggestedCoffeeChatList();
 
   if (newCoffeeChatList.result.length === 0) return;
@@ -16,15 +19,16 @@ export const NewSuggestedCoffeeChatList = () => {
     <>
       <div className="mb-3 flex justify-between">
         <div className="subheading-bold">
-          커피챗 제안 온 멘토가
-          <span className="text-primary"> {`${newCoffeeChatList.totalCount}명 `}</span>
-          있어요
+          {t.rich("title.suggested", {
+            count: newCoffeeChatList.totalCount,
+            mark: (chunk) => <span className="text-primary">{chunk}</span>,
+          })}
         </div>
         <Link
           href={PATH.COFFEECHAT + "?category=suggested&status=SUGGEST"}
           className="body-3 flex items-center text-gray-600"
         >
-          더보기
+          {t("view")}
           <ArrowRight width={20} height={20} />
         </Link>
       </div>
@@ -55,7 +59,7 @@ export const NewSuggestedCoffeeChatList = () => {
                   href={PATH.COFFEECHAT + "?category=suggested&status=SUGGEST"}
                 >
                   <div className="subheading-bold flex items-center gap-[4px]">
-                    <span>더보기</span>
+                    <span>{t("more")}</span>
                     <ArrowRight width={24} height={24} />
                   </div>
                 </Link>

@@ -8,6 +8,28 @@
       "nationality": "국적",
       "reset": "초기화",
       "show-results": "결과 보기"
+    },
+
+    "ProfileCompleteBanner": {
+      "mentor": {
+        "title": "멘토 프로필 <mark>{percent}%</mark> 완성",
+        "description": "커피챗 성사를 위해 {name}님의 소개를 입력해 주세요!",
+        "complete-profile": ""
+      },
+      "mentee": {
+        "title": "멘티님의 소개가 궁금해요.",
+        "description": "커피챗 성사를 위해 {name}님의 소개를 입력해 주세요!",
+        "complete-profile": "입력하러 가기"
+      }
+    },
+
+    "NewCoffeeChatList": {
+      "title": {
+        "applied": "예약을 신청한 멘티가 <mark>{count}명</mark> 있어요",
+        "suggested": "커피챗 제안 온 멘토가 <mark>{count}명</mark> 있어요"
+      },
+      "view": "더보기",
+      "more": "더보기"
     }
   }
 }
