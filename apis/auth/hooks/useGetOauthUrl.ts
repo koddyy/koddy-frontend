@@ -8,5 +8,6 @@ export const useGetOauthUrl = (provider?: OauthProvider) => {
     queryFn: () => authApi.getOauthUrl({ provider: provider! }),
     select: (data) => data.result,
     enabled: Boolean(provider),
+    staleTime: Infinity,
   });
 };
