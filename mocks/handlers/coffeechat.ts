@@ -1,11 +1,46 @@
-import { delay, http, HttpResponse } from "msw";
+import { delay, http, HttpResponse, PathParams } from "msw";
+import { PostZoomMeetingLinkResponse } from "@/apis/coffeechat/types";
 import {
   appliedCoffeeChatList,
+  coffeeChatWithMenteeList,
+  coffeeChatWithMentorList,
   depreactedCoffeeChatList,
   suggestedCoffeeChatList,
 } from "../fixture/coffeechat";
+import { menteeList, mentorList } from "../fixture/user";
 
 export const handlers = [
+  http.get("/api/oauth/access/:provider", async ({ params }) => {
+    await delay(1500);
+
+    const provider = params.provider;
+
+    return HttpResponse.json(
+      { result: `/login/${provider}?code=mock-code&state=mock-state` },
+      { status: 200 }
+    );
+  }),
+
+  http.post<PathParams, PostZoomMeetingLinkResponse>(
+    "/api/oauth/zoom/meetings",
+    async ({ request }) => {
+      const { topic } = await request.json();
+
+      await delay(1500);
+
+      return HttpResponse.json(
+        {
+          id: "123456789",
+          hostEmail: "mentor1@gmail.com",
+          topic,
+          joinUrl: "https://us05web.zoom.us/mock-url",
+          duration: 60,
+        },
+        { status: 200 }
+      );
+    }
+  ),
+
   http.post("/api/coffeechats/suggest/:menteeId", async () => {
     await delay(1500);
 
@@ -44,6 +79,38 @@ export const handlers = [
       },
       { status: 200 }
     );
+  }),
+
+  http.get("/api/coffeechats/:id", async ({ params }) => {
+    const role = new URL(window.location.href).searchParams.get("role");
+
+    const id = Number(params.id);
+
+    if (role === "mentor") {
+      const coffeeChat = coffeeChatWithMenteeList.find((v) => v.id === id);
+
+      if (!coffeeChat) return new HttpResponse(null, { status: 404 });
+
+      return HttpResponse.json(
+        {
+          mentee: menteeList[0],
+          coffeeChat,
+        },
+        { status: 200 }
+      );
+    } else {
+      const coffeeChat = coffeeChatWithMentorList.find((v) => v.id === id);
+
+      if (!coffeeChat) return new HttpResponse(null, { status: 404 });
+
+      return HttpResponse.json(
+        {
+          mentor: mentorList[0],
+          coffeeChat,
+        },
+        { status: 200 }
+      );
+    }
   }),
 
   /** deprecated */
