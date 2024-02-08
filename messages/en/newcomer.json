@@ -1,0 +1,9 @@
+{
+  "newcomer": {
+    "introduction": {
+      "label": "<line>Please introduce</line><line>yourself</line>",
+      "placeholder": "It would be great if you could tell us a brief introduction, why you're doing this coffee chat, and what your current experiences are like"
+    },
+    "complete-button": "Complete"
+  }
+}

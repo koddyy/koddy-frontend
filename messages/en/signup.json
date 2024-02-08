@@ -47,21 +47,5 @@
       "정보 입력하러 가기": "To enter information",
       "다음에 입력할게요": "I'll enter it next time"
     }
-  },
-
-  "newcomer": {
-    "introduction": {
-      "label": "<line>Please introduce</line><line>yourself</line>",
-      "placeholder": "It would be great if you could tell us a brief introduction, why you're doing this coffee chat, and what your current experiences are like"
-    },
-    "complete-button": "Complete"
-  },
-
-  "languages-options": {
-    "KR": "Korean",
-    "EN": "English",
-    "CN": "Chinese",
-    "JP": "Japanese",
-    "VN": "Vietnamese"
   }
 }
