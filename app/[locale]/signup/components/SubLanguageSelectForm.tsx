@@ -40,7 +40,9 @@ export const SubLanguageSelectForm = () => {
           })}
         </FormLabel>
         <div className="body-1 mb-[14px] text-gray-600">
-          {t("signup.SubLanguageSelectForm.description")}
+          {t.rich("signup.SubLanguageSelectForm.description", {
+            br: () => <br />,
+          })}
         </div>
         <div className="flex flex-col gap-[6px]">
           {languagesOptions.map(([key]) => (
@@ -58,7 +60,7 @@ export const SubLanguageSelectForm = () => {
         </div>
       </FormControl>
       <BottomButton type="submit" disabled={!isValid}>
-        {t("signup.SubLanguageSelectForm.next-button")}
+        {t("signup.SubLanguageSelectForm.next")}
       </BottomButton>
     </>
   );

@@ -3,17 +3,17 @@
     "title": "회원 유형을 선택해주세요",
     "UserTypeCard": {
       "mentor": {
-        "roleName": "멘토",
+        "role-name": "멘토",
         "description": "한국에 적응하고 싶은 유학생들을 위해<br></br>코띠의 멘토가 되어주세요!",
         "illustration-alt-text": "멘토 일러스트 이미지"
       },
       "mentee": {
-        "roleName": "멘티",
+        "role-name": "멘티",
         "description": "한국 생활을 알고 싶다면<br></br>코띠 멘토의 도움을 받아보세요!",
         "illustration-alt-text": "멘티 일러스트 이미지"
       }
     },
-    "next-button": "다음",
+    "next": "다음",
 
     "TermsOfService": {
       "title": "코띠 서비스 이용에<br></br>동의해주세요",
@@ -25,42 +25,62 @@
         "prefix": "",
         "postfix": "에 동의합니다. (필수)"
       },
-      "next-button": "다음"
+      "next": "다음"
     },
 
     "BasicInformationForm": {
-      "interestSchool": {
-        "label": "관심 학교",
-        "placeholder": "관심있는 학교를 입력해 주세요."
+      "mentor": {
+        "title": "기본 정보를<br></br>입력해 주세요",
+        "school": {
+          "label": "학교",
+          "placeholder": "재학 또는 졸업한 학교를 입력해 주세요"
+        },
+        "entered-in": {
+          "label": "학번",
+          "placeholder": "학번을 선택해 주세요."
+        },
+        "major": {
+          "label": "전공",
+          "placeholder": "전공을 입력해 주세요."
+        },
+        "next": "다음"
       },
-      "interestMajor": {
-        "label": "관심 전공",
-        "placeholder": "관심있는 전공을 입력해 주세요."
-      },
-      "nationality": {
-        "label": "국적",
-        "placeholder": "국적을 선택해 주세요."
-      },
-      "next-button": "다음"
+
+      "mentee": {
+        "title": "기본 정보를<br></br>입력해 주세요",
+        "interestSchool": {
+          "label": "관심 학교",
+          "placeholder": "관심있는 학교를 입력해 주세요."
+        },
+        "interestMajor": {
+          "label": "관심 전공",
+          "placeholder": "관심있는 전공을 입력해 주세요."
+        },
+        "nationality": {
+          "label": "국적",
+          "placeholder": "국적을 선택해 주세요."
+        },
+        "next": "다음"
+      }
     },
 
     "MainLanguageSelectForm": {
       "title": "메인 언어를<br></br>설정해 주세요",
-      "description": "가장 편안하고 원활하게 대화할 수 있는 언어를 선택해 주세요.",
-      "next-button": "다음"
+      "description": "가장 편안하고 원활하게 대화할 수 있는 언어를<br></br>선택해 주세요.",
+      "next": "다음"
     },
 
     "SubLanguageSelectForm": {
       "title": "서브 언어를<br></br>설정해 주세요",
-      "description": "어느 정도 소통이 가능한 수준의 언어를 선택해 주세요.",
-      "next-button": "다음"
+      "description": "어느 정도 소통이 가능한 수준의 언어를<br></br>선택해 주세요.",
+      "next": "다음"
     },
 
     "SignupSuccess": {
       "success": "가입이 완료됐어요 🎉",
       "guide": "커피챗을 위한 정보를 입력해주시면<br></br>멘토멘티 신청이 들어올 수 있어요",
-      "정보 입력하러 가기": "정보 입력하러 가기",
-      "다음에 입력할게요": "다음에 입력할게요"
+      "complete-profile": "정보 입력하러 가기",
+      "next-time": "다음에 입력할게요"
     }
   }
 }

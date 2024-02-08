@@ -35,7 +35,9 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
           })}
         </FormLabel>
         <div className="body-1 mb-[14px] text-gray-600">
-          {t("signup.SubLanguageSelectForm.description")}
+          {t.rich("signup.MainLanguageSelectForm.description", {
+            br: () => <br />,
+          })}
         </div>
         <div className="flex flex-col gap-[6px]">
           {languagesOptions.map(([key]) => (
@@ -58,7 +60,7 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
         </div>
       </FormControl>
       <BottomButton disabled={!isValid} onClick={onClickNextStep}>
-        {t("signup.MainLanguageSelectForm.next-button")}
+        {t("signup.MainLanguageSelectForm.next")}
       </BottomButton>
     </>
   );

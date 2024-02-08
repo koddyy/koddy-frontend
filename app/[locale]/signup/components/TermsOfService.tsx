@@ -70,7 +70,7 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
         ))}
       </div>
       <BottomButton disabled={!isCheckedAll} onClick={onClickNextStep}>
-        {t("next-button")}
+        {t("next")}
       </BottomButton>
     </>
   );

@@ -3,17 +3,17 @@
     "title": "Choose who you are!",
     "UserTypeCard": {
       "mentor": {
-        "roleName": "Mentor",
+        "role-name": "Mentor",
         "description": "Become a mentor for students<br></br>who want to enjoy student life in Korea!",
         "illustration-alt-text": "mentor illustration"
       },
       "mentee": {
-        "roleName": "Mentee",
+        "role-name": "Mentee",
         "description": "If you want to learn about life in Korea<br></br>seek the help of a KODDY mentor!",
         "illustration-alt-text": "mentee illustration"
       }
     },
-    "next-button": "Next",
+    "next": "Next",
 
     "TermsOfService": {
       "title": "Terms of service<br></br>agreement",
@@ -25,42 +25,62 @@
         "prefix": "I agree to",
         "postfix": "(essentials)"
       },
-      "next-button": "Next"
+      "next": "Next"
     },
 
     "BasicInformationForm": {
-      "interestSchool": {
-        "label": "School of interest",
-        "placeholder": "Please enter the school of interest."
+      "mentor": {
+        "title": "Tell us your<br></br>academic information",
+        "school": {
+          "label": "School",
+          "placeholder": "Please enter the school you're attending or graduated from"
+        },
+        "entered-in": {
+          "label": "Admitted Year",
+          "placeholder": "Please select your admitted year."
+        },
+        "major": {
+          "label": "Major",
+          "placeholder": "Please enter your major."
+        },
+        "next": "Next"
       },
-      "interestMajor": {
-        "label": "Major of interest",
-        "placeholder": "Please enter your major of interest."
-      },
-      "nationality": {
-        "label": "country",
-        "placeholder": "please select your country"
-      },
-      "next-button": "Next"
+
+      "mentee": {
+        "title": "Tell us your<br></br>academic information",
+        "interest-school": {
+          "label": "School of interest",
+          "placeholder": "Please enter the school of interest."
+        },
+        "interest-major": {
+          "label": "Major of interest",
+          "placeholder": "Please enter your major of interest."
+        },
+        "nationality": {
+          "label": "country",
+          "placeholder": "please select your country"
+        },
+        "next": "Next"
+      }
     },
 
     "MainLanguageSelectForm": {
       "title": "please select<br></br>your main language",
-      "description": "Select the language you feel most comfortable and can converse smoothly in.",
-      "next-button": "Next"
+      "description": "Choose the language you are most comfortable and fluent in.",
+      "next": "Next"
     },
 
     "SubLanguageSelectForm": {
       "title": "please select<br></br>your sub language",
       "description": "Select a language that, while not as proficient as the main language, allows for a certain level of communication.",
-      "next-button": "Next"
+      "next": "Next"
     },
 
     "SignupSuccess": {
-      "success": "I'm done signing up 🎉",
-      "guide": "If you enter the information for Coffee Chat<br></br>Mentor message applications can come in",
-      "정보 입력하러 가기": "To enter information",
-      "다음에 입력할게요": "I'll enter it next time"
+      "success": "Registration Complete 🎉",
+      "guide": "Tell Us More about yourself<br></br>to let the others get to know you better!",
+      "complete-profile": "Complete profile",
+      "next-time": "I'll do it next time"
     }
   }
 }

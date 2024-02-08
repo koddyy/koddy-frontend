@@ -30,7 +30,7 @@ const Page = () => {
         />
       </div>
       <BottomButton onClick={() => router.push(`/signup/${selectedUserType}`)}>
-        {t("next-button")}
+        {t("next")}
       </BottomButton>
     </div>
   );

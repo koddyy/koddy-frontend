@@ -30,7 +30,7 @@ export const UserTypeCard = ({ type, onClick, isSelected = false }: UserTypeCard
         <Image alt={t(`${type}.illustration-alt-text`)} />
       </div>
       <div className="text-center">
-        <span className="subheading-bold">{t(`${type}.roleName`)}</span>
+        <span className="subheading-bold">{t(`${type}.role-name`)}</span>
         <p className="body-3 whitespace-pre-line text-gray-600">
           {t.rich(`${type}.description`, {
             br: () => <br />,

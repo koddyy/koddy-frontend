@@ -14,7 +14,7 @@ interface BasicInformationProps {
 }
 
 export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps) => {
-  const t = useTranslations("signup.BasicInformationForm");
+  const t = useTranslations("signup.BasicInformationForm.mentee");
 
   const {
     register,
@@ -32,17 +32,17 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
   return (
     <div className="flex flex-col gap-4">
       <FormControl required>
-        <FormLabel htmlFor="interestSchool">{t("interestSchool.label")}</FormLabel>
+        <FormLabel htmlFor="interestSchool">{t("interest-school.label")}</FormLabel>
         <Input
-          placeholder={t("interestSchool.placeholder")}
+          placeholder={t("interest-school.placeholder")}
           {...register("interestSchool", { required: true })}
         />
       </FormControl>
 
       <FormControl required>
-        <FormLabel htmlFor="interestMajor">{t("interestMajor.label")}</FormLabel>
+        <FormLabel htmlFor="interestMajor">{t("interest-major.label")}</FormLabel>
         <Input
-          placeholder={t("interestMajor.placeholder")}
+          placeholder={t("interest-major.placeholder")}
           {...register("interestMajor", { required: true })}
         />
       </FormControl>
@@ -60,7 +60,7 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
       </FormControl>
 
       <BottomButton disabled={!isValid} onClick={onClickNextStep}>
-        {t("next-button")}
+        {t("next")}
       </BottomButton>
     </div>
   );
