@@ -119,6 +119,22 @@ export type GetCoffeeChatByIdResponse = {
     }
 );
 
+export interface PostZoomMeetingLinkRequest {
+  authorizationCode: string;
+  state: string;
+  topic: string;
+  start: string;
+  end: string;
+}
+
+export interface PostZoomMeetingLinkResponse {
+  id: string;
+  hostEmail: string;
+  topic: string;
+  joinUrl: string;
+  duration: number;
+}
+
 /**
  * =========================
  * @TODO remove
