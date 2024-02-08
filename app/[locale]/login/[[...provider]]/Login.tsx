@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useOauthLogin } from "@/apis/auth/hooks/useOauthLogin";
 import { Spinner } from "@/components/Spinner";
@@ -13,6 +14,8 @@ interface LoginProps {
 }
 
 export const Login = ({ provider, authorizationCode, state }: LoginProps) => {
+  const t = useTranslations("login");
+
   const { mutate: login, isPending } = useOauthLogin();
   const { setProvider, setLoggedIn } = useProviderStore();
 
@@ -36,9 +39,9 @@ export const Login = ({ provider, authorizationCode, state }: LoginProps) => {
         <div className="m-auto flex flex-col items-center gap-[21px] text-white">
           <Spinner />
           <div className="body-1-bold text-center">
-            계정에
-            <br />
-            접속하고 있어요
+            {t.rich("signing-in", {
+              br: () => <br />,
+            })}
           </div>
         </div>
       </div>

@@ -1,0 +1,16 @@
+{
+  "login": {
+    "onboarding": {
+      "discover": "discover the perfect<br></br>mentor or mentee for you.",
+      "match-with": "Match with who aligns with<br></br>your interests and goals.",
+      "manage-chat": "Manage your<br></br>Chat schedule"
+    },
+    "sign-in": {
+      "kakao": "Sign in with KakaoTalk",
+      "google": "Sign in with Google"
+    },
+    "continue-as-guest": "Continue as a guest",
+    "recent-login": "Recent Login Method",
+    "signing-in": "Signing in.."
+  }
+}
