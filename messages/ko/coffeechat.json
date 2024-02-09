@@ -1,0 +1,33 @@
+{
+  "coffeechat": {
+    "category": {
+      "mentor": {
+        "applied": "신청왔어요",
+        "suggested": "제안했어요"
+      },
+      "mentee": {
+        "applied": "신청했어요",
+        "suggested": "제안왔어요"
+      }
+    },
+    "status": {
+      "all": "전체",
+      "mentor": {
+        "APPLY": "신청",
+        "SUGGEST": "제안",
+        "PENDING": "수락",
+        "APPROVE": "예정",
+        "COMPLETE": "완료",
+        "CANCEL,REJECT": "취소"
+      },
+      "mentee": {
+        "APPLY": "신청",
+        "SUGGEST": "제안",
+        "PENDING": "수락",
+        "APPROVE": "예정",
+        "COMPLETE": "완료",
+        "CANCEL,REJECT": "취소"
+      }
+    }
+  }
+}

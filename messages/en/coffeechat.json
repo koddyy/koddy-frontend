@@ -1,0 +1,33 @@
+{
+  "coffeechat": {
+    "category": {
+      "mentor": {
+        "applied": "Recieved",
+        "suggested": "Sent"
+      },
+      "mentee": {
+        "applied": "Sent",
+        "suggested": "Recieved"
+      }
+    },
+    "status": {
+      "all": "All",
+      "mentor": {
+        "APPLY": "received",
+        "SUGGEST": "sent",
+        "PENDING": "accepted",
+        "APPROVE": "scheduled",
+        "COMPLETE": "completed",
+        "CANCEL,REJECT": "canceled"
+      },
+      "mentee": {
+        "APPLY": "sent",
+        "SUGGEST": "received",
+        "PENDING": "accepted",
+        "APPROVE": "scheduled",
+        "COMPLETE": "completed",
+        "CANCEL,REJECT": "canceled"
+      }
+    }
+  }
+}

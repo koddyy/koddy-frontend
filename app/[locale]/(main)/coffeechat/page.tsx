@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import qs from "querystring";
 import { Suspense } from "react";
 import {
@@ -11,7 +12,6 @@ import {
 import { GoToLogin } from "@/app/components/GoToLogin";
 import { Header } from "@/app/components/Header";
 import { Tag } from "@/components/Tag";
-import { CoffeeChatStatusOptions } from "@/constants/coffeechat";
 import { useAuth } from "@/hooks/useAuth";
 import {
   CoffeeChatCategory,
@@ -21,18 +21,8 @@ import {
 } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 import { cn } from "@/utils/cn";
-import { getEntries } from "@/utils/object";
 
-const CATEGORY: Record<Role, Record<CoffeeChatCategory, string>> = {
-  mentor: {
-    applied: "신청왔어요",
-    suggested: "제안했어요",
-  },
-  mentee: {
-    applied: "신청했어요",
-    suggested: "제안왔어요",
-  },
-};
+const CATEGORY: CoffeeChatCategory[] = ["applied", "suggested"];
 
 const COFFEECHAT_STATUS_OPTIONS: Record<Role, Record<CoffeeChatCategory, CoffeeChatStatus[]>> = {
   mentor: {
@@ -54,6 +44,8 @@ const Page = ({
     status: string;
   };
 }) => {
+  const t = useTranslations("coffeechat");
+
   const explore = searchParams.explore ?? "mentee";
   const pathname = usePathname();
   const activeCategory = isValidCoffeeChatCategory(searchParams.category)
@@ -71,9 +63,7 @@ const Page = ({
     <>
       <Header />
       <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
-        {getEntries(
-          CATEGORY[isAuthenticated ? me.role : explore === "mentor" ? "mentee" : "mentor"]
-        ).map(([key, label], i) => (
+        {CATEGORY.map((key, i) => (
           <Link
             key={i}
             href={`${pathname}?${qs.stringify({ category: key })}`}
@@ -82,7 +72,9 @@ const Page = ({
               activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
             )}
           >
-            {label}
+            {isAuthenticated
+              ? t(`category.${me.role}.${key}`)
+              : t(`category.${explore === "mentor" ? "mentee" : "mentor"}.${key}`)}
           </Link>
         ))}
       </div>
@@ -100,7 +92,7 @@ const Page = ({
                 color={!activeStatus ? "primary" : "grayscale"}
                 className={cn(activeStatus && "body-3")}
               >
-                전체
+                {t("status.all")}
               </Tag>
             </Link>
             {COFFEECHAT_STATUS_OPTIONS[me.role][activeCategory].map((key, i) => {
@@ -118,7 +110,7 @@ const Page = ({
                     color={isActive ? "primary" : "grayscale"}
                     className={cn(!isActive && "body-3")}
                   >
-                    {CoffeeChatStatusOptions[key]}
+                    {t(`status.${me.role}.${key}`)}
                   </Tag>
                 </Link>
               );

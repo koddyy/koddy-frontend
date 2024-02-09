@@ -14,6 +14,25 @@
       "CN": "중국어",
       "JP": "일본어",
       "VN": "베트남어"
+    },
+
+    "coffeechat-status-text": {
+      "mentor": {
+        "APPROVE": "커피챗 예정이에요",
+        "APPLY": "커피챗 신청이 왔어요",
+        "SUGGEST": "커피챗 제안을 했어요",
+        "PENDING": "커피챗을 수락했어요",
+        "COMPLETE": "커피챗을 완료했어요",
+        "CANCEL,REJECT": "커피챗이 취소됐어요"
+      },
+      "mentee": {
+        "APPROVE": "커피챗 예정이에요",
+        "APPLY": "커피챗 신청을 했어요",
+        "SUGGEST": "커피챗 제안이 왔어요",
+        "PENDING": "커피챗 제안을 수락했어요",
+        "COMPLETE": "커피챗을 완료했어요",
+        "CANCEL,REJECT": "커피챗이 취소됐어요"
+      }
     }
   }
 }
