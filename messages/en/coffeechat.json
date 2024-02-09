@@ -28,6 +28,29 @@
         "COMPLETE": "completed",
         "CANCEL,REJECT": "canceled"
       }
-    }
+    },
+
+    "CoffeeChatSchedule": {
+      "date": {
+        "APPROVE": "Date",
+        "APPLY": "Date",
+        "PENDING": "Date",
+        "COMPLETE": "Date"
+      },
+      "how": "How",
+      "link": "Link",
+      "copy-link": "Copy Link"
+    },
+
+    "introductionOfMentor": "About me",
+    "introductionOfMentee": "About me",
+    "questionOfMentor": "Note",
+    "questionOfMentee": "Note",
+    "questionToMentor": "Note",
+    "questionToMentee": "Note",
+
+    "accept-coffeechat": "Accept",
+    "reject-coffeechat": "Decline",
+    "cancel-coffeechat": "Cancel a chat"
   }
 }

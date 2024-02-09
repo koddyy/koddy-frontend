@@ -15,6 +15,10 @@
       "JP": "Japanese",
       "VN": "Vietnamese"
     },
+    "language-type": {
+      "main": "Main Language",
+      "sub": "Sub Language"
+    },
 
     "coffeechat-status-text": {
       "mentor": {

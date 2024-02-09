@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PendingBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/PendingBottomSheet";
@@ -8,7 +9,6 @@ import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCance
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
-import { CoffeeChatStatusText } from "@/constants/coffeechat";
 import { MenteeProfile, MentorProfile } from "../../components/UserProfile";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
 import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
@@ -42,6 +42,9 @@ interface CoffeeChatDetailProps {
 }
 
 const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
+  const t = useTranslations("coffeechat");
+  const constants = useTranslations("constants");
+
   const { data, isLoading } = useGetCoffeeChatById(id);
   const { mentee, coffeeChat } = data ?? {};
 
@@ -66,7 +69,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
     <>
       <MenteeProfile
         {...mentee}
-        coffeeChatStatusText={CoffeeChatStatusText.mentor[coffeeChat.status]}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
       />
       {(coffeeChat.status === "APPROVE" ||
         coffeeChat.status === "APPLY" ||
@@ -79,13 +82,13 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       <Divider />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">멘티의 자기소개</span>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
             {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">멘토에게 궁금한 점</span>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionToMentor")}</span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
             {coffeeChat.question ?? "궁금한 점을 입력하지 않았어요."}
           </p>
@@ -97,7 +100,7 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
             className="border-[0.5px]"
             onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
           >
-            커피챗 취소하기
+            {t("cancel-coffeechat")}
           </Button>
         )}
       </div>
@@ -107,9 +110,9 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
           <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
             <div className="flex gap-5">
               <Button variant="outline" onClick={toggleIsReject}>
-                거절하기
+                {t("reject-coffeechat")}
               </Button>
-              <Button onClick={setIsApproveTrue}>수락하기</Button>
+              <Button onClick={setIsApproveTrue}>{t("accept-coffeechat")}</Button>
             </div>
           </div>
         </>
@@ -159,6 +162,9 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
 };
 
 const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
+  const t = useTranslations("coffeechat");
+  const constants = useTranslations("constants");
+
   const { data, isLoading } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
@@ -181,7 +187,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
     <>
       <MentorProfile
         {...mentor}
-        coffeeChatStatusText={CoffeeChatStatusText.mentee[coffeeChat.status]}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
       {(coffeeChat.status === "APPROVE" ||
         coffeeChat.status === "APPLY" ||
@@ -194,7 +200,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       <Divider />
       <div className="px-[20px] py-[12px]">
         <div className="mb-[20px]">
-          <span className="body-3-bold mb-[0.38rem] inline-block">멘토의 자기소개</span>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentor")}</span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
@@ -206,7 +212,7 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
             className="border-[0.5px]"
             onClick={setIsCancelTrue}
           >
-            커피챗 취소하기
+            {t("cancel-coffeechat")}
           </Button>
         )}
       </div>
@@ -216,10 +222,10 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
           <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
             <div className="flex gap-5">
               <Button variant="outline" onClick={setIsRejectTrue}>
-                거절하기
+                {t("reject-coffeechat")}
               </Button>
               <LinkButton href={`/schedule?mentor=${mentor.id}&coffeechat=${id}`}>
-                수락하기
+                {t("accept-coffeechat")}
               </LinkButton>
             </div>
           </div>

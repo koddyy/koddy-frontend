@@ -28,6 +28,29 @@
         "COMPLETE": "완료",
         "CANCEL,REJECT": "취소"
       }
-    }
+    },
+
+    "CoffeeChatSchedule": {
+      "date": {
+        "APPROVE": "예정 시간",
+        "APPLY": "신청 시간",
+        "PENDING": "신청 시간",
+        "COMPLETE": "시간"
+      },
+      "how": "방식",
+      "link": "링크",
+      "copy-link": "링크 복사"
+    },
+
+    "introductionOfMentor": "멘토의 자기소개",
+    "introductionOfMentee": "멘티의 자기소개",
+    "questionOfMentor": "멘토가 나에게 궁금한 점",
+    "questionOfMentee": "멘티가 나에게 궁금한 점",
+    "questionToMentor": "내가 멘토에게 궁금한 점",
+    "questionToMentee": "내가 멘티에게 궁금한 점",
+
+    "accept-coffeechat": "수락하기",
+    "reject-coffeechat": "거절하기",
+    "cancel-coffeechat": "커피챗 취소하기"
   }
 }

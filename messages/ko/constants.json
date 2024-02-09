@@ -15,6 +15,10 @@
       "JP": "일본어",
       "VN": "베트남어"
     },
+    "language-type": {
+      "main": "메인 언어",
+      "sub": "서브 언어"
+    },
 
     "coffeechat-status-text": {
       "mentor": {
