@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
 import { useCreateZoomMeetingLink } from "@/apis/coffeechat/hooks/useCreateZoomMeetingLink";
@@ -8,7 +9,6 @@ import { TextArea } from "@/components/TextArea";
 import {
   CoffeeChatType,
   CoffeeChatTypeIcon,
-  CoffeeChatTypeLabel,
   Meeting,
   MeetingOptions,
   SNS,
@@ -37,6 +37,8 @@ export const CoffeeChatTypeSelectBottomSheet = ({
   startTime,
   endTime,
 }: CoffeeChatTypeSelectBottomSheetProps) => {
+  const t = useTranslations("coffeechat.CoffeeChatTypeSelectBottomSheet");
+
   const [selectedType, setSelectedType] = useState<Meeting | "SNS ID">();
   const [seletedSNS, setseletedSNS] = useState<SNS>();
   const [chatValue, setChatValue] = useState("");
@@ -76,13 +78,11 @@ export const CoffeeChatTypeSelectBottomSheet = ({
     <BottomSheet onClose={onClose}>
       <div className="mb-[23px] flex h-[228px] flex-col gap-[12px]">
         <div>
-          <div className="subheading-bold mb-[4px]">커피챗 방식</div>
-          <div className="body-2 text-gray-600">
-            커피챗 방식을 선택해주시면 멘티에게 전달 드릴게요.
-          </div>
+          <div className="subheading-bold mb-[4px]">{t("chat-method")}</div>
+          <div className="body-2 text-gray-600">{t("guide")}</div>
         </div>
         <Select
-          placeholder="커피챗 방식 선택"
+          placeholder={t("placeholder")}
           options={[...MeetingOptions, "SNS ID"]}
           value={selectedType}
           onChangeValue={setSelectedType}
@@ -94,7 +94,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
             return (
               <div className="flex gap-[6px]">
                 {Icon && <Icon />}
-                {CoffeeChatTypeLabel[value]}
+                {t(`platform.${value}`)}
               </div>
             );
           }}
@@ -110,7 +110,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
                 onClick={value === "zoomAuto" ? () => openPopup(oauthUrl) : noop}
               >
                 {Icon && <Icon />}
-                {CoffeeChatTypeLabel[value]}
+                {t(`platform.${value}`)}
               </div>
             );
           }}
@@ -127,7 +127,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
                 )}
                 onClick={() => setseletedSNS(SNS)}
               >
-                {CoffeeChatTypeLabel[SNS]}
+                {t(`platform.${SNS}`)}
               </button>
             ))}
           </div>
@@ -138,7 +138,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
             if (!selectedType) return "";
             else if (selectedType === "SNS ID") return "ID를 입력해 주세요.";
             else if (selectedType === "zoomAuto") return "Zoom 제목을 입력해 주세요.";
-            return `${CoffeeChatTypeLabel[selectedType]
+            return `${t(`platform.${selectedType}`)
               .replace(/\([^)]*\)/g, "")
               .trim()} 링크를 입력해 주세요.`;
           })()}
@@ -148,7 +148,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
       </div>
       <ButtonArea>
         <Button disabled={isDisabled} onClick={handleClickNext}>
-          다음
+          {t("next")}
         </Button>
       </ButtonArea>
     </BottomSheet>

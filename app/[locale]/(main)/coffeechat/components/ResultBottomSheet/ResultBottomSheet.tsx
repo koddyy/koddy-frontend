@@ -5,7 +5,7 @@ type ResultType = "positive" | "negative";
 
 interface ResultBottomSheetProps extends BottomSheetProps {
   resultType: ResultType;
-  description: string[];
+  description: string;
   confirmButton?: ReactNode;
   onClose?: () => void;
 }
@@ -27,11 +27,7 @@ export const ResultBottomSheet = ({
             }
           />
         </div>
-        <div className="subheading-bold text-center">
-          {description.map((line, i) => (
-            <div key={i}>{line}</div>
-          ))}
-        </div>
+        <div className="subheading-bold whitespace-pre-wrap text-center">{description}</div>
       </div>
       {confirmButton && <ButtonArea>{confirmButton}</ButtonArea>}
     </BottomSheet>

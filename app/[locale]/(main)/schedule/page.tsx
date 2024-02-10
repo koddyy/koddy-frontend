@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
@@ -17,6 +18,8 @@ import { useApproveCoffeeChat } from "./hooks/useApproveCoffeeChat";
 /** @NOTE coffeechat id의 유무로 신청/수락 구분 */
 
 const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: string } }) => {
+  const t = useTranslations("coffeechat.ResultBottomSheet");
+
   const mentorId = Number(searchParams.mentor);
   const coffeeChatId = Number(searchParams.coffeechat);
 
@@ -64,14 +67,14 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
       {isApproveSuccess && (
         <ResultBottomSheet
           resultType="positive"
-          description={[`${user.name}님과의`, "커피챗이 신청되었습니다."]}
+          description={t("APPROVE", { name: user.name })}
           confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
         />
       )}
       {isApplySuccess && (
         <ResultBottomSheet
           resultType="positive"
-          description={[`${user.name}님과의`, "커피챗이 신청되었습니다."]}
+          description={t("APPLY", { name: user.name })}
           confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
         />
       )}

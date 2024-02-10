@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useGetMenteeById } from "@/apis/user/hooks/useGetMenteeById";
 import { PendingBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/PendingBottomSheet";
 import { ResultBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
@@ -10,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSuggestCoffeeChat } from "../../hooks/useSuggestCoffeeChat";
 
 const Page = ({ params }: { params: { id: string } }) => {
+  const t = useTranslations();
   const menteeId = Number(params.id);
   const { data: mentee, isLoading } = useGetMenteeById(menteeId);
   const { isAuthenticated } = useAuth();
@@ -42,7 +44,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         (isAuthenticated ? (
           <PendingBottomSheet
             resultType="positive"
-            description={[`${mentee.name}님에게`, "커피챗을 제안하시겠습니까?"]}
+            description={t("coffeechat.PendingBottomSheet.SUGGEST", { name: mentee.name })}
             onClickNo={closePendingBottomSheet}
             /** @TODO applyReason 입력 단계 추가 */
             onClickYes={() => suggestCoffeeChat({ menteeId, applyReason: "temp" })}
@@ -54,7 +56,7 @@ const Page = ({ params }: { params: { id: string } }) => {
       {isRequested && (
         <ResultBottomSheet
           resultType="positive"
-          description={[`${mentee.name}님에게`, "커피챗을 제안하였습니다."]}
+          description={t("coffeechat.PendingBottomSheet.SUGGEST", { name: mentee.name })}
           confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
         />
       )}

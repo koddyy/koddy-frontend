@@ -130,8 +130,8 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {isApproveSuccess && (
         <ResultBottomSheet
           resultType="positive"
-          description={[`${mentee.name}님과의`, "커피챗이 예약되었습니다."]}
-          confirmButton={<LinkButton href="/">예약페이지로 가기</LinkButton>}
+          description={t("ResultBottomSheet.APPROVE", { name: mentee.name })}
+          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.go-to-calendar")}</LinkButton>}
         />
       )}
       {isReject && (
@@ -146,15 +146,15 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
       {isRejectSuccess && (
         <ResultBottomSheet
           resultType="negative"
-          description={[`${mentee.name}님과의`, "커피챗이 거절되었습니다."]}
-          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+          description={t("ResultBottomSheet.REJECT", { name: mentee.name })}
+          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
         />
       )}
       {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
-          description={[`${mentee.name}님과의`, "커피챗이 취소되었습니다."]}
-          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+          description={t("ResultBottomSheet.CANCEL", { name: mentee.name })}
+          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
         />
       )}
     </>
@@ -243,14 +243,14 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       {isRejectSuccess && (
         <ResultBottomSheet
           resultType="negative"
-          description={[`${mentor.name}님과의`, "커피챗이 거절되었습니다."]}
-          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+          description={t("ResultBottomSheet.REJECT", { name: mentor.name })}
+          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
         />
       )}
       {isCancel && (
         <PendingBottomSheet
           resultType="negative"
-          description={[`${mentor.name}님과의`, "커피챗을 취소하시겠습니까?"]}
+          description={t("PendingBottomSheet.CANCEL", { name: mentor.name })}
           onClickNo={setIsCancelFalse}
           onClickYes={() => cancelCoffeeChat({ coffeeChatId: id })}
         />
@@ -258,8 +258,8 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
       {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
-          description={[`${mentor.name}님과의`, "커피챗이 취소되었습니다."]}
-          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
+          description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
+          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
         />
       )}
     </>
