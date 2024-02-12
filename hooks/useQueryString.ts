@@ -1,5 +1,6 @@
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import QueryString from "qs";
+import { usePathname } from "@/libs/navigation";
 
 export const useQueryString = () => {
   const pathname = usePathname();

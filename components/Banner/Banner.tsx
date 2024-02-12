@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { PropsWithChildren } from "react";
 import ArrowRight from "@/assets/arrow-right.svg";
+import { Link } from "@/libs/navigation";
 
 interface BannerProps {
   href?: string;

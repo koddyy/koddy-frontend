@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
@@ -14,6 +13,7 @@ import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { PATH } from "@/constants/path";
+import { useRouter } from "@/libs/navigation";
 import { UpdateMentorInfoForm } from "@/types/mentor";
 import { useMentorInfoFormStore } from "../store";
 import { LanguageSelectForm } from "./LanguageSelectForm";

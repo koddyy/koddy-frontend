@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Link from "next/link";
 import { useGetCoffeeChatListWithMenteeByStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMenteeByStatus";
 import { useGetCoffeeChatListWithMentorByStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMentorByStatus";
 import { useIntersect } from "@/hooks/useIntersect";
+import { Link } from "@/libs/navigation";
 import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
 import { CoffeeChatCard } from "./CoffeeChatCard";
 

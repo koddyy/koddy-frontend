@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useGetNewSuggestedCoffeeChatList } from "@/apis/coffeechat/hooks/useGetNewSuggestedCoffeeChatList";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Carousel } from "@/components/Carousel";
 import { Divider } from "@/components/Divider";
 import { PATH } from "@/constants/path";
+import { Link } from "@/libs/navigation";
 import { cn } from "@/utils/cn";
 import { UserCard } from "../UserCard";
 

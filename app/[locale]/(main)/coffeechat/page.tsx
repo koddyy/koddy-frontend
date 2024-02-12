@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import qs from "querystring";
 import { Suspense } from "react";
@@ -13,6 +11,7 @@ import { GoToLogin } from "@/app/components/GoToLogin";
 import { Header } from "@/app/components/Header";
 import { Tag } from "@/components/Tag";
 import { useAuth } from "@/hooks/useAuth";
+import { Link, usePathname } from "@/libs/navigation";
 import {
   CoffeeChatCategory,
   CoffeeChatStatus,

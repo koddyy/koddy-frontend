@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
 import { Carousel } from "@/components/Carousel";
 import { LoginButton } from "@/components/LoginButton";
 import { PATH } from "@/constants/path";
+import { Link } from "@/libs/navigation";
 import { isValidProvider, type OauthProvider } from "@/types/oauth";
 import { Login } from "./Login";
 

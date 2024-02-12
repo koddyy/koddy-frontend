@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useController, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
@@ -8,6 +7,7 @@ import { NavigationBar } from "@/app/components/NavigationBar";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { languagesOptions } from "@/constants/language";
+import { useRouter } from "@/libs/navigation";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
 import { NationCode } from "@/types/user";

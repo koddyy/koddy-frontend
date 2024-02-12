@@ -1,13 +1,12 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { GoToLogin } from "@/app/components/GoToLogin";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Divider } from "@/components/Divider/Divider";
 import { CoffeeChatStatus, NotificationText } from "@/constants/notification";
 import { useAuth } from "@/hooks/useAuth";
+import { Link, useRouter } from "@/libs/navigation";
 
 const MOCK_NOTIFICATIIONS: Array<{
   id: number;

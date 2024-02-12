@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
@@ -9,6 +8,7 @@ import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
+import { Link } from "@/libs/navigation";
 
 const linkStyle = "inline-block w-full px-[20px] py-[14px]";
 

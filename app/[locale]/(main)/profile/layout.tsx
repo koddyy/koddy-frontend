@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { useRouter } from "@/libs/navigation";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();

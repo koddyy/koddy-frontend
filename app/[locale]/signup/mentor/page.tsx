@@ -1,11 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSignupAsMentor } from "@/apis/user/hooks/useSignupAsMentor";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Progress } from "@/components/Progress";
+import { useRouter } from "@/libs/navigation";
 import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
 import { MainLanguageSelectForm } from "../components/MainLanguageSelectForm";

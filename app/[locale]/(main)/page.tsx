@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { BrowseMenteeList } from "@/app/[locale]/(main)/components/BrowseMenteeList";
 import { BrowseMentorList } from "@/app/[locale]/(main)/components/BrowseMentorList";
@@ -9,6 +8,7 @@ import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
 import { Button } from "@/components/Button";
 import { useAuth } from "@/hooks/useAuth";
 import { useQueryString } from "@/hooks/useQueryString";
+import { Link } from "@/libs/navigation";
 import {
   NewAppliedCoffeeChatList,
   NewSuggestedCoffeeChatList,

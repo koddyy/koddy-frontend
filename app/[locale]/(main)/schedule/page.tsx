@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import { ResultBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/R
 import { QuestionStep } from "@/app/[locale]/(main)/schedule/components/QuestionStep";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { LinkButton } from "@/components/Button";
+import { useRouter } from "@/libs/navigation";
 import { MenteeApplyForm } from "@/types/coffeechat";
 import { ScheduleStep } from "./components/ScheduleStep";
 import { useApplyCoffeeChat } from "./hooks/useApplyCoffeeChat";

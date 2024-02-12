@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
@@ -11,6 +10,7 @@ import { Divider } from "@/components/Divider/Divider";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { TextArea } from "@/components/TextArea";
 import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
+import { useRouter } from "@/libs/navigation";
 import { CompleteProfileForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 import { PeriodStep } from "../components/PeriodStep";

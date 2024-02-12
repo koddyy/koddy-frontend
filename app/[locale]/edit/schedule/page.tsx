@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -14,6 +13,7 @@ import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByOptionType } from "@/constants/schedule";
+import { useRouter } from "@/libs/navigation";
 import { UpdateSchedulesForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 

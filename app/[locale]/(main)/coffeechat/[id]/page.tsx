@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
@@ -9,6 +8,7 @@ import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCance
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button, LinkButton } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
+import { useRouter } from "@/libs/navigation";
 import { MenteeProfile, MentorProfile } from "../../components/UserProfile";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
 import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";

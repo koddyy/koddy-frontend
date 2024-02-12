@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useGetMentorList } from "@/apis/user/hooks/useGetMentorList";
 import { GetMentorListRequest } from "@/apis/user/types";
@@ -11,6 +10,7 @@ import { PATH } from "@/constants/path";
 import { useIntersect } from "@/hooks/useIntersect";
 import { useToggle } from "@/hooks/useToggle";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
+import { Link } from "@/libs/navigation";
 import { NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 import { MentorFilterBottomSheet } from "./MentorFilterBottomSheet";

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useGetMenteeList } from "@/apis/user/hooks/useGetMenteeList";
@@ -11,6 +10,7 @@ import { Tag } from "@/components/Tag";
 import { PATH } from "@/constants/path";
 import { useIntersect } from "@/hooks/useIntersect";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
+import { Link } from "@/libs/navigation";
 import { Nationality, NationCode } from "@/types/user";
 import { type Filter, MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
 

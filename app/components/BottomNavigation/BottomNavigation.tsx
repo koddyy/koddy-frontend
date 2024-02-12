@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams, useSelectedLayoutSegment } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Home from "@/assets/icon_home.svg";
 import My from "@/assets/icon_my.svg";
 import Reservation from "@/assets/icon_reservation.svg";
+import { Link } from "@/libs/navigation";
 import { cn } from "@/utils/cn";
 
 const NAVIGATION_LINK = [

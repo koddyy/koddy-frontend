@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { UserType } from "@/app/[locale]/signup/components/UserTypeCard";
 import { UserTypeCard } from "@/app/[locale]/signup/components/UserTypeCard";
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { useRouter } from "@/libs/navigation";
 
 const Page = () => {
   const t = useTranslations("signup");

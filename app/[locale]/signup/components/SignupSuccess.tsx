@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { LinkButton } from "@/components/Button";
+import { Link } from "@/libs/navigation";
 
 export const SignupSuccess = () => {
   const t = useTranslations("signup.SignupSuccess");
