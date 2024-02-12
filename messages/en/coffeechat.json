@@ -1,0 +1,97 @@
+{
+  "coffeechat": {
+    "category": {
+      "mentor": {
+        "applied": "Recieved",
+        "suggested": "Sent"
+      },
+      "mentee": {
+        "applied": "Sent",
+        "suggested": "Recieved"
+      }
+    },
+    "status": {
+      "all": "All",
+      "mentor": {
+        "APPLY": "received",
+        "SUGGEST": "sent",
+        "PENDING": "accepted",
+        "APPROVE": "scheduled",
+        "COMPLETE": "completed",
+        "CANCEL,REJECT": "canceled"
+      },
+      "mentee": {
+        "APPLY": "sent",
+        "SUGGEST": "received",
+        "PENDING": "accepted",
+        "APPROVE": "scheduled",
+        "COMPLETE": "completed",
+        "CANCEL,REJECT": "canceled"
+      }
+    },
+
+    "CoffeeChatSchedule": {
+      "date": {
+        "APPROVE": "Date",
+        "APPLY": "Date",
+        "PENDING": "Date",
+        "COMPLETE": "Date"
+      },
+      "how": "How",
+      "link": "Link",
+      "copy-link": "Copy Link"
+    },
+
+    "introductionOfMentor": "About me",
+    "introductionOfMentee": "About me",
+    "questionOfMentor": "Note",
+    "questionOfMentee": "Note",
+    "questionToMentor": "Note",
+    "questionToMentee": "Note",
+
+    "accept-coffeechat": "Accept",
+    "reject-coffeechat": "Decline",
+    "cancel-coffeechat": "Cancel a chat",
+
+    "RejectBottomSheet": {
+      "title": "Tell us the reason to {type} the chat with {name}",
+      "reason1": "I want to reschedule the meeting.",
+      "reason2": "I can’t make time.",
+      "write-reason": "Write here...",
+      "cancel-coffeechat": "Cancel the chat",
+      "reject-coffeechat": "거절하기"
+    },
+
+    "ResultBottomSheet": {
+      "APPLY": "Successfully Sent the request\nto {name}!",
+      "SUGGEST": "Successfully Sent the request\nto {name}!",
+      "APPROVE": "Successfully scheduled\na meeting with {name}!",
+      "REJECT": "The chat with {name} is\nsuccessfully canceled",
+      "CANCEL": "The chat with {name} is\nsuccessfully canceled",
+      "return-home": "Return Home",
+      "go-to-calendar": "Go to Calendar"
+    },
+
+    "PendingBottomSheet": {
+      "SUGGEST": "Would You Like to Request a chat\nto {name}?",
+      "CANCEL": "Would You Like to Cancel a chat\nwith {name}?",
+      "yes": "Yes",
+      "no": "No"
+    },
+
+    "CoffeeChatTypeSelectBottomSheet": {
+      "chat-method": "Chat Method",
+      "guide": "Where would you like to chat with her?",
+      "placeholder": "Choose a platform",
+      "platform": {
+        "zoomAuto": "Zoom (My Profile)",
+        "zoom": "Zoom (Manually type the address)",
+        "google": "Google meet (Manually type address)",
+        "kakao": "Kakao",
+        "line": "Line",
+        "wechat": "Wechat"
+      },
+      "next": "Next"
+    }
+  }
+}

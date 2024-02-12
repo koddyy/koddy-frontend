@@ -1,6 +1,7 @@
 import { cva } from "cva";
+import { useTranslations } from "next-intl";
 import { Tag } from "@/components/Tag";
-import { LanguageCode, NationAndLanguageCodeMapping, NationCodeText } from "@/constants/language";
+import { LanguageCode, NationAndLanguageCodeMapping } from "@/constants/language";
 import { NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 import { capitalize } from "@/utils/string";
@@ -23,12 +24,14 @@ interface LanguagesProps {
 }
 
 export const Lanuages = ({ mainLanguage, subLanguages }: LanguagesProps) => {
+  const constants = useTranslations("constants");
+
   const mainLanguageCode = NationAndLanguageCodeMapping[mainLanguage];
 
   return (
     <div className="flex gap-[16px]">
       <div>
-        <div className="label mb-[4px]">메인 언어</div>
+        <div className="label mb-[4px]">{constants("language-type.main")}</div>
         <Tag variant="solid" color="grayscale">
           <span
             className={cn(
@@ -38,11 +41,11 @@ export const Lanuages = ({ mainLanguage, subLanguages }: LanguagesProps) => {
           >
             {capitalize(mainLanguageCode)}
           </span>
-          {NationCodeText[mainLanguage]}
+          {constants(`languages-options.${mainLanguage}`)}
         </Tag>
       </div>
       <div className="grow">
-        <div className="label mb-[4px]">서브 언어</div>
+        <div className="label mb-[4px]">{constants("language-type.sub")}</div>
         <div className="flex flex-wrap gap-[6px]">
           {subLanguages.map((subLanguage) => {
             const subLanguageCode = NationAndLanguageCodeMapping[subLanguage];
@@ -56,7 +59,7 @@ export const Lanuages = ({ mainLanguage, subLanguages }: LanguagesProps) => {
                 >
                   {capitalize(subLanguageCode)}
                 </span>
-                {NationCodeText[subLanguage]}
+                {constants(`languages-options.${subLanguage}`)}
               </Tag>
             );
           })}

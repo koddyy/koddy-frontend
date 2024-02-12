@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
+import { useRouter } from "@/libs/navigation";
 import { MenteeInfoForm } from "./components/MenteeInfoForm";
 import { MentorInfoForm } from "./components/MentorInfoForm";
 import { useMenteeInfoFormStore, useMentorInfoFormStore } from "./store";

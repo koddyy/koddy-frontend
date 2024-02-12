@@ -1,0 +1,52 @@
+{
+  "constants": {
+    "nationality-options": {
+      "KR": "한국",
+      "EN": "미국",
+      "JP": "일본",
+      "CN": "중국",
+      "VN": "베트남",
+      "ETC": "Others"
+    },
+    "languages-options": {
+      "KR": "한국어",
+      "EN": "영어",
+      "CN": "중국어",
+      "JP": "일본어",
+      "VN": "베트남어"
+    },
+    "language-type": {
+      "main": "메인 언어",
+      "sub": "서브 언어"
+    },
+
+    "coffeechat-status-text": {
+      "mentor": {
+        "APPROVE": "커피챗 예정이에요",
+        "APPLY": "커피챗 신청이 왔어요",
+        "SUGGEST": "커피챗 제안을 했어요",
+        "PENDING": "커피챗을 수락했어요",
+        "COMPLETE": "커피챗을 완료했어요",
+        "CANCEL,REJECT": "커피챗이 취소됐어요"
+      },
+      "mentee": {
+        "APPROVE": "커피챗 예정이에요",
+        "APPLY": "커피챗 신청을 했어요",
+        "SUGGEST": "커피챗 제안이 왔어요",
+        "PENDING": "커피챗 제안을 수락했어요",
+        "COMPLETE": "커피챗을 완료했어요",
+        "CANCEL,REJECT": "커피챗이 취소됐어요"
+      }
+    },
+
+    "day-of-week": {
+      "월": "월",
+      "화": "화",
+      "수": "수",
+      "목": "목",
+      "금": "금",
+      "토": "토",
+      "일": "일"
+    }
+  }
+}

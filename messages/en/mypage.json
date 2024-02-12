@@ -1,0 +1,16 @@
+{
+  "mypage": {
+    "title": "My Page",
+    "edit-profile": "Edit Profile",
+    "edit-schedule": "Modify Available Time Slots",
+    "edit-language-and-timezone": "Language & Time Zone",
+    "customer-support": "Customer Support",
+    "terms-of-service": "Terms of Service",
+
+    "account": {
+      "terms-of-service": "Terms of Service",
+      "sign-out": "Sign out",
+      "delete-account": "Delete Account"
+    }
+  }
+}

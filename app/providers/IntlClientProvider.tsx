@@ -13,10 +13,10 @@ const IntlClientProvider = async ({
 
   const messages =
     locale === defaultLocale
-      ? (await import(`../../messages/${defaultLocale}.json`)).default
+      ? (await import(`../../messages/${defaultLocale}`)).default
       : deepmerge(
-          (await import(`../../messages/${defaultLocale}.json`)).default,
-          (await import(`../../messages/${locale}.json`)).default
+          (await import(`../../messages/${defaultLocale}`)).default,
+          (await import(`../../messages/${locale}`)).default
         );
 
   return (

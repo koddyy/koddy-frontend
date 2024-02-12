@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { BottomSheet, BottomSheetProps, ButtonArea } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 
@@ -5,7 +6,7 @@ type ResultType = "positive" | "negative";
 
 interface ResultBottomSheetProps extends BottomSheetProps {
   resultType: ResultType;
-  description: string[];
+  description: string;
   onClickNo: () => void;
   onClickYes: () => void;
 }
@@ -16,6 +17,8 @@ export const PendingBottomSheet = ({
   onClickNo,
   onClickYes,
 }: ResultBottomSheetProps) => {
+  const t = useTranslations("coffeechat.PendingBottomSheet");
+
   return (
     <BottomSheet>
       <div className="flex flex-col items-center gap-[1.13rem] pb-4 pt-[3rem]">
@@ -28,17 +31,13 @@ export const PendingBottomSheet = ({
             }
           />
         </div>
-        <div className="subheading-bold text-center">
-          {description.map((line, i) => (
-            <div key={i}>{line}</div>
-          ))}
-        </div>
+        <div className="subheading-bold whitespace-pre-wrap text-center">{description}</div>
       </div>
       <ButtonArea>
         <Button variant="outline" onClick={onClickNo}>
-          아니요
+          {t("no")}
         </Button>
-        <Button onClick={onClickYes}>네</Button>
+        <Button onClick={onClickYes}>{t("yes")}</Button>
       </ButtonArea>
     </BottomSheet>
   );

@@ -1,11 +1,14 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useOauthLogout } from "@/apis/auth/hooks/useOauthLogout";
 import { useSignout } from "@/apis/user/hooks/useSignout";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
 
 const Page = () => {
+  const t = useTranslations("mypage.account");
+
   const { mutate: logout } = useOauthLogout();
   const { mutate: signout } = useSignout();
 
@@ -19,7 +22,7 @@ const Page = () => {
             if (window.confirm("로그아웃 하시겠습니까?")) logout();
           }}
         >
-          로그아웃
+          {t("sign-out")}
         </button>
         <Divider className="border-gray-100" />
         <button
@@ -28,7 +31,7 @@ const Page = () => {
             if (window.confirm("탈퇴 하시겠습니까?")) signout();
           }}
         >
-          탈퇴
+          {t("delete-account")}
         </button>
       </div>
     </>

@@ -1,0 +1,64 @@
+{
+  "edit": {
+    "profile": {
+      "title": "Edit Profile",
+      "MentorInfoForm": {
+        "name": "Name",
+        "school": "Current School",
+        "major": "Major",
+        "entered-in": "Academic Year",
+        "add": "Add more",
+        "introduction": "About Me",
+        "edit": "Edit"
+      },
+      "MenteeInfoForm": {
+        "name": "Name",
+        "interest-school": "School of Interest",
+        "interest-major": "Major of Interest",
+        "nationality": "Nationality",
+        "add": "Add more",
+        "introduction": "About Me",
+        "edit": "Edit"
+      },
+      "LanguageSelectForm": {
+        "languages": "Language Spoken",
+        "main-language-is-required-error-message": "You can select one Main language."
+      }
+    },
+
+    "language": {
+      "main-language": {
+        "label": "Main Language",
+        "description": "Choose the language you are most comfortable and fluent in."
+      },
+      "sub-language": {
+        "label": "Sub Language",
+        "description": "Select a language that allows for a certain level of communication."
+      },
+      "edit": "Edit"
+    },
+
+    "schedule": {
+      "title": "Edit Availability",
+      "period": {
+        "label": "Available Dates",
+        "start": "I am available from this day (Start)",
+        "end": "Until this day (End)"
+      },
+      "schedules": {
+        "label": "Available Time",
+        "schedule-by-repeat": "Same Everyday",
+        "schedule-by-not-repeat": "Different day by day",
+        "add": "Add"
+      },
+      "edit": "Edit"
+    },
+
+    "language-and-timezone": {
+      "title": "Language & Time Zone",
+      "languages": "Language",
+      "timezone": "Time Zone",
+      "edit": "Edit"
+    }
+  }
+}

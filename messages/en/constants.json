@@ -1,0 +1,52 @@
+{
+  "constants": {
+    "nationality-options": {
+      "KR": "Korean",
+      "EN": "American",
+      "JP": "Japanese",
+      "CN": "Chinese",
+      "VN": "Vietnamese",
+      "ETC": "Other country"
+    },
+    "languages-options": {
+      "KR": "Korean",
+      "EN": "English",
+      "CN": "Chinese",
+      "JP": "Japanese",
+      "VN": "Vietnamese"
+    },
+    "language-type": {
+      "main": "Main Language",
+      "sub": "Sub Language"
+    },
+
+    "coffeechat-status-text": {
+      "mentor": {
+        "APPROVE": "Scheduled Chat",
+        "APPLY": "You’ve got a request!",
+        "SUGGEST": "Request Sent",
+        "PENDING": "Request accepted",
+        "COMPLETE": "Completed Chat",
+        "CANCEL,REJECT": "Request canceled"
+      },
+      "mentee": {
+        "APPROVE": "Scheduled Chat",
+        "APPLY": "Request Sent",
+        "SUGGEST": "You’ve got a request!",
+        "PENDING": "Request accepted",
+        "COMPLETE": "Completed Chat",
+        "CANCEL,REJECT": "Canceled Chat"
+      }
+    },
+
+    "day-of-week": {
+      "월": "Mon",
+      "화": "Tue",
+      "수": "Wed",
+      "목": "Thu",
+      "금": "Fri",
+      "토": "Sat",
+      "일": "Sun"
+    }
+  }
+}

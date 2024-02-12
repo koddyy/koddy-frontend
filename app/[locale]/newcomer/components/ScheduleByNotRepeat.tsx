@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import TrashBin from "@/assets/trash_bin.svg";
@@ -10,6 +11,8 @@ import { CompleteProfileForm, Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
 export const ScheduleByNotRepeat = () => {
+  const t = useTranslations("edit.schedule.schedules");
+
   const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByNotRepeat">>();
 
   const {
@@ -56,7 +59,7 @@ export const ScheduleByNotRepeat = () => {
           onChangeTimeRange={changeTimeRange}
         />
         <Button variant="outline" className="h-[46px] border" onClick={addSchedules}>
-          추가
+          {t("add")}
         </Button>
       </div>
       <Divider className="border-4 border-gray-100" />

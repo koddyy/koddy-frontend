@@ -1,7 +1,7 @@
+import { useTranslations } from "next-intl";
 import { useController, useFormContext } from "react-hook-form";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
-import { NationCodeText } from "@/constants/language";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { UpdateMentorInfoForm } from "@/types/mentor";
 import { NationCode } from "@/types/user";
@@ -13,6 +13,9 @@ interface LanguageSelectFormProps {
 }
 
 export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
+  const t = useTranslations("edit.profile.LanguageSelectForm");
+  const constants = useTranslations("constants");
+
   const { control } = useFormContext<
     Pick<UpdateMentorInfoForm, "languages"> | Pick<UpdateMenteeInfoForm, "languages">
   >();
@@ -30,13 +33,17 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
 
   return (
     <FormControl>
-      <FormLabel>소통 언어</FormLabel>
+      <FormLabel>{t("languages")}</FormLabel>
       <div className="flex flex-col gap-[10px]">
         {languages.map((language) => (
           <Select
             key={language}
             options={languageCategoryOptions}
-            value={language === languagesField.value.main ? "메인 언어" : "서브 언어"}
+            value={
+              language === languagesField.value.main
+                ? constants("language-type.main")
+                : constants("language-type.sub")
+            }
             onChangeValue={(value) => {
               if (value === "메인 언어" && languagesField.value.main !== language) {
                 languagesField.onChange({
@@ -54,7 +61,7 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
             }}
             renderValue={(value) => (
               <div className="flex gap-[6px]">
-                <span className="body-2-bold">{NationCodeText[language]}</span>
+                <span className="body-2-bold">{constants(`languages-options.${language}`)}</span>
                 <span className="body-2 text-gray-300">|</span>
                 <span className="body-2-bold">{value}</span>
               </div>
@@ -62,7 +69,9 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
             className="p-[16px]"
           />
         ))}
-        {!isValid && <div className="body-3 text-danger">메인 언어를 1개 이상 선택해 주세요.</div>}
+        {!isValid && (
+          <div className="body-3 text-danger">{t("main-language-is-required-error-message")}</div>
+        )}
       </div>
     </FormControl>
   );

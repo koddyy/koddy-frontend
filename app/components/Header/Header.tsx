@@ -1,6 +1,6 @@
-import Link from "next/link";
 import Bell from "@/assets/icon_bell.svg";
 import Logo from "@/assets/logo_small_letter.svg";
+import { Link } from "@/libs/navigation";
 
 interface HeaderProps {
   rightContent?: React.ReactNode;

@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSignupAsMentee } from "@/apis/user/hooks/useSignupAsMentee";
 import { SignupForm as ISignupForm } from "@/app/[locale]/signup/types/menteeForm";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Progress } from "@/components/Progress";
+import { useRouter } from "@/libs/navigation";
 import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
 import { MainLanguageSelectForm } from "../components/MainLanguageSelectForm";

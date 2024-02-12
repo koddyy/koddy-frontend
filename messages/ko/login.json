@@ -1,0 +1,16 @@
+{
+  "login": {
+    "onboarding": {
+      "discover": "멘토/멘티 탐색하기",
+      "match-with": "나에게 맞는 멘토/멘티 찾기",
+      "manage-chat": "예약 내역 확인하기"
+    },
+    "sign-in": {
+      "kakao": "카카오로 시작",
+      "google": "구글로 시작"
+    },
+    "continue-as-guest": "로그인 없이 둘러보기",
+    "recent-login": "최근에 로그인했어요",
+    "signing-in": "계정에<br><br/>접속하고 있어요"
+  }
+}

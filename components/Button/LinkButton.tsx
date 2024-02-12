@@ -1,8 +1,9 @@
-import Link, { LinkProps } from "next/link";
+import { LinkProps } from "next/link";
 import { PropsWithChildren } from "react";
+import { Link } from "@/libs/navigation";
 import { cn } from "@/utils/cn";
 
-interface LinkButtonProps extends LinkProps {
+interface LinkButtonProps extends Omit<LinkProps, "locale"> {
   className?: string;
 }
 

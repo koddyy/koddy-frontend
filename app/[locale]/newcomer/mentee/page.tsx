@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
@@ -8,6 +7,7 @@ import { useUpdateMenteeProfile } from "@/apis/user/hooks/useUpdateMenteeProfile
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { TextArea } from "@/components/TextArea";
+import { useRouter } from "@/libs/navigation";
 import { CompleteProfileForm } from "@/types/mentee";
 
 const Page = () => {

@@ -1,0 +1,63 @@
+{
+  "edit": {
+    "profile": {
+      "title": "회원 정보 수정",
+      "MentorInfoForm": {
+        "name": "이름",
+        "school": "학교",
+        "major": "전공",
+        "entered-in": "학번",
+        "add": "추가하기",
+        "introduction": "자기소개",
+        "edit": "수정하기"
+      },
+      "MenteeInfoForm": {
+        "name": "이름",
+        "interest-school": "관심 학교",
+        "interest-major": "관심 전공",
+        "nationality": "국적",
+        "add": "추가하기",
+        "introduction": "자기소개",
+        "edit": "수정하기"
+      },
+      "LanguageSelectForm": {
+        "languages": "소통 언어",
+        "main-language-is-required-error-message": "메인 언어를 1개 이상 선택해 주세요."
+      }
+    },
+
+    "language": {
+      "main-language": {
+        "label": "메인 언어 설정",
+        "description": "가장 편안하고 원활하게 대화할 수 있는 언어를 선택해 주세요."
+      },
+      "sub-language": {
+        "label": "서브 언어 설정",
+        "description": "어느 정도 소통이 가능한 수준의 언어를 선택해 주세요."
+      },
+      "edit": "수정하기"
+    },
+
+    "schedule": {
+      "title": "커피챗 기간 수정",
+      "period": {
+        "label": "커피챗 진행 예정 기간",
+        "start": "이때부터 시작할 예정이에요 (시작)",
+        "end": "이때까지 가능해요 (완료)"
+      },
+      "schedules": {
+        "label": "커피챗 가능 시간대",
+        "schedule-by-repeat": "매일 시간 같아요",
+        "schedule-by-not-repeat": "요일별로 달라요"
+      },
+      "edit": "수정하기"
+    },
+
+    "language-and-timezone": {
+      "title": "언어&타임존 설정",
+      "languages": "사용 언어",
+      "timezone": "타임존",
+      "edit": "변경하기"
+    }
+  }
+}

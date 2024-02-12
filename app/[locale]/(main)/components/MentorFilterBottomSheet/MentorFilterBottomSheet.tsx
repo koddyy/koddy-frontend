@@ -1,10 +1,11 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
 import { BottomSheet } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
-import { languagesOptions, NationCodeText } from "@/constants/language";
+import { languagesOptions } from "@/constants/language";
 import { NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 
@@ -21,6 +22,9 @@ export const MentorFilterBottomSheet = ({
   onSelectFilter,
   onClose,
 }: MentorFilterBottomSheetProps) => {
+  const t = useTranslations("home.filters");
+  const constants = useTranslations("constants.languages-options");
+
   const [languages, setLanguages] = useState<Set<NationCode>>(new Set(initial.languages ?? []));
 
   const addLanguage = (language: NationCode) => {
@@ -57,10 +61,10 @@ export const MentorFilterBottomSheet = ({
   return (
     <BottomSheet>
       <div className="flex gap-[20px] pb-[22px] pt-[17px]">
-        <span className={"body-1-bold text-gray-700"}>언어</span>
+        <span className={"body-1-bold text-gray-700"}>{t("language")}</span>
       </div>
       <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-3">
-        {languagesOptions.map(([code, text]) => (
+        {languagesOptions.map(([code]) => (
           <button
             key={code}
             className={cn(
@@ -70,7 +74,7 @@ export const MentorFilterBottomSheet = ({
             type="button"
             onClick={() => addLanguage(code)}
           >
-            {text}
+            {constants(code)}
           </button>
         ))}
         {Array.from(Array(6 - languagesOptions.length)).map((_, i) => (
@@ -84,7 +88,7 @@ export const MentorFilterBottomSheet = ({
             rightContent={<Close width={16} height={16} />}
             onClick={() => deleteLanguage(option)}
           >
-            {NationCodeText[option]}
+            {constants(option)}
           </Tag>
         ))}
       </div>
@@ -96,10 +100,10 @@ export const MentorFilterBottomSheet = ({
           onClick={resetOptions}
         >
           <Refresh width={20} height={20} />
-          초기화
+          {t("reset")}
         </Button>
         <Button fullWidth={false} className="grow-[4]" onClick={selectFilter}>
-          결과 보기
+          {t("show-results")}
         </Button>
       </div>
     </BottomSheet>

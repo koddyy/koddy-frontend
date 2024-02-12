@@ -6,7 +6,7 @@ const meta = {
   component: PendingBottomSheet,
   args: {
     resultType: "positive",
-    description: ["OOO님에게", "커피챗을 제안하시겠습니까?"],
+    description: "OOO님에게\n커피챗을 제안하시겠습니까?",
   },
 } satisfies Meta<typeof PendingBottomSheet>;
 

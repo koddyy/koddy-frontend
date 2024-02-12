@@ -1,0 +1,86 @@
+{
+  "signup": {
+    "title": "Choose who you are!",
+    "UserTypeCard": {
+      "mentor": {
+        "role-name": "Mentor",
+        "description": "Become a mentor for students<br></br>who want to enjoy student life in Korea!",
+        "illustration-alt-text": "mentor illustration"
+      },
+      "mentee": {
+        "role-name": "Mentee",
+        "description": "If you want to learn about life in Korea<br></br>seek the help of a KODDY mentor!",
+        "illustration-alt-text": "mentee illustration"
+      }
+    },
+    "next": "Next",
+
+    "TermsOfService": {
+      "title": "Terms of service<br></br>agreement",
+      "agreement": {
+        "all": "I agree to all of the items below.",
+        "개인정보 수집 및 이용": "the collection and use of personal information.",
+        "이용약관": "Terms and Conditions.",
+        "개인정보의 제 3자 제공": "the provision of personal information to third parties.",
+        "prefix": "I agree to",
+        "postfix": "(essentials)"
+      },
+      "next": "Next"
+    },
+
+    "BasicInformationForm": {
+      "mentor": {
+        "title": "Tell us your<br></br>academic information",
+        "school": {
+          "label": "School",
+          "placeholder": "Please enter the school you're attending or graduated from"
+        },
+        "entered-in": {
+          "label": "Admitted Year",
+          "placeholder": "Please select your admitted year."
+        },
+        "major": {
+          "label": "Major",
+          "placeholder": "Please enter your major."
+        },
+        "next": "Next"
+      },
+
+      "mentee": {
+        "title": "Tell us your<br></br>academic information",
+        "interest-school": {
+          "label": "School of interest",
+          "placeholder": "Please enter the school of interest."
+        },
+        "interest-major": {
+          "label": "Major of interest",
+          "placeholder": "Please enter your major of interest."
+        },
+        "nationality": {
+          "label": "country",
+          "placeholder": "please select your country"
+        },
+        "next": "Next"
+      }
+    },
+
+    "MainLanguageSelectForm": {
+      "title": "please select<br></br>your main language",
+      "description": "Choose the language you are most comfortable and fluent in.",
+      "next": "Next"
+    },
+
+    "SubLanguageSelectForm": {
+      "title": "please select<br></br>your sub language",
+      "description": "Select a language that, while not as proficient as the main language, allows for a certain level of communication.",
+      "next": "Next"
+    },
+
+    "SignupSuccess": {
+      "success": "Registration Complete 🎉",
+      "guide": "Tell Us More about yourself<br></br>to let the others get to know you better!",
+      "complete-profile": "Complete profile",
+      "next-time": "I'll do it next time"
+    }
+  }
+}

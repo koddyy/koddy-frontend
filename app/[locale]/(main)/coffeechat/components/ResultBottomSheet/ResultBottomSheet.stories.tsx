@@ -6,7 +6,7 @@ const meta = {
   component: ResultBottomSheet,
   args: {
     resultType: "positive",
-    description: ["OOO님과의", "커피챗이 예약되었습니다."],
+    description: "OOO님과의\n커피챗이 예약되었습니다.",
   },
 } satisfies Meta<typeof ResultBottomSheet>;
 

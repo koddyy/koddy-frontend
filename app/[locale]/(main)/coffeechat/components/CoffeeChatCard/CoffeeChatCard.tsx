@@ -1,4 +1,4 @@
-import { CoffeeChatStatusText } from "@/constants/coffeechat";
+import { useTranslations } from "next-intl";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
@@ -10,6 +10,8 @@ type CoffeeChatCardProps = UserCardProps & {
 };
 
 export const CoffeeChatCard = ({ status, ...user }: CoffeeChatCardProps) => {
+  const constants = useTranslations("constants");
+
   const description = getDescription(user);
   const { profileImageUrl, name } = user;
 
@@ -26,7 +28,9 @@ export const CoffeeChatCard = ({ status, ...user }: CoffeeChatCardProps) => {
       </div>
       <div className="grow">
         <div className="label-bold text-primary-dark">
-          {CoffeeChatStatusText[user.role === "mentor" ? "mentee" : "mentor"][status]}
+          {constants(
+            `coffeechat-status-text.${user.role === "mentor" ? "mentee" : "mentor"}.${status}`
+          )}
         </div>
         <div className="subheading-bold mb-[0.12rem]">{name}</div>
         <p className="body-2 text-gray-600">{description}</p>

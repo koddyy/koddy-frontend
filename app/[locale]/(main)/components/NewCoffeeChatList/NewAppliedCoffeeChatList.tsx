@@ -1,13 +1,16 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useGetNewAppliedCoffeeChatList } from "@/apis/coffeechat/hooks/useGetNewAppliedCoffeeChatList";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Carousel } from "@/components/Carousel";
 import { Divider } from "@/components/Divider";
 import { PATH } from "@/constants/path";
+import { Link } from "@/libs/navigation";
 import { cn } from "@/utils/cn";
 import { UserCard } from "../UserCard";
 
 export const NewAppliedCoffeeChatList = () => {
+  const t = useTranslations("home.NewCoffeeChatList");
+
   const { data: newCoffeeChatList } = useGetNewAppliedCoffeeChatList();
 
   if (newCoffeeChatList.result.length === 0) return;
@@ -16,15 +19,16 @@ export const NewAppliedCoffeeChatList = () => {
     <>
       <div className="mb-3 flex justify-between">
         <div className="subheading-bold">
-          예약을 신청한 멘티가
-          <span className="text-primary"> {`${newCoffeeChatList.totalCount}명 `}</span>
-          있어요
+          {t.rich("title.applied", {
+            count: newCoffeeChatList.totalCount,
+            mark: (chunk) => <span className="text-primary">{chunk}</span>,
+          })}
         </div>
         <Link
           href={PATH.COFFEECHAT + "?category=applied&status=APPLY"}
           className="body-3 flex items-center text-gray-600"
         >
-          더보기
+          {t("view")}
           <ArrowRight width={20} height={20} />
         </Link>
       </div>
@@ -55,7 +59,7 @@ export const NewAppliedCoffeeChatList = () => {
                   href={PATH.COFFEECHAT + "?category=applied&status=APPLY"}
                 >
                   <div className="subheading-bold flex items-center gap-[4px]">
-                    <span>더보기</span>
+                    <span> {t("more")}</span>
                     <ArrowRight width={24} height={24} />
                   </div>
                 </Link>

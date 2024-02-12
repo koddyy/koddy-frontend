@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import { BottomSheet, BottomSheetProps, ButtonArea } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
@@ -16,11 +17,12 @@ const REJECT_OPTIONS = ["스케줄이 바뀌었어요", "당분간 상담이 어
 
 export const RejectBottomSheet = ({
   type = "reject",
-  options = REJECT_OPTIONS,
   userName,
   onClickRejectButton,
   onClose,
 }: RejectBottomSheetProps) => {
+  const t = useTranslations("coffeechat.RejectBottomSheet");
+
   const [selectedOption, setSelectedOption] = useState<number>();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,13 +34,11 @@ export const RejectBottomSheet = ({
 
   return (
     <BottomSheet onClose={onClose}>
-      <div className="subheading-bold">
-        {userName}님과의 커피챗을
-        <br />
-        {type === "reject" ? "거절" : "취소"}하는 이유를 알려주세요.
+      <div className="subheading-bold whitespace-pre-wrap">
+        {t("title", { type, name: userName })}
       </div>
       <div className="my-5 flex flex-col gap-3">
-        {options.map((option, i) => {
+        {[t("reason1"), t("reason2")].map((option, i) => {
           const isSelected = selectedOption === i;
           return (
             <Button
@@ -62,14 +62,14 @@ export const RejectBottomSheet = ({
             "body-2 border-gray-400 px-3 py-[0.66rem] focus-within:border-primary [&>input]:placeholder:text-gray-700",
             selectedOption === 3 && "body-2-bold border-primary"
           )}
-          placeholder="직접 입력"
+          placeholder={t("write-reason")}
           ref={inputRef}
           onFocus={() => setSelectedOption(3)}
         />
       </div>
       <ButtonArea>
         <Button onClick={handleClickRejectButton} disabled={isNil(selectedOption)}>
-          {type === "reject" ? "거절하기" : "취소하기"}
+          {type === "reject" ? t("reject-coffeechat") : t("cancel-coffeechat")}
         </Button>
       </ButtonArea>
     </BottomSheet>

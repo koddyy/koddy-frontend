@@ -1,0 +1,35 @@
+{
+  "home": {
+    "explore-mentor": "Explore mentor",
+    "explore-mentee": "Explore mentee",
+
+    "filters": {
+      "language": "Language",
+      "nationality": "Nationality",
+      "reset": "Reset",
+      "show-results": "Show Results"
+    },
+
+    "ProfileCompleteBanner": {
+      "mentor": {
+        "title": "Profile Setup <mark>{percent}%</mark> Complete!",
+        "description": "We need a few details to arrange your ideal coffee chat!",
+        "complete-profile": "Complete Profile"
+      },
+      "mentee": {
+        "title": "Tell us about yourself!",
+        "description": "We need a few details to arrange your ideal coffee chat!",
+        "complete-profile": "Complete Profile"
+      }
+    },
+
+    "NewCoffeeChatList": {
+      "title": {
+        "applied": "<mark>{count} Requests</mark> Waiting for You!",
+        "suggested": "<mark>{count} Requests</mark> Waiting for You!"
+      },
+      "view": "View",
+      "more": "More"
+    }
+  }
+}

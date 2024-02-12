@@ -1,4 +1,5 @@
-import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ReadonlyURLSearchParams, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "@/libs/navigation";
 import { isNil } from "@/utils/typeUtils";
 
 type TypedURLSearchParams<T extends Record<string, unknown>> = Omit<

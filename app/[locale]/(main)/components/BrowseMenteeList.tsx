@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useGetMenteeList } from "@/apis/user/hooks/useGetMenteeList";
 import { GetMenteeListRequest } from "@/apis/user/types";
@@ -10,10 +10,13 @@ import { Tag } from "@/components/Tag";
 import { PATH } from "@/constants/path";
 import { useIntersect } from "@/hooks/useIntersect";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
+import { Link } from "@/libs/navigation";
 import { Nationality, NationCode } from "@/types/user";
 import { type Filter, MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
 
 export const BrowseMenteeList = () => {
+  const t = useTranslations("home");
+
   const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
   const { searchParams, setSearchParams } = useTypedSearchParams<GetMenteeListRequest>();
 
@@ -60,9 +63,9 @@ export const BrowseMenteeList = () => {
             color="grayscale"
             className="body-3"
             rightContent={<ArrowDown width={16} height={16} />}
-            onClick={() => setSelectedFilter("국적")}
+            onClick={() => setSelectedFilter("nationality")}
           >
-            국적
+            {t("filters.nationality")}
             {nationalityCount > 0 && (
               <span className="body-3-bold text-primary-dark">{`(${nationalityCount})`}</span>
             )}
@@ -72,9 +75,9 @@ export const BrowseMenteeList = () => {
             color="grayscale"
             className="body-3"
             rightContent={<ArrowDown width={16} height={16} />}
-            onClick={() => setSelectedFilter("언어")}
+            onClick={() => setSelectedFilter("language")}
           >
-            언어
+            {t("filters.language")}
             {languagesCount > 0 && (
               <span className="body-3-bold text-primary-dark">{`(${languagesCount})`}</span>
             )}

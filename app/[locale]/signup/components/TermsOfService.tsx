@@ -37,7 +37,7 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
     <>
       <div className="headline-1 mb-[27px] mt-[21px]">
         {t.rich("title", {
-          line: (chunks) => <div>{chunks}</div>,
+          br: () => <br />,
         })}
       </div>
       <Checkbox
@@ -70,7 +70,7 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
         ))}
       </div>
       <BottomButton disabled={!isCheckedAll} onClick={onClickNextStep}>
-        {t("next-button")}
+        {t("next")}
       </BottomButton>
     </>
   );

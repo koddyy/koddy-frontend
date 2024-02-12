@@ -1,17 +1,18 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
 import { BottomSheet } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
-import { languagesOptions, NationCodeText } from "@/constants/language";
-import { NationalityImage, NationalityOptions, NationalityText } from "@/constants/nationality";
+import { languagesOptions } from "@/constants/language";
+import { NationalityImage, NationalityOptions } from "@/constants/nationality";
 import { Nationality, NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 
-export type Filter = "국적" | "언어";
+export type Filter = "nationality" | "language";
 
-const FilterOptions = ["국적", "언어"] as const;
+const FilterOptions = ["nationality", "language"] as const;
 
 interface MenteeFilterBottomSheetProps {
   initial: {
@@ -29,6 +30,9 @@ export const MenteeFilterBottomSheet = ({
   onSelectFilter,
   onClose,
 }: MenteeFilterBottomSheetProps) => {
+  const t = useTranslations("home.filters");
+  const constants = useTranslations("constants");
+
   const [activeFilter, setActiveFilter] = useState<Filter>(initialFilter);
   const [nationality, setNationality] = useState<Nationality | null>(
     initial.nationalities?.[0] ?? null
@@ -85,13 +89,13 @@ export const MenteeFilterBottomSheet = ({
             type="button"
             onClick={() => setActiveFilter(option)}
           >
-            {option}
+            {t(option)}
           </button>
         ))}
       </div>
-      {activeFilter === "국적" && (
+      {activeFilter === "nationality" && (
         <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
-          {NationalityOptions.map(([key, value]) => (
+          {NationalityOptions.map(([key]) => (
             <button
               key={key}
               className={cn(
@@ -102,7 +106,7 @@ export const MenteeFilterBottomSheet = ({
               onClick={() => addNationality(key)}
             >
               <img src={NationalityImage[key]} />
-              {value}
+              {constants(`nationality-options.${key}`)}
             </button>
           ))}
           {Array.from(Array(10 - NationalityOptions.length)).map((_, i) => (
@@ -110,9 +114,9 @@ export const MenteeFilterBottomSheet = ({
           ))}
         </div>
       )}
-      {activeFilter === "언어" && (
+      {activeFilter === "language" && (
         <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-5">
-          {languagesOptions.map(([code, text]) => (
+          {languagesOptions.map(([code]) => (
             <button
               key={code}
               className={cn(
@@ -122,7 +126,7 @@ export const MenteeFilterBottomSheet = ({
               type="button"
               onClick={() => addLanguage(code)}
             >
-              {text}
+              {constants(`languages-options.${code}`)}
             </button>
           ))}
           {Array.from(Array(10 - languagesOptions.length)).map((_, i) => (
@@ -133,7 +137,7 @@ export const MenteeFilterBottomSheet = ({
       <div className="flex flex-wrap gap-[8px]">
         {nationality && (
           <Tag rightContent={<Close width={16} height={16} />} onClick={deleteNationality}>
-            {NationalityText[nationality]}
+            {constants(`nationality-options.${nationality}`)}
           </Tag>
         )}
         {[...languages].map((option) => (
@@ -142,7 +146,7 @@ export const MenteeFilterBottomSheet = ({
             rightContent={<Close width={16} height={16} />}
             onClick={() => deleteLanguage(option)}
           >
-            {NationCodeText[option]}
+            {constants(`languages-options.${option}`)}
           </Tag>
         ))}
       </div>
@@ -154,10 +158,10 @@ export const MenteeFilterBottomSheet = ({
           onClick={resetOptions}
         >
           <Refresh width={20} height={20} />
-          초기화
+          {t("reset")}
         </Button>
         <Button fullWidth={false} className="grow-[4]" onClick={selectFilter}>
-          결과 보기
+          {t("show-results")}
         </Button>
       </div>
     </BottomSheet>

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
@@ -13,6 +14,8 @@ interface BasicInformationFormProps {
 }
 
 export const BasicInformationForm = ({ onClickNextStep }: BasicInformationFormProps) => {
+  const t = useTranslations("signup.BasicInformationForm.mentor");
+
   const {
     register,
     control,
@@ -35,18 +38,16 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationFormPr
 
   return (
     <div className="flex flex-col gap-4">
+      <div className="headline-1 mb-[9px]">{t.rich("title", { br: () => <br /> })}</div>
       <FormControl required>
-        <FormLabel htmlFor="school">학교</FormLabel>
-        <Input
-          placeholder="재학 중인 학교를 입력해 주세요."
-          {...register("school", { required: true })}
-        />
+        <FormLabel htmlFor="school">{t("school.label")}</FormLabel>
+        <Input placeholder={t("school.placeholder")} {...register("school", { required: true })} />
       </FormControl>
 
       <FormControl required>
-        <FormLabel htmlFor="enteredIn">학번</FormLabel>
+        <FormLabel htmlFor="enteredIn">{t("entered-in.label")}</FormLabel>
         <Select<number>
-          placeholder="학번을 선택해 주세요."
+          placeholder={t("entered-in.placeholder")}
           options={enteredInOptions}
           value={enteredIn}
           onChangeValue={handleChangeEnteredIn}
@@ -54,12 +55,12 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationFormPr
       </FormControl>
 
       <FormControl required>
-        <FormLabel htmlFor="major">전공</FormLabel>
-        <Input placeholder="전공을 입력해 주세요." {...register("major", { required: true })} />
+        <FormLabel htmlFor="major">{t("major.label")}</FormLabel>
+        <Input placeholder={t("major.placeholder")} {...register("major", { required: true })} />
       </FormControl>
 
       <BottomButton disabled={!isValid} onClick={onClickNextStep}>
-        다음
+        {t("next")}
       </BottomButton>
     </div>
   );

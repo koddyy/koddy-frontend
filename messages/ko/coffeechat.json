@@ -1,0 +1,97 @@
+{
+  "coffeechat": {
+    "category": {
+      "mentor": {
+        "applied": "신청왔어요",
+        "suggested": "제안했어요"
+      },
+      "mentee": {
+        "applied": "신청했어요",
+        "suggested": "제안왔어요"
+      }
+    },
+    "status": {
+      "all": "전체",
+      "mentor": {
+        "APPLY": "신청",
+        "SUGGEST": "제안",
+        "PENDING": "수락",
+        "APPROVE": "예정",
+        "COMPLETE": "완료",
+        "CANCEL,REJECT": "취소"
+      },
+      "mentee": {
+        "APPLY": "신청",
+        "SUGGEST": "제안",
+        "PENDING": "수락",
+        "APPROVE": "예정",
+        "COMPLETE": "완료",
+        "CANCEL,REJECT": "취소"
+      }
+    },
+
+    "CoffeeChatSchedule": {
+      "date": {
+        "APPROVE": "예정 시간",
+        "APPLY": "신청 시간",
+        "PENDING": "신청 시간",
+        "COMPLETE": "시간"
+      },
+      "how": "방식",
+      "link": "링크",
+      "copy-link": "링크 복사"
+    },
+
+    "introductionOfMentor": "멘토의 자기소개",
+    "introductionOfMentee": "멘티의 자기소개",
+    "questionOfMentor": "멘토가 나에게 궁금한 점",
+    "questionOfMentee": "멘티가 나에게 궁금한 점",
+    "questionToMentor": "내가 멘토에게 궁금한 점",
+    "questionToMentee": "내가 멘티에게 궁금한 점",
+
+    "accept-coffeechat": "수락하기",
+    "reject-coffeechat": "거절하기",
+    "cancel-coffeechat": "커피챗 취소하기",
+
+    "RejectBottomSheet": {
+      "title": "{name}님과의 커피챗을\n{type}하는 이유를 알려주세요.",
+      "reason1": "스케줄이 바뀌었어요.",
+      "reason2": "당분간 상담이 어려워요.",
+      "write-reason": "직접 입력",
+      "cancel-coffeechat": "취소하기",
+      "reject-coffeechat": "거절하기"
+    },
+
+    "ResultBottomSheet": {
+      "APPLY": "{name}님과의\n커피챗이 신청되었습니다.",
+      "SUGGEST": "{name}님에게\n커피챗을 제안하였습니다.",
+      "APPROVE": "{name}님과의\n커피챗이 예약되었습니다.",
+      "REJECT": "{name}님과의\n커피챗이 거절되었습니다.",
+      "CANCEL": "{name}님과\n커피챗이 취소되었습니다.",
+      "return-home": "홈으로 돌아가기",
+      "go-to-calendar": "예약페이지로 가기"
+    },
+
+    "PendingBottomSheet": {
+      "SUGGEST": "{name}님에게\n커피챗을 제안하시겠습니까?",
+      "CANCEL": "{name}님과의\n커피챗을 취소하시겠습니까?",
+      "yes": "예",
+      "no": "아니요"
+    },
+
+    "CoffeeChatTypeSelectBottomSheet": {
+      "chat-method": "커피챗 방식",
+      "guide": "커피챗 방식을 선택해주시면 멘티에게 전달 드릴게요.",
+      "placeholder": "커피챗 방식 선택",
+      "platform": {
+        "zoomAuto": "Zoom (자동 연동)",
+        "zoom": "Zoom (수동 연동)",
+        "google": "Google meet (수동 연동)",
+        "kakao": "카카오톡",
+        "line": "라인",
+        "wechat": "위챗"
+      },
+      "next": "다음"
+    }
+  }
+}
