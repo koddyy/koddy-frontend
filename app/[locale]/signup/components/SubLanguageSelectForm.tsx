@@ -8,7 +8,8 @@ import { NationCode } from "@/types/user";
 import { SignupForm } from "../types/mentorForm";
 
 export const SubLanguageSelectForm = () => {
-  const t = useTranslations();
+  const t = useTranslations("signup.SubLanguageSelectForm");
+  const constants = useTranslations("constants");
 
   const {
     control,
@@ -35,12 +36,12 @@ export const SubLanguageSelectForm = () => {
     <>
       <FormControl>
         <FormLabel className="headline-1 mb-[9px]">
-          {t.rich("signup.SubLanguageSelectForm.title", {
+          {t.rich("title", {
             br: () => <br />,
           })}
         </FormLabel>
         <div className="body-1 mb-[14px] text-gray-600">
-          {t.rich("signup.SubLanguageSelectForm.description", {
+          {t.rich("description", {
             br: () => <br />,
           })}
         </div>
@@ -54,13 +55,13 @@ export const SubLanguageSelectForm = () => {
               onChangePressed={() => handleChangeSubLanguages(key)}
               disabled={mainLanguage && key === mainLanguage.value}
             >
-              {t(`languages-options.${key}`)}
+              {constants(`languages-options.${key}`)}
             </Toggle>
           ))}
         </div>
       </FormControl>
       <BottomButton type="submit" disabled={!isValid}>
-        {t("signup.SubLanguageSelectForm.next")}
+        {t("next")}
       </BottomButton>
     </>
   );

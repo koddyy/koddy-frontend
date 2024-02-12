@@ -11,7 +11,8 @@ interface MainLanguageSelectFormProps {
 }
 
 export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFormProps) => {
-  const t = useTranslations();
+  const t = useTranslations("signup.MainLanguageSelectForm");
+  const constants = useTranslations("constants");
 
   const {
     control,
@@ -30,12 +31,12 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
     <>
       <FormControl>
         <FormLabel className="headline-1 mb-[9px]">
-          {t.rich("signup.MainLanguageSelectForm.title", {
+          {t.rich("title", {
             br: () => <br />,
           })}
         </FormLabel>
         <div className="body-1 mb-[14px] text-gray-600">
-          {t.rich("signup.MainLanguageSelectForm.description", {
+          {t.rich("description", {
             br: () => <br />,
           })}
         </div>
@@ -54,13 +55,13 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
                 }
               }}
             >
-              {t(`languages-options.${key}`)}
+              {constants(`languages-options.${key}`)}
             </Toggle>
           ))}
         </div>
       </FormControl>
       <BottomButton disabled={!isValid} onClick={onClickNextStep}>
-        {t("signup.MainLanguageSelectForm.next")}
+        {t("next")}
       </BottomButton>
     </>
   );
