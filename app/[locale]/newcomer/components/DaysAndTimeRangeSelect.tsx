@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Select } from "@/components/Select";
 import { Toggle } from "@/components/Toggle";
 import { DAYS, TIMES } from "@/constants/date";
@@ -16,13 +17,15 @@ export const DaysAndTimeRangeSelect = ({
   onChangeDays,
   onChangeTimeRange,
 }: DaysAndTimeRangeSelectProps) => {
+  const constants = useTranslations("constants");
+
   return (
     <>
       <div className="mb-[13px] flex justify-between">
         {DAYS.map((day, i) => {
           return (
             <Toggle key={i} pressed={days.includes(day)} onChangePressed={() => onChangeDays(day)}>
-              {day}
+              {constants(`day-of-week.${day}`)[0]}
             </Toggle>
           );
         })}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentee } from "@/apis/user/hooks/useGetMeAsMentee";
 import { useUpdateMenteeInfo } from "@/apis/user/hooks/useUpdateMenteeInfo";
@@ -12,7 +13,7 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { NationalityOptions, NationalityText } from "@/constants/nationality";
+import { NationalityOptions } from "@/constants/nationality";
 import { PATH } from "@/constants/path";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { Nationality } from "@/types/user";
@@ -22,6 +23,9 @@ import { LanguageSelectForm } from "./LanguageSelectForm";
 const _NationalityOptions = NationalityOptions.map((v) => v[0]);
 
 export const MenteeInfoForm = () => {
+  const t = useTranslations("edit.profile.MenteeInfoForm");
+  const constants = useTranslations("constants");
+
   const router = useRouter();
   const { data: me } = useGetMeAsMentee();
   const { mutate: updateMenteeInfo } = useUpdateMenteeInfo();
@@ -90,15 +94,15 @@ export const MenteeInfoForm = () => {
         <Divider className="border-[4px]" />
         <div className="mb-[24px] mt-[20px] flex flex-col gap-[16px] px-[20px]">
           <FormControl>
-            <FormLabel>이름</FormLabel>
+            <FormLabel>{t("name")}</FormLabel>
             <Input {...register("name")} />
           </FormControl>
           <FormControl>
-            <FormLabel>관심 학교</FormLabel>
+            <FormLabel>{t("interest-school")}</FormLabel>
             <Input {...register("interestSchool")} />
           </FormControl>
           <FormControl>
-            <FormLabel>관심 전공</FormLabel>
+            <FormLabel>{t("interest-major")}</FormLabel>
             <Input {...register("interestMajor")} />
           </FormControl>
           <Controller
@@ -106,12 +110,12 @@ export const MenteeInfoForm = () => {
             name="nationality"
             render={({ field: { value, onChange } }) => (
               <FormControl>
-                <FormLabel>국적</FormLabel>
+                <FormLabel>{t("nationality")}</FormLabel>
                 <Select
                   placeholder="국적을 선택해 주세요."
                   options={_NationalityOptions}
-                  renderValue={() => NationalityText[value]}
-                  renderOption={(option: Nationality) => NationalityText[option]}
+                  renderValue={() => constants(`nationality-options.${value}`)}
+                  renderOption={(option: Nationality) => constants(`nationality-options.${option}`)}
                   value={value}
                   onChangeValue={onChange}
                 />
@@ -127,18 +131,18 @@ export const MenteeInfoForm = () => {
             className="body-2 bg-gray-100 text-primary-dark"
             onClick={handleAddLanguages}
           >
-            추가하기
+            {t("add")}
           </LinkButton>
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[104px] mt-[20px] px-[20px]">
           <FormControl>
-            <FormLabel>자기소개</FormLabel>
+            <FormLabel>{t("introduction")}</FormLabel>
             <TextArea {...register("introduction")} />
           </FormControl>
         </div>
         <BottomButton type="submit" disabled={(!isDirty && !isModified) || !isValid}>
-          수정하기
+          {t("edit")}
         </BottomButton>
       </form>
     </FormProvider>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
@@ -12,7 +13,7 @@ import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
-import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
+import { ScheduleByOptionType } from "@/constants/schedule";
 import { UpdateSchedulesForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
 
@@ -20,6 +21,8 @@ const formLabelStyle =
   "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
 
 const Page = () => {
+  const t = useTranslations("edit.schedule");
+
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorSchedules } = useUpdateMentorSchedules();
@@ -62,19 +65,19 @@ const Page = () => {
   return (
     <>
       <NavigationBar
-        title="커피챗 기간 수정"
+        title={t("title")}
         titleFontWeight="regular"
         onClickGoback={() => router.back()}
       />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleClickEdit)}>
           <div className="my-[24px] px-[20px]">
-            <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>
+            <div className={cn(formLabelStyle, "mb-[16px]")}>{t("period.label")}</div>
             <PeriodStep />
           </div>
           <Divider className="border-[4px] border-gray-100" />
           <div className="mb-[109px] mt-[26px] px-[20px]">
-            <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 가능 시간대</div>
+            <div className={cn(formLabelStyle, "mb-[16px]")}>{t("schedules.label")}</div>
             <RadioGroup
               name="scheduleBy"
               value={scheduleBy}
@@ -82,8 +85,8 @@ const Page = () => {
                 if (value === "REPEAT" || value === "NOT_REPEAT") setScheduleBy(value);
               }}
             >
-              <Radio value="REPEAT">{ScheduleByOption.REPEAT}</Radio>
-              <Radio value="NOT_REPEAT">{ScheduleByOption.NOT_REPEAT}</Radio>
+              <Radio value="REPEAT">{t("schedules.schedule-by-repeat")}</Radio>
+              <Radio value="NOT_REPEAT">{t("schedules.schedule-by-not-repeat")}</Radio>
             </RadioGroup>
             {scheduleBy === "REPEAT" && (
               <div className="mt-[20px]">
@@ -97,7 +100,7 @@ const Page = () => {
             )}
           </div>
           <BottomButton type="submit" disabled={!isDirty}>
-            수정하기
+            {t("edit")}
           </BottomButton>
         </form>
       </FormProvider>

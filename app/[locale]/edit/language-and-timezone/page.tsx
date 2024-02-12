@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
@@ -20,6 +21,8 @@ const _localesOptions = getKeys(localesOptions);
 const _timezonesOptions = getKeys(timezones);
 
 const Page = () => {
+  const t = useTranslations("edit.language-and-timezone");
+
   const router = useRouter();
   const initial = useRef<{ locale?: SupportLocale; timezone?: string }>({
     locale: undefined,
@@ -52,13 +55,13 @@ const Page = () => {
   return (
     <>
       <NavigationBar
-        title="언어&타임존 설정"
+        title={t("title")}
         titleFontWeight="regular"
         onClickGoback={() => router.back()}
       />
       <div className="flex flex-col gap-[24px] px-[20px] py-[24px]">
         <FormControl>
-          <FormLabel>사용언어</FormLabel>
+          <FormLabel>{t("languages")}</FormLabel>
           <Select
             options={_localesOptions}
             value={locale}
@@ -68,7 +71,7 @@ const Page = () => {
           />
         </FormControl>
         <FormControl>
-          <FormLabel>타임존</FormLabel>
+          <FormLabel>{t("timezone")}</FormLabel>
           <Select
             options={_timezonesOptions}
             value={timezone}
@@ -79,7 +82,7 @@ const Page = () => {
         </FormControl>
       </div>
       <BottomButton disabled={!isDirty} onClick={handleChangeLanguageAndTimezone}>
-        변경하기
+        {t("edit")}
       </BottomButton>
     </>
   );

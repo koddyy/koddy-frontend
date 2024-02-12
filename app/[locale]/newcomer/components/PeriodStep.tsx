@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useController, useFormContext } from "react-hook-form";
 import { DatePicker } from "@/components/DatePicker";
@@ -8,6 +9,8 @@ import { cn } from "@/utils/cn";
 import { getNextMonth, getToday, toYYYYMMDD } from "@/utils/dateUtils";
 
 export const PeriodStep = () => {
+  const t = useTranslations("edit.schedule.period");
+
   const [periodType, setPeriodType] = useState<keyof Period>();
 
   const { control } = useFormContext<Pick<CompleteProfileForm, "period">>();
@@ -41,7 +44,7 @@ export const PeriodStep = () => {
 
   return (
     <>
-      <div className="body-1 mb-2 text-gray-500">이때부터 시작할 예정이에요 (시작)</div>
+      <div className="body-1 mb-2 text-gray-500">{t("start")}</div>
       <button
         className={cn("headline-3", !startDate.value && "text-gray-400")}
         type="button"
@@ -50,7 +53,7 @@ export const PeriodStep = () => {
         {startDate.value || TODAY}
       </button>
       <Divider className="my-[16px]" />
-      <div className="body-1 mb-2 text-gray-500">이때까지 가능해요 (완료)</div>
+      <div className="body-1 mb-2 text-gray-500">{t("end")}</div>
       <button
         className={cn("headline-3", !endDate.value && "text-gray-400")}
         type="button"

@@ -1,0 +1,16 @@
+{
+  "mypage": {
+    "title": "마이페이지",
+    "edit-profile": "회원 정보 수정",
+    "edit-schedule": "커피챗 기간 수정",
+    "edit-locale-and-timezone": "언어 & 타임존 설정",
+    "customer-support": "문의하기",
+    "terms-of-service": "개인정보 처리방침",
+
+    "account": {
+      "terms-of-service": "개인정보 처리방침",
+      "sign-out": "로그아웃",
+      "delete-account": "탈퇴"
+    }
+  }
+}
