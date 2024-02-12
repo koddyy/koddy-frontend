@@ -16,9 +16,9 @@ export const useSuggestCoffeeChat = () => {
 
   const suggestCoffeeChat = ({
     menteeId,
-    applyReason,
+    suggestReason,
   }: PostCoffeeChatFromMentorToMenteeRequest) => {
-    createCoffeeChat({ menteeId, applyReason });
+    createCoffeeChat({ menteeId, suggestReason });
   };
 
   return {

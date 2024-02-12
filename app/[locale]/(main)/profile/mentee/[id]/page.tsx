@@ -47,7 +47,7 @@ const Page = ({ params }: { params: { id: string } }) => {
             description={t("coffeechat.PendingBottomSheet.SUGGEST", { name: mentee.name })}
             onClickNo={closePendingBottomSheet}
             /** @TODO applyReason 입력 단계 추가 */
-            onClickYes={() => suggestCoffeeChat({ menteeId, applyReason: "temp" })}
+            onClickYes={() => suggestCoffeeChat({ menteeId, suggestReason: "temp" })}
           />
         ) : (
           <GoToLoginBottomSheet onClose={closePendingBottomSheet} />

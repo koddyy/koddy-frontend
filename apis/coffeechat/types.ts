@@ -5,7 +5,7 @@ import { Mentor } from "@/types/mentor";
 
 export interface PostCoffeeChatFromMentorToMenteeRequest {
   menteeId: number;
-  applyReason: string;
+  suggestReason: string;
 }
 
 export interface PostCoffeeChatFromMentorToMenteeResponse {
@@ -81,6 +81,7 @@ export type GetCoffeeChatByIdResponse = {
     id: number;
     status: CoffeeChatStatus;
     applyReason: string;
+    suggestReason: string;
     question: string | null;
     rejectReason: string | null;
     start: string;
