@@ -87,12 +87,22 @@ const CoffeeChatDetailForMentor = ({ id }: CoffeeChatDetailProps) => {
             {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionToMentor")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.question ?? "궁금한 점을 입력하지 않았어요."}
-          </p>
-        </div>
+        {coffeeChat.suggestReason && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionToMentee")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.suggestReason}
+            </p>
+          </div>
+        )}
+        {(coffeeChat.applyReason ?? coffeeChat.question) && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionOfMentee")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.applyReason ?? coffeeChat.question}
+            </p>
+          </div>
+        )}
         {isCancelable && (
           <Button
             variant="outline"
@@ -198,13 +208,29 @@ const CoffeeChatDetailForMentee = ({ id }: CoffeeChatDetailProps) => {
         />
       )}
       <Divider />
-      <div className="px-[20px] py-[12px]">
-        <div className="mb-[20px]">
+      <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
+        <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentor")}</span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
+        {(coffeeChat.applyReason ?? coffeeChat.question) && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionToMentor")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.applyReason ?? coffeeChat.question}
+            </p>
+          </div>
+        )}
+        {coffeeChat.suggestReason && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionOfMentor")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.question}
+            </p>
+          </div>
+        )}
         {isCancelable && (
           <Button
             variant="outline"
