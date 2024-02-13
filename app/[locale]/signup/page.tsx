@@ -41,6 +41,9 @@ const Page = () => {
         )}
       </div>
       <BottomButton
+        disabled={
+          (currentStep === 1 && !selectedUserRole) || (currentStep === 2 && !selectedLocale)
+        }
         onClick={() => {
           if (lastStep) {
             router.push(`/signup/${selectedUserRole}`, { locale: selectedLocale });
