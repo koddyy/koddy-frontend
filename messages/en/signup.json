@@ -1,6 +1,5 @@
 {
   "signup": {
-    "title": "Choose who you are!",
     "UserTypeCard": {
       "mentor": {
         "role-name": "Mentor",
@@ -13,11 +12,13 @@
         "illustration-alt-text": "mentee illustration"
       }
     },
-    "next": "Next",
-
+    "UserRoleSelectStep": {
+      "title": "Choose who you are!"
+    },
     "LocaleSelectStep": {
       "title": "Select your<br></br>preferred language."
     },
+    "next": "Next",
 
     "TermsOfService": {
       "title": "Terms of service<br></br>agreement",

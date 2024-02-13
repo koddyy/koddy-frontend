@@ -1,6 +1,5 @@
 {
   "signup": {
-    "title": "회원 유형을 선택해주세요",
     "UserTypeCard": {
       "mentor": {
         "role-name": "멘토",
@@ -13,11 +12,13 @@
         "illustration-alt-text": "멘티 일러스트 이미지"
       }
     },
-    "next": "다음",
-
+    "UserRoleSelectStep": {
+      "title": "회원 유형을 선택해주세요"
+    },
     "LocaleSelectStep": {
       "title": "사용 언어를<br></br>선택해 주세요"
     },
+    "next": "다음",
 
     "TermsOfService": {
       "title": "코띠 서비스 이용에<br></br>동의해주세요",
