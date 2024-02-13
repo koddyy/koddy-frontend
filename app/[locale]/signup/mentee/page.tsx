@@ -12,7 +12,6 @@ import { useUserStore } from "@/stores/user";
 import { MainLanguageSelectForm } from "../components/MainLanguageSelectForm";
 import { SignupSuccess } from "../components/SignupSuccess";
 import { SubLanguageSelectForm } from "../components/SubLanguageSelectForm";
-import { TermsOfService } from "../components/TermsOfService";
 import { BasicInformationForm } from "./components/BasicInformationForm";
 
 const TOTAL_STEPS = 3;
@@ -58,20 +57,17 @@ const Page = () => {
     <div>
       <NavigationBar onClickGoback={handleClickGoback} />
       <div className="px-5 pt-6">
-        {2 <= currentStep && currentStep <= 4 && (
-          <div className="mb-[23px] mt-[17px]">
-            <Progress percent={((currentStep - 1) / TOTAL_STEPS) * 100} />
-          </div>
-        )}
-        {currentStep === 1 && <TermsOfService onClickNextStep={handleClickNextStep} />}
+        <div className="mb-[23px] mt-[17px]">
+          <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
+        </div>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmitForm)}>
-            {currentStep === 2 && <BasicInformationForm onClickNextStep={handleClickNextStep} />}
-            {currentStep === 3 && <MainLanguageSelectForm onClickNextStep={handleClickNextStep} />}
-            {currentStep === 4 && <SubLanguageSelectForm />}
+            {currentStep === 1 && <BasicInformationForm onClickNextStep={handleClickNextStep} />}
+            {currentStep === 2 && <MainLanguageSelectForm onClickNextStep={handleClickNextStep} />}
+            {currentStep === 3 && <SubLanguageSelectForm />}
           </form>
         </FormProvider>
-        {currentStep === 5 && <SignupSuccess />}
+        {currentStep === 4 && <SignupSuccess />}
       </div>
     </div>
   );
