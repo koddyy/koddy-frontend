@@ -1,6 +1,5 @@
 {
   "signup": {
-    "title": "회원 유형을 선택해주세요",
     "UserTypeCard": {
       "mentor": {
         "role-name": "멘토",
@@ -12,6 +11,12 @@
         "description": "한국 생활을 알고 싶다면<br></br>코띠 멘토의 도움을 받아보세요!",
         "illustration-alt-text": "멘티 일러스트 이미지"
       }
+    },
+    "UserRoleSelectStep": {
+      "title": "회원 유형을 선택해주세요"
+    },
+    "LocaleSelectStep": {
+      "title": "사용 언어를<br></br>선택해 주세요"
     },
     "next": "다음",
 
@@ -48,11 +53,11 @@
 
       "mentee": {
         "title": "기본 정보를<br></br>입력해 주세요",
-        "interestSchool": {
+        "interest-school": {
           "label": "관심 학교",
           "placeholder": "관심있는 학교를 입력해 주세요."
         },
-        "interestMajor": {
+        "interest-major": {
           "label": "관심 전공",
           "placeholder": "관심있는 전공을 입력해 주세요."
         },

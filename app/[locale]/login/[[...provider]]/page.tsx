@@ -16,6 +16,9 @@ const ONBOARDING = [
   { imageUrl: "/images/illustration_onboarding3.svg", description: "manage-chat" },
 ] as const;
 
+const TERMS_OF_SERVICE_URL =
+  "https://suave-pamphlet-a89.notion.site/7860eda0f6354c0d8eada0481198d3a0?pvs=4";
+
 const Page = ({
   params,
   searchParams,
@@ -50,10 +53,24 @@ const Page = ({
           </div>
         ))}
       </Carousel>
-      <div className="mt-[80px] flex w-full flex-col gap-2 px-5">
+      <div className="mt-[80px] flex w-full flex-col items-center gap-2 px-5">
         <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
         <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
-        <Link className="body-1 mt-[32px] text-center text-gray-600" href={PATH.EXPLORE}>
+        <div className="label text-gray-500">
+          {t.rich("agree-terms-of-service", {
+            a: (chunks) => (
+              <a
+                href={TERMS_OF_SERVICE_URL}
+                className="underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
+        </div>
+        <Link className="body-1 mt-[32px] text-gray-600" href={PATH.EXPLORE}>
           {t("continue-as-guest")}
         </Link>
       </div>

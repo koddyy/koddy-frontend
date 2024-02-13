@@ -1,6 +1,5 @@
 {
   "signup": {
-    "title": "Choose who you are!",
     "UserTypeCard": {
       "mentor": {
         "role-name": "Mentor",
@@ -12,6 +11,12 @@
         "description": "If you want to learn about life in Korea<br></br>seek the help of a KODDY mentor!",
         "illustration-alt-text": "mentee illustration"
       }
+    },
+    "UserRoleSelectStep": {
+      "title": "Choose who you are!"
+    },
+    "LocaleSelectStep": {
+      "title": "Select your<br></br>preferred language."
     },
     "next": "Next",
 
