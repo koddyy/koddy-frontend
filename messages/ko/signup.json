@@ -53,11 +53,11 @@
 
       "mentee": {
         "title": "기본 정보를<br></br>입력해 주세요",
-        "interestSchool": {
+        "interest-school": {
           "label": "관심 학교",
           "placeholder": "관심있는 학교를 입력해 주세요."
         },
-        "interestMajor": {
+        "interest-major": {
           "label": "관심 전공",
           "placeholder": "관심있는 전공을 입력해 주세요."
         },
