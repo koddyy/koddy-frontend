@@ -154,7 +154,7 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
     <>
       <MentorProfile
         {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
       <CoffeeChatSchedule
         status={coffeeChat.status}
@@ -221,7 +221,7 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
     <>
       <MentorProfile
         {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
       <CoffeeChatSchedule
         status={coffeeChat.status}
@@ -286,7 +286,7 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
     <>
       <MentorProfile
         {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
       <CoffeeChatSchedule
         status={coffeeChat.status}
@@ -333,7 +333,7 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
     <>
       <MentorProfile
         {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
