@@ -2,7 +2,6 @@ import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { Button, LinkButton } from "@/components/Button";
-import { Divider } from "@/components/Divider/Divider";
 import { MenteeProfile } from "../../components/UserProfile";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
 import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
@@ -43,7 +42,6 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
         status={coffeeChat.status}
         schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
       />
-      <Divider />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
@@ -123,7 +121,6 @@ const SuggestCoffeeChat = ({ id }: MentorViewProps) => {
         {...mentee}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
       />
-      <Divider />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
@@ -187,7 +184,6 @@ const ApproveCoffeeChat = ({ id }: MentorViewProps) => {
           schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
         />
       )}
-      <Divider />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
@@ -253,7 +249,6 @@ const CompleteCoffeeChat = ({ id }: MentorViewProps) => {
         status={coffeeChat.status}
         schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
       />
-      <Divider />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
@@ -299,7 +294,6 @@ const CancelAndRejectCoffeeChat = ({ id }: MentorViewProps) => {
         {...mentee}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
       />
-      <Divider />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
