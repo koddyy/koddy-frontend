@@ -27,6 +27,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         <>
           {coffeeChat.status === "APPLY" && <MentorView.ApplyCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "SUGGEST" && <MentorView.SuggestCoffeeChat id={coffeeChatId} />}
+          {coffeeChat.status === "PENDING" && <MentorView.PendingCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "APPROVE" && <MentorView.ApproveCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "COMPLETE" && <MentorView.CompleteCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "CANCEL,REJECT" && (
@@ -38,6 +39,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         <>
           {coffeeChat.status === "APPLY" && <MenteeView.ApplyCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "SUGGEST" && <MenteeView.SuggestCoffeeChat id={coffeeChatId} />}
+          {coffeeChat.status === "PENDING" && <MenteeView.PendingCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "APPROVE" && <MenteeView.ApproveCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "COMPLETE" && <MenteeView.CompleteCoffeeChat id={coffeeChatId} />}
           {coffeeChat.status === "CANCEL,REJECT" && (

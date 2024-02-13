@@ -136,6 +136,73 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
   );
 };
 
+const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
+  const t = useTranslations("coffeechat");
+  const constants = useTranslations("constants");
+
+  const { data } = useGetCoffeeChatById(id);
+  const { mentor, coffeeChat } = data ?? {};
+
+  const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
+
+  if (!mentor || !coffeeChat || coffeeChat.status !== "PENDING") return null;
+
+  const [date, startTime] = coffeeChat.start.split("T");
+  const endTime = coffeeChat.end.split("T")?.[1];
+
+  return (
+    <>
+      <MentorProfile
+        {...mentor}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
+      />
+      <CoffeeChatSchedule
+        status={coffeeChat.status}
+        schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
+      />
+      <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {mentor.introduction ?? "자기소개를 입력하지 않았어요."}
+          </p>
+        </div>
+        {coffeeChat.suggestReason && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionToMentee")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.suggestReason}
+            </p>
+          </div>
+        )}
+        {coffeeChat.question && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("questionOfMentee")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.question}
+            </p>
+          </div>
+        )}
+        <Button
+          variant="outline"
+          color="grayscale"
+          className="border-[0.5px]"
+          onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
+        >
+          {t("cancel-coffeechat")}
+        </Button>
+      </div>
+      {isCancelSuccess && (
+        <ResultBottomSheet
+          resultType="negative"
+          description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
+          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
+        />
+      )}
+    </>
+  );
+};
+
 const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
   const constants = useTranslations("constants");
@@ -299,6 +366,7 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
 export const MenteeView = {
   ApplyCoffeeChat,
   SuggestCoffeeChat,
+  PendingCoffeeChat,
   ApproveCoffeeChat,
   CompleteCoffeeChat,
   CancelAndRejectCoffeeChat,
