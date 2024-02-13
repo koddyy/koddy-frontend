@@ -16,6 +16,11 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   if (!me || !coffeeChat) return;
 
+  const CoffeeChatDetail = {
+    MentorView: MentorView[coffeeChat.status],
+    MenteeView: MenteeView[coffeeChat.status],
+  };
+
   return (
     <>
       <NavigationBar
@@ -23,30 +28,8 @@ const Page = ({ params }: { params: { id: string } }) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
-      {me.role === "mentor" && (
-        <>
-          {coffeeChat.status === "APPLY" && <MentorView.ApplyCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "SUGGEST" && <MentorView.SuggestCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "PENDING" && <MentorView.PendingCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "APPROVE" && <MentorView.ApproveCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "COMPLETE" && <MentorView.CompleteCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "CANCEL,REJECT" && (
-            <MentorView.CancelAndRejectCoffeeChat id={coffeeChatId} />
-          )}
-        </>
-      )}
-      {me.role === "mentee" && (
-        <>
-          {coffeeChat.status === "APPLY" && <MenteeView.ApplyCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "SUGGEST" && <MenteeView.SuggestCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "PENDING" && <MenteeView.PendingCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "APPROVE" && <MenteeView.ApproveCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "COMPLETE" && <MenteeView.CompleteCoffeeChat id={coffeeChatId} />}
-          {coffeeChat.status === "CANCEL,REJECT" && (
-            <MenteeView.CancelAndRejectCoffeeChat id={coffeeChatId} />
-          )}
-        </>
-      )}
+      {me.role === "mentor" && <CoffeeChatDetail.MentorView id={coffeeChatId} />}
+      {me.role === "mentee" && <CoffeeChatDetail.MenteeView id={coffeeChatId} />}
     </>
   );
 };

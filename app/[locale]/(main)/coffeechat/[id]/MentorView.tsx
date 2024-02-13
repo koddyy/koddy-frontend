@@ -417,10 +417,10 @@ const CancelAndRejectCoffeeChat = ({ id }: MentorViewProps) => {
 };
 
 export const MentorView = {
-  ApplyCoffeeChat,
-  SuggestCoffeeChat,
-  PendingCoffeeChat,
-  ApproveCoffeeChat,
-  CompleteCoffeeChat,
-  CancelAndRejectCoffeeChat,
-};
+  APPLY: ApplyCoffeeChat,
+  SUGGEST: SuggestCoffeeChat,
+  PENDING: PendingCoffeeChat,
+  APPROVE: ApproveCoffeeChat,
+  COMPLETE: CompleteCoffeeChat,
+  "CANCEL,REJECT": CancelAndRejectCoffeeChat,
+} as const;
