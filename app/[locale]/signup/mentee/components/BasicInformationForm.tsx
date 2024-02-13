@@ -31,7 +31,8 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
 
   return (
     <div className="flex flex-col gap-4">
-      <FormControl required>
+      <div className="headline-1 mb-[9px]">{t.rich("title", { br: () => <br /> })}</div>
+      <FormControl>
         <FormLabel htmlFor="interestSchool">{t("interest-school.label")}</FormLabel>
         <Input
           placeholder={t("interest-school.placeholder")}
@@ -39,7 +40,7 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
         />
       </FormControl>
 
-      <FormControl required>
+      <FormControl>
         <FormLabel htmlFor="interestMajor">{t("interest-major.label")}</FormLabel>
         <Input
           placeholder={t("interest-major.placeholder")}
@@ -47,7 +48,7 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
         />
       </FormControl>
 
-      <FormControl required>
+      <FormControl>
         <FormLabel htmlFor="nationality">{t("nationality.label")}</FormLabel>
         <Select
           placeholder={t("nationality.placeholder")}
