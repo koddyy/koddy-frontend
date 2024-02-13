@@ -1,28 +1,19 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { useGetMenteeById } from "@/apis/user/hooks/useGetMenteeById";
-import { PendingBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/PendingBottomSheet";
-import { ResultBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/ResultBottomSheet/ResultBottomSheet";
 import { MenteeProfile } from "@/app/[locale]/(main)/components/UserProfile";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
-import { Button, LinkButton } from "@/components/Button";
+import { Button } from "@/components/Button";
+import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
-import { useSuggestCoffeeChat } from "../../hooks/useSuggestCoffeeChat";
+import { useToggle } from "@/hooks/useToggle";
+import { Link } from "@/libs/navigation";
 
 const Page = ({ params }: { params: { id: string } }) => {
-  const t = useTranslations();
   const menteeId = Number(params.id);
   const { data: mentee, isLoading } = useGetMenteeById(menteeId);
   const { isAuthenticated } = useAuth();
-
-  const {
-    isPending,
-    isRequested,
-    openPendingBottomSheet,
-    closePendingBottomSheet,
-    suggestCoffeeChat,
-  } = useSuggestCoffeeChat();
+  const [isOpenLoginBottomSheet, toggleLoginBottomSheet] = useToggle();
 
   if (isLoading) return null;
 
@@ -38,28 +29,18 @@ const Page = ({ params }: { params: { id: string } }) => {
         </p>
       </div>
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-[20px] py-[11px]">
-        <Button onClick={openPendingBottomSheet}>커피챗 제안하기</Button>
+        <Link
+          href={`${PATH.PROFILE_MENTEE}/${menteeId}/suggest`}
+          onClick={(e) => {
+            if (isAuthenticated) return;
+            e.preventDefault();
+            toggleLoginBottomSheet();
+          }}
+        >
+          <Button>커피챗 제안하기</Button>
+        </Link>
       </div>
-      {isPending &&
-        (isAuthenticated ? (
-          <PendingBottomSheet
-            resultType="positive"
-            description={t("coffeechat.PendingBottomSheet.SUGGEST", { name: mentee.name })}
-            onClickNo={closePendingBottomSheet}
-            /** @TODO applyReason 입력 단계 추가 */
-            onClickYes={() => suggestCoffeeChat({ menteeId, applyReason: "temp" })}
-          />
-        ) : (
-          <GoToLoginBottomSheet onClose={closePendingBottomSheet} />
-        ))}
-
-      {isRequested && (
-        <ResultBottomSheet
-          resultType="positive"
-          description={t("coffeechat.PendingBottomSheet.SUGGEST", { name: mentee.name })}
-          confirmButton={<LinkButton href="/">홈으로 돌아가기</LinkButton>}
-        />
-      )}
+      {isOpenLoginBottomSheet && <GoToLoginBottomSheet onClose={toggleLoginBottomSheet} />}
     </>
   );
 };

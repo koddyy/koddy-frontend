@@ -20,11 +20,11 @@ import { redirectUri } from "../auth/api";
 class CoffeeChatApi {
   postCoffeeChatFromMentorToMentee = ({
     menteeId,
-    applyReason,
+    suggestReason,
   }: PostCoffeeChatFromMentorToMenteeRequest) => {
     return apiInstance.post<PostCoffeeChatFromMentorToMenteeResponse>("/api/coffeechats/suggest", {
       menteeId,
-      applyReason,
+      suggestReason,
     });
   };
 

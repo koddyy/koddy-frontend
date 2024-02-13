@@ -4,8 +4,10 @@ export const coffeeChatWithMenteeList = [
   {
     id: 1,
     status: "APPLY",
-    applyReason: "신청..",
-    question: "질문..",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason: null,
+    question: null,
     rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
@@ -15,8 +17,10 @@ export const coffeeChatWithMenteeList = [
   {
     id: 2,
     status: "SUGGEST",
-    applyReason: "신청..",
-    question: "질문..",
+    applyReason: null,
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    question: null,
     rejectReason: null,
     start: null,
     end: null,
@@ -26,8 +30,11 @@ export const coffeeChatWithMenteeList = [
   {
     id: 3,
     status: "APPROVE",
-    applyReason: "신청..",
-    question: "질문..",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    question: null,
     rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
@@ -37,8 +44,11 @@ export const coffeeChatWithMenteeList = [
   {
     id: 4,
     status: "PENDING",
-    applyReason: "신청..",
-    question: "질문..",
+    applyReason: null,
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    question:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
     rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
@@ -48,8 +58,11 @@ export const coffeeChatWithMenteeList = [
   {
     id: 5,
     status: "COMPLETE",
-    applyReason: "신청..",
-    question: "질문..",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    question: null,
     rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
@@ -69,10 +82,13 @@ export const coffeeChatWithMenteeList = [
   },
   {
     id: 6,
-    status: "REJECT",
-    applyReason: "신청..",
-    question: "질문..",
-    rejectReason: "거절..",
+    status: "CANCEL,REJECT",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    question: null,
+    rejectReason: "스케줄이 바뀌었어요.",
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
     chatType: null,
@@ -84,18 +100,21 @@ export const coffeeChatWithMentorList = [
   {
     id: 1,
     status: "APPLY",
-    applyReason: "신청..",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
     question: null,
     rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
-    chatType: "zoom",
-    chatValue: "https://us05web.zoom.us/",
+    chatType: null,
+    chatValue: null,
   },
   {
     id: 2,
     status: "SUGGEST",
-    applyReason: "신청..",
+    applyReason: null,
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
     question: null,
     rejectReason: null,
     start: null,
@@ -106,7 +125,10 @@ export const coffeeChatWithMentorList = [
   {
     id: 3,
     status: "APPROVE",
-    applyReason: "신청..",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
     question: null,
     rejectReason: null,
     start: "2024-01-01T20:00:00",
@@ -117,8 +139,11 @@ export const coffeeChatWithMentorList = [
   {
     id: 4,
     status: "PENDING",
-    applyReason: "신청..",
-    question: null,
+    applyReason: null,
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    question:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
     rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
@@ -128,7 +153,10 @@ export const coffeeChatWithMentorList = [
   {
     id: 5,
     status: "COMPLETE",
-    applyReason: "신청..",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
     question: null,
     rejectReason: null,
     start: "2024-01-01T20:00:00",
@@ -138,10 +166,13 @@ export const coffeeChatWithMentorList = [
   },
   {
     id: 6,
-    status: "REJECT",
-    applyReason: "신청..",
+    status: "CANCEL,REJECT",
+    applyReason:
+      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason:
+      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
     question: null,
-    rejectReason: "거절..",
+    rejectReason: "스케줄이 바뀌었어요.",
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
     chatType: "zoom",

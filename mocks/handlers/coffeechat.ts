@@ -1,5 +1,8 @@
 import { delay, http, HttpResponse, PathParams } from "msw";
-import { PostZoomMeetingLinkResponse } from "@/apis/coffeechat/types";
+import {
+  PostCoffeeChatFromMentorToMenteeRequest,
+  PostZoomMeetingLinkResponse,
+} from "@/apis/coffeechat/types";
 import {
   appliedCoffeeChatList,
   coffeeChatWithMenteeList,
@@ -41,11 +44,16 @@ export const handlers = [
     }
   ),
 
-  http.post("/api/coffeechats/suggest/:menteeId", async () => {
-    await delay(1500);
+  http.post<PathParams, PostCoffeeChatFromMentorToMenteeRequest>(
+    "/api/coffeechats/suggest",
+    async ({ request }) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { menteeId, suggestReason } = await request.json();
+      await delay(1500);
 
-    return HttpResponse.json({ coffeeChatId: 1 }, { status: 200 });
-  }),
+      return HttpResponse.json({ coffeeChatId: 1 }, { status: 200 });
+    }
+  ),
 
   http.get("/api/mentees/applied-coffeechats", async ({ request }) => {
     const url = new URL(request.url);
