@@ -15,6 +15,10 @@
     },
     "next": "다음",
 
+    "LocaleSelectStep": {
+      "title": "사용 언어를<br></br>선택해 주세요"
+    },
+
     "TermsOfService": {
       "title": "코띠 서비스 이용에<br></br>동의해주세요",
       "agreement": {

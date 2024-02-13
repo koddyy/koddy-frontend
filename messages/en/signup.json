@@ -15,6 +15,10 @@
     },
     "next": "Next",
 
+    "LocaleSelectStep": {
+      "title": "Select your<br></br>preferred language."
+    },
+
     "TermsOfService": {
       "title": "Terms of service<br></br>agreement",
       "agreement": {
