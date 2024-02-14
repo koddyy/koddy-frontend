@@ -14,7 +14,7 @@ import { SubLanguageSelectForm } from "../components/SubLanguageSelectForm";
 import type { SignupForm } from "../types/mentorForm";
 import { BasicInformationForm } from "./components/BasicInformationForm";
 
-const TOTAL_STEPS = 3;
+const TOTAL_STEPS = 4;
 
 const Page = () => {
   const router = useRouter();
