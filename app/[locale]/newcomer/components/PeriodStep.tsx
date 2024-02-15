@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useController, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { BottomButton } from "@/app/components/BottomButton";
@@ -10,6 +11,8 @@ interface PeriodStepProps {
 }
 
 export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
+  const t = useTranslations("newcomer.PeriodStep");
+
   const { data: me } = useGetMeAsMentor();
   const { period, setPeriod } = useCompleteProfileFormStore();
   const {
@@ -39,11 +42,7 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
         onClickNextStep();
       })}
     >
-      <div className="headline-1 mb-[36px]">
-        어느 기간 내에
-        <br />
-        진행할 예정이신가요?
-      </div>
+      <div className="headline-1 mb-[36px]">{t.rich("title", { br: () => <br /> })}</div>
       <PeriodSelect
         startDate={startDate.value}
         endDate={endDate.value}
@@ -51,7 +50,7 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
         onChangeEndDate={(date) => endDate.onChange(date)}
       />
       <BottomButton type="submit" disabled={!isValid}>
-        다음
+        {t("next")}
       </BottomButton>
     </form>
   );

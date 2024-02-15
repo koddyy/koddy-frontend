@@ -1,9 +1,10 @@
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { BottomButton } from "@/app/components/BottomButton";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
-import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
+import { ScheduleByOptionType } from "@/constants/schedule";
 import { Schedules } from "@/types/mentor";
 import { convertSchedules, parseSchedules } from "@/utils/schedules";
 import { useCompleteProfileFormStore } from "../mentor/store";
@@ -15,6 +16,8 @@ interface ScheduleStepProps {
 }
 
 export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
+  const t = useTranslations("newcomer.ScheduleStep");
+
   const { data: me } = useGetMeAsMentor();
   const { schedules, setSchedules } = useCompleteProfileFormStore();
   const { isScheduleBy, schedulesByRepeat, schedulesByNotRepeat } = useMemo(
@@ -42,11 +45,7 @@ export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
 
   return (
     <FormProvider {...methods}>
-      <div className="headline-1 mb-[32px]">
-        커피챗이 가능한
-        <br />
-        시간대를 알려주세요
-      </div>
+      <div className="headline-1 mb-[32px]">{t.rich("title", { br: () => <br /> })}</div>
       <form
         onSubmit={handleSubmit(({ schedulesByRepeat, schedulesByNotRepeat }) => {
           setSchedules(
@@ -67,8 +66,8 @@ export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
             }
           }}
         >
-          <Radio value="REPEAT">{ScheduleByOption.REPEAT}</Radio>
-          <Radio value="NOT_REPEAT">{ScheduleByOption.NOT_REPEAT}</Radio>
+          <Radio value="REPEAT">{t("repeat")}</Radio>
+          <Radio value="NOT_REPEAT">{t("not-repeat")}</Radio>
         </RadioGroup>
         {scheduleBy === "REPEAT" && (
           <div className="mt-[36px]">
@@ -81,7 +80,7 @@ export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
           </div>
         )}
         <BottomButton type="submit" disabled={!isDirty || !isValid}>
-          다음
+          {t("next")}
         </BottomButton>
       </form>
     </FormProvider>

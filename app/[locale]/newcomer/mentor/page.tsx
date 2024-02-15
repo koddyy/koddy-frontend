@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useUpdateMentorProfile } from "@/apis/user/hooks/useUpdateMentorProfile";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button } from "@/components/Button";
@@ -15,6 +16,8 @@ import { useCompleteProfileFormStore } from "./store";
 const TOTAL_STEPS = 4;
 
 const Page = () => {
+  const t = useTranslations("newcomer");
+
   const router = useRouter();
   const { currentStep, firstStep, lastStep, goToPrevStep, goToNextStep } = useSteps(TOTAL_STEPS);
   const { introduction, period, schedules } = useCompleteProfileFormStore();
@@ -55,7 +58,7 @@ const Page = () => {
               }
             }}
           >
-            건너뛰기
+            {t("skip")}
           </Button>
         }
       />
