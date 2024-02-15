@@ -21,6 +21,8 @@ const Page = () => {
 
   const { mutate: updateMentorProfile } = useUpdateMentorProfile();
 
+  const isDirty = introduction || period || schedules;
+
   return (
     <>
       <NavigationBar
@@ -32,14 +34,24 @@ const Page = () => {
             size="xs"
             className="text-gray-700"
             onClick={() => {
-              if (lastStep) {
-                updateMentorProfile({
-                  introduction,
-                  period,
-                  schedules,
-                });
-              } else {
+              if (!lastStep) {
                 goToNextStep();
+                return;
+              }
+
+              if (isDirty) {
+                updateMentorProfile(
+                  {
+                    introduction,
+                    period,
+                    schedules,
+                  },
+                  {
+                    onSuccess: () => {
+                      router.push("/");
+                    },
+                  }
+                );
               }
             }}
           >
@@ -57,12 +69,19 @@ const Page = () => {
         {currentStep === 4 && (
           <ProfileImageStep
             onSubmitForm={(profileImageFile) => {
-              updateMentorProfile({
-                introduction,
-                period,
-                schedules,
-                profileImageFile,
-              });
+              updateMentorProfile(
+                {
+                  introduction,
+                  period,
+                  schedules,
+                  profileImageFile,
+                },
+                {
+                  onSuccess: () => {
+                    router.push("/");
+                  },
+                }
+              );
             }}
           />
         )}
