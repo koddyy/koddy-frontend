@@ -1,6 +1,7 @@
-import { useController, useFormContext } from "react-hook-form";
+import { useController, useForm } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { CompleteProfileForm } from "@/types/mentor";
+import { useCompleteProfileFormStore } from "../store";
 import { PeriodSelect } from "./PeriodSelect";
 
 interface PeriodStepProps {
@@ -10,8 +11,10 @@ interface PeriodStepProps {
 export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
   const {
     control,
+    handleSubmit,
     formState: { isValid },
-  } = useFormContext<Pick<CompleteProfileForm, "period">>();
+  } = useForm<Pick<CompleteProfileForm, "period">>();
+  const { setPeriod } = useCompleteProfileFormStore();
 
   const { field: startDate } = useController({
     control,
@@ -26,7 +29,12 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
   });
 
   return (
-    <>
+    <form
+      onSubmit={handleSubmit(({ period }) => {
+        setPeriod(period);
+        onClickNextStep();
+      })}
+    >
       <div className="headline-1 mb-[36px]">
         어느 기간 내에
         <br />
@@ -38,9 +46,9 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
         onChangeStartDate={(date) => startDate.onChange(date)}
         onChangeEndDate={(date) => endDate.onChange(date)}
       />
-      <BottomButton disabled={!isValid} onClick={onClickNextStep}>
+      <BottomButton type="submit" disabled={!isValid}>
         다음
       </BottomButton>
-    </>
+    </form>
   );
 };
