@@ -2,10 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useController, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { useUpdateMentorSchedules } from "@/apis/user/hooks/useUpdateMentorSchedules";
-import { PeriodStep } from "@/app/[locale]/newcomer/components/PeriodStep";
+import { PeriodSelect } from "@/app/[locale]/newcomer/components/PeriodSelect";
 import { ScheduleByNotRepeat } from "@/app/[locale]/newcomer/components/ScheduleByNotRepeat";
 import { ScheduleByRepeat } from "@/app/[locale]/newcomer/components/ScheduleByRepeat";
 import { BottomButton } from "@/app/components/BottomButton";
@@ -38,7 +38,22 @@ const Page = () => {
     shouldUnregister: true,
   });
 
-  const { isDirty } = methods.formState;
+  const {
+    control,
+    formState: { isDirty },
+  } = methods;
+
+  const { field: startDate } = useController({
+    control,
+    name: "period.startDate",
+    rules: { required: true },
+  });
+
+  const { field: endDate } = useController({
+    control,
+    name: "period.endDate",
+    rules: { required: true },
+  });
 
   const handleClickEdit = ({
     period,
@@ -73,7 +88,12 @@ const Page = () => {
         <form onSubmit={methods.handleSubmit(handleClickEdit)}>
           <div className="my-[24px] px-[20px]">
             <div className={cn(formLabelStyle, "mb-[16px]")}>{t("period.label")}</div>
-            <PeriodStep />
+            <PeriodSelect
+              startDate={startDate.value}
+              endDate={endDate.value}
+              onChangeStartDate={(date) => startDate.onChange(date)}
+              onChangeEndDate={(date) => endDate.onChange(date)}
+            />
           </div>
           <Divider className="border-[4px] border-gray-100" />
           <div className="mb-[109px] mt-[26px] px-[20px]">
