@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { BottomButton } from "@/app/components/BottomButton";
 import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
-import { CompleteProfileForm } from "@/types/mentor";
-import { convertSchedules } from "@/utils/schedules";
-import { useCompleteProfileFormStore } from "../store";
+import { Schedules } from "@/types/mentor";
+import { convertSchedules, parseSchedules } from "@/utils/schedules";
+import { useCompleteProfileFormStore } from "../mentor/store";
 import { ScheduleByNotRepeat } from "./ScheduleByNotRepeat";
 import { ScheduleByRepeat } from "./ScheduleByRepeat";
 
@@ -16,15 +16,21 @@ interface ScheduleStepProps {
 
 export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
   const { data: me } = useGetMeAsMentor();
-  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(
-    me?.isScheduleBy ?? "REPEAT"
+  const { schedules, setSchedules } = useCompleteProfileFormStore();
+  const { isScheduleBy, schedulesByRepeat, schedulesByNotRepeat } = useMemo(
+    () => parseSchedules(schedules),
+    [schedules]
   );
-  const { setSchedules } = useCompleteProfileFormStore();
 
-  const methods = useForm<Pick<CompleteProfileForm, "schedulesByRepeat" | "schedulesByNotRepeat">>({
+  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(
+    me?.isScheduleBy ?? isScheduleBy ?? "REPEAT"
+  );
+
+  const methods = useForm<Pick<Schedules, "schedulesByRepeat" | "schedulesByNotRepeat">>({
     values: {
-      schedulesByRepeat: me?.schedulesByRepeat ?? { dayOfWeek: [], start: "09:00", end: "17:00" },
-      schedulesByNotRepeat: me?.schedulesByNotRepeat ?? [],
+      schedulesByRepeat: me?.schedulesByRepeat ??
+        schedulesByRepeat ?? { dayOfWeek: [], start: "09:00", end: "17:00" },
+      schedulesByNotRepeat: me?.schedulesByNotRepeat ?? schedulesByNotRepeat ?? [],
     },
   });
 

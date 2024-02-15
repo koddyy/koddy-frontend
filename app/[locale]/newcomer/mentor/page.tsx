@@ -8,10 +8,11 @@ import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
 import { IntroductionStep } from "../components/IntroductionStep";
 import { PeriodStep } from "../components/PeriodStep";
+import { ProfileImageStep } from "../components/ProfileImageStep";
 import { ScheduleStep } from "../components/ScheduleStep";
-import { useCompleteProfileFormStore } from "../store";
+import { useCompleteProfileFormStore } from "./store";
 
-const TOTAL_STEPS = 3;
+const TOTAL_STEPS = 4;
 
 const Page = () => {
   const router = useRouter();
@@ -53,6 +54,18 @@ const Page = () => {
         {currentStep === 1 && <IntroductionStep onClickNextStep={goToNextStep} />}
         {currentStep === 2 && <PeriodStep onClickNextStep={goToNextStep} />}
         {currentStep === 3 && <ScheduleStep onClickNextStep={goToNextStep} />}
+        {currentStep === 4 && (
+          <ProfileImageStep
+            onSubmitForm={(profileImageFile) => {
+              updateMentorProfile({
+                introduction,
+                period,
+                schedules,
+                profileImageFile,
+              });
+            }}
+          />
+        )}
       </div>
     </>
   );

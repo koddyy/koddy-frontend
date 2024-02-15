@@ -1,7 +1,8 @@
 import { useController, useForm } from "react-hook-form";
+import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { BottomButton } from "@/app/components/BottomButton";
-import { CompleteProfileForm } from "@/types/mentor";
-import { useCompleteProfileFormStore } from "../store";
+import { Mentor } from "@/types/mentor";
+import { useCompleteProfileFormStore } from "../mentor/store";
 import { PeriodSelect } from "./PeriodSelect";
 
 interface PeriodStepProps {
@@ -9,12 +10,15 @@ interface PeriodStepProps {
 }
 
 export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
+  const { data: me } = useGetMeAsMentor();
+  const { period, setPeriod } = useCompleteProfileFormStore();
   const {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<Pick<CompleteProfileForm, "period">>();
-  const { setPeriod } = useCompleteProfileFormStore();
+  } = useForm<Pick<Mentor, "period">>({
+    values: { period: period ?? me?.period },
+  });
 
   const { field: startDate } = useController({
     control,

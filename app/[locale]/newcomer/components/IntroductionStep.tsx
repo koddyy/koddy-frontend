@@ -4,21 +4,23 @@ import { useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { BottomButton } from "@/app/components/BottomButton";
 import { TextArea } from "@/components/TextArea";
-import { CompleteProfileForm } from "@/types/mentee";
-import { useCompleteProfileFormStore } from "../store";
+import { Mentor } from "@/types/mentor";
+import { useCompleteProfileFormStore } from "../mentor/store";
 
 interface IntroductionStepProps {
   onClickNextStep: () => void;
 }
 
 export const IntroductionStep = ({ onClickNextStep }: IntroductionStepProps) => {
+  const { data: me } = useGetMe();
+  const { introduction, setIntroduction } = useCompleteProfileFormStore();
   const {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<Pick<CompleteProfileForm, "introduction">>();
-  const { setIntroduction } = useCompleteProfileFormStore();
-  const { data: me } = useGetMe();
+  } = useForm<Pick<Mentor, "introduction">>({
+    values: { introduction: introduction ?? me?.introduction },
+  });
 
   return (
     <form
