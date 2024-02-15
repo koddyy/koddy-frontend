@@ -11,7 +11,7 @@ import { IntroductionStep } from "../components/IntroductionStep";
 import { PeriodStep } from "../components/PeriodStep";
 import { ProfileImageStep } from "../components/ProfileImageStep";
 import { ScheduleStep } from "../components/ScheduleStep";
-import { useCompleteProfileFormStore } from "./store";
+import { useCompleteProfileFormStore } from "../store";
 
 const TOTAL_STEPS = 4;
 
@@ -55,6 +55,8 @@ const Page = () => {
                     },
                   }
                 );
+              } else {
+                router.push("/");
               }
             }}
           >

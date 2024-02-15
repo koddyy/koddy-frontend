@@ -7,7 +7,7 @@ import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByOptionType } from "@/constants/schedule";
 import { Schedules } from "@/types/mentor";
 import { convertSchedules, parseSchedules } from "@/utils/schedules";
-import { useCompleteProfileFormStore } from "../mentor/store";
+import { useCompleteProfileFormStore } from "../store";
 import { ScheduleByNotRepeat } from "./ScheduleByNotRepeat";
 import { ScheduleByRepeat } from "./ScheduleByRepeat";
 

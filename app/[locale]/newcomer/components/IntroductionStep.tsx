@@ -6,7 +6,7 @@ import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { BottomButton } from "@/app/components/BottomButton";
 import { TextArea } from "@/components/TextArea";
 import { Mentor } from "@/types/mentor";
-import { useCompleteProfileFormStore } from "../mentor/store";
+import { useCompleteProfileFormStore } from "../store";
 
 interface IntroductionStepProps {
   onClickNextStep: () => void;
