@@ -11,7 +11,12 @@ export const ProfileCompleteBanner = () => {
 
   if (me?.role === "mentor") {
     const percent = Math.floor(
-      ((Number(!!me.introduction) + Number(!!me.period) + Number(!!me.schedules?.length)) / 3) * 100
+      ((Number(!!me.introduction) +
+        Number(!!me.period) +
+        Number(!!me.schedules?.length) +
+        Number(!!me.profileImageUrl)) /
+        4) *
+        100
     );
 
     return (
@@ -31,14 +36,22 @@ export const ProfileCompleteBanner = () => {
   }
 
   if (me?.role === "mentee") {
+    const percent = Math.floor(
+      ((Number(!!me.introduction) + Number(!!me.profileImageUrl)) / 2) * 100
+    );
+
     return (
       <Banner href={PATH.NEWCOMER + "/mentee"} actionText={t(`${me.role}.complete-profile`)}>
-        {me?.role === "mentee" && (
-          <div className="mb-[10px] flex flex-col gap-[4px]">
-            <span className="subheading-bold">{t(`${me.role}.title`)}</span>
-            <span className="label">{t(`${me.role}.description`, { name: me.name })}</span>
-          </div>
-        )}
+        <Progress percent={percent} color="secondary" tickness="thin" />
+        <div className="mb-[10px] mt-[8px] flex flex-col gap-[4px]">
+          <span className="subheading-bold">
+            {t.rich(`${me.role}.title`, {
+              percent,
+              mark: (chunk) => <mark className="bg-transparent text-secondary-light">{chunk}</mark>,
+            })}
+          </span>
+          <span className="label">{t(`${me.role}.description`, { name: me.name })}</span>
+        </div>
       </Banner>
     );
   }
