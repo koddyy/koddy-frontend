@@ -32,8 +32,9 @@ const Page = () => {
   const methods = useForm({
     values: {
       period,
-      schedulesByRepeat,
-      schedulesByNotRepeat,
+      schedulesByRepeat: me?.schedulesByRepeat ??
+        schedulesByRepeat ?? { dayOfWeek: [], start: "09:00", end: "17:00" },
+      schedulesByNotRepeat: me?.schedulesByNotRepeat ?? schedulesByNotRepeat ?? [],
     },
     shouldUnregister: true,
   });
