@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { useGetCoffeeChatCount } from "@/apis/coffeechat/hooks/useGetCoffeeChatCounts";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Button } from "@/components/Button";
@@ -38,7 +39,7 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
         {CoffeeChatCategoryList.map(
           (category, i) =>
             category !== "suggest" && (
-              <div key={category}>
+              <Fragment key={category}>
                 <div className="text-center">
                   <div className="headline-2">{count?.[category] ?? 0}</div>
                   <div className="label">{CoffeeChatCategoryOptions[category] ?? 0}</div>
@@ -46,7 +47,7 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
                 {i !== CoffeeChatCategoryList.length - 1 && (
                   <ArrowRight width={18} height={18} className="text-gray-500" />
                 )}
-              </div>
+              </Fragment>
             )
         )}
       </div>

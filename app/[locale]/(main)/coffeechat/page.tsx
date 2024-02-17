@@ -89,7 +89,7 @@ const Page = ({
                   onClick={toggleIOpenInfoTooltip}
                 />
               </Tooltip>
-              <div className="text-gray-500">{t("coffeechat-steps-info.label")}</div>
+              <div className="body-3 text-gray-500">{t("coffeechat-steps-info.label")}</div>
             </div>
           </div>
           <Divider className="border-[4px]" />
