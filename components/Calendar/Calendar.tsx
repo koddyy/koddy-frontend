@@ -1,24 +1,25 @@
-import "primereact/resources/primereact.css";
-import "primereact/resources/themes/lara-light-teal/theme.css";
-import {
-  Calendar as DefaultCalendar,
-  CalendarPropsSingle as DefaultCalendarProps,
-} from "primereact/calendar";
-import { Nullable } from "primereact/ts-helpers";
+import "./Calendar.css";
+import { useLocale } from "next-intl";
+import ReactCalendar, { CalendarProps } from "react-calendar";
 
-interface CalendarProps extends Omit<DefaultCalendarProps, "onChange" | "selectionMode"> {
-  onChange: (value: Nullable<Date>) => void;
-}
+const WeekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-export const Calendar = ({ onChange, ...props }: CalendarProps) => {
+export const Calendar = ({ ...props }: CalendarProps) => {
+  const locale = useLocale();
+
   return (
-    <DefaultCalendar
-      className="w-full"
-      selectionMode="single"
+    <ReactCalendar
+      locale={locale}
+      minDetail="month"
+      calendarType="gregory"
       minDate={new Date()}
-      inline
-      showWeek
-      onChange={(e) => onChange(e.value)}
+      formatDay={(_, date) => `${date.getDate()}`}
+      navigationLabel={({ date, locale }) =>
+        new Intl.DateTimeFormat(locale, { month: "long" }).format(date)
+      }
+      formatShortWeekday={(_, date) => `${WeekDays[date.getDay()]}`}
+      next2Label={null}
+      prev2Label={null}
       {...props}
     />
   );
