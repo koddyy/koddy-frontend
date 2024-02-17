@@ -22,31 +22,48 @@
 
     "coffeechat-status-text": {
       "mentor": {
-        "APPROVE": "커피챗 예정이에요",
-        "APPLY": "커피챗 신청이 왔어요",
-        "SUGGEST": "커피챗 제안을 했어요",
-        "PENDING": "멘티가 커피챗을 수락했어요",
-        "COMPLETE": "커피챗을 완료했어요",
-        "CANCEL,REJECT": "커피챗이 취소됐어요"
-      },
-      "mentee": {
-        "APPROVE": "커피챗 예정이에요",
-        "APPLY": "커피챗 신청을 했어요",
-        "SUGGEST": "커피챗 제안이 왔어요",
-        "PENDING": "커피챗 제안을 수락했어요",
-        "COMPLETE": "커피챗을 완료했어요",
-        "CANCEL,REJECT": "커피챗이 취소됐어요"
-      }
-    },
+        "MENTEE_APPLY": "커피챗 신청이 왔어요",
+        "MENTOR_APPROVE": "커피챗 예정이에요",
+        "MENTOR_REJECT": "커피챗이 거절됐어요",
+        "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
 
-    "day-of-week": {
-      "월": "월",
-      "화": "화",
-      "수": "수",
-      "목": "목",
-      "금": "금",
-      "토": "토",
-      "일": "일"
+        "MENTOR_SUGGEST": "커피챗 제안을 했어요",
+        "MENTEE_PENDING": "멘티가 커피챗을 수락했어요",
+        "MENTEE_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_FINALLY_APPROVE": "커피챗 예정이에요",
+        "MENTOR_FINALLY_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
+
+        "MENTEE_CANCEL": "커피챗이 취소됐어요",
+        "MENTOR_CANCEL": "커피챗이 취소됐어요"
+      },
+
+      "mentee": {
+        "MENTEE_APPLY": "커피챗 신청을 했어요",
+        "MENTOR_APPROVE": "커피챗 예정이에요",
+        "MENTOR_REJECT": "커피챗이 거절됐어요",
+        "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
+
+        "MENTOR_SUGGEST": "커피챗 제안이 왔어요",
+        "MENTEE_PENDING": "커피챗 최종 확정을 기다리고 있어요",
+        "MENTEE_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_FINALLY_APPROVE": "커피챗 예정이에요",
+        "MENTOR_FINALLY_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
+
+        "MENTEE_CANCEL": "커피챗이 취소됐어요",
+        "MENTOR_CANCEL": "커피챗이 취소됐어요"
+      },
+
+      "day-of-week": {
+        "월": "월",
+        "화": "화",
+        "수": "수",
+        "목": "목",
+        "금": "금",
+        "토": "토",
+        "일": "일"
+      }
     }
   }
 }
