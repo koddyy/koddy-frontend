@@ -7,7 +7,7 @@ import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
 import { CoffeeChatCard } from "./CoffeeChatCard";
 
 interface CoffeeChatCardListProps {
-  category: CoffeeChatCategory;
+  category: Exclude<CoffeeChatCategory, "suggest">;
   status?: CoffeeChatStatus;
 }
 
@@ -26,7 +26,7 @@ export const CoffeeChatCardListWithMentor = ({ category, status }: CoffeeChatCar
     if (hasNextPage && !isFetching) fetchNextPage();
   });
 
-  if (coffeeChatListWithMentor.length === 0) return <Empty text="멘토 보러 가기" />;
+  if (coffeeChatListWithMentor.length === 0) return <Empty category={category} />;
 
   return (
     <>
@@ -57,7 +57,7 @@ export const CoffeeChatCardListWithMentee = ({ category, status }: CoffeeChatCar
     if (hasNextPage && !isFetching) fetchNextPage();
   });
 
-  if (coffeeChatListWithMentee.length === 0) return <Empty text="멘티 보러 가기" />;
+  if (coffeeChatListWithMentee.length === 0) return <Empty category={category} />;
 
   return (
     <>
@@ -73,17 +73,20 @@ export const CoffeeChatCardListWithMentee = ({ category, status }: CoffeeChatCar
   );
 };
 
-const Empty = ({ text }: { text: string }) => {
+const EmptyText = {
+  waiting: "대기중인 커피챗이 없어요",
+  scheduled: "예정된 커피챗이 없어요",
+  passed: "지난 커피챗이 없어요",
+} as const;
+
+const Empty = ({ category }: { category: Exclude<CoffeeChatCategory, "suggest"> }) => {
   return (
     <div className="mt-[80px] flex flex-col items-center">
-      <img className="h-[136px] w-[165px]" src="/images/illustration_no_coffee_chat.svg" />
-      <div className="mb-[12px] mt-[17px]">커피챗이 없어요</div>
-      <Link
-        href="/"
-        className="body-1-bold flex h-[44px] w-[237px] items-center justify-center rounded-[10px] border border-primary text-gray-600"
-      >
-        {text}
-      </Link>
+      <img
+        className="h-[136px] w-[165px] opacity-60"
+        src="/images/illustration_no_coffee_chat.svg"
+      />
+      <div className="mb-[12px] mt-[17px] text-gray-500">{EmptyText[category]}</div>
     </div>
   );
 };
