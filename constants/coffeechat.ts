@@ -1,7 +1,12 @@
 import { ElementType } from "react";
 import GoogleMeet from "@/assets/google_meet.svg";
 import Zoom from "@/assets/zoom.svg";
-import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
+import {
+  CoffeeChatCategory,
+  CoffeeChatStatus,
+  PassedCoffeeChatStatusList,
+  WaitingCoffeeChatStatusList,
+} from "@/types/coffeechat";
 import { Role } from "@/types/user";
 
 export type Meeting = "zoomAuto" | "zoom" | "google";
@@ -29,15 +34,6 @@ export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
   google: GoogleMeet,
 };
 
-export const CoffeeChatStatusOptions: Record<CoffeeChatStatus, string> = {
-  APPROVE: "예정",
-  APPLY: "신청",
-  SUGGEST: "제안",
-  PENDING: "수락",
-  COMPLETE: "완료",
-  "CANCEL,REJECT": "취소",
-};
-
 export const CoffeeChatStatusText: Record<Role, Record<CoffeeChatStatus, string>> = {
   mentor: {
     APPROVE: "커피챗 예정이에요",
@@ -61,4 +57,12 @@ export const CoffeeChatCategoryOptions: Record<Exclude<CoffeeChatCategory, "sugg
   waiting: "대기",
   scheduled: "예정",
   passed: "지난",
+};
+
+export const CoffeeChatStatusOptions: {
+  waiting: typeof WaitingCoffeeChatStatusList;
+  passed: typeof PassedCoffeeChatStatusList;
+} = {
+  waiting: WaitingCoffeeChatStatusList,
+  passed: PassedCoffeeChatStatusList,
 };

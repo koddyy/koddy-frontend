@@ -12,12 +12,17 @@ import { Header } from "@/app/components/Header";
 import Close from "@/assets/close.svg";
 import InfoCircle from "@/assets/Info_circle.svg";
 import { Divider } from "@/components/Divider";
+import { Select } from "@/components/Select";
 import { Tooltip } from "@/components/Tooltip";
-import { CoffeeChatCategoryOptions } from "@/constants/coffeechat";
+import { CoffeeChatCategoryOptions, CoffeeChatStatusOptions } from "@/constants/coffeechat";
 import { useAuth } from "@/hooks/useAuth";
 import { useToggle } from "@/hooks/useToggle";
 import { Link, usePathname } from "@/libs/navigation";
-import { isValidCoffeeCathStatus, isValidCoffeeChatCategory } from "@/types/coffeechat";
+import {
+  isValidCoffeeChatCategory,
+  isValidPassedCoffeChatStatus,
+  isValidWaitingCoffeeChatStatus,
+} from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
 import { getEntries } from "@/utils/object";
 import { CoffeeChatCount } from "./components/CoffeeChatCount";
@@ -37,9 +42,14 @@ const Page = ({
   const activeCategory = isValidCoffeeChatCategory(searchParams.category)
     ? searchParams.category
     : "waiting";
-  const activeStatus = isValidCoffeeCathStatus(searchParams.status)
-    ? searchParams.status
-    : undefined;
+  const activeStatus = (() => {
+    if (activeCategory === "waiting" && isValidWaitingCoffeeChatStatus(searchParams.status)) {
+      return searchParams.status;
+    } else if (activeCategory === "passed" && isValidPassedCoffeChatStatus(searchParams.status)) {
+      return searchParams.status;
+    }
+    return;
+  })();
   const [isOpenInfo, toggleIOpenInfoTooltip] = useToggle();
 
   const { isLoading, isAuthenticated, me } = useAuth();
@@ -100,6 +110,25 @@ const Page = ({
             ))}
           </div>
           <div className="flex flex-col gap-[14px] px-[20px] py-[14px]">
+            {(activeCategory === "waiting" || activeCategory === "passed") && (
+              <Select
+                className="body-3-bold flex w-fit gap-[2px] rounded-[24px] px-[10px] py-[6px] text-gray-600"
+                dropdownClassName="top-[40px] w-fit shadow-none body-3-bold text-gray-600"
+                options={["all", ...CoffeeChatStatusOptions[activeCategory]]}
+                value={activeStatus ?? "all"}
+                renderOption={(value) => (
+                  <Link
+                    className="block w-full"
+                    href={`${pathname}?${qs.stringify({
+                      status: value === "all" ? undefined : value,
+                      category: activeCategory,
+                    })}`}
+                  >
+                    {value}
+                  </Link>
+                )}
+              />
+            )}
             <Suspense>
               {me.role === "mentor" && (
                 <CoffeeChatCardListWithMentee category={activeCategory} status={activeStatus} />

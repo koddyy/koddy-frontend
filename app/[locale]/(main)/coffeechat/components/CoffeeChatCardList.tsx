@@ -3,12 +3,16 @@ import { useGetCoffeeChatListWithMenteeByCategoryAndStatus } from "@/apis/coffee
 import { useGetCoffeeChatListWithMentorByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMentorByCategoryAndStatus";
 import { useIntersect } from "@/hooks/useIntersect";
 import { Link } from "@/libs/navigation";
-import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
+import {
+  CoffeeChatCategory,
+  PassedCoffeeChatStatus,
+  WaitingCoffeeChatStatus,
+} from "@/types/coffeechat";
 import { CoffeeChatCard } from "./CoffeeChatCard";
 
 interface CoffeeChatCardListProps {
   category: Exclude<CoffeeChatCategory, "suggest">;
-  status?: CoffeeChatStatus;
+  status?: WaitingCoffeeChatStatus | PassedCoffeeChatStatus;
 }
 
 export const CoffeeChatCardListWithMentor = ({ category, status }: CoffeeChatCardListProps) => {

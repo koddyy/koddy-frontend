@@ -43,6 +43,22 @@ export const isValidCoffeeChatCategory = (
   return CoffeeChatCategoryList.includes(category as CoffeeChatCategory);
 };
 
+export const WaitingCoffeeChatStatusList = ["APPLY", "PENDING"] as const;
+export const PassedCoffeeChatStatusList = ["COMPLETE", "REJECT", "CANCEL"] as const;
+
+export type WaitingCoffeeChatStatus = (typeof WaitingCoffeeChatStatusList)[number];
+export type PassedCoffeeChatStatus = (typeof PassedCoffeeChatStatusList)[number];
+
+export const isValidWaitingCoffeeChatStatus = (
+  status: string
+): status is WaitingCoffeeChatStatus => {
+  return WaitingCoffeeChatStatusList.includes(status as WaitingCoffeeChatStatus);
+};
+
+export const isValidPassedCoffeChatStatus = (status: string): status is PassedCoffeeChatStatus => {
+  return PassedCoffeeChatStatusList.includes(status as PassedCoffeeChatStatus);
+};
+
 /**
  * =========================
  * @TODO remove
