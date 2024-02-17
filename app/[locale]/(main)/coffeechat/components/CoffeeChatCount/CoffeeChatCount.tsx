@@ -7,6 +7,7 @@ import { PATH } from "@/constants/path";
 import { Link } from "@/libs/navigation";
 import { CoffeeChatCategoryList } from "@/types/coffeechat";
 import { Role } from "@/types/user";
+import { cn } from "@/utils/cn";
 
 const SuggestCategoryLabel = {
   mentor: "제안한 커피챗",
@@ -30,7 +31,9 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
         >
           {SuggestCategoryLabel[role]}
           <div className="flex items-center gap-[2px]">
-            <span className="headline-2">{count?.suggest ?? 0}</span>
+            <span className={cn("headline-2", count?.suggest && "text-primary-dark")}>
+              {count?.suggest ?? 0}
+            </span>
             <ArrowRight width={24} height={24} />
           </div>
         </Button>
@@ -41,7 +44,9 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
             category !== "suggest" && (
               <Fragment key={category}>
                 <div className="text-center">
-                  <div className="headline-2">{count?.[category] ?? 0}</div>
+                  <div className={cn("headline-2", count?.[category] && "text-primary-dark")}>
+                    {count?.[category] ?? 0}
+                  </div>
                   <div className="label">{CoffeeChatCategoryOptions[category] ?? 0}</div>
                 </div>
                 {i !== CoffeeChatCategoryList.length - 1 && (
