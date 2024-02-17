@@ -1,14 +1,16 @@
 import { useController, useFormContext } from "react-hook-form";
-import { Day } from "@/types/mentor";
+import { CompleteProfileForm, Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
 export const ScheduleByRepeat = () => {
-  const { control } = useFormContext();
+  const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByRepeat">>();
 
   const { field: dayOfWeek } = useController({
     control,
     name: "schedulesByRepeat.dayOfWeek",
-    defaultValue: [],
+    rules: {
+      validate: (value) => value.length > 0,
+    },
   });
 
   const { field: startTime } = useController({

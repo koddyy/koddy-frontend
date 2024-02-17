@@ -1,22 +1,35 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CompleteProfileForm } from "@/types/mentor";
-import { convertPeriod, convertSchedules } from "@/utils/schedules";
+import { fileApi } from "@/apis/file/api";
+import { Mentor } from "@/types/mentor";
 import { userApi } from "../api";
 
 export const useUpdateMentorProfile = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({
+    mutationFn: async ({
       introduction,
       period,
-      schedulesByRepeat,
-      schedulesByNotRepeat,
-    }: CompleteProfileForm) => {
+      schedules,
+      profileImageFile,
+    }: Pick<Mentor, "introduction" | "period" | "schedules"> & { profileImageFile?: File }) => {
+      if (profileImageFile) {
+        const { preSignedUrl, uploadFileUrl } = await fileApi.getPresignedUrl(
+          profileImageFile.name
+        );
+        await fileApi.uploadImageFile({ preSignedUrl, file: profileImageFile });
+
+        return await userApi.patchMentorProfile({
+          introduction,
+          period,
+          schedules,
+          profileImageUrl: uploadFileUrl,
+        });
+      }
       return userApi.patchMentorProfile({
         introduction,
-        period: convertPeriod(period),
-        schedules: convertSchedules({ schedulesByRepeat, schedulesByNotRepeat }),
+        period,
+        schedules,
       });
     },
     onSuccess: () => {

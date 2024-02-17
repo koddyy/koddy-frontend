@@ -14,10 +14,10 @@
       "mentor": {
         "title": "멘토 프로필 <mark>{percent}%</mark> 완성",
         "description": "커피챗 성사를 위해 {name}님의 소개를 입력해 주세요!",
-        "complete-profile": ""
+        "complete-profile": "입력하러 가기"
       },
       "mentee": {
-        "title": "멘티님의 소개가 궁금해요.",
+        "title": "멘티 프로필 <mark>{percent}%</mark> 완성",
         "description": "커피챗 성사를 위해 {name}님의 소개를 입력해 주세요!",
         "complete-profile": "입력하러 가기"
       }

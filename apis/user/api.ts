@@ -75,11 +75,13 @@ class UserApi {
     return response.data;
   };
 
-  patchMentorProfile = (profile: Pick<Mentor, "introduction" | "period" | "schedules">) => {
+  patchMentorProfile = (
+    profile: Partial<Pick<Mentor, "introduction" | "period" | "schedules" | "profileImageUrl">>
+  ) => {
     return apiInstance.patch("/api/mentors/me/complete", profile);
   };
 
-  patchMenteeProfile = (profile: Pick<Mentee, "introduction">) => {
+  patchMenteeProfile = (profile: Partial<Pick<Mentee, "introduction" | "profileImageUrl">>) => {
     return apiInstance.patch("/api/mentees/me/complete", profile);
   };
 

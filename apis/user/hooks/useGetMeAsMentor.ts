@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { userApi } from "@/apis/user/api";
-import { toHHMM } from "@/utils/time";
+import { parseSchedules } from "@/utils/schedules";
 
 export const useGetMeAsMentor = () => {
   return useQuery({
@@ -8,38 +8,15 @@ export const useGetMeAsMentor = () => {
     queryFn: userApi.getMe,
     select: (me) => {
       if (me.role === "mentor") {
-        const schedules =
-          me.schedules?.map((v) => ({
-            ...v,
-            start: toHHMM(v.start),
-            end: toHHMM(v.end) === "23:59" ? "24:00" : toHHMM(v.end),
-          })) ?? [];
-
-        const isScheduleBy: "REPEAT" | "NOT_REPEAT" = schedules.every(
-          ({ start, end }) => start === schedules[0].start && end === schedules[0].end
-        )
-          ? "REPEAT"
-          : "NOT_REPEAT";
+        const { isScheduleBy, schedulesByRepeat, schedulesByNotRepeat } = parseSchedules(
+          me.schedules
+        );
 
         return {
           ...me,
           isScheduleBy,
-          schedulesByRepeat:
-            isScheduleBy === "REPEAT" && schedules.length > 0
-              ? {
-                  dayOfWeek: schedules.map(({ dayOfWeek }) => dayOfWeek),
-                  start: schedules[0].start,
-                  end: schedules[0].end,
-                }
-              : undefined,
-          schedulesByNotRepeat:
-            isScheduleBy === "NOT_REPEAT"
-              ? schedules?.map((v) => ({
-                  ...v,
-                  start: v.start,
-                  end: v.end,
-                }))
-              : undefined,
+          schedulesByRepeat,
+          schedulesByNotRepeat,
         };
       }
     },

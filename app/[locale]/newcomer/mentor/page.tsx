@@ -1,112 +1,97 @@
 "use client";
 
-import { useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
+import { useTranslations } from "next-intl";
 import { useUpdateMentorProfile } from "@/apis/user/hooks/useUpdateMentorProfile";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Button } from "@/components/Button";
-import { Divider } from "@/components/Divider/Divider";
-import { Radio, RadioGroup } from "@/components/RadioGroup";
-import { TextArea } from "@/components/TextArea";
-import { ScheduleByOption, ScheduleByOptionType } from "@/constants/schedule";
+import { Progress } from "@/components/Progress";
+import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
-import { CompleteProfileForm } from "@/types/mentor";
-import { cn } from "@/utils/cn";
+import { IntroductionStep } from "../components/IntroductionStep";
 import { PeriodStep } from "../components/PeriodStep";
-import { ScheduleByNotRepeat } from "../components/ScheduleByNotRepeat";
-import { ScheduleByRepeat } from "../components/ScheduleByRepeat";
+import { ProfileImageStep } from "../components/ProfileImageStep";
+import { ScheduleStep } from "../components/ScheduleStep";
+import { useCompleteProfileFormStore } from "../store";
 
-const formLabelStyle =
-  "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
+const TOTAL_STEPS = 4;
 
 const Page = () => {
-  const router = useRouter();
-  const { data: me } = useGetMeAsMentor();
-  const { isScheduleBy, introduction, period, schedulesByRepeat, schedulesByNotRepeat } = me ?? {};
-  const [scheduleBy, setIsScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
+  const t = useTranslations("newcomer");
 
-  const methods = useForm<CompleteProfileForm>({
-    values: {
-      introduction,
-      period,
-      schedulesByRepeat,
-      schedulesByNotRepeat,
-    },
-    shouldUnregister: true,
-  });
+  const router = useRouter();
+  const { currentStep, firstStep, lastStep, goToPrevStep, goToNextStep } = useSteps(TOTAL_STEPS);
+  const { introduction, period, schedules } = useCompleteProfileFormStore();
 
   const { mutate: updateMentorProfile } = useUpdateMentorProfile();
 
-  const handleClickComplete = ({
-    introduction,
-    period,
-    schedulesByRepeat,
-    schedulesByNotRepeat,
-  }: Pick<
-    CompleteProfileForm,
-    "introduction" | "period" | "schedulesByRepeat" | "schedulesByNotRepeat"
-  >) => {
-    updateMentorProfile(
-      { introduction, period, schedulesByRepeat, schedulesByNotRepeat },
-      {
-        onSuccess: () => {
-          alert("수정되었습니다");
-          router.push("/");
-        },
-      }
-    );
-  };
+  const isDirty = introduction || period || schedules;
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleClickComplete)}>
-        <NavigationBar
-          onClickGoback={() => router.back()}
-          rightContent={
-            <Button type="submit" variant="ghost" size="xs" className="text-gray-700">
-              완료
-            </Button>
-          }
-        />
-        <div className="my-[20px] px-[20px]">
-          <div className={cn(formLabelStyle, "mb-[8px]")}>자기소개</div>
-          <TextArea
-            placeholder="간단한 소개와 커피챗을 하게 된 이유, 현재는 어떤 경험을 하고 계신지 알려주시면 좋아요!"
-            {...methods.register("introduction")}
-          />
-        </div>
-        <Divider className="border-[4px] border-gray-100" />
-        <div className="my-[26px] px-[20px]">
-          <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 진행 예정 기간</div>
-          <PeriodStep />
-        </div>
-        <Divider className="border-[4px] border-gray-100" />
-        <div className="my-[26px] px-[20px]">
-          <div className={cn(formLabelStyle, "mb-[16px]")}>커피챗 가능 시간대</div>
-          <RadioGroup
-            name="scheduleBy"
-            value={scheduleBy}
-            onChangeValue={(value) => {
-              if (value === "REPEAT" || value === "NOT_REPEAT") setIsScheduleBy(value);
+    <>
+      <NavigationBar
+        onClickGoback={() => (firstStep ? router.back() : goToPrevStep())}
+        rightContent={
+          <Button
+            type="button"
+            variant="ghost"
+            size="xs"
+            className="text-gray-700"
+            onClick={() => {
+              if (!lastStep) {
+                goToNextStep();
+                return;
+              }
+
+              if (isDirty) {
+                updateMentorProfile(
+                  {
+                    introduction,
+                    period,
+                    schedules,
+                  },
+                  {
+                    onSuccess: () => {
+                      router.push("/");
+                    },
+                  }
+                );
+              } else {
+                router.push("/");
+              }
             }}
           >
-            <Radio value="REPEAT">{ScheduleByOption.REPEAT}</Radio>
-            <Radio value="NOT_REPEAT">{ScheduleByOption.NOT_REPEAT}</Radio>
-          </RadioGroup>
-          {scheduleBy === "REPEAT" && (
-            <div className="mt-[20px]">
-              <ScheduleByRepeat />
-            </div>
-          )}
-          {scheduleBy === "NOT_REPEAT" && (
-            <div className="mt-[24px]">
-              <ScheduleByNotRepeat />
-            </div>
-          )}
+            {t("skip")}
+          </Button>
+        }
+      />
+      <div className="px-[20px]">
+        <div className="my-[24px]">
+          <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
         </div>
-      </form>
-    </FormProvider>
+        {currentStep === 1 && <IntroductionStep onClickNextStep={goToNextStep} />}
+        {currentStep === 2 && <PeriodStep onClickNextStep={goToNextStep} />}
+        {currentStep === 3 && <ScheduleStep onClickNextStep={goToNextStep} />}
+        {currentStep === 4 && (
+          <ProfileImageStep
+            onSubmitForm={(profileImageFile) => {
+              updateMentorProfile(
+                {
+                  introduction,
+                  period,
+                  schedules,
+                  profileImageFile,
+                },
+                {
+                  onSuccess: () => {
+                    router.push("/");
+                  },
+                }
+              );
+            }}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

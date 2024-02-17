@@ -17,7 +17,7 @@
         "complete-profile": "Complete Profile"
       },
       "mentee": {
-        "title": "Tell us about yourself!",
+        "title": "Profile Setup <mark>{percent}%</mark> Complete!",
         "description": "We need a few details to arrange your ideal coffee chat!",
         "complete-profile": "Complete Profile"
       }

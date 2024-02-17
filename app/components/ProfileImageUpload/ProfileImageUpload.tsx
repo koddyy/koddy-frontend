@@ -8,10 +8,11 @@ interface ProfileImageUploadProps extends ComponentProps<"input"> {
   imageUrl?: string;
   isEditable?: boolean;
   role?: Role;
+  className?: string;
 }
 
 export const ProfileImageUpload = forwardRef<HTMLInputElement, ProfileImageUploadProps>(
-  ({ imageUrl, isEditable = false, role, onChange, ...props }, ref) => {
+  ({ imageUrl, isEditable = false, role, className, onChange, ...props }, ref) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const { previewImage, onChangeImage } = useImagePreview();
 
@@ -47,7 +48,8 @@ export const ProfileImageUpload = forwardRef<HTMLInputElement, ProfileImageUploa
           <img
             className={cn(
               "h-[108px] w-[108px] rounded-xl border border-gray-200 bg-gray-100 object-contain p-[7px]",
-              (previewImage || imageUrl) && "object-cover p-0"
+              (previewImage || imageUrl) && "object-cover p-0",
+              className
             )}
             src={previewImage || imageUrl || defaultImageUrl}
           />

@@ -1,59 +1,82 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
-import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { useUpdateMenteeProfile } from "@/apis/user/hooks/useUpdateMenteeProfile";
-import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
-import { TextArea } from "@/components/TextArea";
+import { Button } from "@/components/Button";
+import { Progress } from "@/components/Progress";
+import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
-import { CompleteProfileForm } from "@/types/mentee";
+import { IntroductionStep } from "../components/IntroductionStep";
+import { ProfileImageStep } from "../components/ProfileImageStep";
+import { useCompleteProfileFormStore } from "../store";
+
+const TOTAL_STEPS = 2;
 
 const Page = () => {
   const t = useTranslations("newcomer");
 
   const router = useRouter();
-  const { data: me } = useGetMe();
-  const {
-    register,
-    handleSubmit,
-    formState: { isValid, isDirty },
-  } = useForm<CompleteProfileForm>({
-    values: {
-      introduction: me?.introduction,
-    },
-  });
+  const { currentStep, firstStep, lastStep, goToPrevStep, goToNextStep } = useSteps(TOTAL_STEPS);
+  const { introduction } = useCompleteProfileFormStore();
   const { mutate: updateMenteeProfile } = useUpdateMenteeProfile();
 
-  const onSubmit = ({ introduction }: CompleteProfileForm) => {
-    updateMenteeProfile(
-      { introduction },
-      {
-        onSuccess: () => {
-          router.push("/");
-        },
-      }
-    );
-  };
+  const isDirty = introduction;
 
   return (
     <>
-      <NavigationBar onClickGoback={() => router.back()} />
-      <form className="my-[24px] px-[20px]" onSubmit={handleSubmit(onSubmit)}>
-        <div className="headline-1 mb-[15px]">
-          {t.rich("introduction.label", {
-            line: (chunks) => <div>{chunks}</div>,
-          })}
+      <NavigationBar
+        onClickGoback={() => (firstStep ? router.back() : goToPrevStep())}
+        rightContent={
+          <Button
+            type="button"
+            variant="ghost"
+            size="xs"
+            className="text-gray-700"
+            onClick={() => {
+              if (!lastStep) {
+                goToNextStep();
+                return;
+              }
+
+              if (isDirty) {
+                updateMenteeProfile(
+                  { introduction },
+                  {
+                    onSuccess: () => {
+                      router.push("/");
+                    },
+                  }
+                );
+              } else {
+                router.push("/");
+              }
+            }}
+          >
+            {t("skip")}
+          </Button>
+        }
+      />
+      <div className="my-[24px] px-[20px]">
+        <div className="my-[24px]">
+          <Progress percent={(currentStep / TOTAL_STEPS) * 100} />
         </div>
-        <TextArea
-          placeholder={t("introduction.placeholder")}
-          {...register("introduction", { required: true })}
-        />
-        <BottomButton type="submit" disabled={!isValid || !isDirty}>
-          다음
-        </BottomButton>
-      </form>
+        {currentStep === 1 && <IntroductionStep onClickNextStep={goToNextStep} />}
+        {currentStep === 2 && (
+          <ProfileImageStep
+            onSubmitForm={(profileImageFile) => {
+              updateMenteeProfile(
+                { introduction, profileImageFile },
+                {
+                  onSuccess: () => {
+                    router.push("/");
+                  },
+                }
+              );
+            }}
+          />
+        )}
+      </div>
     </>
   );
 };
