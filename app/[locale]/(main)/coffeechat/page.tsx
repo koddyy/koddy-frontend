@@ -36,7 +36,7 @@ const Page = ({
     status: string;
   };
 }) => {
-  // const t = useTranslations("coffeechat");
+  const t = useTranslations("coffeechat");
 
   const pathname = usePathname();
   const activeCategory = isValidCoffeeChatCategory(searchParams.category)
@@ -70,16 +70,14 @@ const Page = ({
                 content={
                   <div className="rounded-[12px] border border-gray-200 bg-white px-[12px] py-[10px] shadow-[2px_4px_8px_0px_#0000001A]">
                     <div className="flex justify-between">
-                      <div className="body-3-bold">커피챗 단계가 어떻게 되나요?</div>
+                      <div className="body-3-bold">{t("coffeechat-steps-info.label")}</div>
                       <button type="button" onClick={toggleIOpenInfoTooltip}>
                         <Close className="text-gray-500" width={20} height={20} />
                       </button>
                     </div>
                     <Divider className="my-[8px] mt-[4px] border-gray-200" />
                     <div className="body-3 whitespace-pre">
-                      {
-                        "커피챗은 대기 - 예정 - 지난으로 진행됩니다.\n\n대기 : 시작되지 않은 커피챗\n예정 : 예약되었으며, 시작될 예정인 커피챗\n지난 : 완료된 커피챗"
-                      }
+                      {t("coffeechat-steps-info.description")}
                     </div>
                   </div>
                 }
@@ -91,12 +89,12 @@ const Page = ({
                   onClick={toggleIOpenInfoTooltip}
                 />
               </Tooltip>
-              <div className="text-gray-500">커피챗 단계가 어떻게 되나요?</div>
+              <div className="text-gray-500">{t("coffeechat-steps-info.label")}</div>
             </div>
           </div>
           <Divider className="border-[4px]" />
           <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
-            {getEntries(CoffeeChatCategoryOptions).map(([key, value]) => (
+            {getEntries(CoffeeChatCategoryOptions).map(([key]) => (
               <Link
                 key={key}
                 href={`${pathname}?${qs.stringify({ category: key })}`}
@@ -105,7 +103,7 @@ const Page = ({
                   activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
                 )}
               >
-                {value}
+                {t(`category.${key}`)}
               </Link>
             ))}
           </div>
@@ -113,18 +111,19 @@ const Page = ({
             {(activeCategory === "waiting" || activeCategory === "passed") && (
               <Select
                 className="body-3-bold flex w-fit gap-[2px] rounded-[24px] px-[10px] py-[6px] text-gray-600"
-                dropdownClassName="top-[40px] w-fit shadow-none body-3-bold text-gray-600"
-                options={["all", ...CoffeeChatStatusOptions[activeCategory]]}
-                value={activeStatus ?? "all"}
+                dropdownClassName="top-[40px] w-[80px] shadow-none text-gray-600"
+                options={["ALL", ...CoffeeChatStatusOptions[activeCategory]]}
+                value={activeStatus ?? "ALL"}
+                renderValue={(value) => value && `${t(`filters.${value}`)}`}
                 renderOption={(value) => (
                   <Link
-                    className="block w-full"
+                    className="body-3-bold block w-full"
                     href={`${pathname}?${qs.stringify({
-                      status: value === "all" ? undefined : value,
+                      status: value === "ALL" ? undefined : value,
                       category: activeCategory,
                     })}`}
                   >
-                    {value}
+                    {t(`filters.${value}`)}
                   </Link>
                 )}
               />
