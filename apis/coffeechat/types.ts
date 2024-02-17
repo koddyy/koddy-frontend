@@ -48,6 +48,13 @@ export interface GetSuggestedCoffeeChatListResponse {
   hasNext: boolean;
 }
 
+export interface GetCoffeeChatCountsResponse {
+  suggest: number;
+  waiting: number;
+  scheduled: number;
+  passed: number;
+}
+
 export interface GetCoffeeChatListRequest {
   category: CoffeeChatCategory;
   status?: CoffeeChatStatus;

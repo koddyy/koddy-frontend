@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useGetCoffeeChatListWithMenteeByStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMenteeByStatus";
-import { useGetCoffeeChatListWithMentorByStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMentorByStatus";
+import { useGetCoffeeChatListWithMenteeByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMenteeByCategoryAndStatus";
+import { useGetCoffeeChatListWithMentorByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMentorByCategoryAndStatus";
 import { useIntersect } from "@/hooks/useIntersect";
 import { Link } from "@/libs/navigation";
 import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
@@ -17,7 +17,7 @@ export const CoffeeChatCardListWithMentor = ({ category, status }: CoffeeChatCar
     hasNextPage,
     isFetching,
     fetchNextPage,
-  } = useGetCoffeeChatListWithMentorByStatus({
+  } = useGetCoffeeChatListWithMentorByCategoryAndStatus({
     page: 1,
     category,
     status,
@@ -48,7 +48,7 @@ export const CoffeeChatCardListWithMentee = ({ category, status }: CoffeeChatCar
     hasNextPage,
     isFetching,
     fetchNextPage,
-  } = useGetCoffeeChatListWithMenteeByStatus({
+  } = useGetCoffeeChatListWithMenteeByCategoryAndStatus({
     page: 1,
     category,
     status,

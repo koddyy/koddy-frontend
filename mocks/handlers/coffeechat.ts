@@ -89,6 +89,39 @@ export const handlers = [
     );
   }),
 
+  http.get("/api/coffeechats/me/category-counts", async () => {
+    await delay(1500);
+
+    return HttpResponse.json(
+      {
+        suggest: 2,
+        waiting: 3,
+        scheduled: 0,
+        passed: 1,
+      },
+      { status: 200 }
+    );
+  }),
+
+  http.get("/api/coffeechats/me/schedules", async ({ request }) => {
+    const url = new URL(request.url);
+    const role = url.searchParams.get("role");
+    const status = url.searchParams.get("status");
+
+    await delay(1500);
+
+    return HttpResponse.json(
+      {
+        result:
+          role === "mentor"
+            ? menteeList.map((v) => ({ ...v, status }))
+            : mentorList.map((v) => ({ ...v, status })),
+        hasNext: false,
+      },
+      { status: 200 }
+    );
+  }),
+
   http.get("/api/coffeechats/:id", async ({ params }) => {
     const role = new URL(window.location.href).searchParams.get("role");
 
