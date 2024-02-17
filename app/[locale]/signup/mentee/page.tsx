@@ -58,7 +58,7 @@ const Page = () => {
             {currentStep === 3 && <SubLanguageSelectForm />}
           </form>
         </FormProvider>
-        {currentStep === 4 && <SignupSuccess />}
+        {currentStep === 4 && <SignupSuccess role="mentee" />}
       </div>
     </div>
   );
