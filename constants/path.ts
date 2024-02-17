@@ -8,6 +8,7 @@ export const PATH = {
   PROFILE_MENTOR: "/profile/mentor",
   PROFILE_MENTEE: "/profile/mentee",
   COFFEECHAT: "/coffeechat",
+  COFFEECHAT_SUGGEST: "/coffeechat/suggest",
   SCHEDULE: "/schedule",
   NOTIFICATION: "/notification",
   MYPAGE: "/mypage",

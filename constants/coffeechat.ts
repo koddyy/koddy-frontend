@@ -1,7 +1,7 @@
 import { ElementType } from "react";
 import GoogleMeet from "@/assets/google_meet.svg";
 import Zoom from "@/assets/zoom.svg";
-import { CoffeeChatStatus } from "@/types/coffeechat";
+import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 
 export type Meeting = "zoomAuto" | "zoom" | "google";
@@ -55,4 +55,10 @@ export const CoffeeChatStatusText: Record<Role, Record<CoffeeChatStatus, string>
     COMPLETE: "커피챗을 완료했어요",
     "CANCEL,REJECT": "커피챗이 취소됐어요",
   },
+};
+
+export const CoffeeChatCategoryOptions: Record<Exclude<CoffeeChatCategory, "suggest">, string> = {
+  waiting: "대기",
+  scheduled: "예정",
+  passed: "지난",
 };
