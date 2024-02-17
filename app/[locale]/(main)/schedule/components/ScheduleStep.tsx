@@ -1,4 +1,3 @@
-import { Nullable } from "primereact/ts-helpers";
 import { Controller, useController, useFormContext } from "react-hook-form";
 import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
@@ -40,9 +39,9 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         <FormLabel className="body-1-bold mb-2">날짜 선택</FormLabel>
         <div className="border border-gray-200">
           <Calendar
-            disabledDays={disabledDays}
+            tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
             value={dateField.value}
-            onChange={(value: Nullable<Date>) => dateField.onChange(value)}
+            onChange={(value) => dateField.onChange(value)}
           />
         </div>
       </FormControl>
