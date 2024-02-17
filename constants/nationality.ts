@@ -15,10 +15,10 @@ export const NationalityText: Record<Nationality, string> = {
 export const NationalityOptions = getEntries(NationalityText);
 
 export const NationalityImage: Record<Nationality, string> = {
-  KR: "/images/south_korea.png",
-  EN: "/images/united_states.png",
-  JP: "/images/japan.png",
-  CN: "/images/china.png",
-  VN: "/images/vietnam.png",
+  KR: "/images/south_korea.svg",
+  EN: "/images/united_states.svg",
+  JP: "/images/japan.svg",
+  CN: "/images/china.svg",
+  VN: "/images/vietnam.svg",
   ETC: "",
 };

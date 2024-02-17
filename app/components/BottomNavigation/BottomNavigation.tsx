@@ -21,7 +21,7 @@ export const BottomNavigation = () => {
   const currentSegment = useSelectedLayoutSegment() ?? "";
 
   return (
-    <div className="fixed bottom-0 left-1/2 z-header flex h-[3.625rem] w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white text-gray-500">
+    <div className="fixed bottom-0 left-1/2 z-fixed flex h-[3.625rem] w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white text-gray-500">
       {NAVIGATION_LINK.map(({ segment, icon: Icon, label }, i) => {
         const isCurrentSegment = segment === currentSegment;
 

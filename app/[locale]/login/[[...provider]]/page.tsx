@@ -53,10 +53,10 @@ const Page = ({
           </div>
         ))}
       </Carousel>
-      <div className="mt-[80px] flex w-full flex-col items-center gap-2 px-5">
+      <div className="mt-[80px] flex w-full flex-col gap-2 px-5">
         <LoginButton provider="kakao" onClick={() => setSelectedProvider("kakao")} />
         <LoginButton provider="google" onClick={() => setSelectedProvider("google")} />
-        <div className="label text-gray-500">
+        <div className="label text-center text-gray-500">
           {t.rich("agree-terms-of-service", {
             a: (chunks) => (
               <a
@@ -70,7 +70,7 @@ const Page = ({
             ),
           })}
         </div>
-        <Link className="body-1 mt-[32px] text-gray-600" href={PATH.EXPLORE}>
+        <Link className="body-1 mt-[32px] text-center text-gray-600" href={PATH.EXPLORE}>
           {t("continue-as-guest")}
         </Link>
       </div>

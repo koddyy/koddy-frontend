@@ -9,11 +9,12 @@ module.exports = {
     extend: {
       zIndex: {
         lowest: -1,
-        dropdown: 1000,
-        header: 1100,
-        dimmed: 1100,
-        overlay: 1200,
-        tooltip: 1300,
+        header: 1000,
+        dropdown: 1100,
+        dimmed: 1200,
+        fixed: 1300,
+        overlay: 1400,
+        tooltip: 1500,
         highest: 9999,
       },
     },
