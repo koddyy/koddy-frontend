@@ -38,15 +38,15 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
         {CoffeeChatCategoryList.map(
           (category, i) =>
             category !== "suggest" && (
-              <>
+              <div key={category}>
                 <div className="text-center">
                   <div className="headline-2">{count?.[category] ?? 0}</div>
                   <div className="label">{CoffeeChatCategoryOptions[category] ?? 0}</div>
                 </div>
                 {i !== CoffeeChatCategoryList.length - 1 && (
-                  <ArrowRight width={18} height={18} classNem="text-gray-500" />
+                  <ArrowRight width={18} height={18} className="text-gray-500" />
                 )}
-              </>
+              </div>
             )
         )}
       </div>
