@@ -11,11 +11,11 @@ import {
 import { CoffeeChatCard } from "./CoffeeChatCard";
 
 interface CoffeeChatCardListProps {
-  category: Exclude<CoffeeChatCategory, "suggest">;
-  status?: WaitingCoffeeChatStatus | PassedCoffeeChatStatus;
+  category: Exclude<CoffeeChatCategory, "suggested">;
+  detail?: WaitingCoffeeChatStatus | PassedCoffeeChatStatus;
 }
 
-export const CoffeeChatCardListWithMentor = ({ category, status }: CoffeeChatCardListProps) => {
+export const CoffeeChatCardListWithMentor = ({ category, detail }: CoffeeChatCardListProps) => {
   const {
     data: coffeeChatListWithMentor,
     hasNextPage,
@@ -24,7 +24,7 @@ export const CoffeeChatCardListWithMentor = ({ category, status }: CoffeeChatCar
   } = useGetCoffeeChatListWithMentorByCategoryAndStatus({
     page: 1,
     category,
-    status,
+    detail,
   });
   const ref = useIntersect(() => {
     if (hasNextPage && !isFetching) fetchNextPage();
@@ -46,7 +46,7 @@ export const CoffeeChatCardListWithMentor = ({ category, status }: CoffeeChatCar
   );
 };
 
-export const CoffeeChatCardListWithMentee = ({ category, status }: CoffeeChatCardListProps) => {
+export const CoffeeChatCardListWithMentee = ({ category, detail }: CoffeeChatCardListProps) => {
   const {
     data: coffeeChatListWithMentee,
     hasNextPage,
@@ -55,7 +55,7 @@ export const CoffeeChatCardListWithMentee = ({ category, status }: CoffeeChatCar
   } = useGetCoffeeChatListWithMenteeByCategoryAndStatus({
     page: 1,
     category,
-    status,
+    detail,
   });
   const ref = useIntersect(() => {
     if (hasNextPage && !isFetching) fetchNextPage();
@@ -83,7 +83,7 @@ const EmptyText = {
   passed: "지난 커피챗이 없어요",
 } as const;
 
-const Empty = ({ category }: { category: Exclude<CoffeeChatCategory, "suggest"> }) => {
+const Empty = ({ category }: { category: Exclude<CoffeeChatCategory, "suggested"> }) => {
   return (
     <div className="mt-[80px] flex flex-col items-center">
       <img

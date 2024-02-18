@@ -5,15 +5,15 @@ import { GetCoffeeChatListRequest } from "../types";
 export const useGetCoffeeChatListWithMentorByCategoryAndStatus = ({
   page,
   category,
-  status,
+  detail,
 }: GetCoffeeChatListRequest) => {
   return useSuspenseInfiniteQuery({
-    queryKey: ["coffeeChat", "list", { category, status }],
+    queryKey: ["coffeeChat", "list", { category, detail }],
     queryFn: ({ pageParam }) =>
       coffeeChatApi.getCoffeeChatListWithMentorByCategoryAndStatus({
         page: pageParam,
         category,
-        status,
+        detail,
       }),
     initialPageParam: page,
     getNextPageParam: (lastPage, _, lastPageParam) => (lastPage.hasNext ? lastPageParam + 1 : null),

@@ -31,8 +31,8 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
         >
           {SuggestCategoryLabel[role]}
           <div className="flex items-center gap-[2px]">
-            <span className={cn("headline-2", count?.suggest && "text-primary-dark")}>
-              {count?.suggest ?? 0}
+            <span className={cn("headline-2", count?.suggested && "text-primary-dark")}>
+              {count?.suggested ?? 0}
             </span>
             <ArrowRight width={24} height={24} />
           </div>
@@ -41,7 +41,7 @@ export const CoffeeChatCount = ({ role }: CoffeeChatCountProps) => {
       <div className="flex items-center justify-between rounded-[10px] bg-gray-100 px-[28px] py-[13px] text-gray-500">
         {CoffeeChatCategoryList.map(
           (category, i) =>
-            category !== "suggest" && (
+            category !== "suggested" && (
               <Fragment key={category}>
                 <div className="text-center">
                   <div className={cn("headline-2", count?.[category] && "text-primary-dark")}>

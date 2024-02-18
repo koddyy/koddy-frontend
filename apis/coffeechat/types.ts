@@ -54,7 +54,7 @@ export interface GetSuggestedCoffeeChatListResponse {
 }
 
 export interface GetCoffeeChatCountsResponse {
-  suggest: number;
+  suggested: number;
   waiting: number;
   scheduled: number;
   passed: number;
@@ -62,7 +62,7 @@ export interface GetCoffeeChatCountsResponse {
 
 export interface GetCoffeeChatListRequest {
   category: CoffeeChatCategory;
-  status?: WaitingCoffeeChatStatus | PassedCoffeeChatStatus;
+  detail?: WaitingCoffeeChatStatus | PassedCoffeeChatStatus;
   page: number;
 }
 

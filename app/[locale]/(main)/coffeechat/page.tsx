@@ -42,7 +42,7 @@ const Page = ({
   const activeCategory = isValidCoffeeChatCategory(searchParams.category)
     ? searchParams.category
     : "waiting";
-  const activeStatus = (() => {
+  const activeFilter = (() => {
     if (activeCategory === "waiting" && isValidWaitingCoffeeChatStatus(searchParams.status)) {
       return searchParams.status;
     } else if (activeCategory === "passed" && isValidPassedCoffeChatStatus(searchParams.status)) {
@@ -112,14 +112,14 @@ const Page = ({
               <Select
                 className="body-3-bold flex w-fit gap-[2px] rounded-[24px] px-[10px] py-[6px] text-gray-600"
                 dropdownClassName="top-[40px] w-[80px] shadow-none text-gray-600"
-                options={["ALL", ...CoffeeChatStatusOptions[activeCategory]]}
-                value={activeStatus ?? "ALL"}
+                options={["all", ...CoffeeChatStatusOptions[activeCategory]]}
+                value={activeFilter ?? "all"}
                 renderValue={(value) => value && `${t(`filters.${value}`)}`}
                 renderOption={(value) => (
                   <Link
                     className="body-3-bold block w-full"
                     href={`${pathname}?${qs.stringify({
-                      status: value === "ALL" ? undefined : value,
+                      status: value === "all" ? undefined : value,
                       category: activeCategory,
                     })}`}
                   >
@@ -130,10 +130,10 @@ const Page = ({
             )}
             <Suspense>
               {me.role === "mentor" && (
-                <CoffeeChatCardListWithMentee category={activeCategory} status={activeStatus} />
+                <CoffeeChatCardListWithMentee category={activeCategory} detail={activeFilter} />
               )}
               {me.role === "mentee" && (
-                <CoffeeChatCardListWithMentor category={activeCategory} status={activeStatus} />
+                <CoffeeChatCardListWithMentor category={activeCategory} detail={activeFilter} />
               )}
             </Suspense>
           </div>

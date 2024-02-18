@@ -10,18 +10,18 @@
       "scheduled": "예정",
       "passed": "지난"
     },
-    "suggest": {
+    "suggested": {
       "mentor": "제안한 커피챗",
       "mentee": "커피챗 제안"
     },
 
     "filters": {
-      "ALL": "전체",
-      "APPLY": "신청",
-      "PENDING": "수락",
-      "COMPLETE": "완료",
-      "CANCEL": "취소",
-      "REJECT": "거절"
+      "all": "전체",
+      "apply": "신청",
+      "pending": "수락",
+      "complete": "완료",
+      "cancel": "취소",
+      "reject": "거절"
     },
 
     "CoffeeChatSchedule": {

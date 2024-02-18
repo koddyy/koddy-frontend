@@ -77,7 +77,7 @@ class CoffeeChatApi {
   /** mentor */
   getCoffeeChatListWithMenteeByCategoryAndStatus = async ({
     category,
-    status,
+    detail,
     page,
   }: GetCoffeeChatListRequest) => {
     const response = await apiInstance.get<GetCoffeeChatListWithMenteeResponse>(
@@ -85,7 +85,7 @@ class CoffeeChatApi {
       {
         params: {
           category,
-          status,
+          detail,
           page,
         },
       }
@@ -96,7 +96,7 @@ class CoffeeChatApi {
   /** mentee */
   getCoffeeChatListWithMentorByCategoryAndStatus = async ({
     category,
-    status,
+    detail,
     page,
   }: GetCoffeeChatListRequest) => {
     const response = await apiInstance.get<GetCoffeeChatListWithMentorResponse>(
@@ -104,7 +104,7 @@ class CoffeeChatApi {
       {
         params: {
           category,
-          status,
+          detail,
           page,
         },
       }

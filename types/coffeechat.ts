@@ -31,20 +31,20 @@ export const isValidCoffeeCathStatus = (status: string): status is CoffeeChatSta
   return CoffeeChatStatusList.includes(status as CoffeeChatStatus);
 };
 
-export const CoffeeChatCategoryList = ["suggest", "waiting", "scheduled", "passed"] as const;
+export const CoffeeChatCategoryList = ["suggested", "waiting", "scheduled", "passed"] as const;
 
 export type CoffeeChatCategory = (typeof CoffeeChatCategoryList)[number];
 
 export const isValidCoffeeChatCategory = (
   category: string
-): category is Exclude<CoffeeChatCategory, "suggest"> => {
-  if (category === "suggest") return false;
+): category is Exclude<CoffeeChatCategory, "suggested"> => {
+  if (category === "suggested") return false;
 
   return CoffeeChatCategoryList.includes(category as CoffeeChatCategory);
 };
 
-export const WaitingCoffeeChatStatusList = ["APPLY", "PENDING"] as const;
-export const PassedCoffeeChatStatusList = ["COMPLETE", "REJECT", "CANCEL"] as const;
+export const WaitingCoffeeChatStatusList = ["apply", "pending"] as const;
+export const PassedCoffeeChatStatusList = ["complete", "reject", "cancel"] as const;
 
 export type WaitingCoffeeChatStatus = (typeof WaitingCoffeeChatStatusList)[number];
 export type PassedCoffeeChatStatus = (typeof PassedCoffeeChatStatusList)[number];
