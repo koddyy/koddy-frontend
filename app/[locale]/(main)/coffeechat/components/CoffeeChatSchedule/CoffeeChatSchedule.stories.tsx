@@ -11,7 +11,6 @@ type Story = StoryObj<typeof CoffeeChatSchedule>;
 
 export const Primary: Story = {
   args: {
-    status: "APPROVE",
     schedule: "2023/11/01 15:00~15:30 (한국 시간 기준)",
   },
 };

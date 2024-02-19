@@ -25,12 +25,7 @@
     },
 
     "CoffeeChatSchedule": {
-      "date": {
-        "APPROVE": "예정 시간",
-        "APPLY": "신청 시간",
-        "PENDING": "신청 시간",
-        "COMPLETE": "시간"
-      },
+      "date": "시간",
       "how": "방식",
       "link": "링크",
       "copy-link": "링크 복사"

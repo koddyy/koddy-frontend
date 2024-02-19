@@ -25,12 +25,7 @@
     },
 
     "CoffeeChatSchedule": {
-      "date": {
-        "APPROVE": "Date",
-        "APPLY": "Date",
-        "PENDING": "Date",
-        "COMPLETE": "Date"
-      },
+      "date": "Date",
       "how": "How",
       "link": "Link",
       "copy-link": "Copy Link"

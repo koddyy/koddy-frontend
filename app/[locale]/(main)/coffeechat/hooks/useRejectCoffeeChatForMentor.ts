@@ -10,7 +10,7 @@ export const useRejectCoffeeChatForMentor = (initialStatus?: CoffeeChatStatus) =
   const { mutate: pendingToRejectCoffeeChat, isSuccess: isPendingToRejectSuccess } =
     useUpdateCoffeeChatMentorRejected();
 
-  if (initialStatus !== "APPLY" && initialStatus !== "PENDING") return {};
+  if (initialStatus !== "MENTEE_APPLY" && initialStatus !== "MENTEE_PENDING") return {};
 
   const setIsRejectTrue = () => {
     setIsReject(true);
@@ -21,13 +21,13 @@ export const useRejectCoffeeChatForMentor = (initialStatus?: CoffeeChatStatus) =
   };
 
   const isRejectSuccess = {
-    APPLY: isApplyToRejectSuccess,
-    PENDING: isPendingToRejectSuccess,
+    MENTEE_APPLY: isApplyToRejectSuccess,
+    MENTEE_PENDING: isPendingToRejectSuccess,
   };
 
   const rejectCoffeeChat = {
-    APPLY: applyToRejectCoffeeChat,
-    PENDING: pendingToRejectCoffeeChat,
+    MENTEE_APPLY: applyToRejectCoffeeChat,
+    MENTEE_PENDING: pendingToRejectCoffeeChat,
   };
 
   return {
