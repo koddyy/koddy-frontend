@@ -1,8 +1,11 @@
 import { ElementType } from "react";
 import GoogleMeet from "@/assets/google_meet.svg";
 import Zoom from "@/assets/zoom.svg";
-import { CoffeeChatStatus } from "@/types/coffeechat";
-import { Role } from "@/types/user";
+import {
+  CoffeeChatCategory,
+  PassedCoffeeChatStatusList,
+  WaitingCoffeeChatStatusList,
+} from "@/types/coffeechat";
 
 export type Meeting = "zoomAuto" | "zoom" | "google";
 
@@ -29,30 +32,16 @@ export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
   google: GoogleMeet,
 };
 
-export const CoffeeChatStatusOptions: Record<CoffeeChatStatus, string> = {
-  APPROVE: "예정",
-  APPLY: "신청",
-  SUGGEST: "제안",
-  PENDING: "수락",
-  COMPLETE: "완료",
-  "CANCEL,REJECT": "취소",
+export const CoffeeChatCategoryOptions: Record<Exclude<CoffeeChatCategory, "suggested">, string> = {
+  waiting: "대기",
+  scheduled: "예정",
+  passed: "지난",
 };
 
-export const CoffeeChatStatusText: Record<Role, Record<CoffeeChatStatus, string>> = {
-  mentor: {
-    APPROVE: "커피챗 예정이에요",
-    APPLY: "커피챗 신청이 왔어요",
-    SUGGEST: "커피챗 제안을 했어요",
-    PENDING: "커피챗을 수락했어요",
-    COMPLETE: "커피챗을 완료했어요",
-    "CANCEL,REJECT": "커피챗이 취소됐어요",
-  },
-  mentee: {
-    APPROVE: "커피챗 예정이에요",
-    APPLY: "커피챗 신청을 했어요",
-    SUGGEST: "커피챗 제안이 왔어요",
-    PENDING: "커피챗 제안을 수락했어요",
-    COMPLETE: "커피챗을 완료했어요",
-    "CANCEL,REJECT": "커피챗이 취소됐어요",
-  },
+export const CoffeeChatStatusOptions: {
+  waiting: typeof WaitingCoffeeChatStatusList;
+  passed: typeof PassedCoffeeChatStatusList;
+} = {
+  waiting: WaitingCoffeeChatStatusList,
+  passed: PassedCoffeeChatStatusList,
 };

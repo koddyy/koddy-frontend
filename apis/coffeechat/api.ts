@@ -2,6 +2,7 @@ import { apiInstance } from "@/apis/axios";
 import {
   GetAppliedCoffeeChatListResponse,
   GetCoffeeChatByIdResponse,
+  GetCoffeeChatCountsResponse,
   GetCoffeeChatListRequest,
   GetCoffeeChatListResponse,
   GetCoffeeChatListWithMenteeResponse,
@@ -66,17 +67,25 @@ class CoffeeChatApi {
     return response.data;
   };
 
+  getCoffeeChatCounts = async () => {
+    const response = await apiInstance.get<GetCoffeeChatCountsResponse>(
+      "/api/coffeechats/me/category-counts"
+    );
+    return response.data;
+  };
+
   /** mentor */
-  getCoffeeChatListWithMenteeByStatus = async ({
+  getCoffeeChatListWithMenteeByCategoryAndStatus = async ({
     category,
-    status,
+    detail,
     page,
   }: GetCoffeeChatListRequest) => {
     const response = await apiInstance.get<GetCoffeeChatListWithMenteeResponse>(
-      `/api/coffeechats/mentors/me/${category}`,
+      "/api/coffeechats/me/schedules",
       {
         params: {
-          status,
+          category,
+          detail,
           page,
         },
       }
@@ -85,16 +94,17 @@ class CoffeeChatApi {
   };
 
   /** mentee */
-  getCoffeeChatListWithMentorByStatus = async ({
+  getCoffeeChatListWithMentorByCategoryAndStatus = async ({
     category,
-    status,
+    detail,
     page,
   }: GetCoffeeChatListRequest) => {
     const response = await apiInstance.get<GetCoffeeChatListWithMentorResponse>(
-      `/api/coffeechats/mentees/me/${category}`,
+      "/api/coffeechats/me/schedules",
       {
         params: {
-          status,
+          category,
+          detail,
           page,
         },
       }

@@ -10,7 +10,7 @@ export const useApproveCoffeeChatForMentor = (initialStatus?: CoffeeChatStatus) 
   const { mutate: pendingToApproveCoffeeChat, isSuccess: isPendingToApproveSuccess } =
     useUpdateCoffeeChatMentorApproved();
 
-  if (initialStatus !== "APPLY" && initialStatus !== "PENDING") return {};
+  if (initialStatus !== "MENTEE_APPLY" && initialStatus !== "MENTEE_PENDING") return {};
 
   const setIsApproveTrue = () => {
     setIsApprove(true);
@@ -21,13 +21,13 @@ export const useApproveCoffeeChatForMentor = (initialStatus?: CoffeeChatStatus) 
   };
 
   const isApproveSuccess = {
-    APPLY: isApplyToApproveSuccess,
-    PENDING: isPendingToApproveSuccess,
+    MENTEE_APPLY: isApplyToApproveSuccess,
+    MENTEE_PENDING: isPendingToApproveSuccess,
   };
 
   const approveCoffeeChat = {
-    APPLY: applyToApproveCoffeeChat,
-    PENDING: pendingToApproveCoffeeChat,
+    MENTEE_APPLY: applyToApproveCoffeeChat,
+    MENTEE_PENDING: pendingToApproveCoffeeChat,
   };
 
   return {

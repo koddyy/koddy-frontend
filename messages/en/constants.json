@@ -22,20 +22,37 @@
 
     "coffeechat-status-text": {
       "mentor": {
-        "APPROVE": "Scheduled Chat",
-        "APPLY": "You’ve got a request!",
-        "SUGGEST": "Request Sent",
-        "PENDING": "Request accepted",
-        "COMPLETE": "Completed Chat",
-        "CANCEL,REJECT": "Request canceled"
+        "MENTEE_APPLY": "You’ve got a request!",
+        "MENTOR_APPROVE": "Scheduled Chat",
+        "MENTOR_REJECT": "커피챗이 거절됐어요",
+        "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "Completed Chat",
+
+        "MENTOR_SUGGEST": "Request Sent",
+        "MENTEE_PENDING": "Request accepted",
+        "MENTEE_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_FINALLY_APPROVE": "Scheduled Chat",
+        "MENTOR_FINALLY_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
+
+        "MENTEE_CANCEL": "Request canceled",
+        "MENTOR_CANCEL": "Request canceled"
       },
+
       "mentee": {
-        "APPROVE": "Scheduled Chat",
-        "APPLY": "Request Sent",
-        "SUGGEST": "You’ve got a request!",
-        "PENDING": "Request accepted",
-        "COMPLETE": "Completed Chat",
-        "CANCEL,REJECT": "Canceled Chat"
+        "MENTEE_APPLY": "Request Sent",
+        "MENTOR_APPROVE": "Scheduled Chat",
+        "MENTOR_REJECT": "커피챗이 거절됐어요",
+        "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "Completed Chat",
+
+        "MENTOR_SUGGEST": "You’ve got a request!",
+        "MENTEE_PENDING": "커피챗 최종 확정을 기다리고 있어요",
+        "MENTEE_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_FINALLY_APPROVE": "Scheduled Chat",
+        "MENTOR_FINALLY_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
+
+        "MENTEE_CANCEL": "Canceled Chat",
+        "MENTOR_CANCEL": "Canceled Chat"
       }
     },
 

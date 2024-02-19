@@ -9,30 +9,19 @@ import {
 } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
 import { GoToLogin } from "@/app/components/GoToLogin";
 import { Header } from "@/app/components/Header";
-import { Tag } from "@/components/Tag";
+import { Divider } from "@/components/Divider";
+import { Select } from "@/components/Select";
+import { CoffeeChatCategoryOptions, CoffeeChatStatusOptions } from "@/constants/coffeechat";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, usePathname } from "@/libs/navigation";
 import {
-  CoffeeChatCategory,
-  CoffeeChatStatus,
-  isValidCoffeeCathStatus,
   isValidCoffeeChatCategory,
+  isValidPassedCoffeChatStatus,
+  isValidWaitingCoffeeChatStatus,
 } from "@/types/coffeechat";
-import { Role } from "@/types/user";
 import { cn } from "@/utils/cn";
-
-const CATEGORY: CoffeeChatCategory[] = ["applied", "suggested"];
-
-const COFFEECHAT_STATUS_OPTIONS: Record<Role, Record<CoffeeChatCategory, CoffeeChatStatus[]>> = {
-  mentor: {
-    applied: ["APPLY", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
-    suggested: ["SUGGEST", "PENDING", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
-  },
-  mentee: {
-    applied: ["APPLY", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
-    suggested: ["SUGGEST", "PENDING", "APPROVE", "COMPLETE", "CANCEL,REJECT"],
-  },
-};
+import { getEntries } from "@/utils/object";
+import { CoffeeChatSteps } from "./components/CoffeeChatSteps";
 
 const Page = ({
   searchParams,
@@ -45,14 +34,18 @@ const Page = ({
 }) => {
   const t = useTranslations("coffeechat");
 
-  const explore = searchParams.explore ?? "mentee";
   const pathname = usePathname();
   const activeCategory = isValidCoffeeChatCategory(searchParams.category)
     ? searchParams.category
-    : "applied";
-  const activeStatus = isValidCoffeeCathStatus(searchParams.status)
-    ? searchParams.status
-    : undefined;
+    : "waiting";
+  const activeFilter = (() => {
+    if (activeCategory === "waiting" && isValidWaitingCoffeeChatStatus(searchParams.status)) {
+      return searchParams.status;
+    } else if (activeCategory === "passed" && isValidPassedCoffeChatStatus(searchParams.status)) {
+      return searchParams.status;
+    }
+    return;
+  })();
 
   const { isLoading, isAuthenticated, me } = useAuth();
 
@@ -61,67 +54,53 @@ const Page = ({
   return (
     <>
       <Header />
-      <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
-        {CATEGORY.map((key, i) => (
-          <Link
-            key={i}
-            href={`${pathname}?${qs.stringify({ category: key })}`}
-            className={cn(
-              "grow py-4 text-center",
-              activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
-            )}
-          >
-            {isAuthenticated
-              ? t(`category.${me.role}.${key}`)
-              : t(`category.${explore === "mentor" ? "mentee" : "mentor"}.${key}`)}
-          </Link>
-        ))}
-      </div>
       {isAuthenticated ? (
         <>
-          <div className="my-[13px] flex gap-[10px] px-[20px]">
-            <Link
-              href={`${pathname}?${qs.stringify({
-                ...searchParams,
-                status: undefined,
-              })}`}
-            >
-              <Tag
-                variant={!activeStatus ? "solid" : "outline"}
-                color={!activeStatus ? "primary" : "grayscale"}
-                className={cn(activeStatus && "body-3")}
+          <div className="my-[18px] px-[20px]">
+            <CoffeeChatSteps role={me.role} />
+          </div>
+          <Divider className="border-[4px]" />
+          <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
+            {getEntries(CoffeeChatCategoryOptions).map(([key]) => (
+              <Link
+                key={key}
+                href={`${pathname}?${qs.stringify({ category: key })}`}
+                className={cn(
+                  "grow py-4 text-center",
+                  activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
+                )}
               >
-                {t("status.all")}
-              </Tag>
-            </Link>
-            {COFFEECHAT_STATUS_OPTIONS[me.role][activeCategory].map((key, i) => {
-              const isActive = activeStatus === key;
-              return (
-                <Link
-                  key={i}
-                  href={`${pathname}?${qs.stringify({
-                    ...searchParams,
-                    status: key,
-                  })}`}
-                >
-                  <Tag
-                    variant={isActive ? "solid" : "outline"}
-                    color={isActive ? "primary" : "grayscale"}
-                    className={cn(!isActive && "body-3")}
-                  >
-                    {t(`status.${me.role}.${key}`)}
-                  </Tag>
-                </Link>
-              );
-            })}
+                {t(`category.${key}`)}
+              </Link>
+            ))}
           </div>
           <div className="flex flex-col gap-[14px] px-[20px] py-[14px]">
+            {(activeCategory === "waiting" || activeCategory === "passed") && (
+              <Select
+                className="body-3-bold flex w-fit gap-[2px] rounded-[24px] px-[10px] py-[6px] text-gray-600"
+                dropdownClassName="top-[40px] w-[80px] shadow-none text-gray-600"
+                options={["all", ...CoffeeChatStatusOptions[activeCategory]]}
+                value={activeFilter ?? "all"}
+                renderValue={(value) => value && `${t(`filters.${value}`)}`}
+                renderOption={(value) => (
+                  <Link
+                    className="body-3-bold block w-full"
+                    href={`${pathname}?${qs.stringify({
+                      status: value === "all" ? undefined : value,
+                      category: activeCategory,
+                    })}`}
+                  >
+                    {t(`filters.${value}`)}
+                  </Link>
+                )}
+              />
+            )}
             <Suspense>
               {me.role === "mentor" && (
-                <CoffeeChatCardListWithMentee category={activeCategory} status={activeStatus} />
+                <CoffeeChatCardListWithMentee category={activeCategory} detail={activeFilter} />
               )}
               {me.role === "mentee" && (
-                <CoffeeChatCardListWithMentor category={activeCategory} status={activeStatus} />
+                <CoffeeChatCardListWithMentor category={activeCategory} detail={activeFilter} />
               )}
             </Suspense>
           </div>

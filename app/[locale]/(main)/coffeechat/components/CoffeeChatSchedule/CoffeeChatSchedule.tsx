@@ -2,15 +2,12 @@ import { useTranslations } from "next-intl";
 import { Divider } from "@/components/Divider/Divider";
 import { CoffeeChatTypeIcon } from "@/constants/coffeechat";
 import useClipboard from "@/hooks/useClipboard";
-import { CoffeeChatStatus } from "@/types/coffeechat";
-import { cn } from "@/utils/cn";
 
 interface CoffeeChatScheduleProps {
-  status: Exclude<CoffeeChatStatus, "SUGGEST" | "CANCEL,REJECT">;
   schedule: string;
 }
 
-export const CoffeeChatSchedule = ({ status, schedule }: CoffeeChatScheduleProps) => {
+export const CoffeeChatSchedule = ({ schedule }: CoffeeChatScheduleProps) => {
   const t = useTranslations("coffeechat.CoffeeChatSchedule");
   const { copyText } = useClipboard();
 
@@ -20,10 +17,8 @@ export const CoffeeChatSchedule = ({ status, schedule }: CoffeeChatScheduleProps
     <>
       <Divider className="border-[4px]" />
       <div className="px-[20px] py-[18px]">
-        <div className="body-3 mb-[4px]">{t(`date.${status}`)}</div>
-        <div className={cn("body-1-bold", status === "COMPLETE" && "body-1 text-gray-500")}>
-          {schedule}
-        </div>
+        <div className="body-3 mb-[4px]">{t("date")}</div>
+        <div className="body-1-bold">{schedule}</div>
       </div>
       <Divider className="border-[4px]" />
       {status === "APPROVE" && (

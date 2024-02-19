@@ -21,7 +21,7 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
 
   const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
 
-  if (!mentor || !coffeeChat || coffeeChat.status !== "APPLY") return null;
+  if (!mentor || !coffeeChat || coffeeChat.status !== "MENTEE_APPLY") return null;
 
   const [date, startTime] = coffeeChat.start.split("T");
   const endTime = coffeeChat.end.split("T")?.[1];
@@ -32,10 +32,7 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule
-        status={coffeeChat.status}
-        schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
-      />
+      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentor")}</span>
@@ -81,7 +78,7 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
   const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
     useRejectCoffeeChatForMentee();
 
-  if (!mentor || !coffeeChat || coffeeChat.status !== "SUGGEST") return null;
+  if (!mentor || !coffeeChat || coffeeChat.status !== "MENTOR_SUGGEST") return null;
 
   return (
     <>
@@ -145,7 +142,7 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
 
   const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
 
-  if (!mentor || !coffeeChat || coffeeChat.status !== "PENDING") return null;
+  if (!mentor || !coffeeChat || coffeeChat.status !== "MENTEE_PENDING") return null;
 
   const [date, startTime] = coffeeChat.start.split("T");
   const endTime = coffeeChat.end.split("T")?.[1];
@@ -156,10 +153,7 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule
-        status={coffeeChat.status}
-        schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
-      />
+      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentee")}</span>
@@ -212,7 +206,12 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
 
   const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
 
-  if (!mentor || !coffeeChat || coffeeChat.status !== "APPROVE") return null;
+  if (
+    !mentor ||
+    !coffeeChat ||
+    !(coffeeChat.status === "MENTOR_APPROVE" || coffeeChat.status === "MENTOR_FINALLY_APPROVE")
+  )
+    return null;
 
   const [date, startTime] = coffeeChat.start.split("T");
   const endTime = coffeeChat.end.split("T")?.[1];
@@ -223,10 +222,7 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule
-        status={coffeeChat.status}
-        schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
-      />
+      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentor")}</span>
@@ -277,7 +273,15 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
-  if (!mentor || !coffeeChat || coffeeChat.status !== "COMPLETE") return null;
+  if (
+    !mentor ||
+    !coffeeChat ||
+    !(
+      coffeeChat.status === "MENTEE_APPLY_COFFEE_CHAT_COMPLETE" ||
+      coffeeChat.status === "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE"
+    )
+  )
+    return null;
 
   const [date, startTime] = coffeeChat.start.split("T");
   const endTime = coffeeChat.end.split("T")?.[1];
@@ -288,10 +292,7 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule
-        status={coffeeChat.status}
-        schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`}
-      />
+      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">{t("introductionOfMentor")}</span>
@@ -327,7 +328,18 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
-  if (!mentor || !coffeeChat || coffeeChat.status !== "CANCEL,REJECT") return null;
+  if (
+    !mentor ||
+    !coffeeChat ||
+    !(
+      coffeeChat.status === "MENTEE_CANCEL" ||
+      coffeeChat.status === "MENTOR_CANCEL" ||
+      coffeeChat.status === "MENTEE_REJECT" ||
+      coffeeChat.status === "MENTOR_REJECT" ||
+      coffeeChat.status === "MENTOR_FINALLY_REJECT"
+    )
+  )
+    return null;
 
   return (
     <>
@@ -364,10 +376,18 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
 };
 
 export const MenteeView = {
-  APPLY: ApplyCoffeeChat,
-  SUGGEST: SuggestCoffeeChat,
-  PENDING: PendingCoffeeChat,
-  APPROVE: ApproveCoffeeChat,
-  COMPLETE: CompleteCoffeeChat,
-  "CANCEL,REJECT": CancelAndRejectCoffeeChat,
+  MENTEE_APPLY: ApplyCoffeeChat,
+  MENTOR_APPROVE: ApproveCoffeeChat,
+  MENTOR_REJECT: CancelAndRejectCoffeeChat,
+  MENTEE_APPLY_COFFEE_CHAT_COMPLETE: CompleteCoffeeChat,
+
+  MENTOR_SUGGEST: SuggestCoffeeChat,
+  MENTEE_PENDING: PendingCoffeeChat,
+  MENTEE_REJECT: CancelAndRejectCoffeeChat,
+  MENTOR_FINALLY_APPROVE: ApproveCoffeeChat,
+  MENTOR_FINALLY_REJECT: CancelAndRejectCoffeeChat,
+  MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE: CompleteCoffeeChat,
+
+  MENTEE_CANCEL: CancelAndRejectCoffeeChat,
+  MENTOR_CANCEL: CancelAndRejectCoffeeChat,
 } as const;

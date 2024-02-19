@@ -1,5 +1,10 @@
 import { CoffeeChatType } from "@/constants/coffeechat";
-import { CoffeeChatCategory, CoffeeChatStatus } from "@/types/coffeechat";
+import {
+  CoffeeChatCategory,
+  CoffeeChatStatus,
+  PassedCoffeeChatStatus,
+  WaitingCoffeeChatStatus,
+} from "@/types/coffeechat";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
 
@@ -48,9 +53,16 @@ export interface GetSuggestedCoffeeChatListResponse {
   hasNext: boolean;
 }
 
+export interface GetCoffeeChatCountsResponse {
+  suggested: number;
+  waiting: number;
+  scheduled: number;
+  passed: number;
+}
+
 export interface GetCoffeeChatListRequest {
   category: CoffeeChatCategory;
-  status?: CoffeeChatStatus;
+  detail?: WaitingCoffeeChatStatus | PassedCoffeeChatStatus;
   page: number;
 }
 

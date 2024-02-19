@@ -1,42 +1,31 @@
 {
   "coffeechat": {
-    "category": {
-      "mentor": {
-        "applied": "Recieved",
-        "suggested": "Sent"
-      },
-      "mentee": {
-        "applied": "Sent",
-        "suggested": "Recieved"
-      }
+    "coffeechat-steps-info": {
+      "label": "커피챗 단계가 어떻게 되나요?",
+      "description": "커피챗은 대기 - 예정 - 지난으로 진행됩니다.\n\n대기 : 시작되지 않은 커피챗\n예정 : 예약되었으며, 시작될 예정인 커피챗\n지난 : 완료된 커피챗"
     },
-    "status": {
-      "all": "All",
-      "mentor": {
-        "APPLY": "received",
-        "SUGGEST": "sent",
-        "PENDING": "accepted",
-        "APPROVE": "scheduled",
-        "COMPLETE": "completed",
-        "CANCEL,REJECT": "canceled"
-      },
-      "mentee": {
-        "APPLY": "sent",
-        "SUGGEST": "received",
-        "PENDING": "accepted",
-        "APPROVE": "scheduled",
-        "COMPLETE": "completed",
-        "CANCEL,REJECT": "canceled"
-      }
+
+    "category": {
+      "waiting": "대기",
+      "scheduled": "예정",
+      "passed": "지난"
+    },
+    "suggested": {
+      "mentor": "제안한 커피챗",
+      "mentee": "커피챗 제안"
+    },
+
+    "filters": {
+      "all": "전체",
+      "apply": "신청",
+      "pending": "수락",
+      "complete": "완료",
+      "cancel": "취소",
+      "reject": "거절"
     },
 
     "CoffeeChatSchedule": {
-      "date": {
-        "APPROVE": "Date",
-        "APPLY": "Date",
-        "PENDING": "Date",
-        "COMPLETE": "Date"
-      },
+      "date": "Date",
       "how": "How",
       "link": "Link",
       "copy-link": "Copy Link"
