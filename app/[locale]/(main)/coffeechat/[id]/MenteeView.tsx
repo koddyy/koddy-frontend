@@ -332,7 +332,66 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
   );
 };
 
-const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
+const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
+  const t = useTranslations("coffeechat");
+  const constants = useTranslations("constants");
+
+  const { data } = useGetCoffeeChatById(id);
+  const { mentor, coffeeChat } = data ?? {};
+
+  if (
+    !mentor ||
+    !coffeeChat ||
+    !(coffeeChat.status === "MENTEE_REJECT" || coffeeChat.status === "MENTOR_REJECT")
+  )
+    return null;
+
+  return (
+    <>
+      <MentorProfile
+        {...mentor}
+        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
+      />
+      <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">
+            {t("introduction-of-mentor")}
+          </span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {mentor.introduction || "자기소개를 입력하지 않았어요."}
+          </p>
+        </div>
+        {coffeeChat.suggestReason && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.suggestReason}
+            </p>
+          </div>
+        )}
+        {(coffeeChat.applyReason ?? coffeeChat.question) && (
+          <div>
+            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
+            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+              {coffeeChat.applyReason ?? coffeeChat.question}
+            </p>
+          </div>
+        )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">
+            {coffeeChat.status === "MENTEE_REJECT" && t("reject-reason-of-me")}
+            {coffeeChat.status === "MENTOR_REJECT" && t("reject-reason-of-mentor")}
+          </span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.rejectReason}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
   const constants = useTranslations("constants");
 
@@ -343,11 +402,9 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
     !mentor ||
     !coffeeChat ||
     !(
+      coffeeChat.status === "MENTOR_FINALLY_REJECT" ||
       coffeeChat.status === "MENTEE_CANCEL" ||
-      coffeeChat.status === "MENTOR_CANCEL" ||
-      coffeeChat.status === "MENTEE_REJECT" ||
-      coffeeChat.status === "MENTOR_REJECT" ||
-      coffeeChat.status === "MENTOR_FINALLY_REJECT"
+      coffeeChat.status === "MENTOR_CANCEL"
     )
   )
     return null;
@@ -383,6 +440,16 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
             </p>
           </div>
         )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">
+            {coffeeChat.status === "MENTOR_FINALLY_REJECT" && t("cancel-reason-of-mentor")}
+            {coffeeChat.status === "MENTOR_CANCEL" && t("cancel-reason-of-mentor")}
+            {coffeeChat.status === "MENTEE_CANCEL" && t("cancel-reason-of-me")}
+          </span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.cancelReason}
+          </p>
+        </div>
       </div>
     </>
   );
@@ -391,16 +458,16 @@ const CancelAndRejectCoffeeChat = ({ id }: MenteeViewProps) => {
 export const MenteeView = {
   MENTEE_APPLY: ApplyCoffeeChat,
   MENTOR_APPROVE: ApproveCoffeeChat,
-  MENTOR_REJECT: CancelAndRejectCoffeeChat,
+  MENTOR_REJECT: RejectCoffeeChat,
   MENTEE_APPLY_COFFEE_CHAT_COMPLETE: CompleteCoffeeChat,
 
   MENTOR_SUGGEST: SuggestCoffeeChat,
   MENTEE_PENDING: PendingCoffeeChat,
-  MENTEE_REJECT: CancelAndRejectCoffeeChat,
+  MENTEE_REJECT: RejectCoffeeChat,
   MENTOR_FINALLY_APPROVE: ApproveCoffeeChat,
-  MENTOR_FINALLY_REJECT: CancelAndRejectCoffeeChat,
+  MENTOR_FINALLY_REJECT: CancelCoffeeChat,
   MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE: CompleteCoffeeChat,
 
-  MENTEE_CANCEL: CancelAndRejectCoffeeChat,
-  MENTOR_CANCEL: CancelAndRejectCoffeeChat,
+  MENTEE_CANCEL: CancelCoffeeChat,
+  MENTOR_CANCEL: CancelCoffeeChat,
 } as const;

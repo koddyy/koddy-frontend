@@ -37,6 +37,12 @@
     "question-of-mentee": "Note",
     "question-to-mentor": "Note",
     "question-to-mentee": "Note",
+    "reject-reason-of-me": "나의 거절 사유",
+    "reject-reason-of-mentor": "멘토의 거절 사유",
+    "reject-reason-of-mentee": "멘티의 거절 사유",
+    "cancel-reason-of-me": "나의 취소 사유",
+    "cancel-reason-of-mentor": "멘토의 취소 사유",
+    "cancel-reason-of-mentee": "멘티의 취소 사유",
 
     "accept-coffeechat": "Accept",
     "reject-coffeechat": "Decline",

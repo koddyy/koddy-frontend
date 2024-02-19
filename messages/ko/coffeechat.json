@@ -37,6 +37,12 @@
     "question-of-mentee": "멘티가 나에게 궁금한 점",
     "question-to-mentor": "내가 멘토에게 궁금한 점",
     "question-to-mentee": "내가 멘티에게 궁금한 점",
+    "reject-reason-of-me": "나의 거절 사유",
+    "reject-reason-of-mentor": "멘토의 거절 사유",
+    "reject-reason-of-mentee": "멘티의 거절 사유",
+    "cancel-reason-of-me": "나의 취소 사유",
+    "cancel-reason-of-mentor": "멘토의 취소 사유",
+    "cancel-reason-of-mentee": "멘티의 취소 사유",
 
     "accept-coffeechat": "수락하기",
     "reject-coffeechat": "거절하기",
