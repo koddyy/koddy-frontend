@@ -9,14 +9,10 @@ import {
 } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
 import { GoToLogin } from "@/app/components/GoToLogin";
 import { Header } from "@/app/components/Header";
-import Close from "@/assets/close.svg";
-import InfoCircle from "@/assets/Info_circle.svg";
 import { Divider } from "@/components/Divider";
 import { Select } from "@/components/Select";
-import { Tooltip } from "@/components/Tooltip";
 import { CoffeeChatCategoryOptions, CoffeeChatStatusOptions } from "@/constants/coffeechat";
 import { useAuth } from "@/hooks/useAuth";
-import { useToggle } from "@/hooks/useToggle";
 import { Link, usePathname } from "@/libs/navigation";
 import {
   isValidCoffeeChatCategory,
@@ -25,7 +21,7 @@ import {
 } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
 import { getEntries } from "@/utils/object";
-import { CoffeeChatCount } from "./components/CoffeeChatCount";
+import { CoffeeChatSteps } from "./components/CoffeeChatSteps";
 
 const Page = ({
   searchParams,
@@ -50,7 +46,6 @@ const Page = ({
     }
     return;
   })();
-  const [isOpenInfo, toggleIOpenInfoTooltip] = useToggle();
 
   const { isLoading, isAuthenticated, me } = useAuth();
 
@@ -62,35 +57,7 @@ const Page = ({
       {isAuthenticated ? (
         <>
           <div className="my-[18px] px-[20px]">
-            <CoffeeChatCount role={me.role} />
-            <div className="my-[16px] flex items-center justify-end gap-[5px]">
-              <Tooltip
-                position="bottom-center"
-                open={isOpenInfo}
-                content={
-                  <div className="rounded-[12px] border border-gray-200 bg-white px-[12px] py-[10px] shadow-[2px_4px_8px_0px_#0000001A]">
-                    <div className="flex justify-between">
-                      <div className="body-3-bold">{t("coffeechat-steps-info.label")}</div>
-                      <button type="button" onClick={toggleIOpenInfoTooltip}>
-                        <Close className="text-gray-500" width={20} height={20} />
-                      </button>
-                    </div>
-                    <Divider className="my-[8px] mt-[4px] border-gray-200" />
-                    <div className="body-3 whitespace-pre">
-                      {t("coffeechat-steps-info.description")}
-                    </div>
-                  </div>
-                }
-              >
-                <InfoCircle
-                  className="text-gray-400"
-                  width={20}
-                  height={20}
-                  onClick={toggleIOpenInfoTooltip}
-                />
-              </Tooltip>
-              <div className="body-3 text-gray-500">{t("coffeechat-steps-info.label")}</div>
-            </div>
+            <CoffeeChatSteps role={me.role} />
           </div>
           <Divider className="border-[4px]" />
           <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">

@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { nextIntlDecorator } from "@/libs/storybook-decorators";
 import { handlers } from "@/mocks/handlers/coffeechat";
-import { CoffeeChatCount } from "./CoffeeChatCount";
+import { CoffeeChatSteps } from "./CoffeeChatSteps";
 
-const meta: Meta<typeof CoffeeChatCount> = {
-  title: "App/coffeechat/CoffeeChatCount",
-  component: CoffeeChatCount,
+const meta: Meta<typeof CoffeeChatSteps> = {
+  title: "App/coffeechat/CoffeeChatSteps",
+  component: CoffeeChatSteps,
   decorators: [nextIntlDecorator],
   parameters: {
     msw: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof CoffeeChatCount> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof CoffeeChatCount>;
+type Story = StoryObj<typeof CoffeeChatSteps>;
 
 export const Primary: Story = {
   args: {
