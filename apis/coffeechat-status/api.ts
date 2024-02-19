@@ -5,6 +5,7 @@ import {
   PatchCoffeeChatMenteeApprovedRequest,
   PatchCoffeeChatMentorApprovedRequest,
   PatchCoffeeChatRejectedRequest,
+  PatchCoffeeChatToCancelRequest,
 } from "./types";
 
 class CoffeeChatStatusApi {
@@ -68,8 +69,10 @@ class CoffeeChatStatusApi {
     });
   };
 
-  deleteCoffeeChat = ({ coffeeChatId }: { coffeeChatId: number }) => {
-    return apiInstance.delete(`/api/coffeechats/cancel/${coffeeChatId}`);
+  patchCoffeeChatToCancel = ({ coffeeChatId, cancelReason }: PatchCoffeeChatToCancelRequest) => {
+    return apiInstance.patch(`/api/coffeechats/cancel/${coffeeChatId}`, {
+      cancelReason,
+    });
   };
 }
 

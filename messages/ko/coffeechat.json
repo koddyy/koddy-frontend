@@ -46,6 +46,7 @@
 
     "accept-coffeechat": "수락하기",
     "reject-coffeechat": "거절하기",
+    "finally-accept-coffeechat": "최종 확정하기",
     "cancel-coffeechat": "커피챗 취소하기",
 
     "RejectBottomSheet": {

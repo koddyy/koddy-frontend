@@ -110,7 +110,7 @@ const SuggestCoffeeChat = ({ id }: MentorViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentee, coffeeChat } = data ?? {};
 
-  const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
+  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
 
   if (!mentee || !coffeeChat || coffeeChat.status !== "MENTOR_SUGGEST") return null;
 
@@ -141,11 +141,21 @@ const SuggestCoffeeChat = ({ id }: MentorViewProps) => {
           variant="outline"
           color="grayscale"
           className="border-[0.5px]"
-          onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
+          onClick={toggleIsCancel}
         >
           {t("cancel-coffeechat")}
         </Button>
       </div>
+      {isCancel && (
+        <RejectBottomSheet
+          type="cancel"
+          userName={mentee.name}
+          onClickRejectButton={(cancelReason) =>
+            cancelCoffeeChat({ coffeeChatId: id, cancelReason })
+          }
+          onClose={toggleIsCancel}
+        />
+      )}
       {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
@@ -167,8 +177,7 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
     useApproveCoffeeChatForMentor(coffeeChat?.status);
 
-  const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor(coffeeChat?.status);
+  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
 
   if (!mentee || !coffeeChat || coffeeChat.status !== "MENTEE_PENDING") return null;
 
@@ -207,14 +216,19 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
             </p>
           </div>
         )}
+        <Button
+          variant="outline"
+          color="grayscale"
+          className="border-[0.5px]"
+          onClick={toggleIsCancel}
+        >
+          {t("cancel-coffeechat")}
+        </Button>
       </div>
       <div className="h-[96px]" />
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
         <div className="flex gap-5">
-          <Button variant="outline" onClick={toggleIsReject}>
-            {t("reject-coffeechat")}
-          </Button>
-          <Button onClick={setIsApproveTrue}>{t("accept-coffeechat")}</Button>
+          <Button onClick={setIsApproveTrue}>{t("finally-accept-coffeechat")}</Button>
         </div>
       </div>
       {isApprove && (
@@ -234,19 +248,20 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
           confirmButton={<LinkButton href="/">{t("ResultBottomSheet.go-to-calendar")}</LinkButton>}
         />
       )}
-      {isReject && (
+      {isCancel && (
         <RejectBottomSheet
+          type="cancel"
           userName={mentee.name}
-          onClickRejectButton={(rejectReason) =>
-            rejectCoffeeChat({ coffeeChatId: id, rejectReason })
+          onClickRejectButton={(cancelReason) =>
+            cancelCoffeeChat({ coffeeChatId: id, cancelReason })
           }
-          onClose={toggleIsReject}
+          onClose={toggleIsCancel}
         />
       )}
-      {isRejectSuccess && (
+      {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
-          description={t("ResultBottomSheet.REJECT", { name: mentee.name })}
+          description={t("ResultBottomSheet.CANCEL", { name: mentee.name })}
           confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
         />
       )}
@@ -261,7 +276,7 @@ const ApproveCoffeeChat = ({ id }: MentorViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentee, coffeeChat } = data ?? {};
 
-  const { isCancelSuccess, cancelCoffeeChat } = useCancelCoffeeChat();
+  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
 
   if (
     !mentee ||
@@ -309,11 +324,21 @@ const ApproveCoffeeChat = ({ id }: MentorViewProps) => {
           variant="outline"
           color="grayscale"
           className="border-[0.5px]"
-          onClick={() => cancelCoffeeChat({ coffeeChatId: id })}
+          onClick={toggleIsCancel}
         >
           {t("cancel-coffeechat")}
         </Button>
       </div>
+      {isCancel && (
+        <RejectBottomSheet
+          type="cancel"
+          userName={mentee.name}
+          onClickRejectButton={(cancelReason) =>
+            cancelCoffeeChat({ coffeeChatId: id, cancelReason })
+          }
+          onClose={toggleIsCancel}
+        />
+      )}
       {isCancelSuccess && (
         <ResultBottomSheet
           resultType="negative"
