@@ -6,7 +6,7 @@ import { getDescription } from "@/utils/profile";
 import { UserCardProps } from "../../../components/UserCard";
 
 type CoffeeChatCardProps = UserCardProps & {
-  status: CoffeeChatStatus;
+  status: CoffeeChatStatus | null;
 };
 
 export const CoffeeChatCard = ({ status, ...user }: CoffeeChatCardProps) => {
@@ -27,11 +27,13 @@ export const CoffeeChatCard = ({ status, ...user }: CoffeeChatCardProps) => {
         />
       </div>
       <div className="grow">
-        <div className="label-bold text-primary-dark">
-          {constants(
-            `coffeechat-status-text.${user.role === "mentor" ? "mentee" : "mentor"}.${status}`
-          )}
-        </div>
+        {status && (
+          <div className="label-bold text-primary-dark">
+            {constants(
+              `coffeechat-status-text.${user.role === "mentor" ? "mentee" : "mentor"}.${status}`
+            )}
+          </div>
+        )}
         <div className="subheading-bold mb-[0.12rem]">{name}</div>
         <p className="body-2 text-gray-600">{description}</p>
       </div>
