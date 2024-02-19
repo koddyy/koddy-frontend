@@ -25,8 +25,8 @@ export const Tooltip = ({
   return open ? (
     <div className="relative">
       {children}
-      <div className={cn("absolute", PositioinVariants({ position }))}>
-        <div className="relative z-tooltip w-fit">
+      <div className={cn("absolute z-tooltip", PositioinVariants({ position }))}>
+        <div className="w-fit">
           {typeof content === "string" ? (
             <>
               <div className="body-3 rounded-lg bg-gray-600 p-2 text-gray-100 shadow-md">
