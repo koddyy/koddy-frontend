@@ -1,14 +1,27 @@
 import { menteeList, mentorList } from "./user";
 
-export const coffeeChatWithMenteeList = [
+const applyReason =
+  "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.";
+
+const suggestReason =
+  "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.";
+
+const question =
+  "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.";
+
+const rejectReason = "당분간 상담이 어려워요.";
+
+const cancelReason = "당분간 상담이 어려워요.";
+
+export const coffeeChatList = [
   {
     id: 1,
-    status: "APPLY",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    status: "MENTEE_APPLY",
+    applyReason,
     suggestReason: null,
-    question: null,
     rejectReason: null,
+    cancelReason: null,
+    question: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
     chatType: null,
@@ -16,167 +29,207 @@ export const coffeeChatWithMenteeList = [
   },
   {
     id: 2,
-    status: "SUGGEST",
-    applyReason: null,
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question: null,
+    status: "MENTOR_APPROVE",
+    applyReason,
+    suggestReason: null,
     rejectReason: null,
-    start: null,
-    end: null,
-    chatType: null,
-    chatValue: null,
-  },
-  {
-    id: 3,
-    status: "APPROVE",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    cancelReason: null,
     question: null,
-    rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
     chatType: "zoom",
     chatValue: "https://us05web.zoom.us/mock-url",
   },
   {
+    id: 3,
+    status: "MENTOR_REJECT",
+    applyReason,
+    suggestReason: null,
+    rejectReason,
+    cancelReason: null,
+    question: null,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: null,
+    chatValue: null,
+  },
+  {
     id: 4,
-    status: "PENDING",
-    applyReason: null,
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    status: "MENTEE_APPLY_COFFEE_CHAT_COMPLETE",
+    applyReason,
+    suggestReason: null,
     rejectReason: null,
-    start: "2024-01-01T20:00:00",
-    end: "2024-01-01T20:30:00",
-    chatType: null,
-    chatValue: null,
-  },
-  {
-    id: 5,
-    status: "COMPLETE",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
+    cancelReason: null,
     question: null,
-    rejectReason: null,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
-    chatType: null,
-    chatValue: null,
+    chatType: "zoom",
+    chatValue: "https://us05web.zoom.us/mock-url",
   },
-  {
-    id: 5,
-    status: "COMPLETE",
-    applyReason: "신청..",
-    question: "질문..",
-    rejectReason: null,
-    start: "2024-01-01T20:00:00",
-    end: "2024-01-01T20:30:00",
-    chatType: null,
-    chatValue: null,
-  },
-  {
-    id: 6,
-    status: "CANCEL,REJECT",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question: null,
-    rejectReason: "스케줄이 바뀌었어요.",
-    start: "2024-01-01T20:00:00",
-    end: "2024-01-01T20:30:00",
-    chatType: null,
-    chatValue: null,
-  },
-];
 
-export const coffeeChatWithMentorList = [
   {
-    id: 1,
-    status: "APPLY",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    question: null,
-    rejectReason: null,
-    start: "2024-01-01T20:00:00",
-    end: "2024-01-01T20:30:00",
-    chatType: null,
-    chatValue: null,
-  },
-  {
-    id: 2,
-    status: "SUGGEST",
+    id: 5,
+    status: "MENTOR_SUGGEST",
     applyReason: null,
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question: null,
+    suggestReason,
     rejectReason: null,
+    cancelReason: null,
+    question: null,
     start: null,
     end: null,
     chatType: null,
     chatValue: null,
   },
   {
-    id: 3,
-    status: "APPROVE",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question: null,
-    rejectReason: null,
-    start: "2024-01-01T20:00:00",
-    end: "2024-01-01T20:30:00",
-    chatType: "zoom",
-    chatValue: "https://us05web.zoom.us/",
-  },
-  {
-    id: 4,
-    status: "PENDING",
+    id: 6,
+    status: "MENTEE_PENDING",
     applyReason: null,
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
+    suggestReason,
     rejectReason: null,
+    cancelReason: null,
+    question,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
     chatType: null,
     chatValue: null,
   },
   {
-    id: 5,
-    status: "COMPLETE",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question: null,
-    rejectReason: null,
-    start: "2024-01-01T20:00:00",
-    end: "2024-01-01T20:30:00",
-    chatType: "zoom",
-    chatValue: "https://us05web.zoom.us/",
+    id: 7,
+    status: "MENTEE_REJECT",
+    applyReason: null,
+    suggestReason,
+    rejectReason,
+    cancelReason: null,
+    question,
+    start: null,
+    end: null,
+    chatType: null,
+    chatValue: null,
   },
   {
-    id: 6,
-    status: "CANCEL,REJECT",
-    applyReason:
-      "안녕하세요, 한국을 좋아하는 학생입니다. 서울대 철학과 편입을 목표로 한국어 공부 및 유학 준비를 하고 있습니다. 한국어, 영어, 베트남어로 대화가 가능합니다! 합격 서류에 대한 자기소개서 질문이 많아요.",
-    suggestReason:
-      "안녕하세요. 저도 외국에 유학 경험이 있어요. 타지에서의 생활과 도전, 장점 등을 어떻게 극복했는지 이야기 해보고 싶어요.",
-    question: null,
-    rejectReason: "스케줄이 바뀌었어요.",
+    id: 8,
+    status: "MENTOR_FINALLY_APPROVE",
+    applyReason: null,
+    suggestReason,
+    rejectReason: null,
+    cancelReason: null,
+    question,
     start: "2024-01-01T20:00:00",
     end: "2024-01-01T20:30:00",
     chatType: "zoom",
-    chatValue: "https://us05web.zoom.us/",
+    chatValue: "https://us05web.zoom.us/mock-url",
+  },
+  {
+    id: 9,
+    status: "MENTOR_FINALLY_REJECT",
+    applyReason: null,
+    suggestReason,
+    rejectReason: null,
+    cancelReason,
+    question,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: null,
+    chatValue: null,
+  },
+  {
+    id: 10,
+    status: "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE",
+    applyReason: null,
+    suggestReason,
+    rejectReason: null,
+    cancelReason: null,
+    question,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: "zoom",
+    chatValue: "https://us05web.zoom.us/mock-url",
+  },
+
+  /** 신청 단계에서 취소 */
+  {
+    id: 11,
+    status: "MENTEE_CANCEL",
+    applyReason,
+    suggestReason: null,
+    rejectReason: null,
+    cancelReason,
+    question: null,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: null,
+    chatValue: null,
+  },
+  /** 1차 수락 단계에서 취소 */
+  {
+    id: 12,
+    status: "MENTEE_CANCEL",
+    applyReason: null,
+    suggestReason,
+    rejectReason: null,
+    cancelReason,
+    question,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: null,
+    chatValue: null,
+  },
+  /** 예정 단계에서 취소 */
+  {
+    id: 13,
+    status: "MENTEE_CANCEL",
+    applyReason,
+    suggestReason: null,
+    rejectReason: null,
+    cancelReason,
+    question: null,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: "zoom",
+    chatValue: "https://us05web.zoom.us/mock-url",
+  },
+
+  /** 제안 단계에서 취소 */
+  {
+    id: 14,
+    status: "MENTOR_CANCEL",
+    applyReason: null,
+    suggestReason,
+    rejectReason: null,
+    cancelReason,
+    question: null,
+    start: null,
+    end: null,
+    chatType: null,
+    chatValue: null,
+  },
+  /** 1차 수락 단계에서 취소 */
+  {
+    id: 15,
+    status: "MENTOR_CANCEL",
+    applyReason: null,
+    suggestReason,
+    rejectReason: null,
+    cancelReason,
+    question,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: null,
+    chatValue: null,
+  },
+  /** 예정 단계에서 취소 */
+  {
+    id: 16,
+    status: "MENTOR_CANCEL",
+    applyReason,
+    suggestReason: null,
+    rejectReason: null,
+    cancelReason,
+    question: null,
+    start: "2024-01-01T20:00:00",
+    end: "2024-01-01T20:30:00",
+    chatType: "zoom",
+    chatValue: "https://us05web.zoom.us/mock-url",
   },
 ];
 

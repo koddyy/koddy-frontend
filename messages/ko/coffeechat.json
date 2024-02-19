@@ -31,15 +31,22 @@
       "copy-link": "링크 복사"
     },
 
-    "introductionOfMentor": "멘토의 자기소개",
-    "introductionOfMentee": "멘티의 자기소개",
-    "questionOfMentor": "멘토가 나에게 궁금한 점",
-    "questionOfMentee": "멘티가 나에게 궁금한 점",
-    "questionToMentor": "내가 멘토에게 궁금한 점",
-    "questionToMentee": "내가 멘티에게 궁금한 점",
+    "introduction-of-mentor": "멘토의 자기소개",
+    "introduction-of-mentee": "멘티의 자기소개",
+    "question-of-mentor": "멘토가 나에게 궁금한 점",
+    "question-of-mentee": "멘티가 나에게 궁금한 점",
+    "question-to-mentor": "내가 멘토에게 궁금한 점",
+    "question-to-mentee": "내가 멘티에게 궁금한 점",
+    "reject-reason-of-me": "나의 거절 사유",
+    "reject-reason-of-mentor": "멘토의 거절 사유",
+    "reject-reason-of-mentee": "멘티의 거절 사유",
+    "cancel-reason-of-me": "나의 취소 사유",
+    "cancel-reason-of-mentor": "멘토의 취소 사유",
+    "cancel-reason-of-mentee": "멘티의 취소 사유",
 
     "accept-coffeechat": "수락하기",
     "reject-coffeechat": "거절하기",
+    "finally-accept-coffeechat": "최종 확정하기",
     "cancel-coffeechat": "커피챗 취소하기",
 
     "RejectBottomSheet": {

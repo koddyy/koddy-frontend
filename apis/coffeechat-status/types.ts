@@ -28,3 +28,8 @@ export interface PatchCoffeeChatApplyToRejectRequest {
   coffeeChatId: number;
   rejectReason: string;
 }
+
+export interface PatchCoffeeChatToCancelRequest {
+  coffeeChatId: number;
+  cancelReason: string;
+}

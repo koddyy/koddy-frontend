@@ -5,8 +5,7 @@ import {
 } from "@/apis/coffeechat/types";
 import {
   appliedCoffeeChatList,
-  coffeeChatWithMenteeList,
-  coffeeChatWithMentorList,
+  coffeeChatList,
   depreactedCoffeeChatList,
   suggestedCoffeeChatList,
 } from "../fixture/coffeechat";
@@ -128,7 +127,7 @@ export const handlers = [
     const id = Number(params.id);
 
     if (role === "mentor") {
-      const coffeeChat = coffeeChatWithMenteeList.find((v) => v.id === id);
+      const coffeeChat = coffeeChatList.find((v) => v.id === id);
 
       if (!coffeeChat) return new HttpResponse(null, { status: 404 });
 
@@ -140,7 +139,7 @@ export const handlers = [
         { status: 200 }
       );
     } else {
-      const coffeeChat = coffeeChatWithMentorList.find((v) => v.id === id);
+      const coffeeChat = coffeeChatList.find((v) => v.id === id);
 
       if (!coffeeChat) return new HttpResponse(null, { status: 404 });
 

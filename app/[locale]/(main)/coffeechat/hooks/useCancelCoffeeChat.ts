@@ -1,8 +1,8 @@
-import { useDeleteCoffeeChat } from "@/apis/coffeechat-status/hooks/useDeleteCoffeeChat";
+import { useUpdateCoffeeChatToCancel } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatToCancel";
 import { useToggle } from "@/hooks/useToggle";
 
 const useCancelCoffeeChat = () => {
-  const { mutate: deleteCoffeeChat, isSuccess: isCancelSuccess } = useDeleteCoffeeChat();
+  const { mutate: deleteCoffeeChat, isSuccess: isCancelSuccess } = useUpdateCoffeeChatToCancel();
   const [isCancel, toggleIsCancel, setIsCancel] = useToggle();
 
   return {

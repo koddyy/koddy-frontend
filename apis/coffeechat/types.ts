@@ -94,8 +94,9 @@ export type GetCoffeeChatByIdResponse = {
     status: CoffeeChatStatus;
     applyReason: string;
     suggestReason: string;
-    question: string | null;
     rejectReason: string | null;
+    cancelReason: string | null;
+    question: string | null;
     start: string;
     end: string;
     chatType: Exclude<CoffeeChatType, "zoomAuto">;
