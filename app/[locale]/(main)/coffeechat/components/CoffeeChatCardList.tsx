@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useGetCoffeeChatListWithMenteeByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMenteeByCategoryAndStatus";
 import { useGetCoffeeChatListWithMentorByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMentorByCategoryAndStatus";
+import ArrowRight from "@/assets/arrow-right.svg";
+import { Button } from "@/components/Button";
 import { useIntersect } from "@/hooks/useIntersect";
 import { Link } from "@/libs/navigation";
 import {
@@ -81,7 +83,15 @@ export const CoffeeChatCardListWithMentee = ({ category, detail }: CoffeeChatCar
                 status={category === "suggested" ? null : status}
                 role="mentee"
                 {...mentee}
-              />
+              >
+                {(status === "MENTEE_APPLY" || status === "MENTEE_PENDING") && (
+                  <Button className="body-2-bold mt-[8px] flex h-[40px] items-center justify-center gap-[2px] rounded-[8px]">
+                    {status === "MENTEE_APPLY" && "수락하기"}
+                    {status === "MENTEE_PENDING" && "최종 확정하기"}
+                    <ArrowRight />
+                  </Button>
+                )}
+              </CoffeeChatCard>
             </Link>
           );
         })}
