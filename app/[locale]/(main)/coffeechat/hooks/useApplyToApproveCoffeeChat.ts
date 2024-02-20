@@ -15,7 +15,7 @@ export const useApplyToApproveCoffeeChat = () => {
   };
 
   return {
-    isApprove,
+    isApprove: isApprove && !isApproveSuccess,
     isApproveSuccess,
     toggleIsApprove,
     setIsApproveTrue,

@@ -15,7 +15,7 @@ export const usePendingToApproveCoffeeChat = () => {
   };
 
   return {
-    isApprove,
+    isApprove: isApprove && !isApproveSuccess,
     isApproveSuccess,
     toggleIsApprove,
     setIsApproveTrue,
