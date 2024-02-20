@@ -20,7 +20,7 @@ import { cn } from "@/utils/cn";
 import { noop } from "@/utils/noop";
 
 interface CoffeeChatTypeSelectBottomSheetProps extends BottomSheetProps {
-  onSubmit: ({
+  onClickNext: ({
     chatType,
     chatValue,
   }: {
@@ -33,7 +33,7 @@ interface CoffeeChatTypeSelectBottomSheetProps extends BottomSheetProps {
 
 export const CoffeeChatTypeSelectBottomSheet = ({
   onClose,
-  onSubmit,
+  onClickNext,
   startTime,
   endTime,
 }: CoffeeChatTypeSelectBottomSheetProps) => {
@@ -55,7 +55,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
   const handleClickNext = () => {
     if (isDisabled) return;
     if (chatType !== "zoomAuto") {
-      onSubmit({ chatType, chatValue });
+      onClickNext({ chatType, chatValue });
     } else if (code && state) {
       createZoomMeetingLink(
         {
@@ -67,7 +67,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
         },
         {
           onSuccess: ({ data: { joinUrl } }) => {
-            onSubmit({ chatType: "zoom", chatValue: joinUrl });
+            onClickNext({ chatType: "zoom", chatValue: joinUrl });
           },
         }
       );
@@ -76,7 +76,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
 
   return (
     <BottomSheet onClose={onClose}>
-      <div className="mb-[23px] flex h-[228px] flex-col gap-[12px]">
+      <div className="mb-[12px] flex h-[228px] flex-col gap-[12px]">
         <div>
           <div className="subheading-bold mb-[4px]">{t("chat-method")}</div>
           <div className="body-2 text-gray-600">{t("guide")}</div>
