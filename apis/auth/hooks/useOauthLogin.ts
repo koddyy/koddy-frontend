@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
+import { AxiosHeaders, isAxiosError } from "axios";
 import { useRouter } from "@/libs/navigation";
+import { authCookie } from "@/stores/auth";
 import { useProviderStore } from "@/stores/provider";
 import { useUserStore } from "@/stores/user";
 import { authApi } from "../api";
@@ -13,7 +14,15 @@ export const useOauthLogin = () => {
 
   return useMutation({
     mutationFn: authApi.oauthLogin,
-    onSuccess: () => {
+    onSuccess: (response) => {
+      if (response.headers instanceof AxiosHeaders) {
+        const accessToken = response.headers.get("Authorization");
+
+        if (accessToken && typeof accessToken === "string") {
+          authCookie.set(accessToken);
+        }
+      }
+
       router.replace("/");
     },
     onError: (error) => {
