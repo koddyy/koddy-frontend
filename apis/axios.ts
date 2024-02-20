@@ -1,5 +1,5 @@
 import axios, { AxiosHeaders } from "axios";
-import { useAuthStore } from "@/stores/auth";
+import { authCookie } from "@/stores/auth";
 import { authApi } from "./auth/api";
 
 export const apiInstance = axios.create({
@@ -8,7 +8,7 @@ export const apiInstance = axios.create({
 });
 
 apiInstance.interceptors.request.use((config) => {
-  const { accessToken } = useAuthStore.getState();
+  const accessToken = authCookie.get();
 
   if (accessToken) {
     config.headers.setAuthorization(accessToken);
@@ -23,7 +23,7 @@ apiInstance.interceptors.response.use(
       const accessToken = response.headers.get("Authorization");
 
       if (accessToken && typeof accessToken === "string") {
-        useAuthStore.setState({ accessToken });
+        authCookie.set(accessToken);
       }
     }
     return response;
@@ -34,7 +34,7 @@ apiInstance.interceptors.response.use(
       error.response.data.errorCode === "AUTH_002" &&
       error.config.url !== "/api/token/reissue"
     ) {
-      useAuthStore.getState().clear();
+      authCookie.clear();
 
       try {
         await authApi.reissueToken();
