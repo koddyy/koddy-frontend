@@ -13,9 +13,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (pathname.startsWith("/admin")) {
-    return NextResponse.next();
-  }
+  if (pathname.startsWith("/admin")) return NextResponse.next();
 
   /** locale */
   const handleI18nRouting = createIntlMiddleware({
