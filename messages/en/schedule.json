@@ -1,0 +1,14 @@
+{
+  "schedule": {
+    "title": "Request a chat",
+    "ScheduleStep": {
+      "date": "Date",
+      "time": "Time",
+      "next": "Next"
+    },
+    "QuestionStep": {
+      "question-to-mentor": "Note to the mentor",
+      "request": "Request"
+    }
+  }
+}

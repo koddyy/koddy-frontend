@@ -9,6 +9,7 @@ import { ResultBottomSheet } from "@/app/[locale]/(main)/coffeechat/components/R
 import { QuestionStep } from "@/app/[locale]/(main)/schedule/components/QuestionStep";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { LinkButton } from "@/components/Button";
+import { PATH } from "@/constants/path";
 import { useRouter } from "@/libs/navigation";
 import { MenteeApplyForm } from "@/types/coffeechat";
 import { ScheduleStep } from "./components/ScheduleStep";
@@ -18,7 +19,7 @@ import { useApproveCoffeeChat } from "./hooks/useApproveCoffeeChat";
 /** @NOTE coffeechat id의 유무로 신청/수락 구분 */
 
 const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: string } }) => {
-  const t = useTranslations("coffeechat.ResultBottomSheet");
+  const t = useTranslations();
 
   const mentorId = Number(searchParams.mentor);
   const coffeeChatId = Number(searchParams.coffeechat);
@@ -56,7 +57,7 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmitForm)}>
-        <NavigationBar title="멘토링 신청" onClickGoback={handleClickGoback} />
+        <NavigationBar title={t("schedule.title")} onClickGoback={handleClickGoback} />
         <div className="px-5 pb-[4.5rem] pt-4">
           {currentStep === 1 && (
             <ScheduleStep mentorId={mentorId} onClickNextStep={handleClickNextStep} />
@@ -67,15 +68,23 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
       {isApproveSuccess && (
         <ResultBottomSheet
           resultType="positive"
-          description={t("APPROVE", { name: user.name })}
-          confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
+          description={t("coffeechat.ResultBottomSheet.APPROVE", { name: user.name })}
+          confirmButton={
+            <LinkButton href={PATH.COFFEECHAT}>
+              {t("coffeechat.ResultBottomSheet.go-to-calendar")}
+            </LinkButton>
+          }
         />
       )}
       {isApplySuccess && (
         <ResultBottomSheet
           resultType="positive"
-          description={t("APPLY", { name: user.name })}
-          confirmButton={<LinkButton href="/">예약 페이지로 가기</LinkButton>}
+          description={t("coffeechat.ResultBottomSheet.APPLY", { name: user.name })}
+          confirmButton={
+            <LinkButton href={PATH.COFFEECHAT}>
+              {t("coffeechat.ResultBottomSheet.go-to-calendar")}
+            </LinkButton>
+          }
         />
       )}
     </FormProvider>

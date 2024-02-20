@@ -1,0 +1,14 @@
+{
+  "schedule": {
+    "title": "멘토링 신청",
+    "ScheduleStep": {
+      "date": "날짜 선택",
+      "time": "시간 선택",
+      "next": "다음"
+    },
+    "QuestionStep": {
+      "question-to-mentor": "멘토에게 궁금한 점 적기",
+      "request": "신청하기"
+    }
+  }
+}

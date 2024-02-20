@@ -1,5 +1,6 @@
+import { useTranslations } from "next-intl";
 import { GetMenteeByIdResponse } from "@/apis/user/types";
-import { NationalityImage, NationalityText } from "@/constants/nationality";
+import { NationalityImage } from "@/constants/nationality";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { cn } from "@/utils/cn";
 import { getDescription } from "@/utils/profile";
@@ -10,6 +11,8 @@ type MenteeProfileProps = {
 } & GetMenteeByIdResponse;
 
 export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfileProps) => {
+  const constants = useTranslations("constants");
+
   const { profileImageUrl, name, languages, interestSchool, interestMajor, nationality } = user;
 
   const description = getDescription({ role: "mentee", interestSchool, interestMajor });
@@ -34,7 +37,7 @@ export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfilePr
           {nationality && (
             <div className="mb-[4px] flex items-center gap-[6px]">
               <img className="h-[18px] w-[18px]" src={NationalityImage[nationality]} />
-              {NationalityText[nationality]}
+              {constants(`nationality-options.${nationality}`)}
             </div>
           )}
           <span className="headline-1">{name}</span>

@@ -1,0 +1,12 @@
+{
+  "profile": {
+    "introduction": "About me",
+    "suggest-coffeechat": "Request a chat",
+
+    "suggest": {
+      "title": "Request a chat",
+      "question-to-mentee": "Note to the mentee",
+      "suggest": "Request"
+    }
+  }
+}

@@ -38,11 +38,11 @@
         "title": "Tell us your<br></br>academic information",
         "school": {
           "label": "School",
-          "placeholder": "Please enter the school you're attending or graduated from"
+          "placeholder": "List your current or former educational institution"
         },
         "entered-in": {
           "label": "Admitted Year",
-          "placeholder": "Please select your admitted year."
+          "placeholder": "Please enter the year you began your studies"
         },
         "major": {
           "label": "Major",

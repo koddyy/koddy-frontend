@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useGetMenteeById } from "@/apis/user/hooks/useGetMenteeById";
 import { MenteeProfile } from "@/app/[locale]/(main)/components/UserProfile";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
@@ -10,6 +11,8 @@ import { useToggle } from "@/hooks/useToggle";
 import { Link } from "@/libs/navigation";
 
 const Page = ({ params }: { params: { id: string } }) => {
+  const t = useTranslations("profile");
+
   const menteeId = Number(params.id);
   const { data: mentee, isLoading } = useGetMenteeById(menteeId);
   const { isAuthenticated } = useAuth();
@@ -23,7 +26,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     <>
       <MenteeProfile {...mentee} />
       <div className="px-[20px] py-[12px]">
-        <div className="body-3-bold mb-[6px]">자기소개</div>
+        <div className="body-3-bold mb-[6px]">{t("introduction")}</div>
         <p className="body-1 rounded-[10px] border border-gray-300 px-[18px] py-[11px]">
           {mentee.introduction || "자기소개가 없습니다."}
         </p>
@@ -37,7 +40,7 @@ const Page = ({ params }: { params: { id: string } }) => {
             toggleLoginBottomSheet();
           }}
         >
-          <Button>커피챗 제안하기</Button>
+          <Button>{t("suggest-coffeechat")}</Button>
         </Link>
       </div>
       {isOpenLoginBottomSheet && <GoToLoginBottomSheet onClose={toggleLoginBottomSheet} />}

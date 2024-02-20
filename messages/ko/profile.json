@@ -1,0 +1,12 @@
+{
+  "profile": {
+    "introduction": "자기소개",
+    "suggest-coffeechat": "커피챗 제안하기",
+
+    "suggest": {
+      "title": "커피챗 제안",
+      "question-to-mentee": "멘티에게 궁금한 점 적기",
+      "suggest": "제안하기"
+    }
+  }
+}

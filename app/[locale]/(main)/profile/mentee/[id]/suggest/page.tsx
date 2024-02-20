@@ -17,6 +17,7 @@ type MentorSuggestForm = {
 
 const Page = ({ params }: { params: { id: string } }) => {
   const t = useTranslations();
+
   const menteeId = Number(params.id);
   const router = useRouter();
   const {
@@ -31,7 +32,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <NavigationBar title="커피챗 제안" onClickGoback={() => router.back()} />
+      <NavigationBar title={t("profile.suggest.title")} onClickGoback={() => router.back()} />
       <form
         className="mt-[16px] px-[20px]"
         onSubmit={handleSubmit(({ suggestReason }) =>
@@ -39,12 +40,12 @@ const Page = ({ params }: { params: { id: string } }) => {
         )}
       >
         <FormControl>
-          <FormLabel>멘티에게 궁금한 점 적기</FormLabel>
+          <FormLabel>{t("profile.suggest.question-to-mentee")}</FormLabel>
           <TextArea {...register("suggestReason", { required: true })} />
         </FormControl>
         <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-[20px] py-[11px]">
           <Button type="submit" disabled={!isValid}>
-            제안하기
+            {t("profile.suggest-coffeechat")}
           </Button>
         </div>
       </form>

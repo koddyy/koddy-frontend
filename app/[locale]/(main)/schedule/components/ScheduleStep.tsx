@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Controller, useController, useFormContext } from "react-hook-form";
 import { Button } from "@/components/Button";
 import { Calendar } from "@/components/Calendar";
@@ -13,6 +14,8 @@ interface FirstStepProps {
 }
 
 export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
+  const t = useTranslations("schedule.ScheduleStep");
+
   const {
     control,
     formState: { isValid },
@@ -36,7 +39,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
   return (
     <>
       <FormControl>
-        <FormLabel className="body-1-bold mb-2">날짜 선택</FormLabel>
+        <FormLabel className="body-1-bold mb-2">{t("date")}</FormLabel>
         <div className="border border-gray-200">
           <Calendar
             tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
@@ -47,7 +50,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
       </FormControl>
       {dateField.value && (
         <FormControl className="my-[16px]">
-          <FormLabel className="body-1-bold mb-2">시간 선택</FormLabel>
+          <FormLabel className="body-1-bold mb-2">{t("time")}</FormLabel>
           <Controller
             control={control}
             name="timeRange"
@@ -84,7 +87,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
         <div className="px-[1.25rem] py-[0.69rem]">
           <Button disabled={!isValid} onClick={onClickNextStep}>
-            다음
+            {t("next")}
           </Button>
         </div>
       </div>

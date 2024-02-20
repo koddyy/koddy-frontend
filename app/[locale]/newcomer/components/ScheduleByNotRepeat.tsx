@@ -12,6 +12,7 @@ import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
 export const ScheduleByNotRepeat = () => {
   const t = useTranslations("edit.schedule.schedules");
+  const constants = useTranslations("constants");
 
   const { control } = useFormContext<Pick<CompleteProfileForm, "schedulesByNotRepeat">>();
 
@@ -73,7 +74,7 @@ export const ScheduleByNotRepeat = () => {
               defaultValue={field}
               render={() => (
                 <li className="flex justify-between gap-[8px]">
-                  <Toggle>{field.dayOfWeek}</Toggle>
+                  <Toggle>{constants(`day-of-week.${field.dayOfWeek}`)[0]}</Toggle>
                   <div className="flex grow items-center gap-[10px]">
                     <Select
                       options={TIMES}
