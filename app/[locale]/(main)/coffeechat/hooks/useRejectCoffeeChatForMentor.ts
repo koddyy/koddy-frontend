@@ -3,14 +3,14 @@ import { useUpdateCoffeeChatMentorRejected } from "@/apis/coffeechat-status/hook
 import { useToggle } from "@/hooks/useToggle";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 
-export const useRejectCoffeeChatForMentor = (initialStatus?: CoffeeChatStatus) => {
+export const useRejectCoffeeChatForMentor = (
+  initialStatus: Extract<CoffeeChatStatus, "MENTEE_APPLY" | "MENTEE_PENDING">
+) => {
   const [isReject, toggleIsReject, setIsReject] = useToggle();
   const { mutate: applyToRejectCoffeeChat, isSuccess: isApplyToRejectSuccess } =
     useUpdateCoffeeChatApplyToReject();
   const { mutate: pendingToRejectCoffeeChat, isSuccess: isPendingToRejectSuccess } =
     useUpdateCoffeeChatMentorRejected();
-
-  if (initialStatus !== "MENTEE_APPLY" && initialStatus !== "MENTEE_PENDING") return {};
 
   const setIsRejectTrue = () => {
     setIsReject(true);

@@ -22,10 +22,10 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
   const { mentee, coffeeChat } = data ?? {};
 
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
-    useApproveCoffeeChatForMentor(coffeeChat?.status);
+    useApproveCoffeeChatForMentor("MENTEE_APPLY");
 
   const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor(coffeeChat?.status);
+    useRejectCoffeeChatForMentor("MENTEE_APPLY");
 
   if (!mentee || !coffeeChat || coffeeChat.status !== "MENTEE_APPLY") return null;
 
@@ -175,7 +175,7 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
   const { mentee, coffeeChat } = data ?? {};
 
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
-    useApproveCoffeeChatForMentor(coffeeChat?.status);
+    useApproveCoffeeChatForMentor("MENTEE_PENDING");
 
   const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
 

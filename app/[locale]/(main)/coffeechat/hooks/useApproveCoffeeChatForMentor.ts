@@ -3,14 +3,14 @@ import { useUpdateCoffeeChatMentorApproved } from "@/apis/coffeechat-status/hook
 import { useToggle } from "@/hooks/useToggle";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 
-export const useApproveCoffeeChatForMentor = (initialStatus?: CoffeeChatStatus) => {
+export const useApproveCoffeeChatForMentor = (
+  initialStatus: Extract<CoffeeChatStatus, "MENTEE_APPLY" | "MENTEE_PENDING">
+) => {
   const [isApprove, toggleIsApprove, setIsApprove] = useToggle();
   const { mutate: applyToApproveCoffeeChat, isSuccess: isApplyToApproveSuccess } =
     useUpdateCoffeeChatApplyToApprove();
   const { mutate: pendingToApproveCoffeeChat, isSuccess: isPendingToApproveSuccess } =
     useUpdateCoffeeChatMentorApproved();
-
-  if (initialStatus !== "MENTEE_APPLY" && initialStatus !== "MENTEE_PENDING") return {};
 
   const setIsApproveTrue = () => {
     setIsApprove(true);
