@@ -1,6 +1,7 @@
 "use client";
 
 import { isAxiosError } from "axios";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,7 +9,7 @@ import { apiInstance } from "@/apis/axios";
 import { Button } from "@/components/Button";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
-import { authCookie } from "@/stores/auth";
+import { useAuthStore } from "@/stores/auth";
 
 interface LoginForm {
   email: string;
@@ -27,12 +28,14 @@ const Page = () => {
     },
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const { setAccessToken } = useAuthStore();
 
   const login = async (data: LoginForm) => {
     try {
       const response = await apiInstance.post("/api/auth/dummy/login", data);
-      const { accessToken } = response.data.token;
-      authCookie.set(`Bearer ${accessToken}`);
+      const { accessToken, refreshToken } = response.data.token;
+      setCookie("refresh_token", refreshToken);
+      setAccessToken(accessToken);
       router.push("/");
     } catch (e) {
       if (isAxiosError(e) && e.response) {

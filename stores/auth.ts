@@ -1,22 +1,18 @@
-import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-export const authCookie = {
-  cookieKey: "access_token",
-  maxAge: 60 * 60 * 2 + 60,
+interface AuthState {
+  accessToken?: string;
+  setAccessToken: (accessToken: string) => void;
+  clear: () => void;
+}
 
-  get() {
-    const accessToken = getCookie(this.cookieKey);
-
-    return accessToken;
-  },
-
-  set(accessToken: string) {
-    setCookie(this.cookieKey, accessToken, {
-      maxAge: this.maxAge,
-    });
-  },
-
-  clear() {
-    deleteCookie(this.cookieKey);
-  },
-};
+export const useAuthStore = create<AuthState>()(
+  devtools((set) => ({
+    setAccessToken: (accessToken) =>
+      set(() => ({
+        accessToken,
+      })),
+    clear: () => set(() => ({ accessToken: undefined })),
+  }))
+);

@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   /** authentication */
   const { pathname } = request.nextUrl;
 
-  const isAuthenticated = request.cookies.get("access_token");
+  const isAuthenticated = request.cookies.get("refresh_token");
 
   if (!isAuthenticated && PRIVATE_PATH.some((path) => pathname.startsWith(path))) {
     return NextResponse.redirect(new URL("/login", request.url));
