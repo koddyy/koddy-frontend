@@ -53,10 +53,12 @@ class CoffeeChatStatusApi {
     coffeeChatId,
     chatType,
     chatValue,
+    question,
   }: PatchCoffeeChatApplyToApproveRequest) => {
     return apiInstance.patch(`/api/coffeechats/applied/approve/${coffeeChatId}`, {
       chatType,
       chatValue,
+      question,
     });
   };
 

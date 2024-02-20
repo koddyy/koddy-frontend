@@ -22,6 +22,7 @@ export interface PatchCoffeeChatApplyToApproveRequest {
   coffeeChatId: number;
   chatType: Exclude<CoffeeChatType, "zoomAuto">;
   chatValue: string;
+  question: string;
 }
 
 export interface PatchCoffeeChatApplyToRejectRequest {
