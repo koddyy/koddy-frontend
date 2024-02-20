@@ -1,5 +1,5 @@
 import axios, { AxiosHeaders } from "axios";
-import { useAuthStore } from "@/stores/auth";
+import { authCookie } from "@/stores/auth";
 import { authApi } from "./auth/api";
 
 export const apiInstance = axios.create({
@@ -8,7 +8,7 @@ export const apiInstance = axios.create({
 });
 
 apiInstance.interceptors.request.use((config) => {
-  const { accessToken } = useAuthStore.getState();
+  const accessToken = authCookie.get();
 
   if (accessToken) {
     config.headers.setAuthorization(accessToken);
@@ -17,33 +17,29 @@ apiInstance.interceptors.request.use((config) => {
   return config;
 });
 
-apiInstance.interceptors.response.use(
-  (response) => {
-    if (response.headers instanceof AxiosHeaders && response.headers.hasAuthorization()) {
-      const accessToken = response.headers.get("Authorization");
+apiInstance.interceptors.response.use(undefined, async (error) => {
+  if (
+    error.response?.status === 401 &&
+    error.response.data.errorCode === "AUTH_002" &&
+    error.config.url !== "/api/token/reissue"
+  ) {
+    authCookie.clear();
 
-      if (accessToken && typeof accessToken === "string") {
-        useAuthStore.setState({ accessToken });
+    try {
+      const response = await authApi.reissueToken();
+      if (response.headers instanceof AxiosHeaders && response.headers.hasAuthorization()) {
+        const accessToken = response.headers.getAuthorization();
+
+        if (accessToken && typeof accessToken === "string") {
+          authCookie.set(accessToken);
+        }
       }
-    }
-    return response;
-  },
-  async (error) => {
-    if (
-      error.response?.status === 401 &&
-      error.response.data.errorCode === "AUTH_002" &&
-      error.config.url !== "/api/token/reissue"
-    ) {
-      useAuthStore.getState().clear();
 
-      try {
-        await authApi.reissueToken();
-        return apiInstance(error.config);
-      } catch (error) {
-        window.location.href = "/login";
-      }
+      return apiInstance(error.config);
+    } catch (error) {
+      window.location.href = "/login";
     }
-
-    return Promise.reject(error);
   }
-);
+
+  return Promise.reject(error);
+});
