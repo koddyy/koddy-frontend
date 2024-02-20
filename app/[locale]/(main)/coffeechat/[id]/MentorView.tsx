@@ -3,11 +3,13 @@ import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { Button, LinkButton } from "@/components/Button";
 import { MenteeProfile } from "../../components/UserProfile";
+import { ApproveStepsBottomSheet } from "../components/ApproveStepsBottomSheet";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
 import { CoffeeChatTypeSelectBottomSheet } from "../components/CoffeeChatTypeSelectBottomSheet";
 import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
-import { useApproveCoffeeChatForMentor } from "../hooks/useApproveCoffeeChatForMentor";
+import { useApplyToApproveCoffeeChat } from "../hooks/useApplyToApproveCoffeeChat";
+import { usePendingToApproveCoffeeChat } from "../hooks/usePendingToApproveCoffeeChat";
 import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
 
 interface MentorViewProps {
@@ -22,7 +24,7 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
   const { mentee, coffeeChat } = data ?? {};
 
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
-    useApproveCoffeeChatForMentor("MENTEE_APPLY");
+    useApplyToApproveCoffeeChat();
 
   const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
     useRejectCoffeeChatForMentor("MENTEE_APPLY");
@@ -67,13 +69,11 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
         </div>
       </div>
       {isApprove && (
-        <CoffeeChatTypeSelectBottomSheet
+        <ApproveStepsBottomSheet
           onClose={setIsApproveFalse}
-          onSubmit={({ chatType, chatValue }) =>
-            approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
-          }
           startTime={coffeeChat.start}
           endTime={coffeeChat.end}
+          onSubmit={(data) => approveCoffeeChat({ coffeeChatId: id, ...data })}
         />
       )}
       {isApproveSuccess && (
@@ -175,7 +175,7 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
   const { mentee, coffeeChat } = data ?? {};
 
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
-    useApproveCoffeeChatForMentor("MENTEE_PENDING");
+    usePendingToApproveCoffeeChat();
 
   const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
 
@@ -234,7 +234,7 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
       {isApprove && (
         <CoffeeChatTypeSelectBottomSheet
           onClose={setIsApproveFalse}
-          onSubmit={({ chatType, chatValue }) =>
+          onClickNext={({ chatType, chatValue }) =>
             approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
           }
           startTime={coffeeChat.start}
