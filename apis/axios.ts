@@ -17,33 +17,30 @@ apiInstance.interceptors.request.use((config) => {
   return config;
 });
 
-apiInstance.interceptors.response.use(
-  (response) => {
-    if (response.headers instanceof AxiosHeaders && response.headers.hasAuthorization()) {
-      const accessToken = response.headers.get("Authorization");
+apiInstance.interceptors.response.use(undefined, async (error) => {
+  if (
+    error.response?.status === 401 &&
+    error.response.data.errorCode === "AUTH_002" &&
+    error.config.url !== "/api/token/reissue"
+  ) {
+    authCookie.clear();
 
-      if (accessToken && typeof accessToken === "string") {
-        authCookie.set(accessToken);
+    try {
+      const response = await authApi.reissueToken();
+
+      if (response.headers instanceof AxiosHeaders) {
+        const accessToken = response.headers.get("Authorization");
+
+        if (accessToken && typeof accessToken === "string") {
+          authCookie.set(accessToken as string);
+        }
       }
-    }
-    return response;
-  },
-  async (error) => {
-    if (
-      error.response?.status === 401 &&
-      error.response.data.errorCode === "AUTH_002" &&
-      error.config.url !== "/api/token/reissue"
-    ) {
-      authCookie.clear();
 
-      try {
-        await authApi.reissueToken();
-        return apiInstance(error.config);
-      } catch (error) {
-        window.location.href = "/login";
-      }
+      return apiInstance(error.config);
+    } catch (error) {
+      window.location.href = "/login";
     }
-
-    return Promise.reject(error);
   }
-);
+
+  return Promise.reject(error);
+});
