@@ -7,7 +7,7 @@ export const useUpdateCoffeeChatApplyToReject = () => {
   return useMutation({
     mutationFn: coffeeChatStatusApi.patchCoffeeChatApplyToReject,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["coffeeChat"] });
+      queryClient.invalidateQueries({ queryKey: ["coffeeChat"], refetchType: "none" });
     },
   });
 };
