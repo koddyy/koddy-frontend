@@ -28,7 +28,9 @@
       "date": "Date",
       "how": "How",
       "link": "Link",
-      "copy-link": "Copy Link"
+      "copy-link": "Copy Link",
+      "sns-id": "SNS ID",
+      "copy-id": "Copy SNS ID"
     },
 
     "introduction-of-mentor": "About me",

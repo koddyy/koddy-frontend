@@ -26,6 +26,14 @@ export const MeetingOptions: Meeting[] = ["zoomAuto", "zoom", "google"];
 
 export const SNSOptions: SNS[] = ["kakao", "line", "wechat"];
 
+export const isMeetingOptions = (option: string): option is Meeting => {
+  return MeetingOptions.includes(option as Meeting);
+};
+
+export const isSNSOptions = (option: string): option is SNS => {
+  return SNSOptions.includes(option as SNS);
+};
+
 export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
   zoomAuto: Zoom,
   zoom: Zoom,

@@ -28,7 +28,9 @@
       "date": "시간",
       "how": "방식",
       "link": "링크",
-      "copy-link": "링크 복사"
+      "copy-link": "링크 복사",
+      "sns-id": "SNS ID",
+      "copy-id": "아이디 복사"
     },
 
     "introduction-of-mentor": "멘토의 자기소개",
