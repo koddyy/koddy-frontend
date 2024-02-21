@@ -1,11 +1,11 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fileApi } from "@/apis/file/api";
 import { useUploadImageFile } from "@/apis/file/hook/useUploadImageFile";
 import { UpdateMentorInfoForm } from "@/types/mentor";
 import { userApi } from "../api";
 
 export const useUpdateMentorInfo = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync: uploadImageFile } = useUploadImageFile();
 
   return useMutation({
@@ -26,9 +26,7 @@ export const useUpdateMentorInfo = () => {
       return userApi.patchMentorInfo({ profileImageUrl, ...rest });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["me"],
-      });
+      queryClient.invalidateQueries({ queryKey: ["me"] });
     },
   });
 };

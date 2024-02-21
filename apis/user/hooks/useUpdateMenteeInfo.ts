@@ -1,11 +1,11 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fileApi } from "@/apis/file/api";
 import { useUploadImageFile } from "@/apis/file/hook/useUploadImageFile";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { userApi } from "../api";
 
 export const useUpdateMenteeInfo = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { mutateAsync: uploadImageFile } = useUploadImageFile();
 
   return useMutation({

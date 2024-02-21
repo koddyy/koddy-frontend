@@ -1,8 +1,8 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { coffeeChatApi } from "../api";
 
 export const useCreateCoffeeChatFromMentorToMentee = () => {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: coffeeChatApi.postCoffeeChatFromMentorToMentee,
