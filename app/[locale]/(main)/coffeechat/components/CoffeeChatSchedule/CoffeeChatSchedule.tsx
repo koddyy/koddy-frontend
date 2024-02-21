@@ -8,23 +8,35 @@ import {
   isSNSOptions,
 } from "@/constants/coffeechat";
 import useClipboard from "@/hooks/useClipboard";
+import { hhmmssTohhmm, parseLocalDateTime } from "@/utils/dateUtils";
 
 interface CoffeeChatScheduleProps {
-  schedule: string;
+  startTime: string;
+  endTime: string;
   chatType?: CoffeeChatType;
   chatValue?: string;
 }
 
-export const CoffeeChatSchedule = ({ schedule, chatType, chatValue }: CoffeeChatScheduleProps) => {
+export const CoffeeChatSchedule = ({
+  startTime,
+  endTime,
+  chatType,
+  chatValue,
+}: CoffeeChatScheduleProps) => {
   const t = useTranslations("coffeechat.CoffeeChatSchedule");
   const { copyText } = useClipboard();
+
+  const { yyyymmdd, hhmmss: startHhmmss } = parseLocalDateTime(startTime);
+  const { hhmmss: endHhmmss } = parseLocalDateTime(endTime);
 
   return (
     <>
       <Divider className="border-[4px]" />
       <div className="px-[20px] py-[18px]">
         <div className="body-3 mb-[4px]">{t("date")}</div>
-        <div className="body-1-bold">{schedule}</div>
+        <div className="body-1-bold">
+          {`${yyyymmdd} ${hhmmssTohhmm(startHhmmss)}~${hhmmssTohhmm(endHhmmss)} (한국 시간 기준)`}
+        </div>
       </div>
       <Divider className="border-[4px]" />
       {chatType && chatValue && (

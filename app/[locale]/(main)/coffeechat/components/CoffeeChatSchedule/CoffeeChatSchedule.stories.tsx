@@ -11,6 +11,9 @@ type Story = StoryObj<typeof CoffeeChatSchedule>;
 
 export const Primary: Story = {
   args: {
-    schedule: "2023/11/01 15:00~15:30 (한국 시간 기준)",
+    startTime: "2024-01-01T09:00:00",
+    endTime: "2024-01-01T09:30:00",
+    chatType: "zoom",
+    chatValue: "https://us04web.zoom.us/j/afdsafdf",
   },
 };
