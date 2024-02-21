@@ -25,9 +25,9 @@ export const LoginButton = ({ provider, ...props }: LoginButtonProps) => {
     <Tooltip content={t("recent-login")} open={isRecentLoggedIn}>
       <button
         className={cn(
-          "body-1-bold flex w-full items-center justify-between rounded-xl px-[18px] py-[13px]",
+          "body-1-bold flex h-[50px] w-full items-center justify-between rounded-[12px] px-[18px]",
           provider === "kakao" && "bg-[#FEE500]",
-          provider === "google" && "outline outline-gray-400"
+          provider === "google" && "border border-gray-400"
         )}
         {...props}
       >
