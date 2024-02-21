@@ -6,7 +6,7 @@ import { useGetMeAsMentee } from "@/apis/user/hooks/useGetMeAsMentee";
 import { useUpdateMenteeInfo } from "@/apis/user/hooks/useUpdateMenteeInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
-import { LinkButton } from "@/components/Button";
+import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
@@ -14,7 +14,7 @@ import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { NationalityOptions } from "@/constants/nationality";
 import { PATH } from "@/constants/path";
-import { useRouter } from "@/libs/navigation";
+import { Link, useRouter } from "@/libs/navigation";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { Nationality } from "@/types/user";
 import { useMenteeInfoFormStore } from "../store";
@@ -124,15 +124,16 @@ export const MenteeInfoForm = () => {
           />
         </div>
         <Divider className="border-[4px]" />
-        <div className="mb-[24px] mt-[20px] flex flex-col gap-[10px] px-[20px]">
+        <div className="mb-[24px] mt-[20px] px-[20px]">
           <LanguageSelectForm languages={languages} />
-          <LinkButton
-            href={PATH.MYPAGE_EDIT + "/language"}
-            className="body-2 bg-gray-100 text-primary-dark"
-            onClick={handleAddLanguages}
-          >
-            {t("add")}
-          </LinkButton>
+          <Link href={PATH.MYPAGE_EDIT + "/language"} onClick={handleAddLanguages}>
+            <Button
+              variant="ghost"
+              className="body-2-bold mt-[10px] block bg-gray-100 text-primary-dark"
+            >
+              {t("add")}
+            </Button>
+          </Link>
         </div>
         <Divider className="border-[4px]" />
         <div className="mb-[104px] mt-[20px] px-[20px]">
