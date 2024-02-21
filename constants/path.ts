@@ -14,7 +14,6 @@ export const PATH = {
   MYPAGE: "/mypage",
   MYPAGE_ACCOUNT: "/mypage/account",
   MYPAGE_EDIT: "/edit",
-  EXPLORE: "/explore",
 };
 
 export const PUBLIC_PATH = [
@@ -27,7 +26,6 @@ export const PUBLIC_PATH = [
   PATH.PROFILE_MENTEE,
   PATH.NOTIFICATION,
   PATH.MYPAGE,
-  PATH.EXPLORE,
 ];
 
 export const PRIVATE_PATH = [
