@@ -11,10 +11,10 @@ const Page = ({ params }: { params: { id: string } }) => {
   const coffeeChatId = Number(params.id);
   const router = useRouter();
   const { data: me } = useGetMe();
-  const { data: coffeeChatDetail } = useGetCoffeeChatById(coffeeChatId);
+  const { data: coffeeChatDetail, isFetching } = useGetCoffeeChatById(coffeeChatId);
   const { coffeeChat } = coffeeChatDetail ?? {};
 
-  if (!me || !coffeeChat) return;
+  if (!me || !coffeeChat || isFetching) return;
 
   const CoffeeChatDetail = {
     MentorView: MentorView[coffeeChat.status],

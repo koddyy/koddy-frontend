@@ -7,7 +7,7 @@ export const useUpdateCoffeeChatMentorApproved = () => {
   return useMutation({
     mutationFn: coffeeChatStatusApi.patchCoffeeChatMentorApproved,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["coffeeChat"] });
+      queryClient.invalidateQueries({ queryKey: ["coffeeChat"], refetchType: "none" });
     },
   });
 };

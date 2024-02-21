@@ -5,6 +5,7 @@ const useGetCoffeeChatById = (id: number) => {
   return useQuery({
     queryKey: ["coffeeChat", id],
     queryFn: () => coffeeChatApi.getCoffeeChatById(id),
+    refetchOnWindowFocus: false,
   });
 };
 
