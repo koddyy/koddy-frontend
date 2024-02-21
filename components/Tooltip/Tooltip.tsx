@@ -7,6 +7,7 @@ const PositioinVariants = cva("", {
     position: {
       "top-center": "bottom-[calc(100%+3px)] left-1/2 -translate-x-1/2",
       "bottom-center": "left-1/2 top-[calc(100%+3px)] -translate-x-1/2",
+      "bottom-right": "right-0 top-[calc(100%+3px)]",
     },
   },
 });
