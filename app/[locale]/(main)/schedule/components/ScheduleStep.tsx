@@ -29,7 +29,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     },
   });
 
-  const { disabledDays, availableTimeRangeList } = useSchedules(
+  const { startDate, endDate, disabledDays, availableTimeRangeList } = useSchedules(
     mentorId,
     dateField.value ?? new Date()
   );
@@ -43,6 +43,8 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         <div className="border border-gray-200">
           <Calendar
             tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
+            minDate={startDate}
+            maxDate={endDate}
             value={dateField.value}
             onChange={(value) => dateField.onChange(value)}
           />
