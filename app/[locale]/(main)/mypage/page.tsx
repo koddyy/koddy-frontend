@@ -59,7 +59,7 @@ const Page = ({
               size="sm"
               className="body-1-bold h-[44px] w-[237px] text-gray-600"
             >
-              로그인/회원가입 하기
+              {t("go-to-login-or-sign-in")}
             </Button>
           </Link>
         )}

@@ -53,13 +53,13 @@
     "cancel-coffeechat": "Cancel a chat",
 
     "RejectBottomSheet": {
-      "reject-title": "Tell us the reason to cancel the chat with {name}",
-      "cancel-title": "Tell us the reason to cancel the chat with {name}",
+      "reject-title": "Tell us the reason to cancel the chat\nwith {name}",
+      "cancel-title": "Tell us the reason to cancel the chat\nwith {name}",
       "reason1": "I want to reschedule the meeting.",
       "reason2": "I can’t make time.",
       "write-reason": "Write here...",
       "cancel-coffeechat": "Cancel the chat",
-      "reject-coffeechat": "거절하기"
+      "reject-coffeechat": "Cancel the chat"
     },
 
     "ResultBottomSheet": {
