@@ -35,7 +35,8 @@ export const CoffeeChatSchedule = ({
       <div className="px-[20px] py-[18px]">
         <div className="body-3 mb-[4px]">{t("date")}</div>
         <div className="body-1-bold">
-          {`${yyyymmdd} ${hhmmssTohhmm(startHhmmss)}~${hhmmssTohhmm(endHhmmss)} (한국 시간 기준)`}
+          {`${yyyymmdd} ${hhmmssTohhmm(startHhmmss)}~${hhmmssTohhmm(endHhmmss)}
+          (${t("korea-standard-time")})`}
         </div>
       </div>
       <Divider className="border-[4px]" />

@@ -1,5 +1,9 @@
 {
   "constants": {
+    "profile-description": {
+      "prefix": "관심"
+    },
+
     "nationality-options": {
       "KR": "한국",
       "EN": "미국",

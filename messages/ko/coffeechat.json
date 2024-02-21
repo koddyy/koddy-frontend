@@ -26,6 +26,7 @@
 
     "CoffeeChatSchedule": {
       "date": "시간",
+      "korea-standard-time": "한국 기준 시간",
       "how": "방식",
       "link": "링크",
       "copy-link": "링크 복사",

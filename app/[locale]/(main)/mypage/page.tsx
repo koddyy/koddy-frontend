@@ -9,6 +9,7 @@ import { Divider } from "@/components/Divider/Divider";
 import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "@/libs/navigation";
+import { getDescription } from "@/utils/profile";
 
 const linkStyle = "inline-block w-full px-[20px] py-[14px]";
 
@@ -20,16 +21,12 @@ const Page = ({
   };
 }) => {
   const t = useTranslations("mypage");
+  const constants = useTranslations("constants");
 
   const explore = searchParams.explore ?? "mentee";
   const { isLoading, isAuthenticated, me } = useAuth();
 
   if (isLoading) return null;
-
-  const description =
-    me?.role === "mentor"
-      ? `${me.school} ${me.major} ${me.enteredIn}학번`
-      : `관심 : ${me?.interestSchool}, ${me?.interestMajor}`;
 
   return (
     <>
@@ -51,7 +48,9 @@ const Page = ({
         {isAuthenticated ? (
           <div className="flex flex-col items-center gap-1">
             <span className="headline-2">{me.name}</span>
-            <p className="text-gray-600">{description}</p>
+            <p className="text-gray-600">
+              {getDescription(me, constants("profile-description.prefix"))}
+            </p>
           </div>
         ) : (
           <Link href={PATH.LOGIN}>

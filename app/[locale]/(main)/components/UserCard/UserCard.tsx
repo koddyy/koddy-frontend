@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
@@ -13,7 +14,9 @@ export type UserCardProps =
     });
 
 export const UserCard = ({ ...user }: UserCardProps) => {
-  const description = getDescription(user);
+  const constants = useTranslations("constants");
+
+  const description = getDescription(user, constants("profile-description.prefix"));
   const { profileImageUrl, name } = user;
 
   return (

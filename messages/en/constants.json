@@ -1,5 +1,9 @@
 {
   "constants": {
+    "profile-description": {
+      "prefix": "Interested in"
+    },
+
     "nationality-options": {
       "KR": "Korean",
       "EN": "American",
