@@ -50,7 +50,8 @@
     "cancel-coffeechat": "Cancel a chat",
 
     "RejectBottomSheet": {
-      "title": "Tell us the reason to {type} the chat with {name}",
+      "reject-title": "Tell us the reason to cancel the chat with {name}",
+      "cancel-title": "Tell us the reason to cancel the chat with {name}",
       "reason1": "I want to reschedule the meeting.",
       "reason2": "I can’t make time.",
       "write-reason": "Write here...",

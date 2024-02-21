@@ -35,7 +35,8 @@ export const RejectBottomSheet = ({
   return (
     <BottomSheet onClose={onClose}>
       <div className="subheading-bold whitespace-pre-wrap">
-        {t("title", { type, name: userName })}
+        {type === "reject" && t("reject-title", { name: userName })}
+        {type === "cancel" && t("cancel-title", { name: userName })}
       </div>
       <div className="my-5 flex flex-col gap-3">
         {[t("reason1"), t("reason2")].map((option, i) => {
