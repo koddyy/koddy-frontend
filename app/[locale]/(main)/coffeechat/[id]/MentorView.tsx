@@ -304,11 +304,11 @@ const ApproveCoffeeChat = ({ id }: MentorViewProps) => {
             </p>
           </div>
         )}
-        {coffeeChat.suggestReason && (
+        {(coffeeChat.suggestReason ?? coffeeChat.question) && (
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason}
+              {coffeeChat.suggestReason ?? coffeeChat.question}
             </p>
           </div>
         )}
@@ -388,11 +388,11 @@ const CompleteCoffeeChat = ({ id }: MentorViewProps) => {
             </p>
           </div>
         )}
-        {coffeeChat.suggestReason && (
+        {(coffeeChat.suggestReason ?? coffeeChat.question) && (
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason}
+              {coffeeChat.suggestReason ?? coffeeChat.question}
             </p>
           </div>
         )}
@@ -513,11 +513,11 @@ const CancelCoffeeChat = ({ id }: MentorViewProps) => {
             {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {coffeeChat.suggestReason && (
+        {(coffeeChat.suggestReason ?? coffeeChat.question) && (
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason}
+              {coffeeChat.suggestReason ?? coffeeChat.question}
             </p>
           </div>
         )}
