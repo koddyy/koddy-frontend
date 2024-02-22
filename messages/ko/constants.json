@@ -68,6 +68,14 @@
       "금": "금",
       "토": "토",
       "일": "일"
+    },
+
+    "chat-method-platform": {
+      "zoom": "Zoom",
+      "google": "Google meet",
+      "kakao": "카카오톡",
+      "line": "라인",
+      "wechat": "위챗"
     }
   }
 }

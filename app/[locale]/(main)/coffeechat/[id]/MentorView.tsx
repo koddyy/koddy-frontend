@@ -68,8 +68,6 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
       {isApprove && (
         <ApproveStepsBottomSheet
           onClose={setIsApproveFalse}
-          startTime={coffeeChat.start}
-          endTime={coffeeChat.end}
           onSubmit={(data) => approveCoffeeChat({ coffeeChatId: id, ...data })}
         />
       )}
@@ -231,8 +229,6 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
           onClickNext={({ chatType, chatValue }) =>
             approveCoffeeChat({ coffeeChatId: id, chatType, chatValue })
           }
-          startTime={coffeeChat.start}
-          endTime={coffeeChat.end}
         />
       )}
       {isApproveSuccess && (

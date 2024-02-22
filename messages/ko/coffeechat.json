@@ -83,14 +83,6 @@
       "chat-method": "커피챗 방식",
       "guide": "커피챗 방식을 선택해주시면 멘티에게 전달 드릴게요.",
       "placeholder": "커피챗 방식 선택",
-      "platform": {
-        "zoomAuto": "Zoom (자동 연동)",
-        "zoom": "Zoom (수동 연동)",
-        "google": "Google meet (수동 연동)",
-        "kakao": "카카오톡",
-        "line": "라인",
-        "wechat": "위챗"
-      },
       "next": "다음"
     }
   }
