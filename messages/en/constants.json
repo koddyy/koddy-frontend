@@ -68,6 +68,14 @@
       "금": "Fri",
       "토": "Sat",
       "일": "Sun"
+    },
+
+    "chat-method-platform": {
+      "zoom": "Zoom",
+      "google": "Google meet",
+      "kakao": "KakaoTalk",
+      "line": "Line",
+      "wechat": "WeChat"
     }
   }
 }

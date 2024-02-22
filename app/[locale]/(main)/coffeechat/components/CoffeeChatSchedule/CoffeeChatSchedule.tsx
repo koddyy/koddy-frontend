@@ -3,7 +3,6 @@ import { Divider } from "@/components/Divider/Divider";
 import {
   CoffeeChatType,
   CoffeeChatTypeIcon,
-  CoffeeChatTypeLabel,
   isMeetingOptions,
   isSNSOptions,
 } from "@/constants/coffeechat";
@@ -24,6 +23,8 @@ export const CoffeeChatSchedule = ({
   chatValue,
 }: CoffeeChatScheduleProps) => {
   const t = useTranslations("coffeechat.CoffeeChatSchedule");
+  const constants = useTranslations("constants");
+
   const { copyText } = useClipboard();
 
   const { yyyymmdd, hhmmss: startHhmmss } = parseLocalDateTime(startTime);
@@ -48,7 +49,9 @@ export const CoffeeChatSchedule = ({
               <div className="body-2 flex items-center gap-[6px]">
                 {chatType === "zoom" && <CoffeeChatTypeIcon.zoom />}
                 {chatType === "google" && <CoffeeChatTypeIcon.google />}
-                <span className="text-gray-600">{CoffeeChatTypeLabel[chatType]}</span>
+                <span className="text-gray-600">
+                  {constants(`chat-method-platform.${chatType}`)}
+                </span>
               </div>
             </div>
             <div className="flex">

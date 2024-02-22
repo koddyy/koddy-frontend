@@ -83,14 +83,6 @@
       "chat-method": "Chat Method",
       "guide": "Where would you like to chat with her?",
       "placeholder": "Choose a platform",
-      "platform": {
-        "zoomAuto": "Zoom (My Profile)",
-        "zoom": "Zoom (Manually type the address)",
-        "google": "Google meet (Manually type address)",
-        "kakao": "Kakao",
-        "line": "Line",
-        "wechat": "Wechat"
-      },
       "next": "Next"
     }
   }

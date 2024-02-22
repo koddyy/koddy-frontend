@@ -6,17 +6,10 @@ import { QuestionToMenteeBottomSheet } from "./QuestionToMenteeBottomSheet/Quest
 
 interface ApproveStepsBottomSheetProps {
   onClose: () => void;
-  startTime: string;
-  endTime: string;
   onSubmit: (data: Omit<PatchCoffeeChatApplyToApproveRequest, "coffeeChatId">) => void;
 }
 
-export const ApproveStepsBottomSheet = ({
-  onClose,
-  startTime,
-  endTime,
-  onSubmit,
-}: ApproveStepsBottomSheetProps) => {
+export const ApproveStepsBottomSheet = ({ onClose, onSubmit }: ApproveStepsBottomSheetProps) => {
   const { currentStep: currentApproveStep, goToNextStep } = useSteps(2);
   const [coffeeChatMethod, setCoffeeChatMethod] =
     useState<Pick<PatchCoffeeChatApplyToApproveRequest, "chatType" | "chatValue">>();
@@ -37,8 +30,6 @@ export const ApproveStepsBottomSheet = ({
           onClickNext={({ chatType, chatValue }) => {
             goToNextApproveStep({ chatType, chatValue });
           }}
-          startTime={startTime}
-          endTime={endTime}
         />
       )}
       {currentApproveStep === 2 && (
