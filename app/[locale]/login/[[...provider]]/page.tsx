@@ -70,7 +70,7 @@ const Page = ({
             ),
           })}
         </div>
-        <Link className="body-1 mt-[32px] text-center text-gray-600" href={PATH.EXPLORE}>
+        <Link className="body-1 mt-[32px] text-center text-gray-600" href={PATH.HOME}>
           {t("continue-as-guest")}
         </Link>
       </div>

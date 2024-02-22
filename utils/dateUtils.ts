@@ -25,3 +25,9 @@ export const parseLocalDateTime = (localDateTime: string) => {
 
   return { yyyymmdd, hhmmss };
 };
+
+export const hhmmssTohhmm = (hhmmss: string) => {
+  const [hh, mm] = hhmmss.split(":");
+
+  return [hh, mm].join(":");
+};

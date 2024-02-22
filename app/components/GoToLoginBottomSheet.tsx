@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { CSSProperties } from "react";
 import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
 import { LinkButton } from "@/components/Button";
@@ -8,6 +9,8 @@ interface GoToLoginBottomSheetProps extends BottomSheetProps {
 }
 
 export const GoToLoginBottomSheet = ({ onClose }: GoToLoginBottomSheetProps) => {
+  const t = useTranslations("GoToLogin");
+
   return (
     <div
       style={
@@ -20,13 +23,13 @@ export const GoToLoginBottomSheet = ({ onClose }: GoToLoginBottomSheetProps) => 
         <div className="flex flex-col items-center gap-[12px]">
           <img src="/images/illustration_login.svg" />
           <div className="subheading-bold text-center">
-            로그인하고
-            <br />
-            모든 기능을 이용해 보세요!
+            {t.rich("description", {
+              br: () => <br />,
+            })}
           </div>
         </div>
         <div className="flex py-[20px]">
-          <LinkButton href={PATH.LOGIN}>로그인하러 가기</LinkButton>
+          <LinkButton href={PATH.LOGIN}>{t("go-to-login")}</LinkButton>
         </div>
       </BottomSheet>
     </div>

@@ -15,7 +15,10 @@ export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfilePr
 
   const { profileImageUrl, name, languages, interestSchool, interestMajor, nationality } = user;
 
-  const description = getDescription({ role: "mentee", interestSchool, interestMajor });
+  const description = getDescription(
+    { role: "mentee", interestSchool, interestMajor },
+    constants("profile-description.prefix")
+  );
 
   return (
     <>

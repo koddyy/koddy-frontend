@@ -2,6 +2,7 @@
   "profile": {
     "introduction": "About me",
     "suggest-coffeechat": "Request a chat",
+    "apply-coffeechat": "Request a chat",
 
     "suggest": {
       "title": "Request a chat",

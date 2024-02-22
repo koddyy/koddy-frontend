@@ -17,7 +17,7 @@ export const CoffeeChatCard = ({
 }: PropsWithChildren<CoffeeChatCardProps>) => {
   const constants = useTranslations("constants");
 
-  const description = getDescription(user);
+  const description = getDescription(user, constants("profile-description.prefix"));
   const { profileImageUrl, name } = user;
 
   return (

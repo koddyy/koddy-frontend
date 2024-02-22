@@ -10,7 +10,7 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
     year: currentDate?.getFullYear(),
     month: currentDate?.getMonth() + 1,
   });
-  const { schedules, reserved } = data ?? {};
+  const { period, schedules, reserved } = data ?? {};
 
   const disabledDays = useMemo(
     () => getDisabledDays(schedules?.map(({ dayOfWeek }) => dayOfWeek) ?? []),
@@ -41,5 +41,10 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
     [currentDate, currentDay, reserved, timeRangeListPerDay]
   );
 
-  return { disabledDays, availableTimeRangeList };
+  return {
+    startDate: period?.startDate ? new Date(period.startDate) : undefined,
+    endDate: period?.endDate ? new Date(period.endDate) : undefined,
+    disabledDays,
+    availableTimeRangeList,
+  };
 };

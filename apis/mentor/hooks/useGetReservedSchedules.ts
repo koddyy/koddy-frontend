@@ -8,7 +8,7 @@ export const useGetReservedSchedules = (
   { year, month }: GetReservedSchedulesRequest
 ) => {
   return useQuery({
-    queryKey: ["reservedSchedules"],
+    queryKey: ["reservedSchedules", { mentorId, year, month }],
     queryFn: () => mentorApi.getReservedSchedules(mentorId, { year, month }),
     select: ({ reserved, ...rest }) => ({
       reserved: reserved.reduce(

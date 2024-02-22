@@ -23,16 +23,13 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
 
   if (!mentor || !coffeeChat || coffeeChat.status !== "MENTEE_APPLY") return null;
 
-  const [date, startTime] = coffeeChat.start.split("T");
-  const endTime = coffeeChat.end.split("T")?.[1];
-
   return (
     <>
       <MentorProfile
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
+      <CoffeeChatSchedule startTime={coffeeChat.start} endTime={coffeeChat.end} />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
@@ -158,16 +155,13 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
 
   if (!mentor || !coffeeChat || coffeeChat.status !== "MENTEE_PENDING") return null;
 
-  const [date, startTime] = coffeeChat.start.split("T");
-  const endTime = coffeeChat.end.split("T")?.[1];
-
   return (
     <>
       <MentorProfile
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
+      <CoffeeChatSchedule startTime={coffeeChat.start} endTime={coffeeChat.end} />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
@@ -239,16 +233,18 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
   )
     return null;
 
-  const [date, startTime] = coffeeChat.start.split("T");
-  const endTime = coffeeChat.end.split("T")?.[1];
-
   return (
     <>
       <MentorProfile
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
+      <CoffeeChatSchedule
+        startTime={coffeeChat.start}
+        endTime={coffeeChat.end}
+        chatType={coffeeChat.chatType}
+        chatValue={coffeeChat.chatValue}
+      />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
@@ -322,16 +318,18 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
   )
     return null;
 
-  const [date, startTime] = coffeeChat.start.split("T");
-  const endTime = coffeeChat.end.split("T")?.[1];
-
   return (
     <>
       <MentorProfile
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
-      <CoffeeChatSchedule schedule={`${date} ${startTime}~${endTime} (한국 시간 기준)`} />
+      <CoffeeChatSchedule
+        startTime={coffeeChat.start}
+        endTime={coffeeChat.end}
+        chatType={coffeeChat.chatType}
+        chatValue={coffeeChat.chatValue}
+      />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
@@ -382,6 +380,14 @@ const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
+      {coffeeChat.start && coffeeChat.end && (
+        <CoffeeChatSchedule
+          startTime={coffeeChat.start}
+          endTime={coffeeChat.end}
+          chatType={coffeeChat.chatType}
+          chatValue={coffeeChat.chatValue}
+        />
+      )}
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
@@ -445,6 +451,14 @@ const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
         {...mentor}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
       />
+      {coffeeChat.start && coffeeChat.end && (
+        <CoffeeChatSchedule
+          startTime={coffeeChat.start}
+          endTime={coffeeChat.end}
+          chatType={coffeeChat.chatType}
+          chatValue={coffeeChat.chatValue}
+        />
+      )}
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">

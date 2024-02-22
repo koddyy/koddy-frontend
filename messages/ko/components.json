@@ -3,5 +3,11 @@
     "home": "홈",
     "calendar": "내 일정",
     "mypage": "마이"
+  },
+
+  "GoToLogin": {
+    "description": "로그인하고<br></br>확인할 수 있어요",
+    "go-to-login-or-sign-in": "로그인/회원가입 하기",
+    "go-to-login": "로그인하러 가기"
   }
 }

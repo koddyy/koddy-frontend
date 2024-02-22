@@ -26,9 +26,12 @@
 
     "CoffeeChatSchedule": {
       "date": "시간",
+      "korea-standard-time": "한국 기준 시간",
       "how": "방식",
       "link": "링크",
-      "copy-link": "링크 복사"
+      "copy-link": "링크 복사",
+      "sns-id": "SNS ID",
+      "copy-id": "아이디 복사"
     },
 
     "introduction-of-mentor": "멘토의 자기소개",
@@ -50,7 +53,8 @@
     "cancel-coffeechat": "커피챗 취소하기",
 
     "RejectBottomSheet": {
-      "title": "{name}님과의 커피챗을\n{type}하는 이유를 알려주세요.",
+      "reject-title": "{name}님과의 커피챗을\n거절하는 이유를 알려주세요.",
+      "cancel-title": "{name}님과의 커피챗을\n취소하는 이유를 알려주세요.",
       "reason1": "스케줄이 바뀌었어요.",
       "reason2": "당분간 상담이 어려워요.",
       "write-reason": "직접 입력",
