@@ -40,7 +40,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     <>
       <FormControl>
         <FormLabel className="body-1-bold mb-2">{t("date")}</FormLabel>
-        <div className="border border-gray-200">
+        <div className="rounded-[8px] border border-gray-200 px-[29px] py-[9px]">
           <Calendar
             tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
             minDate={startDate}
