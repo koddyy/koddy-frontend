@@ -15,6 +15,12 @@
     --accent-light: theme(colors.primary.light);
   }
 
+  [data-accent-color="primary-dark"] {
+    --accent: theme(colors.primary.dark);
+    --accent-dark: theme(colors.primary.dark);
+    --accent-light: theme(colors.primary.DEFAULT);
+  }
+
   [data-accent-color="grayscale"] {
     --accent: theme(colors.gray.500);
     --accent-dark: theme(colors.gray.600);
