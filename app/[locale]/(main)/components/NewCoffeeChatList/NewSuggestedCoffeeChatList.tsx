@@ -17,7 +17,7 @@ export const NewSuggestedCoffeeChatList = () => {
 
   return (
     <>
-      <div className="mb-3 flex justify-between">
+      <div className="mb-3 flex justify-between px-[20px]">
         <div className="subheading-bold">
           {t.rich("title.suggested", {
             count: newCoffeeChatList.totalCount,
@@ -33,7 +33,7 @@ export const NewSuggestedCoffeeChatList = () => {
         </Link>
       </div>
       <div className="mb-4">
-        <Carousel loop={false} slides={{ perView: "auto", spacing: 20 }}>
+        <Carousel loop={false} slides={{ perView: "auto" }}>
           {newCoffeeChatList.result
             .map(({ coffeeChatId, ...user }) => {
               return (
@@ -41,8 +41,8 @@ export const NewSuggestedCoffeeChatList = () => {
                   href={`/coffeechat/${coffeeChatId}`}
                   key={coffeeChatId}
                   className={cn(
-                    "min-w-[70%] max-w-[70%]",
-                    newCoffeeChatList.result.length === 1 && "min-max-full min-w-full"
+                    newCoffeeChatList.totalCount > 1 && "min-w-[70%] max-w-[70%] pl-[20px]",
+                    newCoffeeChatList.totalCount === 1 && "min-max-full min-w-full px-[20px]"
                   )}
                 >
                   <UserCard role="mentor" {...user} />
@@ -53,12 +53,10 @@ export const NewSuggestedCoffeeChatList = () => {
               newCoffeeChatList.totalCount > 3 ? (
                 <Link
                   key="more"
-                  className={cn(
-                    "flex min-w-[70%] max-w-[70%] items-center justify-center rounded-xl bg-gray-100"
-                  )}
+                  className="min-w-[70%] max-w-[70%] px-[20px]"
                   href={PATH.COFFEECHAT + "?category=suggested&status=SUGGEST"}
                 >
-                  <div className="subheading-bold flex items-center gap-[4px]">
+                  <div className="subheading-bold flex h-full items-center justify-center gap-[4px] rounded-xl bg-gray-100">
                     <span>{t("more")}</span>
                     <ArrowRight width={24} height={24} />
                   </div>

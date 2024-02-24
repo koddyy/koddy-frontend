@@ -39,9 +39,9 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
           ) : null
         }
       />
-      <div className="mt-[18px] px-5">
+      <div className="mt-[18px]">
         {isAuthenticated && !me.profileComplete && (
-          <div className="mb-[26px]">
+          <div className="mb-[26px] px-[20px]">
             <ProfileCompleteBanner />
           </div>
         )}
@@ -50,14 +50,16 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
             <>
               {me.role === "mentor" && <NewAppliedCoffeeChatList />}
               {me.role === "mentee" && <NewSuggestedCoffeeChatList />}
-              {me.role === "mentor" && <BrowseMenteeList />}
-              {me.role === "mentee" && <BrowseMentorList />}
+              <div className="px-[20px]">
+                {me.role === "mentor" && <BrowseMenteeList />}
+                {me.role === "mentee" && <BrowseMentorList />}
+              </div>
             </>
           ) : (
-            <>
+            <div className="px-[20px]">
               {explore === "mentee" && <BrowseMenteeList />}
               {explore === "mentor" && <BrowseMentorList />}
-            </>
+            </div>
           )}
         </SSRSafeSuspense>
       </div>
