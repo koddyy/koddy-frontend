@@ -6,10 +6,13 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { isAxiosError } from "axios";
+import { useTranslations } from "next-intl";
 import { ReactNode, useState } from "react";
 import { useToast } from "@/components/Toast";
 
 const QueryClientProvider = ({ children }: { children: ReactNode }) => {
+  const constants = useTranslations("constants.error");
+
   const { showToast } = useToast();
 
   const [queryClient] = useState(
@@ -23,7 +26,7 @@ const QueryClientProvider = ({ children }: { children: ReactNode }) => {
           mutations: {
             onError: (error) => {
               if (isAxiosError(error) && error.response) {
-                const { errorCode = "", message = "오류가 발생했습니다" } = error.response.data;
+                const { errorCode = "", message = constants("description") } = error.response.data;
                 const errorMessage = `${error.response.status} ${errorCode} ${message}`;
 
                 showToast({

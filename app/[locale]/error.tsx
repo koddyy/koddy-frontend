@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/Button";
 
 export default function Error({
@@ -8,9 +9,11 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const constants = useTranslations("constants.error");
+
   return (
     <div className="mt-[180px] flex flex-col items-center gap-[16px]">
-      <div className="subheading">오류가 발생했습니다.</div>
+      <div className="subheading">{constants("description")}</div>
       <Button
         className="body-1-bold"
         variant="outline"
@@ -19,7 +22,7 @@ export default function Error({
         color="primary-dark"
         onClick={() => reset()}
       >
-        다시 시도하기
+        {constants("retry")}
       </Button>
     </div>
   );
