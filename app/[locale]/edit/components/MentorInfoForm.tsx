@@ -53,11 +53,14 @@ export const MentorInfoForm = () => {
   } = methods;
 
   const onSubmitForm = (form: UpdateMentorInfoForm) => {
-    updateMentorInfo(form, {
-      onSuccess: () => {
-        router.push("/");
-      },
-    });
+    updateMentorInfo(
+      { ...values, ...form },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+      }
+    );
   };
 
   const handleAddLanguages = () => {
