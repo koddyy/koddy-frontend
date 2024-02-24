@@ -5,6 +5,7 @@ import { useOauthLogout } from "@/apis/auth/hooks/useOauthLogout";
 import { useSignout } from "@/apis/user/hooks/useSignout";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Divider } from "@/components/Divider/Divider";
+import { TERMS_OF_SERVICE_URL } from "@/constants/external-url";
 
 const Page = () => {
   const t = useTranslations("mypage.account");
@@ -16,6 +17,15 @@ const Page = () => {
     <>
       <NavigationBar title="설정" />
       <div className="flex flex-col">
+        <a
+          className="body-3 w-full px-[20px] py-[14px] text-start"
+          href={TERMS_OF_SERVICE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t("terms-of-service")}
+        </a>
+        <Divider />
         <button
           className="body-3 w-full px-[20px] py-[14px] text-start"
           onClick={() => {
@@ -24,7 +34,7 @@ const Page = () => {
         >
           {t("sign-out")}
         </button>
-        <Divider className="border-gray-100" />
+        <Divider />
         <button
           className="body-3 w-full px-[20px] py-[14px] text-start"
           onClick={() => {
