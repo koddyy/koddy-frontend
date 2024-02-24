@@ -35,7 +35,7 @@
         "MENTEE_PENDING": "Request accepted",
         "MENTEE_REJECT": "커피챗이 거절됐어요",
         "MENTOR_FINALLY_APPROVE": "Scheduled Chat",
-        "MENTOR_FINALLY_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
 
         "MENTEE_CANCEL": "Request canceled",
@@ -52,7 +52,7 @@
         "MENTEE_PENDING": "커피챗 최종 확정을 기다리고 있어요",
         "MENTEE_REJECT": "커피챗이 거절됐어요",
         "MENTOR_FINALLY_APPROVE": "Scheduled Chat",
-        "MENTOR_FINALLY_REJECT": "커피챗이 거절됐어요",
+        "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
 
         "MENTEE_CANCEL": "Canceled Chat",
