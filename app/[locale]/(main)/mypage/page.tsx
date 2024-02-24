@@ -65,26 +65,26 @@ const Page = ({
           </Link>
         )}
       </div>
-      <Divider className="border-4 border-gray-100" />
+      <Divider className="border-4" />
       {isAuthenticated ? (
         <>
           <div>
             <Link href={PATH.MYPAGE_EDIT} className={linkStyle}>
               {t("edit-profile")}
             </Link>
-            <Divider className="border-gray-100" />
+            <Divider />
             {me?.role === "mentor" && (
               <Link href={PATH.MYPAGE_EDIT + "/schedule"} className={linkStyle}>
                 {t("edit-schedule")}
               </Link>
             )}
           </div>
-          <Divider className="border-4 border-gray-100" />
+          <Divider className="border-4" />
           <div>
             <Link href={PATH.MYPAGE_EDIT + "/language-and-timezone"} className={linkStyle}>
               {t("edit-language-and-timezone")}
             </Link>
-            <Divider className="border-gray-100" />
+            <Divider />
             <a
               className={linkStyle}
               href={CUSTOMER_SERVICE_URL}
@@ -93,7 +93,7 @@ const Page = ({
             >
               {t("customer-support")}
             </a>
-            <Divider className="border-gray-100" />
+            <Divider />
           </div>
         </>
       ) : (
