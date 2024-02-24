@@ -12,6 +12,11 @@ export interface PatchCoffeeChatRejectedRequest {
   rejectReason: string;
 }
 
+export interface PatchCoffeeChatCanceledRequest {
+  coffeeChatId: number;
+  cancelReason: string;
+}
+
 export interface PatchCoffeeChatMentorApprovedRequest {
   coffeeChatId: number;
   chatType: Exclude<CoffeeChatType, "zoomAuto">;

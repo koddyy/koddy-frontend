@@ -426,7 +426,7 @@ const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
     !mentor ||
     !coffeeChat ||
     !(
-      coffeeChat.status === "MENTOR_FINALLY_REJECT" ||
+      coffeeChat.status === "MENTOR_FINALLY_CANCEL" ||
       coffeeChat.status === "MENTEE_CANCEL" ||
       coffeeChat.status === "MENTOR_CANCEL"
     )
@@ -474,7 +474,7 @@ const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
         )}
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
-            {coffeeChat.status === "MENTOR_FINALLY_REJECT" && t("cancel-reason-of-mentor")}
+            {coffeeChat.status === "MENTOR_FINALLY_CANCEL" && t("cancel-reason-of-mentor")}
             {coffeeChat.status === "MENTOR_CANCEL" && t("cancel-reason-of-mentor")}
             {coffeeChat.status === "MENTEE_CANCEL" && t("cancel-reason-of-me")}
           </span>
@@ -497,7 +497,7 @@ export const MenteeView = {
   MENTEE_PENDING: PendingCoffeeChat,
   MENTEE_REJECT: RejectCoffeeChat,
   MENTOR_FINALLY_APPROVE: ApproveCoffeeChat,
-  MENTOR_FINALLY_REJECT: CancelCoffeeChat,
+  MENTOR_FINALLY_CANCEL: CancelCoffeeChat,
   MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE: CompleteCoffeeChat,
 
   MENTEE_CANCEL: CancelCoffeeChat,

@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { coffeeChatStatusApi } from "../api";
 
-export const useUpdateCoffeeChatMentorRejected = () => {
+export const useUpdateCoffeeChatMentorCanceled = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: coffeeChatStatusApi.patchCoffeeChatMentorRejected,
+    mutationFn: coffeeChatStatusApi.patchCoffeeChatMentorCanceled,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["coffeeChat"], refetchType: "none" });
     },

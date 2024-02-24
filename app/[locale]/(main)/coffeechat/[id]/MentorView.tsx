@@ -10,6 +10,7 @@ import { RejectBottomSheet } from "../components/RejectBottomSheet";
 import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
 import { useApplyToApproveCoffeeChat } from "../hooks/useApplyToApproveCoffeeChat";
 import { usePendingToApproveCoffeeChat } from "../hooks/usePendingToApproveCoffeeChat";
+import { usePendingToFinallyCancelCoffeeChat } from "../hooks/usePendingToFinallyCancelCoffeeChat";
 import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
 
 interface MentorViewProps {
@@ -27,7 +28,7 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
     useApplyToApproveCoffeeChat();
 
   const { isReject, isRejectSuccess, toggleIsReject, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentor("MENTEE_APPLY");
+    useRejectCoffeeChatForMentor();
 
   if (!mentee || !coffeeChat || coffeeChat.status !== "MENTEE_APPLY") return null;
 
@@ -168,7 +169,8 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
   const { isApprove, isApproveSuccess, setIsApproveTrue, setIsApproveFalse, approveCoffeeChat } =
     usePendingToApproveCoffeeChat();
 
-  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
+  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } =
+    usePendingToFinallyCancelCoffeeChat();
 
   if (!mentee || !coffeeChat || coffeeChat.status !== "MENTEE_PENDING") return null;
 
@@ -474,7 +476,7 @@ const CancelCoffeeChat = ({ id }: MentorViewProps) => {
     !mentee ||
     !coffeeChat ||
     !(
-      coffeeChat.status === "MENTOR_FINALLY_REJECT" ||
+      coffeeChat.status === "MENTOR_FINALLY_CANCEL" ||
       coffeeChat.status === "MENTEE_CANCEL" ||
       coffeeChat.status === "MENTOR_CANCEL"
     )
@@ -522,7 +524,7 @@ const CancelCoffeeChat = ({ id }: MentorViewProps) => {
         )}
         <div>
           <span className="body-3-bold mb-[0.38rem] inline-block">
-            {coffeeChat.status === "MENTOR_FINALLY_REJECT" && t("cancel-reason-of-me")}
+            {coffeeChat.status === "MENTOR_FINALLY_CANCEL" && t("cancel-reason-of-me")}
             {coffeeChat.status === "MENTOR_CANCEL" && t("cancel-reason-of-me")}
             {coffeeChat.status === "MENTEE_CANCEL" && t("cancel-reason-of-mentee")}
           </span>
@@ -545,7 +547,7 @@ export const MentorView = {
   MENTEE_PENDING: PendingCoffeeChat,
   MENTEE_REJECT: RejectCoffeeChat,
   MENTOR_FINALLY_APPROVE: ApproveCoffeeChat,
-  MENTOR_FINALLY_REJECT: CancelCoffeeChat,
+  MENTOR_FINALLY_CANCEL: CancelCoffeeChat,
   MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE: CompleteCoffeeChat,
 
   MENTEE_CANCEL: CancelCoffeeChat,
