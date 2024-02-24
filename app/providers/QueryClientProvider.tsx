@@ -23,7 +23,7 @@ const QueryClientProvider = ({ children }: { children: ReactNode }) => {
           mutations: {
             onError: (error) => {
               if (isAxiosError(error) && error.response) {
-                const { errorCode, message } = error.response.data;
+                const { errorCode = "", message = "오류가 발생했습니다" } = error.response.data;
                 const errorMessage = `${error.response.status} ${errorCode} ${message}`;
 
                 showToast({
