@@ -164,7 +164,7 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
             {t("introduction-of-mentor")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentor.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         <div>

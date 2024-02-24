@@ -46,7 +46,7 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         <div>
@@ -125,7 +125,7 @@ const SuggestCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         <div>
@@ -192,7 +192,7 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         <div>
@@ -296,7 +296,7 @@ const ApproveCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         {(coffeeChat.applyReason ?? coffeeChat.question) && (
@@ -380,7 +380,7 @@ const CompleteCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         <div>
@@ -439,7 +439,7 @@ const RejectCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         {coffeeChat.status === "MENTOR_REJECT" && (
@@ -512,7 +512,7 @@ const CancelCoffeeChat = ({ id }: MentorViewProps) => {
             {t("introduction-of-mentee")}
           </span>
           <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
+            {mentee.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
         {(coffeeChat.applyReason ?? coffeeChat.question) && (
