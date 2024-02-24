@@ -12,7 +12,7 @@ export const Header = ({ rightContent }: HeaderProps) => {
       <Logo />
       {rightContent ?? (
         <Link href="/notification">
-          <Bell />
+          <Bell width={32} height={32} />
         </Link>
       )}
     </div>
