@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { Button, LinkButton } from "@/components/Button";
+import { PATH } from "@/constants/path";
 import { MenteeProfile } from "../../components/UserProfile";
 import { ApproveStepsBottomSheet } from "../components/ApproveStepsBottomSheet";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
@@ -74,7 +75,11 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
         <ResultBottomSheet
           resultType="positive"
           description={t("ResultBottomSheet.APPROVE", { name: mentee.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.go-to-calendar")}</LinkButton>}
+          confirmButton={
+            <LinkButton href={PATH.COFFEECHAT + "?category=scheduled"}>
+              {t("ResultBottomSheet.go-to-calendar")}
+            </LinkButton>
+          }
         />
       )}
       {isReject && (
@@ -229,7 +234,11 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
         <ResultBottomSheet
           resultType="positive"
           description={t("ResultBottomSheet.APPROVE", { name: mentee.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.go-to-calendar")}</LinkButton>}
+          confirmButton={
+            <LinkButton href={PATH.COFFEECHAT + "?category=scheduled"}>
+              {t("ResultBottomSheet.go-to-calendar")}
+            </LinkButton>
+          }
         />
       )}
       {isCancel && (
