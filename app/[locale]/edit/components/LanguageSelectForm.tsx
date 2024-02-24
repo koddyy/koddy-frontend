@@ -5,8 +5,9 @@ import { Select } from "@/components/Select";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { UpdateMentorInfoForm } from "@/types/mentor";
 import { NationCode } from "@/types/user";
+import { getKeys } from "@/utils/object";
 
-const languageCategoryOptions = ["메인 언어", "서브 언어"];
+const languageCategoryOptions = { main: "main", sub: "sub" } as const;
 
 interface LanguageSelectFormProps {
   languages: NationCode[];
@@ -38,34 +39,33 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
         {languages.map((language) => (
           <Select
             key={language}
-            options={languageCategoryOptions}
-            value={
-              language === languagesField.value.main
-                ? constants("language-type.main")
-                : constants("language-type.sub")
-            }
+            options={getKeys(languageCategoryOptions)}
+            value={language === languagesField.value.main ? "main" : "sub"}
             onChangeValue={(value) => {
-              if (value === "메인 언어" && languagesField.value.main !== language) {
+              if (value === "main" && languagesField.value.main !== language) {
                 languagesField.onChange({
                   main: language,
                   sub: languagesField.value.sub
                     .filter((v) => v !== language)
                     .concat(languagesField.value.main ?? []),
                 });
-              } else if (value === "서브 언어" && !languagesField.value.sub.includes(language)) {
+              } else if (value === "sub" && !languagesField.value.sub.includes(language)) {
                 languagesField.onChange({
                   main: null,
                   sub: languagesField.value.sub.concat(languagesField.value.main),
                 });
               }
             }}
-            renderValue={(value) => (
-              <div className="flex gap-[6px]">
-                <span className="body-2-bold">{constants(`languages-options.${language}`)}</span>
-                <span className="body-2 text-gray-300">|</span>
-                <span className="body-2-bold">{value}</span>
-              </div>
-            )}
+            renderValue={(value) =>
+              value && (
+                <div className="flex gap-[6px]">
+                  <span className="body-2-bold">{constants(`languages-options.${language}`)}</span>
+                  <span className="body-2 text-gray-300">|</span>
+                  <span className="body-2-bold">{constants(`language-type.${value}`)}</span>
+                </div>
+              )
+            }
+            renderOption={(value) => constants(`language-type.${value}`)}
             className="p-[16px]"
           />
         ))}
