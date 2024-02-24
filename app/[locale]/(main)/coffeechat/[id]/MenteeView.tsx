@@ -39,14 +39,12 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {coffeeChat.applyReason && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.applyReason}
-            </p>
-          </div>
-        )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.applyReason}
+          </p>
+        </div>
         <Button
           variant="outline"
           color="grayscale"
@@ -104,14 +102,12 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {coffeeChat.suggestReason && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason}
-            </p>
-          </div>
-        )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.suggestReason}
+          </p>
+        </div>
       </div>
       <div className="h-[96px]" />
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-5 py-[0.69rem]">
@@ -171,22 +167,18 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
             {mentor.introduction ?? "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {coffeeChat.suggestReason && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason}
-            </p>
-          </div>
-        )}
-        {coffeeChat.question && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.question}
-            </p>
-          </div>
-        )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.suggestReason}
+          </p>
+        </div>
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.question}
+          </p>
+        </div>
         <Button
           variant="outline"
           color="grayscale"
@@ -254,22 +246,20 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {(coffeeChat.suggestReason ?? coffeeChat.question) && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason ?? coffeeChat.question}
-            </p>
-          </div>
-        )}
-        {(coffeeChat.applyReason ?? coffeeChat.question) && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.applyReason ?? coffeeChat.question}
-            </p>
-          </div>
-        )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.status === "MENTOR_APPROVE" && coffeeChat.question}
+            {coffeeChat.status === "MENTOR_FINALLY_APPROVE" && coffeeChat.suggestReason}
+          </p>
+        </div>
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.status === "MENTOR_APPROVE" && coffeeChat.applyReason}
+            {coffeeChat.status === "MENTOR_FINALLY_APPROVE" && coffeeChat.question}
+          </p>
+        </div>
         <Button
           variant="outline"
           color="grayscale"
@@ -338,22 +328,21 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {(coffeeChat.suggestReason ?? coffeeChat.question) && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason ?? coffeeChat.question}
-            </p>
-          </div>
-        )}
-        {(coffeeChat.applyReason ?? coffeeChat.question) && (
-          <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.applyReason ?? coffeeChat.question}
-            </p>
-          </div>
-        )}
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.status === "MENTEE_APPLY_COFFEE_CHAT_COMPLETE" && coffeeChat.question}
+            {coffeeChat.status === "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE" &&
+              coffeeChat.suggestReason}
+          </p>
+        </div>
+        <div>
+          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
+          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            {coffeeChat.status === "MENTEE_APPLY_COFFEE_CHAT_COMPLETE" && coffeeChat.applyReason}
+            {coffeeChat.status === "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE" && coffeeChat.question}
+          </p>
+        </div>
       </div>
     </>
   );
@@ -396,7 +385,7 @@ const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
             {mentor.introduction || "자기소개를 입력하지 않았어요."}
           </p>
         </div>
-        {coffeeChat.suggestReason && (
+        {coffeeChat.status === "MENTEE_REJECT" && (
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentor")}</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
@@ -404,11 +393,11 @@ const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
             </p>
           </div>
         )}
-        {(coffeeChat.applyReason ?? coffeeChat.question) && (
+        {coffeeChat.status === "MENTOR_REJECT" && (
           <div>
             <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentor")}</span>
             <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.applyReason ?? coffeeChat.question}
+              {coffeeChat.applyReason}
             </p>
           </div>
         )}
