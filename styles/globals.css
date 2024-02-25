@@ -60,6 +60,14 @@
       @apply absolute bottom-[-9.5px] left-1/2 z-10 h-[15px] w-[15px] -translate-x-1/2 rounded-full bg-primary content-[""];
     }
   }
+
+  .text-box-label {
+    @apply body-3-bold mb-[6px] inline-block;
+  }
+
+  .text-box {
+    @apply body-1 whitespace-pre-wrap rounded-[10px] border border-gray-300 px-[18px] py-[11px];
+  }
 }
 
 @layer utilities {
