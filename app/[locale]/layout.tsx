@@ -1,10 +1,15 @@
 import "@/styles/globals.css";
+import type { Metadata } from "next";
 import { unstable_setRequestLocale } from "next-intl/server";
 import IntlClientProvider from "@/app/providers/IntlClientProvider";
 import QueryClientProvider from "@/app/providers/QueryClientProvider";
 import { ToastProvider } from "@/components/Toast";
 import { locales } from "@/constants/locale";
 import MswInit from "@/mocks/MswInit";
+
+export const metadata: Metadata = {
+  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0",
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
