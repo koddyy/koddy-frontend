@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { Button, LinkButton } from "@/components/Button";
+import { PATH } from "@/constants/path";
 import { MenteeProfile } from "../../components/UserProfile";
 import { ApproveStepsBottomSheet } from "../components/ApproveStepsBottomSheet";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
@@ -41,18 +42,12 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
       <CoffeeChatSchedule startTime={coffeeChat.start} endTime={coffeeChat.end} />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.applyReason}
-          </p>
+          <span className="text-box-label">{t("question-of-mentee")}</span>
+          <p className="text-box">{coffeeChat.applyReason}</p>
         </div>
       </div>
       <div className="h-[96px]" />
@@ -74,7 +69,11 @@ const ApplyCoffeeChat = ({ id }: MentorViewProps) => {
         <ResultBottomSheet
           resultType="positive"
           description={t("ResultBottomSheet.APPROVE", { name: mentee.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.go-to-calendar")}</LinkButton>}
+          confirmButton={
+            <LinkButton href={PATH.COFFEECHAT + "?category=scheduled"}>
+              {t("ResultBottomSheet.go-to-calendar")}
+            </LinkButton>
+          }
         />
       )}
       {isReject && (
@@ -116,18 +115,12 @@ const SuggestCoffeeChat = ({ id }: MentorViewProps) => {
       />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.suggestReason}
-          </p>
+          <span className="text-box-label">{t("question-to-mentee")}</span>
+          <p className="text-box">{coffeeChat.suggestReason}</p>
         </div>
         <Button
           variant="outline"
@@ -183,24 +176,16 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
       <CoffeeChatSchedule startTime={coffeeChat.start} endTime={coffeeChat.end} />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.question}
-          </p>
+          <span className="text-box-label">{t("question-of-mentee")}</span>
+          <p className="text-box">{coffeeChat.question}</p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.suggestReason}
-          </p>
+          <span className="text-box-label">{t("question-to-mentee")}</span>
+          <p className="text-box">{coffeeChat.suggestReason}</p>
         </div>
         <Button
           variant="outline"
@@ -229,7 +214,11 @@ const PendingCoffeeChat = ({ id }: MentorViewProps) => {
         <ResultBottomSheet
           resultType="positive"
           description={t("ResultBottomSheet.APPROVE", { name: mentee.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.go-to-calendar")}</LinkButton>}
+          confirmButton={
+            <LinkButton href={PATH.COFFEECHAT + "?category=scheduled"}>
+              {t("ResultBottomSheet.go-to-calendar")}
+            </LinkButton>
+          }
         />
       )}
       {isCancel && (
@@ -283,25 +272,21 @@ const ApproveCoffeeChat = ({ id }: MentorViewProps) => {
       />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         {(coffeeChat.applyReason ?? coffeeChat.question) && (
           <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentee")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+            <span className="text-box-label">{t("question-of-mentee")}</span>
+            <p className="text-box">
               {coffeeChat.status === "MENTOR_APPROVE" && coffeeChat.applyReason}
               {coffeeChat.status === "MENTOR_FINALLY_APPROVE" && coffeeChat.question}
             </p>
           </div>
         )}
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+          <span className="text-box-label">{t("question-to-mentee")}</span>
+          <p className="text-box">
             {coffeeChat.status === "MENTOR_APPROVE" && coffeeChat.question}
             {coffeeChat.status === "MENTOR_FINALLY_APPROVE" && coffeeChat.suggestReason}
           </p>
@@ -367,23 +352,19 @@ const CompleteCoffeeChat = ({ id }: MentorViewProps) => {
       />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+          <span className="text-box-label">{t("question-of-mentee")}</span>
+          <p className="text-box">
             {coffeeChat.status === "MENTEE_APPLY_COFFEE_CHAT_COMPLETE" && coffeeChat.applyReason}
             {coffeeChat.status === "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE" && coffeeChat.question}
           </p>
         </div>
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
+          <span className="text-box-label">{t("question-to-mentee")}</span>
+          <p className="text-box">
             {coffeeChat.status === "MENTEE_APPLY_COFFEE_CHAT_COMPLETE" && coffeeChat.question}
             {coffeeChat.status === "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE" &&
               coffeeChat.suggestReason}
@@ -426,37 +407,27 @@ const RejectCoffeeChat = ({ id }: MentorViewProps) => {
       )}
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         {coffeeChat.status === "MENTOR_REJECT" && (
           <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentee")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.applyReason}
-            </p>
+            <span className="text-box-label">{t("question-of-mentee")}</span>
+            <p className="text-box">{coffeeChat.applyReason}</p>
           </div>
         )}
         {coffeeChat.status === "MENTEE_REJECT" && (
           <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason}
-            </p>
+            <span className="text-box-label">{t("question-to-mentee")}</span>
+            <p className="text-box">{coffeeChat.suggestReason}</p>
           </div>
         )}
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
+          <span className="text-box-label">
             {coffeeChat.status === "MENTOR_REJECT" && t("reject-reason-of-me")}
             {coffeeChat.status === "MENTEE_REJECT" && t("reject-reason-of-mentee")}
           </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.rejectReason}
-          </p>
+          <p className="text-box">{coffeeChat.rejectReason}</p>
         </div>
       </div>
     </>
@@ -499,38 +470,28 @@ const CancelCoffeeChat = ({ id }: MentorViewProps) => {
       )}
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
-            {t("introduction-of-mentee")}
-          </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {mentee.introduction ?? "자기소개를 입력하지 않았어요."}
-          </p>
+          <span className="text-box-label">{t("introduction-of-mentee")}</span>
+          <p className="text-box">{mentee.introduction || "자기소개를 입력하지 않았어요."}</p>
         </div>
         {(coffeeChat.applyReason ?? coffeeChat.question) && (
           <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-of-mentee")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.applyReason ?? coffeeChat.question}
-            </p>
+            <span className="text-box-label">{t("question-of-mentee")}</span>
+            <p className="text-box">{coffeeChat.applyReason ?? coffeeChat.question}</p>
           </div>
         )}
         {(coffeeChat.suggestReason ?? coffeeChat.question) && (
           <div>
-            <span className="body-3-bold mb-[0.38rem] inline-block">{t("question-to-mentee")}</span>
-            <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-              {coffeeChat.suggestReason ?? coffeeChat.question}
-            </p>
+            <span className="text-box-label">{t("question-to-mentee")}</span>
+            <p className="text-box">{coffeeChat.suggestReason ?? coffeeChat.question}</p>
           </div>
         )}
         <div>
-          <span className="body-3-bold mb-[0.38rem] inline-block">
+          <span className="text-box-label">
             {coffeeChat.status === "MENTOR_FINALLY_CANCEL" && t("cancel-reason-of-me")}
             {coffeeChat.status === "MENTOR_CANCEL" && t("cancel-reason-of-me")}
             {coffeeChat.status === "MENTEE_CANCEL" && t("cancel-reason-of-mentee")}
           </span>
-          <p className="body-1 rounded-[0.625rem] border border-gray-300 px-[1.125rem] py-[0.6875rem]">
-            {coffeeChat.cancelReason}
-          </p>
+          <p className="text-box">{coffeeChat.cancelReason}</p>
         </div>
       </div>
     </>

@@ -24,7 +24,7 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
   return (
     <ToastContext.Provider value={context}>
       {children}
-      <div className="absolute inset-x-[30px] top-[50px] z-highest flex flex-col gap-2">
+      <div className="absolute inset-x-0 top-[52px] z-highest flex flex-col gap-2">
         {toasts.map((toast) => (
           <Toast key={toast.id} onClose={remove(toast.id)} {...toast} />
         ))}

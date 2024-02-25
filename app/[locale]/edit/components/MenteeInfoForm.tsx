@@ -39,6 +39,7 @@ export const MenteeInfoForm = () => {
       "nationality",
       "languages",
       "introduction",
+      "profileImageUrl",
     ] as Array<keyof typeof me>
   ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMenteeInfoForm;
 
@@ -55,11 +56,14 @@ export const MenteeInfoForm = () => {
   } = methods;
 
   const onSubmitForm = (form: UpdateMenteeInfoForm) => {
-    updateMenteeInfo(form, {
-      onSuccess: () => {
-        router.push("/");
-      },
-    });
+    updateMenteeInfo(
+      { ...values, ...form },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+      }
+    );
   };
 
   const handleAddLanguages = () => {

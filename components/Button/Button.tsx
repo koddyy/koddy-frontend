@@ -11,6 +11,7 @@ const ButtonVariants = cva("cursor-pointer px-[12px] transition disabled:cursor-
     },
     color: {
       primary: "",
+      "primary-dark": "",
       grayscale: "",
     },
     size: {

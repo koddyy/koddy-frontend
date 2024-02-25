@@ -6,6 +6,7 @@ import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
 import ThreeDots from "@/assets/three_dots.svg";
 import { Button } from "@/components/Button";
 import { Divider } from "@/components/Divider/Divider";
+import { CUSTOMER_SERVICE_URL, TERMS_OF_SERVICE_URL } from "@/constants/external-url";
 import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
 import { Link } from "@/libs/navigation";
@@ -64,35 +65,56 @@ const Page = ({
           </Link>
         )}
       </div>
-      <Divider className="border-4 border-gray-100" />
+      <Divider className="border-4" />
       {isAuthenticated ? (
         <>
           <div>
             <Link href={PATH.MYPAGE_EDIT} className={linkStyle}>
               {t("edit-profile")}
             </Link>
-            <Divider className="border-gray-100" />
+            <Divider />
             {me?.role === "mentor" && (
               <Link href={PATH.MYPAGE_EDIT + "/schedule"} className={linkStyle}>
                 {t("edit-schedule")}
               </Link>
             )}
           </div>
-          <Divider className="border-4 border-gray-100" />
+          <Divider className="border-4" />
           <div>
             <Link href={PATH.MYPAGE_EDIT + "/language-and-timezone"} className={linkStyle}>
               {t("edit-language-and-timezone")}
             </Link>
-            <Divider className="border-gray-100" />
-            <div className="px-5 py-[0.88rem]">{t("customer-support")}</div>
-            <Divider className="border-gray-100" />
+            <Divider />
+            <a
+              className={linkStyle}
+              href={CUSTOMER_SERVICE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t("customer-support")}
+            </a>
+            <Divider />
           </div>
         </>
       ) : (
         <>
-          <div className={linkStyle}>{t("customer-support")}</div>
+          <a
+            className={linkStyle}
+            href={CUSTOMER_SERVICE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("customer-support")}
+          </a>
           <Divider />
-          <div className={linkStyle}>{t("terms-of-service")}</div>
+          <a
+            className={linkStyle}
+            href={TERMS_OF_SERVICE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t("terms-of-service")}
+          </a>
         </>
       )}
     </>

@@ -116,9 +116,9 @@ const Empty = ({
 }) => {
   return (
     <div className="mt-[80px] flex flex-col items-center">
-      <img
+      <object
         className="h-[136px] w-[165px] opacity-60"
-        src="/images/illustration_no_coffee_chat.svg"
+        data="/images/illustration_no_coffee_chat.svg"
       />
       <div className="mb-[12px] mt-[17px] text-gray-500">{EmptyText[category]}</div>
     </div>

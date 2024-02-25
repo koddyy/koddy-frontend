@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { GoToLogin } from "@/app/components/GoToLogin";
@@ -33,23 +34,27 @@ const Page = ({
     <>
       <NavigationBar title="알림" onClickGoback={() => router.back()} />
       {isAuthenticated ? (
-        MOCK_NOTIFICATIIONS.map(({ id, name, status, reason }) => (
-          <>
-            <Link
-              href={`/coffeechat/${id}`}
-              key={id}
-              className="flex items-center justify-between px-5 py-4"
-            >
-              <div className="body-2">
-                <div>{name + NotificationText[userType][status]}</div>
-                {status === "canceled" && <div>(사유 : {reason})</div>}
-              </div>
-              <ArrowRight />
-            </Link>
-            <Divider />
-          </>
-        ))
+        <div className="mt-[195px] flex flex-col px-[69px]">
+          <div className="body-1 mb-[19px] text-center">준비중 입니다 🚧</div>
+        </div>
       ) : (
+        // MOCK_NOTIFICATIIONS.map(({ id, name, status, reason }) => (
+        //   <>
+        //     <Link
+        //       href={`/coffeechat/${id}`}
+        //       key={id}
+        //       className="flex items-center justify-between px-5 py-4"
+        //     >
+        //       <div className="body-2">
+        //         <div>{name + NotificationText[userType][status]}</div>
+        //         {status === "canceled" && <div>(사유 : {reason})</div>}
+        //       </div>
+        //       <ArrowRight />
+        //     </Link>
+        //     <Divider />
+        //   </>
+        // ))
+
         <div className="mt-[195px]">
           <GoToLogin />
         </div>

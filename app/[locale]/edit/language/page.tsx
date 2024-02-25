@@ -19,8 +19,10 @@ const Page = () => {
 
   const router = useRouter();
   const { data: me } = useGetMe();
-  const setMenteeInfoForm = useMenteeInfoFormStore((state) => state.setLanguages);
-  const setMentorInfoForm = useMentorInfoFormStore((state) => state.setLanguages);
+  const { setIsModified: setIsMenteeInfoFormModified, setLanguages: setMenteeInfoLanguage } =
+    useMenteeInfoFormStore();
+  const { setIsModified: setIsMentorInfoFormModified, setLanguages: setMentorInfoLanguage } =
+    useMentorInfoFormStore();
 
   const { control, handleSubmit } = useForm<Pick<Mentor, "languages"> | Pick<Mentee, "languages">>({
     defaultValues: {
@@ -74,8 +76,13 @@ const Page = () => {
   };
 
   const onSubmit = ({ languages }: Pick<Mentor, "languages"> | Pick<Mentee, "languages">) => {
-    if (me.role === "mentor") setMentorInfoForm(languages);
-    else if (me.role === "mentee") setMenteeInfoForm(languages);
+    if (me.role === "mentor") {
+      setMentorInfoLanguage(languages);
+      setIsMentorInfoFormModified(true);
+    } else if (me.role === "mentee") {
+      setMenteeInfoLanguage(languages);
+      setIsMenteeInfoFormModified(true);
+    }
 
     router.back();
   };

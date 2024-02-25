@@ -16,6 +16,8 @@ const Page = () => {
   return (
     <>
       <NavigationBar
+        title="회원 정보 수정"
+        titleFontWeight="regular"
         onClickGoback={() => {
           if (me?.role === "mentor") clearMentorInfoForm();
           else if (me?.role === "mentee") clearMenteeInfoForm();

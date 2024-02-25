@@ -14,6 +14,14 @@ const NAVIGATION_LINK = [
   { segment: "mypage", icon: My, label: "mypage" },
 ] as const;
 
+const getActiveSegment = (currentSegment: string) => {
+  const activeNavigationItem = NAVIGATION_LINK.find(({ segment }) => segment === currentSegment);
+
+  if (!activeNavigationItem) return "";
+
+  return activeNavigationItem.segment;
+};
+
 export const BottomNavigation = () => {
   const t = useTranslations("BottomNavigation");
 
@@ -23,7 +31,7 @@ export const BottomNavigation = () => {
   return (
     <div className="fixed bottom-0 left-1/2 z-fixed flex h-[3.625rem] w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white text-gray-500">
       {NAVIGATION_LINK.map(({ segment, icon: Icon, label }, i) => {
-        const isCurrentSegment = segment === currentSegment;
+        const isCurrentSegment = segment === getActiveSegment(currentSegment);
 
         return (
           <Link

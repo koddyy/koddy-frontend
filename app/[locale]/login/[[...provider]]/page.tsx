@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useGetOauthUrl } from "@/apis/auth/hooks/useGetOauthUrl";
 import { Carousel } from "@/components/Carousel";
 import { LoginButton } from "@/components/LoginButton";
+import { TERMS_OF_SERVICE_URL } from "@/constants/external-url";
 import { PATH } from "@/constants/path";
 import { Link } from "@/libs/navigation";
 import { isValidProvider, type OauthProvider } from "@/types/oauth";
@@ -15,9 +16,6 @@ const ONBOARDING = [
   { imageUrl: "/images/illustration_onboarding2.svg", description: "match-with" },
   { imageUrl: "/images/illustration_onboarding3.svg", description: "manage-chat" },
 ] as const;
-
-const TERMS_OF_SERVICE_URL =
-  "https://suave-pamphlet-a89.notion.site/7860eda0f6354c0d8eada0481198d3a0?pvs=4";
 
 const Page = ({
   params,

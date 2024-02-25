@@ -26,11 +26,10 @@ const Page = ({ params }: { params: { id: string } }) => {
     <>
       <MenteeProfile {...mentee} />
       <div className="px-[20px] py-[12px]">
-        <div className="body-3-bold mb-[6px]">{t("introduction")}</div>
-        <p className="body-1 rounded-[10px] border border-gray-300 px-[18px] py-[11px]">
-          {mentee.introduction || "자기소개가 없습니다."}
-        </p>
+        <div className="text-box-label">{t("introduction")}</div>
+        <p className="text-box">{mentee.introduction || "자기소개가 없습니다."}</p>
       </div>
+      <div className="h-[96px]" />
       <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-[20px] py-[11px]">
         <Link
           href={`${PATH.PROFILE_MENTEE}/${menteeId}/suggest`}
