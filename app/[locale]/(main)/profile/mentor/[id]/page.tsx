@@ -42,7 +42,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           {t("apply-coffeechat")}
         </LinkButton>
       </div>
-      {isGoToLoginBottomSheet && <GoToLoginBottomSheet onClose={toggleGoToLoginBottomSheet} />}
+      <GoToLoginBottomSheet isOpen={isGoToLoginBottomSheet} onClose={toggleGoToLoginBottomSheet} />
     </>
   );
 };

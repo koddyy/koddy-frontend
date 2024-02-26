@@ -1,11 +1,12 @@
 import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
+import { BottomSheet } from "@/components/BottomSheet";
 import { Button, LinkButton } from "@/components/Button";
 import { MentorProfile } from "../../components/UserProfile";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
-import { RejectBottomSheet } from "../components/RejectBottomSheet";
-import { ResultBottomSheet } from "../components/ResultBottomSheet/ResultBottomSheet";
+import { RejectReasonSelect } from "../components/RejectBottomSheet";
+import { Result } from "../components/ResultBottomSheet/ResultBottomSheet";
 import { useRejectCoffeeChatForMentee } from "../hooks/useRejectCoffeeChatForMentee";
 
 interface MenteeViewProps {
@@ -19,7 +20,15 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
-  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
+  const {
+    isCancel,
+    setIsCancelTrue,
+    setIsCancelFalse,
+    cancelStep,
+    goToNextCancelStep,
+    lastCancelStep,
+    cancelCoffeeChat,
+  } = useCancelCoffeeChat();
 
   if (!mentor || !coffeeChat || coffeeChat.status !== "MENTEE_APPLY") return null;
 
@@ -43,28 +52,36 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
           variant="outline"
           color="grayscale"
           className="border-[0.5px]"
-          onClick={toggleIsCancel}
+          onClick={setIsCancelTrue}
         >
           {t("cancel-coffeechat")}
         </Button>
       </div>
-      {isCancel && (
-        <RejectBottomSheet
-          type="cancel"
-          userName={mentor.name}
-          onClickRejectButton={(cancelReason) =>
-            cancelCoffeeChat({ coffeeChatId: id, cancelReason })
-          }
-          onClose={toggleIsCancel}
-        />
-      )}
-      {isCancelSuccess && (
-        <ResultBottomSheet
-          resultType="negative"
-          description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
-        />
-      )}
+      <BottomSheet isOpen={isCancel} onClose={lastCancelStep ? null : setIsCancelFalse}>
+        {cancelStep === 1 && (
+          <RejectReasonSelect
+            type="cancel"
+            userName={mentor.name}
+            onClickRejectButton={(cancelReason) =>
+              cancelCoffeeChat(
+                { coffeeChatId: id, cancelReason },
+                {
+                  onSuccess: () => {
+                    goToNextCancelStep();
+                  },
+                }
+              )
+            }
+          />
+        )}
+        {cancelStep === 2 && (
+          <Result
+            resultType="negative"
+            description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
+            confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
+          />
+        )}
+      </BottomSheet>
     </>
   );
 };
@@ -76,8 +93,15 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
-  const { isReject, isRejectSuccess, setIsRejectTrue, setIsRejectFalse, rejectCoffeeChat } =
-    useRejectCoffeeChatForMentee();
+  const {
+    isReject,
+    setIsRejectTrue,
+    setIsRejectFalse,
+    rejectStep,
+    lastRejectStep,
+    goToNextRejectStep,
+    rejectCoffeeChat,
+  } = useRejectCoffeeChatForMentee();
 
   if (!mentor || !coffeeChat || coffeeChat.status !== "MENTOR_SUGGEST") return null;
 
@@ -108,22 +132,31 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
           </LinkButton>
         </div>
       </div>
-      {isReject && (
-        <RejectBottomSheet
-          userName={mentor.name}
-          onClickRejectButton={(rejectReason: string) =>
-            rejectCoffeeChat({ coffeeChatId: id, rejectReason })
-          }
-          onClose={setIsRejectFalse}
-        />
-      )}
-      {isRejectSuccess && (
-        <ResultBottomSheet
-          resultType="negative"
-          description={t("ResultBottomSheet.REJECT", { name: mentor.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
-        />
-      )}
+
+      <BottomSheet isOpen={isReject} onClose={lastRejectStep ? null : setIsRejectFalse}>
+        {rejectStep === 1 && (
+          <RejectReasonSelect
+            userName={mentor.name}
+            onClickRejectButton={(rejectReason: string) =>
+              rejectCoffeeChat(
+                { coffeeChatId: id, rejectReason },
+                {
+                  onSuccess: () => {
+                    goToNextRejectStep();
+                  },
+                }
+              )
+            }
+          />
+        )}
+        {rejectStep === 2 && (
+          <Result
+            resultType="negative"
+            description={t("ResultBottomSheet.REJECT", { name: mentor.name })}
+            confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
+          />
+        )}
+      </BottomSheet>
     </>
   );
 };
@@ -135,7 +168,15 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
-  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
+  const {
+    isCancel,
+    setIsCancelTrue,
+    setIsCancelFalse,
+    cancelStep,
+    goToNextCancelStep,
+    lastCancelStep,
+    cancelCoffeeChat,
+  } = useCancelCoffeeChat();
 
   if (!mentor || !coffeeChat || coffeeChat.status !== "MENTEE_PENDING") return null;
 
@@ -163,28 +204,37 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
           variant="outline"
           color="grayscale"
           className="border-[0.5px]"
-          onClick={toggleIsCancel}
+          onClick={setIsCancelTrue}
         >
           {t("cancel-coffeechat")}
         </Button>
       </div>
-      {isCancel && (
-        <RejectBottomSheet
-          type="cancel"
-          userName={mentor.name}
-          onClickRejectButton={(cancelReason) =>
-            cancelCoffeeChat({ coffeeChatId: id, cancelReason })
-          }
-          onClose={toggleIsCancel}
-        />
-      )}
-      {isCancelSuccess && (
-        <ResultBottomSheet
-          resultType="negative"
-          description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
-        />
-      )}
+
+      <BottomSheet isOpen={isCancel} onClose={lastCancelStep ? null : setIsCancelFalse}>
+        {cancelStep === 1 && (
+          <RejectReasonSelect
+            type="cancel"
+            userName={mentor.name}
+            onClickRejectButton={(cancelReason) =>
+              cancelCoffeeChat(
+                { coffeeChatId: id, cancelReason },
+                {
+                  onSuccess: () => {
+                    goToNextCancelStep();
+                  },
+                }
+              )
+            }
+          />
+        )}
+        {cancelStep === 2 && (
+          <Result
+            resultType="negative"
+            description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
+            confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
+          />
+        )}
+      </BottomSheet>
     </>
   );
 };
@@ -196,7 +246,15 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
 
-  const { isCancel, isCancelSuccess, toggleIsCancel, cancelCoffeeChat } = useCancelCoffeeChat();
+  const {
+    isCancel,
+    setIsCancelTrue,
+    setIsCancelFalse,
+    cancelStep,
+    goToNextCancelStep,
+    lastCancelStep,
+    cancelCoffeeChat,
+  } = useCancelCoffeeChat();
 
   if (
     !mentor ||
@@ -240,28 +298,37 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
           variant="outline"
           color="grayscale"
           className="border-[0.5px]"
-          onClick={toggleIsCancel}
+          onClick={setIsCancelTrue}
         >
           {t("cancel-coffeechat")}
         </Button>
       </div>
-      {isCancel && (
-        <RejectBottomSheet
-          type="cancel"
-          userName={mentor.name}
-          onClickRejectButton={(cancelReason) =>
-            cancelCoffeeChat({ coffeeChatId: id, cancelReason })
-          }
-          onClose={toggleIsCancel}
-        />
-      )}
-      {isCancelSuccess && (
-        <ResultBottomSheet
-          resultType="negative"
-          description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
-          confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
-        />
-      )}
+
+      <BottomSheet isOpen={isCancel} onClose={lastCancelStep ? null : setIsCancelFalse}>
+        {cancelStep === 1 && (
+          <RejectReasonSelect
+            type="cancel"
+            userName={mentor.name}
+            onClickRejectButton={(cancelReason) =>
+              cancelCoffeeChat(
+                { coffeeChatId: id, cancelReason },
+                {
+                  onSuccess: () => {
+                    goToNextCancelStep();
+                  },
+                }
+              )
+            }
+          />
+        )}
+        {cancelStep === 2 && (
+          <Result
+            resultType="negative"
+            description={t("ResultBottomSheet.CANCEL", { name: mentor.name })}
+            confirmButton={<LinkButton href="/">{t("ResultBottomSheet.return-home")}</LinkButton>}
+          />
+        )}
+      </BottomSheet>
     </>
   );
 };

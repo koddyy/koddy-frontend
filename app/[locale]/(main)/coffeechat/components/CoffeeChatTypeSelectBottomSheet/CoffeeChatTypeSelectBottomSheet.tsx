@@ -25,9 +25,20 @@ interface CoffeeChatTypeSelectBottomSheetProps extends BottomSheetProps {
 }
 
 export const CoffeeChatTypeSelectBottomSheet = ({
+  isOpen,
   onClose,
   onClickNext,
 }: CoffeeChatTypeSelectBottomSheetProps) => {
+  return (
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <CoffeeChatTypeSelect onClickNext={onClickNext} />
+    </BottomSheet>
+  );
+};
+
+export const CoffeeChatTypeSelect = ({
+  onClickNext,
+}: Pick<CoffeeChatTypeSelectBottomSheetProps, "onClickNext">) => {
   const t = useTranslations("coffeechat.CoffeeChatTypeSelectBottomSheet");
   const constants = useTranslations("constants");
 
@@ -45,7 +56,7 @@ export const CoffeeChatTypeSelectBottomSheet = ({
   };
 
   return (
-    <BottomSheet onClose={onClose}>
+    <>
       <div className="mb-[12px] flex h-[228px] flex-col gap-[12px]">
         <div>
           <div className="subheading-bold mb-[4px]">{t("chat-method")}</div>
@@ -117,6 +128,6 @@ export const CoffeeChatTypeSelectBottomSheet = ({
           {t("next")}
         </Button>
       </ButtonArea>
-    </BottomSheet>
+    </>
   );
 };

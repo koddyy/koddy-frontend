@@ -16,11 +16,13 @@ export const PendingBottomSheet = ({
   description,
   onClickNo,
   onClickYes,
+  isOpen,
+  onClose,
 }: ResultBottomSheetProps) => {
   const t = useTranslations("coffeechat.PendingBottomSheet");
 
   return (
-    <BottomSheet>
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="flex flex-col items-center gap-[1.13rem] pb-4 pt-[3rem]">
         <div>
           <img

@@ -1,25 +1,24 @@
 import { useUpdateCoffeeChatMenteeRejected } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMenteeRejected";
+import { useSteps } from "@/hooks/useSteps";
 import { useToggle } from "@/hooks/useToggle";
 
 export const useRejectCoffeeChatForMentee = () => {
-  const [isReject, toggleIsReject, setIsReject] = useToggle();
-  const { mutate: updateCoffeeChatRejected, isSuccess: isRejectSuccess } =
-    useUpdateCoffeeChatMenteeRejected();
+  const [isReject, , setIsReject] = useToggle();
+  const {
+    currentStep: rejectStep,
+    goToNextStep: goToNextRejectStep,
+    lastStep: lastRejectStep,
+  } = useSteps(2);
 
-  const setIsRejectTrue = () => {
-    setIsReject(true);
-  };
-
-  const setIsRejectFalse = () => {
-    setIsReject(false);
-  };
+  const { mutate: rejectCoffeeChat } = useUpdateCoffeeChatMenteeRejected();
 
   return {
     isReject,
-    isRejectSuccess,
-    toggleIsReject,
-    setIsRejectTrue,
-    setIsRejectFalse,
-    rejectCoffeeChat: updateCoffeeChatRejected,
+    setIsRejectTrue: () => setIsReject(true),
+    setIsRejectFalse: () => setIsReject(false),
+    rejectStep,
+    lastRejectStep,
+    goToNextRejectStep,
+    rejectCoffeeChat,
   };
 };

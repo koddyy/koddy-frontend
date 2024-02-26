@@ -2,24 +2,26 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
-import { BottomSheet } from "@/components/BottomSheet";
+import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
 import { languagesOptions } from "@/constants/language";
 import { NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
 
-interface MentorFilterBottomSheetProps {
+interface MentorFilterBottomSheetProps extends BottomSheetProps {
   initial: {
     languages?: NationCode[];
   };
   onSelectFilter: (languages: Array<NationCode>) => void;
+  isOpen: boolean;
   onClose: () => void;
 }
 
 export const MentorFilterBottomSheet = ({
   initial,
   onSelectFilter,
+  isOpen,
   onClose,
 }: MentorFilterBottomSheetProps) => {
   const t = useTranslations("home.filters");
@@ -59,7 +61,7 @@ export const MentorFilterBottomSheet = ({
   };
 
   return (
-    <BottomSheet>
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="flex gap-[20px] pb-[22px] pt-[17px]">
         <span className={"body-1-bold text-gray-700"}>{t("language")}</span>
       </div>

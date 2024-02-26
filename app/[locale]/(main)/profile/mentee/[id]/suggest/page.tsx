@@ -49,15 +49,14 @@ const Page = ({ params }: { params: { id: string } }) => {
           </Button>
         </div>
       </form>
-      {isSuccess && (
-        <ResultBottomSheet
-          resultType="positive"
-          description={t("coffeechat.ResultBottomSheet.SUGGEST", { name: mentee.name })}
-          confirmButton={
-            <LinkButton href="/">{t("coffeechat.ResultBottomSheet.return-home")}</LinkButton>
-          }
-        />
-      )}
+      <ResultBottomSheet
+        isOpen={isSuccess}
+        resultType="positive"
+        description={t("coffeechat.ResultBottomSheet.SUGGEST", { name: mentee.name })}
+        confirmButton={
+          <LinkButton href="/">{t("coffeechat.ResultBottomSheet.return-home")}</LinkButton>
+        }
+      />
     </>
   );
 };

@@ -1,10 +1,11 @@
 import { animate, AnimatePresence, motion, useMotionValue } from "framer-motion";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { Dimmed } from "@/components/Dimmed";
+import { noop } from "@/utils/noop";
 
 export interface BottomSheetProps {
   isOpen: boolean;
-  onClose?: () => void;
+  onClose?: (() => void) | null;
 }
 
 const OFFSET_THRESHOLD = 70;
@@ -25,7 +26,7 @@ export const BottomSheet = ({ isOpen, onClose, children }: PropsWithChildren<Bot
     <AnimatePresence>
       {isOpen && (
         <>
-          <Dimmed onClick={onClose} />
+          <Dimmed onClick={onClose ?? noop} />
           <div className="fixed bottom-0 left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2">
             <motion.div
               ref={containerRef}

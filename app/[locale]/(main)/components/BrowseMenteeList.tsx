@@ -92,14 +92,13 @@ export const BrowseMenteeList = () => {
         ))}
         <div ref={ref} />
       </div>
-      {selectedFilter && (
-        <MenteeFilterBottomSheet
-          initial={params}
-          initialFilter={selectedFilter}
-          onSelectFilter={handleSelectFilters}
-          onClose={() => setSelectedFilter(null)}
-        />
-      )}
+      <MenteeFilterBottomSheet
+        initial={params}
+        initialFilter={selectedFilter}
+        onSelectFilter={handleSelectFilters}
+        isOpen={Boolean(selectedFilter)}
+        onClose={() => setSelectedFilter(null)}
+      />
     </>
   );
 };

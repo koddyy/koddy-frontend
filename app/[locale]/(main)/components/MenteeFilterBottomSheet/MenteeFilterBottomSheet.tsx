@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
-import { BottomSheet } from "@/components/BottomSheet";
+import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
 import { languagesOptions } from "@/constants/language";
@@ -14,13 +14,14 @@ export type Filter = "nationality" | "language";
 
 const FilterOptions = ["nationality", "language"] as const;
 
-interface MenteeFilterBottomSheetProps {
+interface MenteeFilterBottomSheetProps extends BottomSheetProps {
   initial: {
     nationalities?: Nationality[];
     languages?: NationCode[];
   };
-  initialFilter: Filter;
+  initialFilter: Filter | null;
   onSelectFilter: (nationality: Nationality | null, languages: Array<NationCode>) => void;
+  isOpen: boolean;
   onClose: () => void;
 }
 
@@ -28,12 +29,13 @@ export const MenteeFilterBottomSheet = ({
   initial,
   initialFilter,
   onSelectFilter,
+  isOpen,
   onClose,
 }: MenteeFilterBottomSheetProps) => {
   const t = useTranslations("home.filters");
   const constants = useTranslations("constants");
 
-  const [activeFilter, setActiveFilter] = useState<Filter>(initialFilter);
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
   const [nationality, setNationality] = useState<Nationality | null>(
     initial.nationalities?.[0] ?? null
   );
@@ -79,15 +81,17 @@ export const MenteeFilterBottomSheet = ({
     onSelectFilter(nationality, [...languages]);
   };
 
+  const activeFilter = selectedFilter ?? initialFilter;
+
   return (
-    <BottomSheet>
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="flex gap-[20px] pb-[22px] pt-[17px]">
         {FilterOptions.map((option) => (
           <button
             key={option}
             className={cn("body-1-bold text-gray-400", activeFilter === option && "text-gray-700")}
             type="button"
-            onClick={() => setActiveFilter(option)}
+            onClick={() => setSelectedFilter(option)}
           >
             {t(option)}
           </button>

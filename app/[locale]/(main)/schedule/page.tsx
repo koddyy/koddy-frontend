@@ -65,28 +65,26 @@ const Page = ({ searchParams }: { searchParams: { mentor: string; coffeechat?: s
           {currentStep === 2 && <QuestionStep />}
         </div>
       </form>
-      {isApproveSuccess && (
-        <ResultBottomSheet
-          resultType="positive"
-          description={t("coffeechat.ResultBottomSheet.APPROVE", { name: user.name })}
-          confirmButton={
-            <LinkButton href={PATH.COFFEECHAT}>
-              {t("coffeechat.ResultBottomSheet.go-to-calendar")}
-            </LinkButton>
-          }
-        />
-      )}
-      {isApplySuccess && (
-        <ResultBottomSheet
-          resultType="positive"
-          description={t("coffeechat.ResultBottomSheet.APPLY", { name: user.name })}
-          confirmButton={
-            <LinkButton href={PATH.COFFEECHAT}>
-              {t("coffeechat.ResultBottomSheet.go-to-calendar")}
-            </LinkButton>
-          }
-        />
-      )}
+      <ResultBottomSheet
+        isOpen={isApproveSuccess}
+        resultType="positive"
+        description={t("coffeechat.ResultBottomSheet.APPROVE", { name: user.name })}
+        confirmButton={
+          <LinkButton href={PATH.COFFEECHAT}>
+            {t("coffeechat.ResultBottomSheet.go-to-calendar")}
+          </LinkButton>
+        }
+      />
+      <ResultBottomSheet
+        isOpen={isApplySuccess}
+        resultType="positive"
+        description={t("coffeechat.ResultBottomSheet.APPLY", { name: user.name })}
+        confirmButton={
+          <LinkButton href={PATH.COFFEECHAT}>
+            {t("coffeechat.ResultBottomSheet.go-to-calendar")}
+          </LinkButton>
+        }
+      />
     </FormProvider>
   );
 };
