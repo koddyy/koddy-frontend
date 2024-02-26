@@ -1,10 +1,16 @@
 import { useUpdateCoffeeChatApplyToReject } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatApplyToReject";
+import { useSteps } from "@/hooks/useSteps";
 import { useToggle } from "@/hooks/useToggle";
 
 export const useRejectCoffeeChatForMentor = () => {
-  const [isReject, toggleIsReject, setIsReject] = useToggle();
-  const { mutate: rejectCoffeeChat, isSuccess: isRejectSuccess } =
-    useUpdateCoffeeChatApplyToReject();
+  const [isReject, , setIsReject] = useToggle();
+  const {
+    currentStep: rejectStep,
+    goToNextStep: goToNextRejectStep,
+    lastStep: lastRejectStep,
+  } = useSteps(2);
+
+  const { mutate: rejectCoffeeChat } = useUpdateCoffeeChatApplyToReject();
 
   const setIsRejectTrue = () => {
     setIsReject(true);
@@ -16,10 +22,11 @@ export const useRejectCoffeeChatForMentor = () => {
 
   return {
     isReject,
-    isRejectSuccess,
-    toggleIsReject,
     setIsRejectTrue,
     setIsRejectFalse,
+    rejectStep,
+    lastRejectStep,
+    goToNextRejectStep,
     rejectCoffeeChat,
   };
 };

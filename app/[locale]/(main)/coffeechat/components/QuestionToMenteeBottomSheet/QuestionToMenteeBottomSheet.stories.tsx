@@ -10,5 +10,7 @@ export default meta;
 type Story = StoryObj<typeof QuestionToMenteeBottomSheet>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    isOpen: true,
+  },
 };

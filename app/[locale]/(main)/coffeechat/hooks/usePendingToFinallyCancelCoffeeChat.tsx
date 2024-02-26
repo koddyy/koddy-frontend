@@ -1,17 +1,24 @@
 import { useUpdateCoffeeChatMentorCanceled } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMentorCanceled";
+import { useSteps } from "@/hooks/useSteps";
 import { useToggle } from "@/hooks/useToggle";
 
 export const usePendingToFinallyCancelCoffeeChat = () => {
-  const { mutate: pendingToRejectCoffeeChat, isSuccess: isCancelSuccess } =
-    useUpdateCoffeeChatMentorCanceled();
-  const [isCancel, toggleIsCancel, setIsCancel] = useToggle();
+  const [isCancel, , setIsCancel] = useToggle();
+  const {
+    currentStep: cancelStep,
+    goToNextStep: goToNextCancelStep,
+    lastStep: lastCancelStep,
+  } = useSteps(2);
+
+  const { mutate: pendingToFinallyCancelCoffeeChat } = useUpdateCoffeeChatMentorCanceled();
 
   return {
-    isCancel: isCancel && !isCancelSuccess,
-    isCancelSuccess,
-    toggleIsCancel,
+    isCancel,
     setIsCancelTrue: () => setIsCancel(true),
     setIsCancelFalse: () => setIsCancel(false),
-    cancelCoffeeChat: pendingToRejectCoffeeChat,
+    cancelStep,
+    goToNextCancelStep,
+    lastCancelStep,
+    cancelCoffeeChat: pendingToFinallyCancelCoffeeChat,
   };
 };

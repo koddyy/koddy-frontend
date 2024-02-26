@@ -8,13 +8,24 @@ interface QuestionToMenteeBottomSheetProps extends BottomSheetProps {
 }
 
 export const QuestionToMenteeBottomSheet = ({
+  isOpen,
   onClose,
   onSubmit,
 }: QuestionToMenteeBottomSheetProps) => {
+  return (
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <QuestionToMentee onSubmit={onSubmit} />
+    </BottomSheet>
+  );
+};
+
+export const QuestionToMentee = ({
+  onSubmit,
+}: Pick<QuestionToMenteeBottomSheetProps, "onSubmit">) => {
   const [value, setValue] = useState("");
 
   return (
-    <BottomSheet onClose={onClose}>
+    <>
       <div className="mb-[12px] flex flex-col gap-[12px]">
         <div className="subheading-bold">멘티에게 궁금한 점 적기</div>
         <TextArea
@@ -29,6 +40,6 @@ export const QuestionToMenteeBottomSheet = ({
           다음
         </Button>
       </ButtonArea>
-    </BottomSheet>
+    </>
   );
 };

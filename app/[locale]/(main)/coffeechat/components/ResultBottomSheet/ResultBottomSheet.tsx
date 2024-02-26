@@ -10,13 +10,21 @@ interface ResultBottomSheetProps extends BottomSheetProps {
   onClose?: () => void;
 }
 
-export const ResultBottomSheet = ({
+export const ResultBottomSheet = ({ isOpen, onClose, ...props }: ResultBottomSheetProps) => {
+  return (
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <Result {...props} />
+    </BottomSheet>
+  );
+};
+
+export const Result = ({
+  resultType,
   description,
   confirmButton,
-  resultType,
-}: ResultBottomSheetProps) => {
+}: Omit<ResultBottomSheetProps, keyof BottomSheetProps>) => {
   return (
-    <BottomSheet>
+    <>
       <div className="flex flex-col items-center gap-[1.13rem] pb-4 pt-[3rem]">
         <div>
           <img
@@ -30,6 +38,6 @@ export const ResultBottomSheet = ({
         <div className="subheading-bold whitespace-pre-wrap text-center">{description}</div>
       </div>
       {confirmButton && <ButtonArea>{confirmButton}</ButtonArea>}
-    </BottomSheet>
+    </>
   );
 };

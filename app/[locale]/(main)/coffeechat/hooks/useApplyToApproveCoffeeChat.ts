@@ -1,10 +1,21 @@
+import { useState } from "react";
 import { useUpdateCoffeeChatApplyToApprove } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatApplyToApprove";
+import { PatchCoffeeChatApplyToApproveRequest } from "@/apis/coffeechat-status/types";
+import { useSteps } from "@/hooks/useSteps";
 import { useToggle } from "@/hooks/useToggle";
 
 export const useApplyToApproveCoffeeChat = () => {
-  const [isApprove, toggleIsApprove, setIsApprove] = useToggle();
-  const { mutate: approveCoffeeChat, isSuccess: isApproveSuccess } =
-    useUpdateCoffeeChatApplyToApprove();
+  const [isApprove, , setIsApprove] = useToggle();
+  const {
+    currentStep: approveStep,
+    goToNextStep: goToNextApproveStep,
+    lastStep: lastApproveStep,
+  } = useSteps(3);
+
+  const [coffeeChatMethod, setCoffeeChatMethod] =
+    useState<Pick<PatchCoffeeChatApplyToApproveRequest, "chatType" | "chatValue">>();
+
+  const { mutate: approveCoffeeChat } = useUpdateCoffeeChatApplyToApprove();
 
   const setIsApproveTrue = () => {
     setIsApprove(true);
@@ -15,11 +26,14 @@ export const useApplyToApproveCoffeeChat = () => {
   };
 
   return {
-    isApprove: isApprove && !isApproveSuccess,
-    isApproveSuccess,
-    toggleIsApprove,
+    isApprove,
     setIsApproveTrue,
     setIsApproveFalse,
+    approveStep,
+    lastApproveStep,
+    goToNextApproveStep,
+    coffeeChatMethod,
+    setCoffeeChatMethod,
     approveCoffeeChat,
   };
 };

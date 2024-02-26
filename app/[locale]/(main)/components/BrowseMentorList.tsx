@@ -76,13 +76,12 @@ export const BrowseMentorList = () => {
         ))}
         <div ref={ref} />
       </div>
-      {isOpenFilterBottomSheet && (
-        <MentorFilterBottomSheet
-          initial={params}
-          onSelectFilter={handleSelectFilter}
-          onClose={toggleOpenFilterBottomSheet}
-        />
-      )}
+      <MentorFilterBottomSheet
+        initial={params}
+        onSelectFilter={handleSelectFilter}
+        isOpen={isOpenFilterBottomSheet}
+        onClose={toggleOpenFilterBottomSheet}
+      />
     </>
   );
 };

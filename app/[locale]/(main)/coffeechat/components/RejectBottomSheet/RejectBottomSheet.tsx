@@ -15,12 +15,19 @@ interface RejectBottomSheetProps extends BottomSheetProps {
 
 const REJECT_OPTIONS = ["스케줄이 바뀌었어요", "당분간 상담이 어려워요."];
 
-export const RejectBottomSheet = ({
+export const RejectBottomSheet = ({ isOpen, onClose, ...props }: RejectBottomSheetProps) => {
+  return (
+    <BottomSheet isOpen={isOpen} onClose={onClose}>
+      <RejectReasonSelect {...props} />
+    </BottomSheet>
+  );
+};
+
+export const RejectReasonSelect = ({
   type = "reject",
   userName,
   onClickRejectButton,
-  onClose,
-}: RejectBottomSheetProps) => {
+}: Omit<RejectBottomSheetProps, keyof BottomSheetProps>) => {
   const t = useTranslations("coffeechat.RejectBottomSheet");
 
   const [selectedOption, setSelectedOption] = useState<number>();
@@ -33,7 +40,7 @@ export const RejectBottomSheet = ({
   };
 
   return (
-    <BottomSheet onClose={onClose}>
+    <>
       <div className="subheading-bold whitespace-pre-wrap">
         {type === "reject" && t("reject-title", { name: userName })}
         {type === "cancel" && t("cancel-title", { name: userName })}
@@ -73,6 +80,6 @@ export const RejectBottomSheet = ({
           {type === "reject" ? t("reject-coffeechat") : t("cancel-coffeechat")}
         </Button>
       </ButtonArea>
-    </BottomSheet>
+    </>
   );
 };
