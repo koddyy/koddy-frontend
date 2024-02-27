@@ -21,7 +21,7 @@ export const GoToScheduleCompleteBottomSheet = ({
         </div>
       </div>
       <ButtonArea>
-        <LinkButton href={PATH.MYPAGE_EDIT_SCHEDULE}>완성하러 가기</LinkButton>
+        <LinkButton href={PATH.MYPAGE_EDIT_SCHEDULE + "?prev=suggest"}>완성하러 가기</LinkButton>
       </ButtonArea>
     </BottomSheet>
   );
