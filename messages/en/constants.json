@@ -43,8 +43,10 @@
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
 
-        "MENTEE_CANCEL": "Request canceled",
-        "MENTOR_CANCEL": "Request canceled"
+        "CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
+        "AUTO_CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
+        "CANCEL_FROM_MENTOR_FLOW": "Canceled Chat",
+        "AUTO_CANCEL_FROM_MENTOR_FLOW": "Canceled Chat"
       },
 
       "mentee": {
@@ -60,8 +62,10 @@
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
 
-        "MENTEE_CANCEL": "Canceled Chat",
-        "MENTOR_CANCEL": "Canceled Chat"
+        "CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
+        "AUTO_CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
+        "CANCEL_FROM_MENTOR_FLOW": "Canceled Chat",
+        "AUTO_CANCEL_FROM_MENTOR_FLOW": "Canceled Chat"
       }
     },
 

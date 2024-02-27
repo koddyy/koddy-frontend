@@ -21,8 +21,11 @@ export const CoffeeChatStatusList = [
   "MENTOR_FINALLY_CANCEL",
   "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE",
 
-  "MENTEE_CANCEL",
-  "MENTOR_CANCEL",
+  "CANCEL_FROM_MENTEE_FLOW",
+  "CANCEL_FROM_MENTOR_FLOW",
+
+  "AUTO_CANCEL_FROM_MENTEE_FLOW",
+  "AUTO_CANCEL_FROM_MENTOR_FLOW",
 ] as const;
 
 export type CoffeeChatStatus = (typeof CoffeeChatStatusList)[number];
