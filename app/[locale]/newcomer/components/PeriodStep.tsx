@@ -18,7 +18,7 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, isDirty },
   } = useForm<Pick<Mentor, "period">>({
     values: { period: period ?? me?.period },
   });
@@ -49,7 +49,7 @@ export const PeriodStep = ({ onClickNextStep }: PeriodStepProps) => {
         onChangeStartDate={(date) => startDate.onChange(date)}
         onChangeEndDate={(date) => endDate.onChange(date)}
       />
-      <BottomButton type="submit" disabled={!isValid}>
+      <BottomButton type="submit" disabled={!isValid || !isDirty}>
         {t("next")}
       </BottomButton>
     </form>
