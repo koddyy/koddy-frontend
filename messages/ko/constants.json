@@ -43,8 +43,11 @@
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
 
-        "MENTEE_CANCEL": "커피챗이 취소됐어요",
-        "MENTOR_CANCEL": "커피챗이 취소됐어요"
+        "CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
+        "CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요",
+
+        "AUTO_CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
+        "AUTO_CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요"
       },
 
       "mentee": {
@@ -60,8 +63,11 @@
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
 
-        "MENTEE_CANCEL": "커피챗이 취소됐어요",
-        "MENTOR_CANCEL": "커피챗이 취소됐어요"
+        "CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
+        "CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요",
+
+        "AUTO_CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
+        "AUTO_CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요"
       }
     },
 

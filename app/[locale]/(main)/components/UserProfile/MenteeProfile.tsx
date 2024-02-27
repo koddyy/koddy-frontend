@@ -8,9 +8,14 @@ import { Lanuages } from "./Languages";
 
 type MenteeProfileProps = {
   coffeeChatStatusText?: string;
+  isAutoCancel?: boolean;
 } & GetMenteeByIdResponse;
 
-export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfileProps) => {
+export const MenteeProfile = ({
+  coffeeChatStatusText,
+  isAutoCancel,
+  ...user
+}: MenteeProfileProps) => {
   const constants = useTranslations("constants");
 
   const { profileImageUrl, name, languages, interestSchool, interestMajor, nationality } = user;
@@ -32,7 +37,13 @@ export const MenteeProfile = ({ coffeeChatStatusText, ...user }: MenteeProfilePr
         />
         <div className="absolute inset-0 z-10 bg-dimmed-gradient" />
       </div>
+
       <div className="px-[20px] py-[12px]">
+        {isAutoCancel && (
+          <div className="mb-[12px] rounded-[4px] bg-[#FDEDEE] py-[11px] text-center text-danger">
+            시간이 지나 자동으로 취소되었습니다.
+          </div>
+        )}
         <div className="mb-[14px]">
           {coffeeChatStatusText && (
             <div className="body-2-bold mb-[2px] text-primary-dark">{coffeeChatStatusText}</div>
