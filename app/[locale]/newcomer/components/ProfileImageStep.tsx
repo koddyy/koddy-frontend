@@ -12,7 +12,6 @@ export const ProfileImageStep = ({ onSubmitForm }: ProfileImageStepProps) => {
   const [profileImageFile, setProfileImageFile] = useState<File>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  console.log(profileImageFile);
   return (
     <>
       <div className="headline-1 mb-[36px]">
