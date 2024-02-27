@@ -14,6 +14,7 @@ export const PATH = {
   MYPAGE: "/mypage",
   MYPAGE_ACCOUNT: "/mypage/account",
   MYPAGE_EDIT: "/edit",
+  MYPAGE_EDIT_SCHEDULE: "/edit/schedule",
 };
 
 export const PUBLIC_PATH = [
@@ -24,13 +25,13 @@ export const PUBLIC_PATH = [
   PATH.SIGNUP_MENTEE,
   PATH.PROFILE_MENTOR,
   PATH.PROFILE_MENTEE,
+  PATH.COFFEECHAT,
   PATH.NOTIFICATION,
   PATH.MYPAGE,
 ];
 
 export const PRIVATE_PATH = [
   PATH.NEWCOMER, //
-  PATH.COFFEECHAT,
   PATH.SCHEDULE,
   PATH.MYPAGE_EDIT,
 ];

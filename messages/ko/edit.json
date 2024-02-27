@@ -51,7 +51,8 @@
         "schedule-by-not-repeat": "요일별로 달라요",
         "add": "추가"
       },
-      "edit": "수정하기"
+      "edit": "수정하기",
+      "complete": "완료"
     },
 
     "language-and-timezone": {

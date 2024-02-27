@@ -9,14 +9,17 @@ import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
 import { useToggle } from "@/hooks/useToggle";
 import { Link } from "@/libs/navigation";
+import { GoToScheduleCompleteBottomSheet } from "./GoToScheduleCompleteBottomSheet";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const t = useTranslations("profile");
 
   const menteeId = Number(params.id);
   const { data: mentee, isLoading } = useGetMenteeById(menteeId);
-  const { isAuthenticated } = useAuth();
-  const [isOpenLoginBottomSheet, toggleLoginBottomSheet] = useToggle();
+  const { isAuthenticated, me } = useAuth();
+  const [isOpenGoToLoginBottomSheet, toggleGoToLoginBottomSheet] = useToggle();
+  const [isOpenGoToScheduleCompleteBottomSheet, toggleGoToScheduleCompleteBottomSheet] =
+    useToggle();
 
   if (isLoading) return null;
 
@@ -34,15 +37,28 @@ const Page = ({ params }: { params: { id: string } }) => {
         <Link
           href={`${PATH.PROFILE_MENTEE}/${menteeId}/suggest`}
           onClick={(e) => {
-            if (isAuthenticated) return;
+            if (isAuthenticated) {
+              if (me.role === "mentor" && (!me.period || !me.schedules?.length)) {
+                e.preventDefault();
+                toggleGoToScheduleCompleteBottomSheet();
+              }
+              return;
+            }
             e.preventDefault();
-            toggleLoginBottomSheet();
+            toggleGoToLoginBottomSheet();
           }}
         >
           <Button>{t("suggest-coffeechat")}</Button>
         </Link>
       </div>
-      <GoToLoginBottomSheet isOpen={isOpenLoginBottomSheet} onClose={toggleLoginBottomSheet} />
+      <GoToScheduleCompleteBottomSheet
+        isOpen={isOpenGoToScheduleCompleteBottomSheet}
+        onClose={toggleGoToScheduleCompleteBottomSheet}
+      />
+      <GoToLoginBottomSheet
+        isOpen={isOpenGoToLoginBottomSheet}
+        onClose={toggleGoToLoginBottomSheet}
+      />
     </>
   );
 };

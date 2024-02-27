@@ -20,9 +20,10 @@ import { cn } from "@/utils/cn";
 const formLabelStyle =
   "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
 
-const Page = () => {
+const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
   const t = useTranslations("edit.schedule");
 
+  const prev = searchParams.prev;
   const router = useRouter();
   const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorSchedules } = useUpdateMentorSchedules();
@@ -41,7 +42,7 @@ const Page = () => {
 
   const {
     control,
-    formState: { isDirty },
+    formState: { isDirty, isValid },
   } = methods;
 
   const { field: startDate } = useController({
@@ -65,8 +66,11 @@ const Page = () => {
       { period, schedulesByRepeat, schedulesByNotRepeat },
       {
         onSuccess: () => {
-          alert("수정되었습니다");
-          router.push("/mypage");
+          if (prev) {
+            router.back();
+          } else {
+            router.push("/mypage");
+          }
         },
       }
     );
@@ -81,7 +85,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar
-        title={t("title")}
+        title={prev ? null : t("title")}
         titleFontWeight="regular"
         onClickGoback={() => router.back()}
       />
@@ -120,8 +124,8 @@ const Page = () => {
               </div>
             )}
           </div>
-          <BottomButton type="submit" disabled={!isDirty}>
-            {t("edit")}
+          <BottomButton type="submit" disabled={prev ? !isValid : !isDirty}>
+            {prev ? t("complete") : t("edit")}
           </BottomButton>
         </form>
       </FormProvider>
