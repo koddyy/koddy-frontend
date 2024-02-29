@@ -34,7 +34,7 @@ export interface Mentor {
 
 export interface Schedules {
   schedulesByRepeat?: {
-    dayOfWeek: Day[];
+    dayOfWeek: boolean[];
     start: string;
     end: string;
   };
