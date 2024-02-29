@@ -31,13 +31,13 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
   const [scheduleBy, setScheduleBy] = useState<ScheduleByOptionType>(isScheduleBy ?? "REPEAT");
 
   const methods = useForm({
+    mode: "onChange",
     values: {
       period,
       schedulesByRepeat: me?.schedulesByRepeat ??
         schedulesByRepeat ?? { dayOfWeek: [], start: "09:00", end: "17:00" },
       schedulesByNotRepeat: me?.schedulesByNotRepeat ?? schedulesByNotRepeat ?? [],
     },
-    shouldUnregister: true,
   });
 
   const {
@@ -45,16 +45,12 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
     formState: { isDirty, isValid },
   } = methods;
 
-  const { field: startDate } = useController({
+  const { field: periodField } = useController({
     control,
-    name: "period.startDate",
-    rules: { required: true },
-  });
-
-  const { field: endDate } = useController({
-    control,
-    name: "period.endDate",
-    rules: { required: true },
+    name: "period",
+    rules: {
+      validate: (value) => value && Boolean(value.startDate) && Boolean(value.endDate),
+    },
   });
 
   const handleClickEdit = ({
@@ -94,10 +90,14 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
           <div className="my-[24px] px-[20px]">
             <div className={cn(formLabelStyle, "mb-[16px]")}>{t("period.label")}</div>
             <PeriodSelect
-              startDate={startDate.value}
-              endDate={endDate.value}
-              onChangeStartDate={(date) => startDate.onChange(date)}
-              onChangeEndDate={(date) => endDate.onChange(date)}
+              startDate={periodField.value?.startDate}
+              endDate={periodField.value?.endDate}
+              onChangeStartDate={(date) =>
+                periodField.onChange({ ...periodField.value, startDate: date })
+              }
+              onChangeEndDate={(date) =>
+                periodField.onChange({ ...periodField.value, endDate: date })
+              }
             />
           </div>
           <Divider className="border-[4px] border-gray-100" />
@@ -107,7 +107,9 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
               name="scheduleBy"
               value={scheduleBy}
               onChangeValue={(value) => {
-                if (value === "REPEAT" || value === "NOT_REPEAT") setScheduleBy(value);
+                if (value === "REPEAT" || value === "NOT_REPEAT") {
+                  setScheduleBy(value);
+                }
               }}
             >
               <Radio value="REPEAT">{t("schedules.schedule-by-repeat")}</Radio>
@@ -124,7 +126,7 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
               </div>
             )}
           </div>
-          <BottomButton type="submit" disabled={prev ? !isValid : !isDirty}>
+          <BottomButton type="submit" disabled={!isValid || !isDirty}>
             {prev ? t("complete") : t("edit")}
           </BottomButton>
         </form>
