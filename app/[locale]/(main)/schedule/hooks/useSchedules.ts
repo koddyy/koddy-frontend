@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
-import { Day } from "@/types/mentor";
-import { toYYYYMMDD } from "@/utils/dateUtils";
+import { DAYS } from "@/constants/date";
+import { getToday, toYYYYMMDD } from "@/utils/dateUtils";
 import { compareHHMM, toHHMM } from "@/utils/time";
 import {
   createTimeRangeList,
@@ -23,17 +23,17 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
 
   const timeRangeListPerDay = useMemo(() => {
     return schedules?.reduce(
-      (acc, { dayOfWeek, start, end }) => ({
-        ...acc,
-        [dayOfWeek]: createTimeRangeList(toHHMM(start), toHHMM(end)),
-      }),
-      {} as { [key in Day]: string[][] }
+      (acc, { dayOfWeek, start, end }) => {
+        return {
+          ...acc,
+          [DAYS.indexOf(dayOfWeek)]: createTimeRangeList(toHHMM(start), toHHMM(end)),
+        };
+      },
+      {} as { [key: string]: string[][] }
     );
   }, [schedules]);
 
-  const currentDay = new Intl.DateTimeFormat("ko-KR", {
-    weekday: "short",
-  }).format(currentDate) as Day;
+  const currentDay = currentDate.getDay();
 
   const availableTimeRangeList = useMemo(
     () =>
@@ -46,12 +46,13 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
   );
 
   const availableTimeRangeListOfToday = useMemo(() => {
+    const today = getToday().getDay();
     const closestNextTime = getClosestNextTimeAfterCurrent(new Date());
 
-    return timeRangeListPerDay?.[currentDay]?.filter((timeRange) => {
+    return timeRangeListPerDay?.[today]?.filter((timeRange) => {
       return compareHHMM(closestNextTime, timeRange[0]) !== 1;
     });
-  }, [currentDay, timeRangeListPerDay]);
+  }, [timeRangeListPerDay]);
 
   return {
     startDate: period?.startDate ? new Date(period.startDate) : undefined,
