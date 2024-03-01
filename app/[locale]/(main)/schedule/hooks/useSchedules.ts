@@ -2,8 +2,12 @@ import { useMemo } from "react";
 import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
 import { Day } from "@/types/mentor";
 import { toYYYYMMDD } from "@/utils/dateUtils";
-import { toHHMM } from "@/utils/time";
-import { createTimeRangeList, getDisabledDays } from "../utils/scheduleUtils";
+import { compareHHMM, toHHMM } from "@/utils/time";
+import {
+  createTimeRangeList,
+  getClosestNextTimeAfterCurrent,
+  getDisabledDays,
+} from "../utils/scheduleUtils";
 
 export const useSchedules = (mentorId: number, currentDate: Date) => {
   const { data } = useGetReservedSchedules(mentorId, {
@@ -41,10 +45,19 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
     [currentDate, currentDay, reserved, timeRangeListPerDay]
   );
 
+  const availableTimeRangeListOfToday = useMemo(() => {
+    const closestNextTime = getClosestNextTimeAfterCurrent(new Date());
+
+    return timeRangeListPerDay?.[currentDay]?.filter((timeRange) => {
+      return compareHHMM(closestNextTime, timeRange[0]) !== 1;
+    });
+  }, [currentDay, timeRangeListPerDay]);
+
   return {
     startDate: period?.startDate ? new Date(period.startDate) : undefined,
     endDate: period?.endDate ? new Date(period.endDate) : undefined,
     disabledDays,
     availableTimeRangeList,
+    availableTimeRangeListOfToday,
   };
 };

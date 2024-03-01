@@ -1,3 +1,4 @@
+import { isToday } from "date-fns";
 import { useTranslations } from "next-intl";
 import { Controller, useController, useFormContext } from "react-hook-form";
 import { Button } from "@/components/Button";
@@ -29,10 +30,13 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     },
   });
 
-  const { startDate, endDate, disabledDays, availableTimeRangeList } = useSchedules(
-    mentorId,
-    dateField.value ?? new Date()
-  );
+  const {
+    startDate,
+    endDate,
+    disabledDays,
+    availableTimeRangeList,
+    availableTimeRangeListOfToday,
+  } = useSchedules(mentorId, dateField.value ?? new Date());
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
 
@@ -58,7 +62,10 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
             name="timeRange"
             render={({ field }) => (
               <div className="flex flex-wrap gap-3">
-                {availableTimeRangeList?.map((timeRange, i) => {
+                {(isToday(dateField.value)
+                  ? availableTimeRangeListOfToday
+                  : availableTimeRangeList
+                )?.map((timeRange, i) => {
                   const delimiter = " ~ ";
                   const value = timeRange.join(delimiter);
                   return (
