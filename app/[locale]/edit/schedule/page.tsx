@@ -16,6 +16,7 @@ import { ScheduleByOptionType } from "@/constants/schedule";
 import { useRouter } from "@/libs/navigation";
 import { UpdateSchedulesForm } from "@/types/mentor";
 import { cn } from "@/utils/cn";
+import { convertSchedules } from "@/utils/schedules";
 
 const formLabelStyle =
   "body-1-bold flex items-center before:mr-[8px] before:inline-block before:h-[8px] before:w-[8px] before:rounded-full before:bg-primary before:content-['']";
@@ -59,7 +60,13 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
     schedulesByNotRepeat,
   }: UpdateSchedulesForm) => {
     updateMentorSchedules(
-      { period, schedulesByRepeat, schedulesByNotRepeat },
+      {
+        period,
+        schedules:
+          scheduleBy === "REPEAT"
+            ? convertSchedules({ schedulesByRepeat })
+            : convertSchedules({ schedulesByNotRepeat }),
+      },
       {
         onSuccess: () => {
           if (prev) {

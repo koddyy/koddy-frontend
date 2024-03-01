@@ -2,10 +2,6 @@ import { DAYS } from "@/constants/date";
 import { Mentor, Schedules } from "@/types/mentor";
 import { toHHMM, toTime } from "./time";
 
-export const convertPeriod = (period: Mentor["period"]) => {
-  if (period && period.startDate && period.endDate) return period;
-};
-
 export const convertSchedules = ({ schedulesByRepeat, schedulesByNotRepeat }: Schedules) => {
   if (schedulesByRepeat) {
     return DAYS.filter((_, i) => schedulesByRepeat.dayOfWeek[i]).map((dayOfWeek) => ({
