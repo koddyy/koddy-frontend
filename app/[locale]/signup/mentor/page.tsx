@@ -6,8 +6,8 @@ import { NavigationBar } from "@/app/components/NavigationBar";
 import { Progress } from "@/components/Progress";
 import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
+import { useOauthInfoStore } from "@/stores/oauth-info";
 import { useProviderStore } from "@/stores/provider";
-import { useUserStore } from "@/stores/user";
 import { MainLanguageSelectForm } from "../components/MainLanguageSelectForm";
 import { SignupSuccess } from "../components/SignupSuccess";
 import { SubLanguageSelectForm } from "../components/SubLanguageSelectForm";
@@ -26,15 +26,15 @@ const Page = () => {
       },
     },
   });
-  const { user } = useUserStore();
+  const { oauthInfo } = useOauthInfoStore();
   const { provider, socialId, setLoggedIn } = useProviderStore();
   const { mutate: signup } = useSignupAsMentor();
 
   const onSubmitForm = (data: SignupForm) => {
-    if (!user || !provider || !socialId) return;
+    if (!oauthInfo || !provider || !socialId) return;
 
     signup(
-      { provider, socialId, ...user, ...data },
+      { provider, socialId, ...oauthInfo, ...data },
       {
         onSuccess: () => {
           goToNextStep();
