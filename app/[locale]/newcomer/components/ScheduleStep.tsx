@@ -79,6 +79,7 @@ export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
             <ScheduleByNotRepeat />
           </div>
         )}
+        <div className="h-[96px]" />
         <BottomButton type="submit" disabled={!isDirty || !isValid}>
           {t("next")}
         </BottomButton>

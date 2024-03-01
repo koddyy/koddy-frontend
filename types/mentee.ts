@@ -1,7 +1,10 @@
-import { Nationality, NationCode, User } from "./user";
+import { Nationality, NationCode } from "./user";
 
-export interface Mentee extends User {
+export interface Mentee {
   id: number;
+  name: string;
+  email: string;
+  profileImageUrl?: string;
   nationality: Nationality;
   introduction?: string;
   languages: {

@@ -1,4 +1,4 @@
-import { NationCode, User } from "./user";
+import { NationCode } from "./user";
 
 export type Day = "월" | "화" | "수" | "목" | "금" | "토" | "일";
 
@@ -9,8 +9,11 @@ export type Period = {
   endDate: string;
 };
 
-export interface Mentor extends User {
+export interface Mentor {
   id: number;
+  name: string;
+  email: string;
+  profileImageUrl?: string;
   introduction?: string;
   languages: {
     main: NationCode;
@@ -31,7 +34,7 @@ export interface Mentor extends User {
 
 export interface Schedules {
   schedulesByRepeat?: {
-    dayOfWeek: Day[];
+    dayOfWeek: boolean[];
     start: string;
     end: string;
   };

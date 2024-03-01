@@ -24,6 +24,9 @@ export const ScheduleByNotRepeat = () => {
   } = useFieldArray({
     control,
     name: "schedulesByNotRepeat",
+    rules: {
+      validate: (value) => value.length > 0,
+    },
   });
 
   const [days, setDays] = useState<Day[]>([]);

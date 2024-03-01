@@ -1,13 +1,10 @@
+import { DAYS } from "@/constants/date";
 import { Mentor, Schedules } from "@/types/mentor";
 import { toHHMM, toTime } from "./time";
 
-export const convertPeriod = (period: Mentor["period"]) => {
-  if (period && period.startDate && period.endDate) return period;
-};
-
 export const convertSchedules = ({ schedulesByRepeat, schedulesByNotRepeat }: Schedules) => {
   if (schedulesByRepeat) {
-    return [...schedulesByRepeat.dayOfWeek].map((dayOfWeek) => ({
+    return DAYS.filter((_, i) => schedulesByRepeat.dayOfWeek[i]).map((dayOfWeek) => ({
       dayOfWeek,
       start: toTime(schedulesByRepeat.start),
       end: schedulesByRepeat.end === "24:00" ? toTime("23:59") : toTime(schedulesByRepeat.end),
@@ -40,7 +37,7 @@ export const parseSchedules = (_schedules: Mentor["schedules"]) => {
     return {
       isScheduleBy: "REPEAT" as const,
       schedulesByRepeat: {
-        dayOfWeek: schedules.map(({ dayOfWeek }) => dayOfWeek),
+        dayOfWeek: DAYS.map((v) => schedules.some(({ dayOfWeek }) => v === dayOfWeek)),
         start: schedules[0].start,
         end: schedules[0].end,
       },

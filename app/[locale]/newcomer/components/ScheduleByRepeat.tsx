@@ -1,4 +1,5 @@
 import { useController, useFormContext } from "react-hook-form";
+import { DAYS } from "@/constants/date";
 import { CompleteProfileForm, Day } from "@/types/mentor";
 import { DaysAndTimeRangeSelect } from "./DaysAndTimeRangeSelect";
 
@@ -9,7 +10,7 @@ export const ScheduleByRepeat = () => {
     control,
     name: "schedulesByRepeat.dayOfWeek",
     rules: {
-      validate: (value) => value.length > 0,
+      validate: (value) => value.some((v) => Boolean(v)),
     },
   });
 
@@ -27,9 +28,10 @@ export const ScheduleByRepeat = () => {
 
   const changeDays = (day: Day) => {
     const copy = [...dayOfWeek.value];
-    const index = copy.indexOf(day);
-    if (index === -1) copy.push(day);
-    else copy.splice(index, 1);
+    const index = DAYS.indexOf(day);
+    if (index === -1) return;
+
+    copy[index] = !copy[index];
     dayOfWeek.onChange(copy);
   };
 
@@ -38,9 +40,11 @@ export const ScheduleByRepeat = () => {
     endTime.onChange(end);
   };
 
+  const days = DAYS.filter((_, i) => dayOfWeek.value[i]);
+
   return (
     <DaysAndTimeRangeSelect
-      days={dayOfWeek.value}
+      days={days}
       timeRange={{
         start: startTime.value,
         end: endTime.value,
