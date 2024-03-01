@@ -35,9 +35,8 @@ const Page = ({ searchParams }: { searchParams: { prev: string } }) => {
     mode: "onChange",
     values: {
       period,
-      schedulesByRepeat: me?.schedulesByRepeat ??
-        schedulesByRepeat ?? { dayOfWeek: [], start: "09:00", end: "17:00" },
-      schedulesByNotRepeat: me?.schedulesByNotRepeat ?? schedulesByNotRepeat ?? [],
+      schedulesByRepeat: schedulesByRepeat ?? { dayOfWeek: [], start: "09:00", end: "17:00" },
+      schedulesByNotRepeat: schedulesByNotRepeat ?? [],
     },
   });
 
