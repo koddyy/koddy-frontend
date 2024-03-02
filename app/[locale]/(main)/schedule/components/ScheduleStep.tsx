@@ -31,13 +31,8 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     },
   });
 
-  const {
-    startDate,
-    endDate,
-    disabledDays,
-    availableTimeRangeList,
-    availableTimeRangeListOfToday,
-  } = useSchedules(mentorId, dateField.value ?? getKSTToday());
+  const { minDate, maxDate, disabledDays, availableTimeRangeList, availableTimeRangeListOfToday } =
+    useSchedules(mentorId, dateField.value ?? getKSTToday());
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(getKSTToday());
 
@@ -48,8 +43,8 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         <div className="rounded-[8px] border border-gray-200 px-[29px] py-[9px]">
           <Calendar
             tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
-            minDate={startDate}
-            maxDate={endDate}
+            minDate={minDate}
+            maxDate={maxDate}
             value={dateField.value}
             onChange={(value) => dateField.onChange(value)}
           />

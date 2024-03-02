@@ -55,8 +55,14 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
   }, [timeRangeListPerDay]);
 
   return {
-    startDate: period?.startDate ? toKSTDate(period.startDate) : undefined,
-    endDate: period?.endDate ? toKSTDate(period.endDate) : undefined,
+    minDate: period?.startDate
+      ? toKSTDate(
+          period.startDate < toYYYYMMDD(getKSTToday())
+            ? toYYYYMMDD(getKSTToday())
+            : period.startDate
+        )
+      : undefined,
+    maxDate: period?.endDate ? toKSTDate(period.endDate) : undefined,
     disabledDays,
     availableTimeRangeList,
     availableTimeRangeListOfToday,
