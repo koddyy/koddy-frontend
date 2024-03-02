@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
 import { DAYS } from "@/constants/date";
-import { getToday, toYYYYMMDD } from "@/utils/dateUtils";
+import { getKSTToday, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
 import { compareHHMM, toHHMM } from "@/utils/time";
 import {
   createTimeRangeList,
@@ -46,17 +46,17 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
   );
 
   const availableTimeRangeListOfToday = useMemo(() => {
-    const today = getToday().getDay();
-    const closestNextTime = getClosestNextTimeAfterCurrent(new Date());
+    const today = getKSTToday();
+    const closestNextTime = getClosestNextTimeAfterCurrent(today);
 
-    return timeRangeListPerDay?.[today]?.filter((timeRange) => {
+    return timeRangeListPerDay?.[today.getDay()]?.filter((timeRange) => {
       return compareHHMM(closestNextTime, timeRange[0]) !== 1;
     });
   }, [timeRangeListPerDay]);
 
   return {
-    startDate: period?.startDate ? new Date(period.startDate) : undefined,
-    endDate: period?.endDate ? new Date(period.endDate) : undefined,
+    startDate: period?.startDate ? toKSTDate(period.startDate) : undefined,
+    endDate: period?.endDate ? toKSTDate(period.endDate) : undefined,
     disabledDays,
     availableTimeRangeList,
     availableTimeRangeListOfToday,

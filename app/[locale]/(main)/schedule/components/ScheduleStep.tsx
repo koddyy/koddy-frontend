@@ -7,6 +7,7 @@ import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
+import { getKSTToday } from "@/utils/dateUtils";
 import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
@@ -36,9 +37,9 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     disabledDays,
     availableTimeRangeList,
     availableTimeRangeListOfToday,
-  } = useSchedules(mentorId, dateField.value ?? new Date());
+  } = useSchedules(mentorId, dateField.value ?? getKSTToday());
 
-  const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
+  const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(getKSTToday());
 
   return (
     <>
