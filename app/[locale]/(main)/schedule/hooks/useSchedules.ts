@@ -1,9 +1,13 @@
 import { useMemo } from "react";
 import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
-import { Day } from "@/types/mentor";
-import { toYYYYMMDD } from "@/utils/dateUtils";
-import { toHHMM } from "@/utils/time";
-import { createTimeRangeList, getDisabledDays } from "../utils/scheduleUtils";
+import { DAYS } from "@/constants/date";
+import { getKSTToday, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { compareHHMM, toHHMM } from "@/utils/time";
+import {
+  createTimeRangeList,
+  getClosestNextTimeAfterCurrent,
+  getDisabledDays,
+} from "../utils/scheduleUtils";
 
 export const useSchedules = (mentorId: number, currentDate: Date) => {
   const { data } = useGetReservedSchedules(mentorId, {
@@ -19,17 +23,17 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
 
   const timeRangeListPerDay = useMemo(() => {
     return schedules?.reduce(
-      (acc, { dayOfWeek, start, end }) => ({
-        ...acc,
-        [dayOfWeek]: createTimeRangeList(toHHMM(start), toHHMM(end)),
-      }),
-      {} as { [key in Day]: string[][] }
+      (acc, { dayOfWeek, start, end }) => {
+        return {
+          ...acc,
+          [DAYS.indexOf(dayOfWeek)]: createTimeRangeList(toHHMM(start), toHHMM(end)),
+        };
+      },
+      {} as { [key: string]: string[][] }
     );
   }, [schedules]);
 
-  const currentDay = new Intl.DateTimeFormat("ko-KR", {
-    weekday: "short",
-  }).format(currentDate) as Day;
+  const currentDay = currentDate.getDay();
 
   const availableTimeRangeList = useMemo(
     () =>
@@ -41,10 +45,26 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
     [currentDate, currentDay, reserved, timeRangeListPerDay]
   );
 
+  const availableTimeRangeListOfToday = useMemo(() => {
+    const today = getKSTToday();
+    const closestNextTime = getClosestNextTimeAfterCurrent(today);
+
+    return timeRangeListPerDay?.[today.getDay()]?.filter((timeRange) => {
+      return compareHHMM(closestNextTime, timeRange[0]) !== 1;
+    });
+  }, [timeRangeListPerDay]);
+
   return {
-    startDate: period?.startDate ? new Date(period.startDate) : undefined,
-    endDate: period?.endDate ? new Date(period.endDate) : undefined,
+    minDate: period?.startDate
+      ? toKSTDate(
+          period.startDate < toYYYYMMDD(getKSTToday())
+            ? toYYYYMMDD(getKSTToday())
+            : period.startDate
+        )
+      : undefined,
+    maxDate: period?.endDate ? toKSTDate(period.endDate) : undefined,
     disabledDays,
     availableTimeRangeList,
+    availableTimeRangeListOfToday,
   };
 };

@@ -1,4 +1,5 @@
 import { addMonths } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 
 export const toYYYYMMDD = (date: Date) => {
   const year = date.getFullYear();
@@ -30,4 +31,18 @@ export const hhmmssTohhmm = (hhmmss: string) => {
   const [hh, mm] = hhmmss.split(":");
 
   return [hh, mm].join(":");
+};
+
+/** KST */
+
+export const getKSTToday = () => {
+  const utcISOString = new Date().toISOString();
+
+  return utcToZonedTime(utcISOString, "Asia/Seoul");
+};
+
+export const toKSTDate = (date: string) => {
+  const utc = new Date(date).toISOString();
+
+  return utcToZonedTime(utc, "Asia/Seoul");
 };

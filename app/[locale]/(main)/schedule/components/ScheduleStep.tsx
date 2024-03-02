@@ -1,3 +1,4 @@
+import { isToday } from "date-fns";
 import { useTranslations } from "next-intl";
 import { Controller, useController, useFormContext } from "react-hook-form";
 import { Button } from "@/components/Button";
@@ -6,6 +7,7 @@ import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
+import { getKSTToday } from "@/utils/dateUtils";
 import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
@@ -29,12 +31,10 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     },
   });
 
-  const { startDate, endDate, disabledDays, availableTimeRangeList } = useSchedules(
-    mentorId,
-    dateField.value ?? new Date()
-  );
+  const { minDate, maxDate, disabledDays, availableTimeRangeList, availableTimeRangeListOfToday } =
+    useSchedules(mentorId, dateField.value ?? getKSTToday());
 
-  const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(new Date());
+  const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(getKSTToday());
 
   return (
     <>
@@ -43,8 +43,8 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         <div className="rounded-[8px] border border-gray-200 px-[29px] py-[9px]">
           <Calendar
             tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
-            minDate={startDate}
-            maxDate={endDate}
+            minDate={minDate}
+            maxDate={maxDate}
             value={dateField.value}
             onChange={(value) => dateField.onChange(value)}
           />
@@ -58,7 +58,10 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
             name="timeRange"
             render={({ field }) => (
               <div className="flex flex-wrap gap-3">
-                {availableTimeRangeList?.map((timeRange, i) => {
+                {(isToday(dateField.value)
+                  ? availableTimeRangeListOfToday
+                  : availableTimeRangeList
+                )?.map((timeRange, i) => {
                   const delimiter = " ~ ";
                   const value = timeRange.join(delimiter);
                   return (

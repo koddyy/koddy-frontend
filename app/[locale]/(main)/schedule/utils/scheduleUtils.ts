@@ -1,5 +1,6 @@
 import { DAYS } from "@/constants/date";
 import { Day } from "@/types/mentor";
+import { toHHMM } from "@/utils/time";
 
 export const getDisabledDays = (availableDays: Day[]) => {
   const disabledDays = DAYS.reduce((acc, cur, i) => {
@@ -37,4 +38,19 @@ export const createTimeRangeList = (start: string, end: string, GAP = 30) => {
 
     return [`${prevHH}:${prevMM}`, `${nextHH}:${nextMM}`];
   });
+};
+
+export const getClosestNextTimeAfterCurrent = (current: Date, timeUnit: 30 | 60 = 30) => {
+  const hour = current.getHours();
+  const minute = current.getMinutes();
+
+  if (timeUnit === 60) {
+    return toHHMM({ hour: hour + 1, minute: 0 });
+  }
+
+  if (minute < 30) {
+    return toHHMM({ hour, minute: 30 });
+  } else {
+    return toHHMM({ hour: hour + 1, minute: 0 });
+  }
 };
