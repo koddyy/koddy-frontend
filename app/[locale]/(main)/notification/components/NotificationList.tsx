@@ -4,6 +4,7 @@ import { useMarkAsReadNotification } from "@/apis/notification/hooks/useMarkAsRe
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { PATH } from "@/constants/path";
 import { DefaultProfileImageUrl } from "@/constants/profile";
+import { useIntersect } from "@/hooks/useIntersect";
 import { Link } from "@/libs/navigation";
 import { KSTtoZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
 import { NotificationItem } from "./NotificationItem/NotificationItem";
@@ -12,8 +13,17 @@ export const NotificationList = () => {
   const t = useTranslations("notification");
 
   const { data: me } = useGetMe();
-  const { data: notificationList } = useGetNotificationList({ page: 1 });
+  const {
+    data: notificationList,
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+  } = useGetNotificationList({ page: 1 });
   const { mutate: markAsReadNotification } = useMarkAsReadNotification();
+
+  const ref = useIntersect(() => {
+    if (hasNextPage && !isFetching) fetchNextPage();
+  });
 
   if (!me) return null;
 
@@ -51,6 +61,7 @@ export const NotificationList = () => {
           </Link>
         );
       })}
+      <div ref={ref} />
     </>
   );
 };
