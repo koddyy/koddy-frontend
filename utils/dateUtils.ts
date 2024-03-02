@@ -1,5 +1,6 @@
 import { addMonths } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import { toDate, utcToZonedTime } from "date-fns-tz";
+import { timezoneCookie } from "./timezone";
 
 export const toYYYYMMDD = (date: Date) => {
   const year = date.getFullYear();
@@ -45,4 +46,12 @@ export const toKSTDate = (date: string) => {
   const utc = new Date(date).toISOString();
 
   return utcToZonedTime(utc, "Asia/Seoul");
+};
+
+/** @NOTE offset이 포함되지 않은 date 문자열 */
+export const KSTtoZonedDate = (date: string) => {
+  const localTime = toDate(date, { timeZone: "Asia/Seoul" });
+
+  const timeZone = timezoneCookie.get();
+  return utcToZonedTime(localTime.toISOString(), timeZone);
 };
