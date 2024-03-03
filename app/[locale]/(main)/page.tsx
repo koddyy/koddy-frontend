@@ -14,7 +14,6 @@ import {
   NewSuggestedCoffeeChatList,
 } from "./components/NewCoffeeChatList";
 import { ProfileCompleteBanner } from "./components/ProfileCompleteBanner";
-import { UserCardListSkeleton } from "./components/UserCardListSkeleton";
 
 const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
   const t = useTranslations("home");
@@ -45,16 +44,18 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
             <ProfileCompleteBanner />
           </div>
         )}
-        <SSRSafeSuspense fallback={<UserCardListSkeleton />}>
+        {isAuthenticated && (
+          <SSRSafeSuspense>
+            {me.role === "mentee" && <NewSuggestedCoffeeChatList />}
+            {me.role === "mentor" && <NewAppliedCoffeeChatList />}
+          </SSRSafeSuspense>
+        )}
+        <SSRSafeSuspense>
           {isAuthenticated ? (
-            <>
-              {me.role === "mentor" && <NewAppliedCoffeeChatList />}
-              {me.role === "mentee" && <NewSuggestedCoffeeChatList />}
-              <div className="px-[20px]">
-                {me.role === "mentor" && <BrowseMenteeList />}
-                {me.role === "mentee" && <BrowseMentorList />}
-              </div>
-            </>
+            <div className="px-[20px]">
+              {me.role === "mentor" && <BrowseMenteeList />}
+              {me.role === "mentee" && <BrowseMentorList />}
+            </div>
           ) : (
             <div className="px-[20px]">
               {explore === "mentee" && <BrowseMenteeList />}
