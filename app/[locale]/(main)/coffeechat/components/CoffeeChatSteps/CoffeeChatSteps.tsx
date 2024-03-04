@@ -3,9 +3,9 @@ import { Fragment } from "react";
 import { useGetCoffeeChatCount } from "@/apis/coffeechat/hooks/useGetCoffeeChatCounts";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Button } from "@/components/Button";
+import { CoffeeChatCategoryOptions } from "@/constants/coffeechat";
 import { PATH } from "@/constants/path";
 import { Link } from "@/libs/navigation";
-import { CoffeeChatCategoryList } from "@/types/coffeechat";
 import { Role } from "@/types/user";
 import { cn } from "@/utils/cn";
 import { CoffeeChatStepsDescription } from "./CoffeeChatStepsDescription";
@@ -37,23 +37,20 @@ export const CoffeeChatSteps = ({ role }: CoffeeChatStepsProps) => {
             </div>
           </Button>
         </Link>
-        <div className="flex items-center justify-between rounded-[10px] bg-gray-100 px-[28px] py-[13px] text-gray-500">
-          {CoffeeChatCategoryList.map(
-            (category, i) =>
-              category !== "suggested" && (
-                <Fragment key={category}>
-                  <div className="text-center">
-                    <div className={cn("headline-2", count?.[category] && "text-primary-dark")}>
-                      {count?.[category] ?? 0}
-                    </div>
-                    <div className="label">{t(`category.${category}`)}</div>
-                  </div>
-                  {i !== CoffeeChatCategoryList.length - 1 && (
-                    <ArrowRight width={18} height={18} className="text-gray-500" />
-                  )}
-                </Fragment>
-              )
-          )}
+        <div className="flex items-center justify-between gap-[26px] rounded-[10px] bg-gray-100 px-[28px] py-[13px] text-gray-500">
+          {CoffeeChatCategoryOptions.map((category, i) => (
+            <Fragment key={category}>
+              <div className="grow text-center">
+                <div className={cn("headline-2", count?.[category] && "text-primary-dark")}>
+                  {count?.[category] ?? 0}
+                </div>
+                <div className="label">{t(`category.${category}`)}</div>
+              </div>
+              {i !== CoffeeChatCategoryOptions.length - 1 && (
+                <ArrowRight width={18} height={18} className="text-gray-500" />
+              )}
+            </Fragment>
+          ))}
         </div>
       </div>
       <div className="mt-[14px] flex items-center justify-end gap-[5px]">
