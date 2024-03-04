@@ -81,12 +81,14 @@ export const ScheduleByNotRepeat = () => {
                   <Toggle>{constants(`day-of-week.${field.dayOfWeek}`)[0]}</Toggle>
                   <div className="flex grow items-center gap-[10px]">
                     <Select
+                      dropdownClassName="z-overlay"
                       options={TIMES}
                       value={field.start}
                       onChangeValue={(value) => update(i, { ...field, start: value })}
                     />
                     <span>~</span>
                     <Select
+                      dropdownClassName="z-overlay"
                       options={TIMES}
                       value={field.end}
                       onChangeValue={(value) => update(i, { ...field, end: value })}

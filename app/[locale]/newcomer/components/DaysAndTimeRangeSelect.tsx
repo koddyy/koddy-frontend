@@ -32,12 +32,14 @@ export const DaysAndTimeRangeSelect = ({
       </div>
       <div className="mb-[13px] flex items-center gap-[12px]">
         <Select
+          dropdownClassName="z-overlay"
           options={TIMES}
           value={timeRange.start}
           onChangeValue={(value) => onChangeTimeRange({ ...timeRange, start: value })}
         />
         <span>~</span>
         <Select
+          dropdownClassName="z-overlay"
           options={TIMES}
           value={timeRange.end}
           onChangeValue={(value) => onChangeTimeRange({ ...timeRange, end: value })}
