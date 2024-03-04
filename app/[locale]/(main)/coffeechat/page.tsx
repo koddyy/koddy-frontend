@@ -2,15 +2,16 @@
 
 import { useTranslations } from "next-intl";
 import qs from "querystring";
-import { Suspense } from "react";
 import {
   CoffeeChatCardListWithMentee,
   CoffeeChatCardListWithMentor,
 } from "@/app/[locale]/(main)/coffeechat/components/CoffeeChatCardList";
 import { GoToLogin } from "@/app/components/GoToLogin";
 import { Header } from "@/app/components/Header";
+import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
 import { Divider } from "@/components/Divider";
 import { Select } from "@/components/Select";
+import { Spinner } from "@/components/Spinner";
 import { CoffeeChatCategoryOptions, CoffeeChatStatusOptions } from "@/constants/coffeechat";
 import { useAuth } from "@/hooks/useAuth";
 import { Link, usePathname } from "@/libs/navigation";
@@ -95,14 +96,14 @@ const Page = ({
                 )}
               />
             )}
-            <Suspense>
+            <SSRSafeSuspense fallback={<Spinner className="mx-auto mt-[46px]" />}>
               {me.role === "mentor" && (
                 <CoffeeChatCardListWithMentee category={activeCategory} detail={activeFilter} />
               )}
               {me.role === "mentee" && (
                 <CoffeeChatCardListWithMentor category={activeCategory} detail={activeFilter} />
               )}
-            </Suspense>
+            </SSRSafeSuspense>
           </div>
         </>
       ) : (
