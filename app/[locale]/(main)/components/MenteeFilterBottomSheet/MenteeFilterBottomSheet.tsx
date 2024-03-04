@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
 import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
@@ -33,7 +33,7 @@ export const MenteeFilterBottomSheet = ({
   const t = useTranslations("home.filters");
   const constants = useTranslations("constants");
 
-  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(initialFilter ?? null);
   const [nationality, setNationality] = useState<Nationality | null>(
     initial.nationalities?.[0] ?? null
   );
@@ -79,7 +79,20 @@ export const MenteeFilterBottomSheet = ({
     onSelectFilter(nationality, [...languages]);
   };
 
-  const activeFilter = selectedFilter ?? initialFilter;
+  useEffect(() => {
+    /** @NOTE 컴포넌트가 언마운트 되지 않으므로 상위 컴포넌트와 상태 동기화 필요 */
+    if (initial.nationalities) {
+      setNationality(initial.nationalities[0]);
+    }
+
+    if (initial.languages) {
+      setLanguages(new Set(initial.languages));
+    }
+
+    if (initialFilter) {
+      setSelectedFilter(initialFilter);
+    }
+  }, [initial.nationalities, initial.languages, initialFilter]);
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
@@ -87,7 +100,10 @@ export const MenteeFilterBottomSheet = ({
         {FILTER_OPTIONS.map((option) => (
           <button
             key={option}
-            className={cn("body-1-bold text-gray-400", activeFilter === option && "text-gray-700")}
+            className={cn(
+              "body-1-bold text-gray-400",
+              selectedFilter === option && "text-gray-700"
+            )}
             type="button"
             onClick={() => setSelectedFilter(option)}
           >
@@ -95,7 +111,7 @@ export const MenteeFilterBottomSheet = ({
           </button>
         ))}
       </div>
-      {activeFilter === "nationalities" && (
+      {selectedFilter === "nationalities" && (
         <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
           {NationalityOptions.map(([key]) => (
             <button
@@ -116,7 +132,7 @@ export const MenteeFilterBottomSheet = ({
           ))}
         </div>
       )}
-      {activeFilter === "languages" && (
+      {selectedFilter === "languages" && (
         <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-5">
           {languagesOptions.map(([code]) => (
             <button

@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
 import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
@@ -59,6 +59,13 @@ export const MentorFilterBottomSheet = ({
 
     onSelectFilter([...languages]);
   };
+
+  useEffect(() => {
+    /** @NOTE 컴포넌트가 언마운트 되지 않으므로 상위 컴포넌트와 상태 동기화 필요 */
+    if (initial.languages) {
+      setLanguages(new Set(initial.languages));
+    }
+  }, [initial.languages]);
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
