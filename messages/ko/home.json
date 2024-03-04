@@ -4,8 +4,8 @@
     "explore-mentee": "멘티 둘러보기",
 
     "filters": {
-      "language": "언어",
-      "nationality": "국적",
+      "languages": "언어",
+      "nationalities": "국적",
       "reset": "초기화",
       "show-results": "결과 보기"
     },

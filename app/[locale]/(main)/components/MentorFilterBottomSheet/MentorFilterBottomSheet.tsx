@@ -63,7 +63,7 @@ export const MentorFilterBottomSheet = ({
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="flex gap-[20px] pb-[22px] pt-[17px]">
-        <span className={"body-1-bold text-gray-700"}>{t("language")}</span>
+        <span className={"body-1-bold text-gray-700"}>{t("languages")}</span>
       </div>
       <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-3">
         {languagesOptions.map(([code]) => (

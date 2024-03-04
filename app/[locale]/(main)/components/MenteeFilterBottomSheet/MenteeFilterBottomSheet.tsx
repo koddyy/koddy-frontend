@@ -9,10 +9,8 @@ import { languagesOptions } from "@/constants/language";
 import { NationalityImage, NationalityOptions } from "@/constants/nationality";
 import { Nationality, NationCode } from "@/types/user";
 import { cn } from "@/utils/cn";
-
-export type Filter = "nationality" | "language";
-
-const FilterOptions = ["nationality", "language"] as const;
+import { FILTER_OPTIONS } from "../BrowseMenteeList";
+import { Filter } from "../BrowseUserFilter";
 
 interface MenteeFilterBottomSheetProps extends BottomSheetProps {
   initial: {
@@ -86,7 +84,7 @@ export const MenteeFilterBottomSheet = ({
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="flex gap-[20px] pb-[22px] pt-[17px]">
-        {FilterOptions.map((option) => (
+        {FILTER_OPTIONS.map((option) => (
           <button
             key={option}
             className={cn("body-1-bold text-gray-400", activeFilter === option && "text-gray-700")}
@@ -97,7 +95,7 @@ export const MenteeFilterBottomSheet = ({
           </button>
         ))}
       </div>
-      {activeFilter === "nationality" && (
+      {activeFilter === "nationalities" && (
         <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
           {NationalityOptions.map(([key]) => (
             <button
@@ -118,7 +116,7 @@ export const MenteeFilterBottomSheet = ({
           ))}
         </div>
       )}
-      {activeFilter === "language" && (
+      {activeFilter === "languages" && (
         <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-5">
           {languagesOptions.map(([code]) => (
             <button

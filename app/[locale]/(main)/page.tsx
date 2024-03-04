@@ -50,19 +50,17 @@ const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
             {me.role === "mentor" && <NewAppliedCoffeeChatList />}
           </SSRSafeSuspense>
         )}
-        <SSRSafeSuspense>
-          {isAuthenticated ? (
-            <div className="px-[20px]">
-              {me.role === "mentor" && <BrowseMenteeList />}
-              {me.role === "mentee" && <BrowseMentorList />}
-            </div>
-          ) : (
-            <div className="px-[20px]">
-              {explore === "mentee" && <BrowseMenteeList />}
-              {explore === "mentor" && <BrowseMentorList />}
-            </div>
-          )}
-        </SSRSafeSuspense>
+        {isAuthenticated ? (
+          <div className="px-[20px]">
+            {me.role === "mentor" && <BrowseMenteeList />}
+            {me.role === "mentee" && <BrowseMentorList />}
+          </div>
+        ) : (
+          <div className="px-[20px]">
+            {explore === "mentee" && <BrowseMenteeList />}
+            {explore === "mentor" && <BrowseMentorList />}
+          </div>
+        )}
       </div>
     </>
   );
