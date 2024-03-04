@@ -1,7 +1,7 @@
 import { isToday } from "date-fns";
 import { useTranslations } from "next-intl";
 import { Controller, useController, useFormContext } from "react-hook-form";
-import { Button } from "@/components/Button";
+import { BottomButton } from "@/app/components/BottomButton";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
@@ -89,13 +89,9 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         <img className="h-4 w-4" src="/images/earth.png" />
         <div>현재 한국 시간 기준 {currentTime}</div>
       </div>
-      <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-header w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white">
-        <div className="px-[1.25rem] py-[0.69rem]">
-          <Button disabled={!isValid} onClick={onClickNextStep}>
-            {t("next")}
-          </Button>
-        </div>
-      </div>
+      <BottomButton disabled={!isValid} onClick={onClickNextStep}>
+        {t("next")}
+      </BottomButton>
     </>
   );
 };

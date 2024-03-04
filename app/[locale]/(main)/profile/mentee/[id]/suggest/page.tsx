@@ -43,7 +43,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           <FormLabel>{t("profile.suggest.question-to-mentee")}</FormLabel>
           <TextArea {...register("suggestReason", { required: true })} />
         </FormControl>
-        <div className="fixed bottom-[var(--bottom-navigation-height)] left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-[20px] py-[11px]">
+        <div className="fixed bottom-0 left-1/2 z-overlay w-full max-w-screen-sm -translate-x-1/2 border-t border-t-gray-200 bg-white px-[20px] py-[11px]">
           <Button type="submit" disabled={!isValid}>
             {t("profile.suggest-coffeechat")}
           </Button>
