@@ -55,7 +55,7 @@ export const ScheduleByNotRepeat = () => {
 
   return (
     <>
-      <div className="mb-[16px] rounded-[10px] border border-gray-300 p-[12px]">
+      <div className="mb-[20px]">
         <DaysAndTimeRangeSelect
           days={days}
           timeRange={timeRange}
@@ -66,8 +66,9 @@ export const ScheduleByNotRepeat = () => {
           {t("add")}
         </Button>
       </div>
-      <Divider className="border-4 border-gray-100" />
-      <ul className="my-[20px] flex flex-col gap-[12px]">
+      <Divider className="absolute inset-x-0 border-4 border-gray-100" />
+      <div className="h-[28px]" />
+      <ul className="flex flex-col gap-[12px]">
         {scheduleFields.map(({ id, ...field }, i) => {
           return (
             <Controller

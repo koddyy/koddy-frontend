@@ -69,16 +69,10 @@ export const ScheduleStep = ({ onClickNextStep }: ScheduleStepProps) => {
           <Radio value="REPEAT">{t("repeat")}</Radio>
           <Radio value="NOT_REPEAT">{t("not-repeat")}</Radio>
         </RadioGroup>
-        {scheduleBy === "REPEAT" && (
-          <div className="mt-[36px]">
-            <ScheduleByRepeat />
-          </div>
-        )}
-        {scheduleBy === "NOT_REPEAT" && (
-          <div className="mt-[24px]">
-            <ScheduleByNotRepeat />
-          </div>
-        )}
+        <div className="mt-[36px]">
+          {scheduleBy === "REPEAT" && <ScheduleByRepeat />}
+          {scheduleBy === "NOT_REPEAT" && <ScheduleByNotRepeat />}
+        </div>
         <div className="h-[96px]" />
         <BottomButton type="submit" disabled={!isDirty || !isValid}>
           {t("next")}
