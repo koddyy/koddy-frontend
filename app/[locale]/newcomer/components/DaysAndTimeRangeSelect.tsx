@@ -9,6 +9,7 @@ interface DaysAndTimeRangeSelectProps {
   timeRange: { start: string; end: string };
   onChangeDays: (day: Day) => void;
   onChangeTimeRange: (timeRange: { start: string; end: string }) => void;
+  disabledDays?: Day[];
 }
 
 export const DaysAndTimeRangeSelect = ({
@@ -16,6 +17,7 @@ export const DaysAndTimeRangeSelect = ({
   timeRange,
   onChangeDays,
   onChangeTimeRange,
+  disabledDays,
 }: DaysAndTimeRangeSelectProps) => {
   const constants = useTranslations("constants");
 
@@ -24,7 +26,12 @@ export const DaysAndTimeRangeSelect = ({
       <div className="mb-[13px] flex justify-between">
         {DAYS.map((day, i) => {
           return (
-            <Toggle key={i} pressed={days.includes(day)} onChangePressed={() => onChangeDays(day)}>
+            <Toggle
+              key={i}
+              pressed={days.includes(day)}
+              onChangePressed={() => onChangeDays(day)}
+              disabled={disabledDays?.includes(day)}
+            >
               {constants(`day-of-week.${day}`)[0]}
             </Toggle>
           );

@@ -61,6 +61,7 @@ export const ScheduleByNotRepeat = () => {
           timeRange={timeRange}
           onChangeDays={changeDays}
           onChangeTimeRange={changeTimeRange}
+          disabledDays={scheduleFields.map(({ dayOfWeek }) => dayOfWeek)}
         />
         <Button variant="outline" className="h-[46px] border" onClick={addSchedules}>
           {t("add")}
