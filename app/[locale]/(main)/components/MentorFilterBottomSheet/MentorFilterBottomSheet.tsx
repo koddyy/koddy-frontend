@@ -52,11 +52,6 @@ export const MentorFilterBottomSheet = ({
   };
 
   const selectFilter = () => {
-    if (languages.size === 0) {
-      onClose();
-      return;
-    }
-
     onSelectFilter([...languages]);
   };
 

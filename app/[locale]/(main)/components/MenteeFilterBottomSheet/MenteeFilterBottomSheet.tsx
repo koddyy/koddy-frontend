@@ -71,11 +71,6 @@ export const MenteeFilterBottomSheet = ({
   };
 
   const selectFilter = () => {
-    if (nationality === null && languages.size === 0) {
-      onClose();
-      return;
-    }
-
     onSelectFilter(nationality, [...languages]);
   };
 
