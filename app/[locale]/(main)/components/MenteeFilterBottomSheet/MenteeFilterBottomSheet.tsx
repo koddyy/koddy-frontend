@@ -91,7 +91,7 @@ export const MenteeFilterBottomSheet = ({
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
-      <div className="flex gap-[20px] pb-[22px] pt-[17px]">
+      <div className="flex gap-[20px] pb-[10px] pt-[16px]">
         {FILTER_OPTIONS.map((option) => (
           <button
             key={option}
@@ -106,47 +106,45 @@ export const MenteeFilterBottomSheet = ({
           </button>
         ))}
       </div>
-      {selectedFilter === "nationalities" && (
-        <div className="mb-[20px] grid grid-flow-col grid-cols-2 grid-rows-5">
-          {NationalityOptions.map(([key]) => (
-            <button
-              key={key}
-              className={cn(
-                "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
-                nationality === key && "body-2-bold"
-              )}
-              type="button"
-              onClick={() => addNationality(key)}
-            >
-              <img src={NationalityImage[key]} />
-              {constants(`nationality-options.${key}`)}
-            </button>
-          ))}
-          {Array.from(Array(10 - NationalityOptions.length)).map((_, i) => (
-            <div className="border-b border-b-gray-100" key={i} />
-          ))}
-        </div>
-      )}
-      {selectedFilter === "languages" && (
-        <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-5">
-          {languagesOptions.map(([code]) => (
-            <button
-              key={code}
-              className={cn(
-                "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
-                languages.has(code) && "body-2-bold"
-              )}
-              type="button"
-              onClick={() => addLanguage(code)}
-            >
-              {constants(`languages-options.${code}`)}
-            </button>
-          ))}
-          {Array.from(Array(10 - languagesOptions.length)).map((_, i) => (
-            <div key={i} />
-          ))}
-        </div>
-      )}
+      <div className="mb-[23px]">
+        {selectedFilter === "nationalities" && (
+          <div className="grid grid-flow-row grid-cols-2 grid-rows-3">
+            {NationalityOptions.map(([key], i) => (
+              <button
+                key={key}
+                className={cn(
+                  "body-2 flex items-center justify-start gap-[6px] py-[12px]",
+                  nationality === key && "body-2-bold",
+                  Math.floor(i / 2) < 2 && "border-b border-b-gray-100"
+                )}
+                type="button"
+                onClick={() => addNationality(key)}
+              >
+                <img src={NationalityImage[key]} />
+                {constants(`nationality-options.${key}`)}
+              </button>
+            ))}
+          </div>
+        )}
+        {selectedFilter === "languages" && (
+          <div className="grid grid-flow-row grid-cols-2 grid-rows-3">
+            {languagesOptions.map(([code], i) => (
+              <button
+                key={code}
+                className={cn(
+                  "body-2 flex items-center justify-start gap-[6px] py-[12px]",
+                  languages.has(code) && "body-2-bold",
+                  Math.floor(i / 2) < 2 && "border-b border-b-gray-100"
+                )}
+                type="button"
+                onClick={() => addLanguage(code)}
+              >
+                {constants(`languages-options.${code}`)}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
       <div className="flex flex-wrap gap-[8px]">
         {nationality && (
           <Tag rightContent={<Close width={16} height={16} />} onClick={deleteNationality}>

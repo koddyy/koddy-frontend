@@ -64,25 +64,23 @@ export const MentorFilterBottomSheet = ({
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
-      <div className="flex gap-[20px] pb-[22px] pt-[17px]">
+      <div className="flex gap-[20px] pb-[10px] pt-[16px]">
         <span className={"body-1-bold text-gray-700"}>{t("languages")}</span>
       </div>
       <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-3">
-        {languagesOptions.map(([code]) => (
+        {languagesOptions.map(([code], i) => (
           <button
             key={code}
             className={cn(
-              "body-2 flex items-center justify-start gap-[6px] border-b border-b-gray-100 py-[12px]",
-              languages.has(code) && "body-2-bold"
+              "body-2 flex items-center justify-start gap-[6px] py-[12px]",
+              languages.has(code) && "body-2-bold",
+              Math.floor(i / 2) < 2 && "border-b border-b-gray-100"
             )}
             type="button"
             onClick={() => addLanguage(code)}
           >
             {constants(code)}
           </button>
-        ))}
-        {Array.from(Array(6 - languagesOptions.length)).map((_, i) => (
-          <div className="border-b border-gray-100" key={i} />
         ))}
       </div>
       <div className="flex flex-wrap gap-[8px]">
