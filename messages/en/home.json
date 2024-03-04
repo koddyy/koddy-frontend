@@ -4,8 +4,8 @@
     "explore-mentee": "Explore mentee",
 
     "filters": {
-      "language": "Language",
-      "nationality": "Nationality",
+      "languages": "Language",
+      "nationalities": "Nationality",
       "reset": "Reset",
       "show-results": "Show Results"
     },

@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Close from "@/assets/close.svg";
 import Refresh from "@/assets/refresh.svg";
 import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
@@ -52,18 +52,20 @@ export const MentorFilterBottomSheet = ({
   };
 
   const selectFilter = () => {
-    if (languages.size === 0) {
-      onClose();
-      return;
-    }
-
     onSelectFilter([...languages]);
   };
+
+  useEffect(() => {
+    /** @NOTE 컴포넌트가 언마운트 되지 않으므로 상위 컴포넌트와 상태 동기화 필요 */
+    if (initial.languages) {
+      setLanguages(new Set(initial.languages));
+    }
+  }, [initial.languages]);
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
       <div className="flex gap-[20px] pb-[22px] pt-[17px]">
-        <span className={"body-1-bold text-gray-700"}>{t("language")}</span>
+        <span className={"body-1-bold text-gray-700"}>{t("languages")}</span>
       </div>
       <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-3">
         {languagesOptions.map(([code]) => (

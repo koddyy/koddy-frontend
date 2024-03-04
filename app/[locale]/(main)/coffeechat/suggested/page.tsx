@@ -3,6 +3,7 @@
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
+import { Spinner } from "@/components/Spinner";
 import { useRouter } from "@/libs/navigation";
 import {
   CoffeeChatCardListWithMentee,
@@ -28,7 +29,7 @@ const Page = () => {
         onClickGoback={() => router.back()}
       />
       <div className="px-[20px] py-[16px]">
-        <SSRSafeSuspense>
+        <SSRSafeSuspense fallback={<Spinner className="mx-auto mt-[46px]" />}>
           {me.role === "mentor" && <CoffeeChatCardListWithMentee category="suggested" />}
           {me.role === "mentee" && <CoffeeChatCardListWithMentor category="suggested" />}
         </SSRSafeSuspense>

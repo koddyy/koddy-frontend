@@ -1,5 +1,17 @@
 import { cn } from "@/utils/cn";
 
-export const Spinner = ({ className }: { className?: string }) => {
-  return <div className={cn("spinner animate-spin", className)} />;
+interface SpinnerProps {
+  color?: "primary" | "grayscale";
+  size?: "lg" | "sm";
+  className?: string;
+}
+
+export const Spinner = ({ color = "grayscale", size = "sm", className }: SpinnerProps) => {
+  return (
+    <div
+      data-accent-color={color}
+      data-size={size}
+      className={cn("spinner animate-spin", className)}
+    />
+  );
 };
