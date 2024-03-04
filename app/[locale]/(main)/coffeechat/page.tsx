@@ -21,7 +21,6 @@ import {
   isValidWaitingCoffeeChatStatus,
 } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
-import { getEntries } from "@/utils/object";
 import { CoffeeChatSteps } from "./components/CoffeeChatSteps";
 
 const Page = ({
@@ -62,12 +61,12 @@ const Page = ({
           </div>
           <Divider className="border-[4px]" />
           <div className="body-2 flex w-full border-b border-b-gray-300 text-gray-600">
-            {getEntries(CoffeeChatCategoryOptions).map(([key]) => (
+            {CoffeeChatCategoryOptions.map((key) => (
               <Link
                 key={key}
                 href={`${pathname}?${qs.stringify({ category: key })}`}
                 className={cn(
-                  "grow py-4 text-center",
+                  "basis-1/3 py-4 text-center",
                   activeCategory === key && "border-b-[3px] border-b-primary font-bold text-primary"
                 )}
               >

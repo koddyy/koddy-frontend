@@ -3,16 +3,22 @@
 import { useState } from "react";
 import AttentionCircle from "@/assets/attention-circle.svg";
 import Close from "@/assets/close.svg";
+import { useTimeout } from "@/hooks/useTimeout";
 import { cn } from "@/utils/cn";
 import { ToastProps } from "./types";
 
-export const Toast = ({ type = "default", content, onClose }: ToastProps) => {
+export const Toast = ({ type = "default", content, onClose, delay = 4000 }: ToastProps) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const close = async () => {
     setIsOpen(false);
     onClose?.();
+    clear();
   };
+
+  const { clear } = useTimeout(() => {
+    onClose?.();
+  }, delay);
 
   return (
     <div

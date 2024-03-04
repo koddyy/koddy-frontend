@@ -1,19 +1,24 @@
-import { CSSProperties } from "react";
+"use client";
+
 import { BottomNavigation } from "@/app/components/BottomNavigation/BottomNavigation";
+import { PATH } from "@/constants/path";
+import { usePathname } from "@/libs/navigation";
+
+const PATH_WITH_BOTTOM_NAVIGATION = [PATH.HOME, PATH.COFFEECHAT, PATH.MYPAGE, PATH.NOTIFICATION];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const pathname = usePathname();
+
   return (
-    <div
-      className="pb-[calc(var(--bottom-navigation-height)+1.5rem)]"
-      style={
-        {
-          ["--bottom-navigation-height"]: "3.625rem",
-        } as CSSProperties
-      }
-    >
+    <>
       {children}
-      <BottomNavigation />
-    </div>
+      {PATH_WITH_BOTTOM_NAVIGATION.includes(pathname) && (
+        <>
+          <div className="h-[82px]" />
+          <BottomNavigation />
+        </>
+      )}
+    </>
   );
 };
 

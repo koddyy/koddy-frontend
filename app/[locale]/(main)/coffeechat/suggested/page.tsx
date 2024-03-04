@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
@@ -10,12 +11,9 @@ import {
   CoffeeChatCardListWithMentor,
 } from "../components/CoffeeChatCardList";
 
-const title = {
-  mentor: "제안한 커피챗",
-  mentee: "커피챗 제안",
-} as const;
-
 const Page = () => {
+  const t = useTranslations("coffeechat");
+
   const router = useRouter();
   const { data: me } = useGetMe();
 
@@ -24,7 +22,7 @@ const Page = () => {
   return (
     <>
       <NavigationBar
-        title={title[me.role]}
+        title={t(`suggested.${me.role}`)}
         titleFontWeight="regular"
         onClickGoback={() => router.back()}
       />

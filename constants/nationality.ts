@@ -20,5 +20,5 @@ export const NationalityImage: Record<Nationality, string> = {
   JP: "/images/japan.svg",
   CN: "/images/china.svg",
   VN: "/images/vietnam.svg",
-  ETC: "",
+  ETC: "/images/others.svg",
 };

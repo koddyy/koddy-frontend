@@ -38,11 +38,11 @@ export const CoffeeChatTypeIcon: Record<Meeting, ElementType> = {
   google: GoogleMeet,
 };
 
-export const CoffeeChatCategoryOptions: Record<Exclude<CoffeeChatCategory, "suggested">, string> = {
-  waiting: "대기",
-  scheduled: "예정",
-  passed: "지난",
-};
+export const CoffeeChatCategoryOptions: Array<Exclude<CoffeeChatCategory, "suggested">> = [
+  "waiting",
+  "scheduled",
+  "passed",
+];
 
 export const CoffeeChatStatusOptions: {
   waiting: typeof WaitingCoffeeChatStatusList;

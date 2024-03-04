@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useController, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
+import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
@@ -24,7 +25,11 @@ const Page = () => {
   const { setIsModified: setIsMentorInfoFormModified, setLanguages: setMentorInfoLanguage } =
     useMentorInfoFormStore();
 
-  const { control, handleSubmit } = useForm<Pick<Mentor, "languages"> | Pick<Mentee, "languages">>({
+  const {
+    control,
+    formState: { isValid },
+    handleSubmit,
+  } = useForm<Pick<Mentor, "languages"> | Pick<Mentee, "languages">>({
     defaultValues: {
       languages: {
         main: undefined,
@@ -91,11 +96,11 @@ const Page = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <NavigationBar
         onClickGoback={() => router.back()}
-        rightContent={
-          <button type="submit" className="body-1">
-            {t("edit")}
-          </button>
-        }
+        // rightContent={
+        //   <button type="submit" className="body-1">
+        //     {t("edit")}
+        //   </button>
+        // }
       />
       <div className="mt-[21px] px-[20px]">
         <FormControl className="mb-[35px]">
@@ -134,6 +139,10 @@ const Page = () => {
           </div>
         </FormControl>
       </div>
+      <div className="h-[96px]" />
+      <BottomButton type="submit" disabled={!isValid}>
+        {t("edit")}
+      </BottomButton>
     </form>
   );
 };

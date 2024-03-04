@@ -57,7 +57,7 @@ export const MentorInfoForm = () => {
       { ...values, ...form },
       {
         onSuccess: () => {
-          router.push("/");
+          router.push(PATH.MYPAGE);
         },
       }
     );

@@ -60,7 +60,7 @@ export const MenteeInfoForm = () => {
       { ...values, ...form },
       {
         onSuccess: () => {
-          router.push("/");
+          router.push(PATH.MYPAGE);
         },
       }
     );

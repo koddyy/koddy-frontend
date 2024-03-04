@@ -55,19 +55,21 @@ export const ScheduleByNotRepeat = () => {
 
   return (
     <>
-      <div className="mb-[16px] rounded-[10px] border border-gray-300 p-[12px]">
+      <div className="mb-[20px]">
         <DaysAndTimeRangeSelect
           days={days}
           timeRange={timeRange}
           onChangeDays={changeDays}
           onChangeTimeRange={changeTimeRange}
+          disabledDays={scheduleFields.map(({ dayOfWeek }) => dayOfWeek)}
         />
         <Button variant="outline" className="h-[46px] border" onClick={addSchedules}>
           {t("add")}
         </Button>
       </div>
-      <Divider className="border-4 border-gray-100" />
-      <ul className="my-[20px] flex flex-col gap-[12px]">
+      <Divider className="absolute inset-x-0 border-4 border-gray-100" />
+      <div className="h-[28px]" />
+      <ul className="flex flex-col gap-[12px]">
         {scheduleFields.map(({ id, ...field }, i) => {
           return (
             <Controller
@@ -80,12 +82,14 @@ export const ScheduleByNotRepeat = () => {
                   <Toggle>{constants(`day-of-week.${field.dayOfWeek}`)[0]}</Toggle>
                   <div className="flex grow items-center gap-[10px]">
                     <Select
+                      dropdownClassName="z-overlay"
                       options={TIMES}
                       value={field.start}
                       onChangeValue={(value) => update(i, { ...field, start: value })}
                     />
                     <span>~</span>
                     <Select
+                      dropdownClassName="z-overlay"
                       options={TIMES}
                       value={field.end}
                       onChangeValue={(value) => update(i, { ...field, end: value })}
