@@ -35,7 +35,7 @@ export const ProfileImageStep = ({ onSubmitForm }: ProfileImageStepProps) => {
           type="button"
           onClick={() => fileInputRef.current?.click()}
         >
-          수정
+          등록
         </button>
       </div>
       <BottomButton
