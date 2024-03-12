@@ -1,5 +1,5 @@
 import { DAYS } from "@/constants/date";
-import { Day } from "@/types/mentor";
+import { Day, Mentor } from "@/types/mentor";
 import { toHHMM } from "@/utils/time";
 
 export const getDisabledDays = (availableDays: Day[]) => {
@@ -9,6 +9,17 @@ export const getDisabledDays = (availableDays: Day[]) => {
   }, [] as number[]);
 
   return disabledDays;
+};
+
+export const convertSchedulesDayOfWeekToDayIndex = (schedules: Mentor["schedules"]) => {
+  return schedules?.map(({ dayOfWeek, start, end }) => {
+    const dayIndex = DAYS.indexOf(dayOfWeek);
+    return {
+      dayOfWeek: dayIndex === 6 ? 0 : dayIndex + 1,
+      start,
+      end,
+    };
+  });
 };
 
 export const createTimeRangeList = (start: string, end: string, GAP = 30) => {
