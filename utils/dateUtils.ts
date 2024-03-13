@@ -1,5 +1,5 @@
 import { addMonths } from "date-fns";
-import { toDate, utcToZonedTime } from "date-fns-tz";
+import { toDate, utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import { localeCookie } from "./locale";
 import { timezoneCookie } from "./timezone";
 
@@ -24,7 +24,10 @@ export const getDaysInMonth = (year: number, month: number) => {
 };
 
 export const getToday = () => {
-  return new Date();
+  const timeZone = timezoneCookie.get();
+  const utc = new Date().toISOString();
+
+  return utcToZonedTime(utc, timeZone);
 };
 
 export const getNextMonth = () => {
@@ -65,7 +68,8 @@ export const getKSTToday = () => {
 };
 
 export const toKSTDate = (date: string) => {
-  const utc = new Date(date).toISOString();
+  const timeZone = timezoneCookie.get();
+  const utc = zonedTimeToUtc(date, timeZone);
 
   return utcToZonedTime(utc, "Asia/Seoul");
 };
