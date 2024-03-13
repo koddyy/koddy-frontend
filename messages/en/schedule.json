@@ -4,6 +4,7 @@
     "ScheduleStep": {
       "date": "Date",
       "time": "Time",
+      "korea-standard-time": "KST",
       "next": "Next"
     },
     "QuestionStep": {

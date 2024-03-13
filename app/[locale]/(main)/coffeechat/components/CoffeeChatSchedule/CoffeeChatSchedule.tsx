@@ -6,8 +6,10 @@ import {
   isMeetingOptions,
   isSNSOptions,
 } from "@/constants/coffeechat";
+import { TIME_STYLE } from "@/constants/date";
 import useClipboard from "@/hooks/useClipboard";
-import { hhmmssTohhmm, parseLocalDateTime } from "@/utils/dateUtils";
+import { formatDateTimeByLocale, KSTtoZonedDate } from "@/utils/dateUtils";
+import { timezoneCookie } from "@/utils/timezone";
 
 interface CoffeeChatScheduleProps {
   startTime: string;
@@ -27,17 +29,18 @@ export const CoffeeChatSchedule = ({
 
   const { copyText } = useClipboard();
 
-  const { yyyymmdd, hhmmss: startHhmmss } = parseLocalDateTime(startTime);
-  const { hhmmss: endHhmmss } = parseLocalDateTime(endTime);
-
   return (
     <>
       <Divider className="border-[4px]" />
       <div className="px-[20px] py-[18px]">
         <div className="body-3 mb-[4px]">{t("date")}</div>
         <div className="body-1-bold">
-          {`${yyyymmdd.replace(/-/g, "/")} ${hhmmssTohhmm(startHhmmss)}~${hhmmssTohhmm(endHhmmss)}
-          (${t("korea-standard-time")})`}
+          {`${formatDateTimeByLocale(KSTtoZonedDate(startTime))} 
+          ${formatDateTimeByLocale(KSTtoZonedDate(startTime), TIME_STYLE)}~${formatDateTimeByLocale(
+            KSTtoZonedDate(endTime),
+            TIME_STYLE
+          )} (${timezoneCookie.get()})
+          `}
         </div>
       </div>
       <Divider className="border-[4px]" />

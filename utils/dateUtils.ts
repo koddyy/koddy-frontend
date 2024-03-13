@@ -1,5 +1,6 @@
 import { addMonths } from "date-fns";
 import { toDate, utcToZonedTime } from "date-fns-tz";
+import { localeCookie } from "./locale";
 import { timezoneCookie } from "./timezone";
 
 export const toYYYYMMDD = (date: Date) => {
@@ -47,6 +48,12 @@ export const hhmmssTohhmm = (hhmmss: string) => {
   const [hh, mm] = hhmmss.split(":");
 
   return [hh, mm].join(":");
+};
+
+export const formatDateTimeByLocale = (date: Date, options?: Intl.DateTimeFormatOptions) => {
+  const locale = localeCookie.get();
+
+  return new Intl.DateTimeFormat(locale, options).format(date);
 };
 
 /** KST */
