@@ -1,4 +1,3 @@
-import { isToday } from "date-fns";
 import { useTranslations } from "next-intl";
 import { Controller, useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
@@ -7,7 +6,7 @@ import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { getKSTToday } from "@/utils/dateUtils";
+import { getKSTToday, toYYYYMMDD } from "@/utils/dateUtils";
 import { useSchedules } from "../hooks/useSchedules";
 
 interface FirstStepProps {
@@ -31,8 +30,10 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     },
   });
 
-  const { minDate, maxDate, disabledDays, availableTimeRangeList, availableTimeRangeListOfToday } =
-    useSchedules(mentorId, dateField.value ?? getKSTToday());
+  const { minDate, maxDate, monthlySchedules, availableTimeSlots } = useSchedules(
+    mentorId,
+    dateField.value ?? new Date()
+  );
 
   const currentTime = new Intl.DateTimeFormat("ko", { timeStyle: "short" }).format(getKSTToday());
 
@@ -42,7 +43,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         <FormLabel className="body-1-bold mb-2">{t("date")}</FormLabel>
         <div className="rounded-[8px] border border-gray-200 px-[29px] py-[9px]">
           <Calendar
-            tileDisabled={({ date }) => disabledDays.includes(date.getDay())}
+            tileDisabled={({ date }) => !monthlySchedules[toYYYYMMDD(date)]}
             minDate={minDate}
             maxDate={maxDate}
             value={dateField.value}
@@ -58,10 +59,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
             name="timeRange"
             render={({ field }) => (
               <div className="flex flex-wrap gap-3">
-                {(isToday(dateField.value)
-                  ? availableTimeRangeListOfToday
-                  : availableTimeRangeList
-                )?.map((timeRange, i) => {
+                {availableTimeSlots.map((timeRange, i) => {
                   const delimiter = " ~ ";
                   const value = timeRange.join(delimiter);
                   return (

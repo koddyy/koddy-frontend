@@ -10,6 +10,14 @@ export const toYYYYMMDD = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
+export const toHHMMSS = (date: Date) => {
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
+  return `${hours}:${minutes}:${seconds}`;
+};
+
 export const getDaysInMonth = (year: number, month: number) => {
   return new Date(year, month, 0).getDate();
 };
@@ -26,6 +34,13 @@ export const parseLocalDateTime = (localDateTime: string) => {
   const [yyyymmdd, hhmmss] = localDateTime.split("T");
 
   return { yyyymmdd, hhmmss };
+};
+
+export const formatLocalDateTime = (date: Date) => {
+  const yyyymmdd = toYYYYMMDD(date);
+  const hhmmss = toHHMMSS(date);
+
+  return `${yyyymmdd}T${hhmmss}`;
 };
 
 export const hhmmssTohhmm = (hhmmss: string) => {
