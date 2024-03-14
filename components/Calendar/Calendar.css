@@ -3,7 +3,7 @@
 }
 
 .react-calendar__navigation {
-  @apply subheading relative mb-[10px] flex;
+  @apply subheading relative mb-[10px] flex h-[44px];
 }
 
 .react-calendar__navigation__label {

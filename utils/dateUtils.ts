@@ -1,5 +1,6 @@
 import { addMonths } from "date-fns";
-import { toDate, utcToZonedTime } from "date-fns-tz";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { localeCookie } from "./locale";
 import { timezoneCookie } from "./timezone";
 
 export const toYYYYMMDD = (date: Date) => {
@@ -10,22 +11,40 @@ export const toYYYYMMDD = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
+export const toHHMMSS = (date: Date) => {
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
+  return `${hours}:${minutes}:${seconds}`;
+};
+
 export const getDaysInMonth = (year: number, month: number) => {
   return new Date(year, month, 0).getDate();
 };
 
 export const getToday = () => {
-  return new Date();
+  const timeZone = timezoneCookie.get();
+  const utc = new Date().toISOString();
+
+  return utcToZonedTime(utc, timeZone);
 };
 
 export const getNextMonth = () => {
   return addMonths(getToday(), 1);
 };
 
-export const parseLocalDateTime = (localDateTime: string) => {
-  const [yyyymmdd, hhmmss] = localDateTime.split("T");
+export const parseISO = (iso: string) => {
+  const [yyyymmdd, hhmmss] = iso.split("T");
 
   return { yyyymmdd, hhmmss };
+};
+
+export const formatISO = (date: Date) => {
+  const yyyymmdd = toYYYYMMDD(date);
+  const hhmmss = toHHMMSS(date);
+
+  return `${yyyymmdd}T${hhmmss}`;
 };
 
 export const hhmmssTohhmm = (hhmmss: string) => {
@@ -34,24 +53,30 @@ export const hhmmssTohhmm = (hhmmss: string) => {
   return [hh, mm].join(":");
 };
 
-/** KST */
+export const formatDateTimeByLocale = (date: Date, options?: Intl.DateTimeFormatOptions) => {
+  const locale = localeCookie.get();
 
-export const getKSTToday = () => {
+  return new Intl.DateTimeFormat(locale, options).format(date);
+};
+
+/** timezone */
+
+export const getZonedToday = (targetTimeZone = "Asia/Seoul") => {
   const utcISOString = new Date().toISOString();
 
-  return utcToZonedTime(utcISOString, "Asia/Seoul");
+  return utcToZonedTime(utcISOString, targetTimeZone);
 };
 
-export const toKSTDate = (date: string) => {
-  const utc = new Date(date).toISOString();
+export const localToZonedDate = (date: string, targetTimeZone = "Asia/Seoul") => {
+  const localTimeZone = timezoneCookie.get();
+  const utc = zonedTimeToUtc(date, localTimeZone);
 
-  return utcToZonedTime(utc, "Asia/Seoul");
+  return utcToZonedTime(utc, targetTimeZone);
 };
 
-/** @NOTE offset이 포함되지 않은 date 문자열 */
-export const KSTtoZonedDate = (date: string) => {
-  const localTime = toDate(date, { timeZone: "Asia/Seoul" });
+export const zonedToLocalDate = (date: string, sourceTimeZone = "Asia/Seoul") => {
+  const utc = zonedTimeToUtc(date, sourceTimeZone);
 
-  const timeZone = timezoneCookie.get();
-  return utcToZonedTime(localTime.toISOString(), timeZone);
+  const localTimeZone = timezoneCookie.get();
+  return utcToZonedTime(utc, localTimeZone);
 };

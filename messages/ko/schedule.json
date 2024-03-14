@@ -4,6 +4,7 @@
     "ScheduleStep": {
       "date": "날짜 선택",
       "time": "시간 선택",
+      "korea-standard-time": "멘토 시간(한국) 기준",
       "next": "다음"
     },
     "QuestionStep": {

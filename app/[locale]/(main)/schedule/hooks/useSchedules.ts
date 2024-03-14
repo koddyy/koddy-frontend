@@ -1,70 +1,48 @@
 import { useMemo } from "react";
 import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
-import { DAYS } from "@/constants/date";
-import { getKSTToday, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
-import { compareHHMM, toHHMM } from "@/utils/time";
+import { toYYYYMMDD } from "@/utils/dateUtils";
 import {
-  createTimeRangeList,
-  getClosestNextTimeAfterCurrent,
-  getDisabledDays,
+  convertReservedSchedulesToZoned,
+  convertSchedulesDayOfWeekToDayIndex,
+  createAvailableTimeSlots,
+  createZonedMonthlySchedules,
+  getAvailableMaxDate,
+  getAvailableMinDate,
 } from "../utils/scheduleUtils";
 
 export const useSchedules = (mentorId: number, currentDate: Date) => {
-  const { data } = useGetReservedSchedules(mentorId, {
-    year: currentDate?.getFullYear(),
-    month: currentDate?.getMonth() + 1,
-  });
+  const { year, month } = {
+    year: currentDate.getFullYear(),
+    month: currentDate.getMonth() + 1,
+  };
+
+  const { data } = useGetReservedSchedules(mentorId, { year, month });
   const { period, schedules, reserved } = data ?? {};
 
-  const disabledDays = useMemo(
-    () => getDisabledDays(schedules?.map(({ dayOfWeek }) => dayOfWeek) ?? []),
-    [schedules]
+  const monthlySchedules = useMemo(
+    () => createZonedMonthlySchedules(year, month, convertSchedulesDayOfWeekToDayIndex(schedules)),
+    [month, schedules, year]
   );
 
-  const timeRangeListPerDay = useMemo(() => {
-    return schedules?.reduce(
-      (acc, { dayOfWeek, start, end }) => {
-        return {
-          ...acc,
-          [DAYS.indexOf(dayOfWeek)]: createTimeRangeList(toHHMM(start), toHHMM(end)),
-        };
-      },
-      {} as { [key: string]: string[][] }
-    );
-  }, [schedules]);
+  const reservedSchedules = useMemo(
+    () => convertReservedSchedulesToZoned(reserved ?? []),
+    [reserved]
+  );
 
-  const currentDay = currentDate.getDay();
-
-  const availableTimeRangeList = useMemo(
+  const availableTimeSlots = useMemo(
     () =>
-      timeRangeListPerDay?.[currentDay]?.filter((timeRange) => {
-        return !reserved?.[toYYYYMMDD(currentDate)]?.some(
-          ([start, end]) => start.startsWith(timeRange[0]) && end.startsWith(timeRange[1])
-        );
-      }),
-    [currentDate, currentDay, reserved, timeRangeListPerDay]
+      createAvailableTimeSlots(
+        currentDate,
+        monthlySchedules[toYYYYMMDD(currentDate)],
+        reservedSchedules[toYYYYMMDD(currentDate)]
+      ),
+    [currentDate, monthlySchedules, reservedSchedules]
   );
-
-  const availableTimeRangeListOfToday = useMemo(() => {
-    const today = getKSTToday();
-    const closestNextTime = getClosestNextTimeAfterCurrent(today);
-
-    return timeRangeListPerDay?.[today.getDay()]?.filter((timeRange) => {
-      return compareHHMM(closestNextTime, timeRange[0]) !== 1;
-    });
-  }, [timeRangeListPerDay]);
 
   return {
-    minDate: period?.startDate
-      ? toKSTDate(
-          period.startDate < toYYYYMMDD(getKSTToday())
-            ? toYYYYMMDD(getKSTToday())
-            : period.startDate
-        )
-      : undefined,
-    maxDate: period?.endDate ? toKSTDate(period.endDate) : undefined,
-    disabledDays,
-    availableTimeRangeList,
-    availableTimeRangeListOfToday,
+    minDate: period?.startDate ? getAvailableMinDate(period.startDate) : undefined,
+    maxDate: period?.endDate ? getAvailableMaxDate(period.endDate) : undefined,
+    monthlySchedules,
+    availableTimeSlots,
   };
 };

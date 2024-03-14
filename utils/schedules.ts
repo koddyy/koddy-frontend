@@ -1,5 +1,6 @@
-import { DAYS } from "@/constants/date";
+import { DAYS, TIME_STYLE } from "@/constants/date";
 import { Mentor, Schedules } from "@/types/mentor";
+import { formatDateTimeByLocale } from "./dateUtils";
 import { toHHMM, toTime } from "./time";
 
 export const convertSchedules = ({ schedulesByRepeat, schedulesByNotRepeat }: Schedules) => {
@@ -52,4 +53,17 @@ export const parseSchedules = (_schedules: Mentor["schedules"]) => {
       end: v.end,
     })),
   };
+};
+
+export const formatScheduleDateAndTimeRange = (
+  startDate: Date,
+  endDate: Date,
+  timeZone?: string
+) => {
+  const date = formatDateTimeByLocale(startDate);
+
+  const startHhmm = formatDateTimeByLocale(startDate, TIME_STYLE);
+  const endHhmm = formatDateTimeByLocale(endDate, TIME_STYLE);
+
+  return `${date} ${startHhmm}~${endHhmm}` + (timeZone ? ` (${timeZone})` : "");
 };
