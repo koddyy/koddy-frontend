@@ -2,13 +2,13 @@ import { GetReservedSchedulesResponse } from "@/apis/mentor/types";
 import { DAYS } from "@/constants/date";
 import { Day, Mentor } from "@/types/mentor";
 import {
-  formatLocalDateTime,
+  formatISO,
   getDaysInMonth,
   getToday,
-  KSTtoZonedDate,
-  parseLocalDateTime,
+  parseISO,
   toHHMMSS,
   toYYYYMMDD,
+  zonedToLocalDate,
 } from "@/utils/dateUtils";
 import { compareHHMM, toHHMM } from "@/utils/time";
 
@@ -43,11 +43,11 @@ export const convertReservedSchedulesToZoned = (
 ) => {
   return reserved?.reduce(
     (acc, { start, end }) => {
-      const zonedStart = formatLocalDateTime(KSTtoZonedDate(start));
-      const zonedEnd = formatLocalDateTime(KSTtoZonedDate(end));
+      const localStartTime = formatISO(zonedToLocalDate(start));
+      const localEndTime = formatISO(zonedToLocalDate(end));
 
-      const { yyyymmdd, hhmmss: startHhmmss } = parseLocalDateTime(zonedStart);
-      const { hhmmss: endHhmmss } = parseLocalDateTime(zonedEnd);
+      const { yyyymmdd, hhmmss: startHhmmss } = parseISO(localStartTime);
+      const { hhmmss: endHhmmss } = parseISO(localEndTime);
 
       return {
         ...acc,
@@ -84,18 +84,18 @@ export const createZonedMonthlySchedules = (
       const endTime = new Date(date);
       endTime.setHours(end.hour, end.minute);
 
-      const zonedStartTime = KSTtoZonedDate(formatLocalDateTime(startTime));
-      const zonedEndTime = KSTtoZonedDate(formatLocalDateTime(endTime));
+      const localStartTime = zonedToLocalDate(formatISO(startTime));
+      const localEndTime = zonedToLocalDate(formatISO(endTime));
 
-      const zonedStartYYYYMMDD = toYYYYMMDD(zonedStartTime);
-      const zonedEndYYYYMMDD = toYYYYMMDD(zonedEndTime);
+      const localStartYYYYMMDD = toYYYYMMDD(localStartTime);
+      const localEndYYYYMMDD = toYYYYMMDD(localEndTime);
 
-      if (zonedStartYYYYMMDD === zonedEndYYYYMMDD) {
+      if (localStartYYYYMMDD === localEndYYYYMMDD) {
         return {
           ...acc,
-          [zonedStartYYYYMMDD]: [
-            ...(acc[zonedStartYYYYMMDD] ?? []),
-            { start: zonedStartTime, end: zonedEndTime },
+          [localStartYYYYMMDD]: [
+            ...(acc[localStartYYYYMMDD] ?? []),
+            { start: localStartTime, end: localEndTime },
           ],
         };
       } else {
@@ -107,13 +107,13 @@ export const createZonedMonthlySchedules = (
 
         return {
           ...acc,
-          [zonedStartYYYYMMDD]: [
-            ...(acc[zonedStartYYYYMMDD] ?? []),
-            { start: zonedStartTime, end: beforeMidnight },
+          [localStartYYYYMMDD]: [
+            ...(acc[localStartYYYYMMDD] ?? []),
+            { start: localStartTime, end: beforeMidnight },
           ],
-          [zonedEndYYYYMMDD]: [
-            ...(acc[zonedEndYYYYMMDD] ?? []),
-            { start: midnight, end: zonedEndTime },
+          [localEndYYYYMMDD]: [
+            ...(acc[localEndYYYYMMDD] ?? []),
+            { start: midnight, end: localEndTime },
           ],
         };
       }
@@ -208,13 +208,13 @@ export const getClosestNextTimeAfterCurrent = (current: Date, timeUnit: 30 | 60 
 };
 
 export const getAvailableMinDate = (date: string) => {
-  return toYYYYMMDD(KSTtoZonedDate(date)) < toYYYYMMDD(getToday())
+  return toYYYYMMDD(zonedToLocalDate(date)) < toYYYYMMDD(getToday())
     ? getToday()
-    : KSTtoZonedDate(date);
+    : zonedToLocalDate(date);
 };
 
 export const getAvailableMaxDate = (date: string) => {
-  return toYYYYMMDD(getToday()) < toYYYYMMDD(KSTtoZonedDate(date))
-    ? KSTtoZonedDate(date)
+  return toYYYYMMDD(getToday()) < toYYYYMMDD(zonedToLocalDate(date))
+    ? zonedToLocalDate(date)
     : undefined;
 };

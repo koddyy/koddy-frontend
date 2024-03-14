@@ -1,5 +1,5 @@
 import { addMonths } from "date-fns";
-import { toDate, utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
+import { utcToZonedTime, zonedTimeToUtc } from "date-fns-tz";
 import { localeCookie } from "./locale";
 import { timezoneCookie } from "./timezone";
 
@@ -34,13 +34,13 @@ export const getNextMonth = () => {
   return addMonths(getToday(), 1);
 };
 
-export const parseLocalDateTime = (localDateTime: string) => {
-  const [yyyymmdd, hhmmss] = localDateTime.split("T");
+export const parseISO = (iso: string) => {
+  const [yyyymmdd, hhmmss] = iso.split("T");
 
   return { yyyymmdd, hhmmss };
 };
 
-export const formatLocalDateTime = (date: Date) => {
+export const formatISO = (date: Date) => {
   const yyyymmdd = toYYYYMMDD(date);
   const hhmmss = toHHMMSS(date);
 
@@ -59,25 +59,24 @@ export const formatDateTimeByLocale = (date: Date, options?: Intl.DateTimeFormat
   return new Intl.DateTimeFormat(locale, options).format(date);
 };
 
-/** KST */
+/** timezone */
 
-export const getKSTToday = () => {
+export const getZonedToday = (targetTimeZone = "Asia/Seoul") => {
   const utcISOString = new Date().toISOString();
 
-  return utcToZonedTime(utcISOString, "Asia/Seoul");
+  return utcToZonedTime(utcISOString, targetTimeZone);
 };
 
-export const toKSTDate = (date: string) => {
-  const timeZone = timezoneCookie.get();
-  const utc = zonedTimeToUtc(date, timeZone);
+export const localToZonedDate = (date: string, targetTimeZone = "Asia/Seoul") => {
+  const localTimeZone = timezoneCookie.get();
+  const utc = zonedTimeToUtc(date, localTimeZone);
 
-  return utcToZonedTime(utc, "Asia/Seoul");
+  return utcToZonedTime(utc, targetTimeZone);
 };
 
-/** @NOTE offset이 포함되지 않은 date 문자열 */
-export const KSTtoZonedDate = (date: string) => {
-  const localTime = toDate(date, { timeZone: "Asia/Seoul" });
+export const zonedToLocalDate = (date: string, sourceTimeZone = "Asia/Seoul") => {
+  const utc = zonedTimeToUtc(date, sourceTimeZone);
 
-  const timeZone = timezoneCookie.get();
-  return utcToZonedTime(localTime.toISOString(), timeZone);
+  const localTimeZone = timezoneCookie.get();
+  return utcToZonedTime(utc, localTimeZone);
 };

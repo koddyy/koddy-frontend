@@ -1,6 +1,6 @@
 import { useUpdateCoffeeChatMenteeApproved } from "@/apis/coffeechat-status/hooks/useUpdateCoffeeChatMenteeApproved";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { formatLocalDateTime, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { formatISO, localToZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
 
 export const useApproveCoffeeChat = () => {
   const { mutate: updateCoffeeChatMenteeApproved, isSuccess: isApproveSuccess } =
@@ -14,8 +14,8 @@ export const useApproveCoffeeChat = () => {
 
     updateCoffeeChatMenteeApproved({
       coffeeChatId,
-      start: formatLocalDateTime(toKSTDate(`${YYYYMMDD}T${startTime}`)),
-      end: formatLocalDateTime(toKSTDate(`${YYYYMMDD}T${endTime}`)),
+      start: formatISO(localToZonedDate(`${YYYYMMDD}T${startTime}`)),
+      end: formatISO(localToZonedDate(`${YYYYMMDD}T${endTime}`)),
       question,
     });
   };

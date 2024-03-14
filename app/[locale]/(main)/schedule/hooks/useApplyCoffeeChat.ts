@@ -1,6 +1,6 @@
 import { useCreateCoffeeChatFromMenteeToMentor } from "@/apis/coffeechat/hooks/useCreateCoffeeChatFromMenteeToMentor";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { formatLocalDateTime, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { formatISO, localToZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
 
 export const useApplyCoffeeChat = () => {
   const { mutate: createCoffeeChat, isSuccess: isApplySuccess } =
@@ -14,8 +14,8 @@ export const useApplyCoffeeChat = () => {
 
     createCoffeeChat({
       mentorId,
-      start: formatLocalDateTime(toKSTDate(`${YYYYMMDD}T${startTime}`)),
-      end: formatLocalDateTime(toKSTDate(`${YYYYMMDD}T${endTime}`)),
+      start: formatISO(localToZonedDate(`${YYYYMMDD}T${startTime}`)),
+      end: formatISO(localToZonedDate(`${YYYYMMDD}T${endTime}`)),
       applyReason: question,
     });
   };

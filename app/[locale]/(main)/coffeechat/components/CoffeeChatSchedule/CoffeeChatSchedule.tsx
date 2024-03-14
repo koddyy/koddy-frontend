@@ -8,7 +8,7 @@ import {
 } from "@/constants/coffeechat";
 import { TIME_STYLE } from "@/constants/date";
 import useClipboard from "@/hooks/useClipboard";
-import { formatDateTimeByLocale, KSTtoZonedDate } from "@/utils/dateUtils";
+import { formatDateTimeByLocale, zonedToLocalDate } from "@/utils/dateUtils";
 import { timezoneCookie } from "@/utils/timezone";
 
 interface CoffeeChatScheduleProps {
@@ -35,9 +35,12 @@ export const CoffeeChatSchedule = ({
       <div className="px-[20px] py-[18px]">
         <div className="body-3 mb-[4px]">{t("date")}</div>
         <div className="body-1-bold">
-          {`${formatDateTimeByLocale(KSTtoZonedDate(startTime))} 
-          ${formatDateTimeByLocale(KSTtoZonedDate(startTime), TIME_STYLE)}~${formatDateTimeByLocale(
-            KSTtoZonedDate(endTime),
+          {`${formatDateTimeByLocale(zonedToLocalDate(startTime))} 
+          ${formatDateTimeByLocale(
+            zonedToLocalDate(startTime),
+            TIME_STYLE
+          )}~${formatDateTimeByLocale(
+            zonedToLocalDate(endTime),
             TIME_STYLE
           )} (${timezoneCookie.get()})
           `}

@@ -6,7 +6,7 @@ import { PATH } from "@/constants/path";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { useIntersect } from "@/hooks/useIntersect";
 import { Link } from "@/libs/navigation";
-import { KSTtoZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { toYYYYMMDD, zonedToLocalDate } from "@/utils/dateUtils";
 import { NotificationItem } from "./NotificationItem/NotificationItem";
 
 export const NotificationList = () => {
@@ -48,14 +48,14 @@ export const NotificationList = () => {
                     date:
                       reservedDay &&
                       new Intl.DateTimeFormat("kr", { dateStyle: "long" }).format(
-                        KSTtoZonedDate(reservedDay)
+                        zonedToLocalDate(reservedDay)
                       ),
                     cancelReason,
                     rejectReason,
                   })}
                 </>
               }
-              date={toYYYYMMDD(KSTtoZonedDate(createdAt))}
+              date={toYYYYMMDD(zonedToLocalDate(createdAt))}
               isRead={read}
             />
           </Link>

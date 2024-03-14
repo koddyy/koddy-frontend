@@ -7,7 +7,7 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
 import { DATE_STYLE, TIME_STYLE } from "@/constants/date";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { formatDateTimeByLocale, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { formatDateTimeByLocale, localToZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
 import { timezoneCookie } from "@/utils/timezone";
 import { useSchedules } from "../hooks/useSchedules";
 
@@ -45,7 +45,7 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
     dateField.value ?? new Date()
   );
 
-  const selectedLocalDateTime = dateField.value &&
+  const selectedZonedDateTime = dateField.value &&
     timeRangeField.value && {
       start: `${toYYYYMMDD(dateField.value)}T${timeRangeField.value[0]}`,
       end: `${toYYYYMMDD(dateField.value)}T${timeRangeField.value[1]}`,
@@ -100,11 +100,11 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
           </div>
           <div className="body-3 text-gray-600">
             {`${t("korea-standard-time")}
-            ${formatDateTimeByLocale(toKSTDate(selectedLocalDateTime.start), DATE_STYLE)}
+            ${formatDateTimeByLocale(localToZonedDate(selectedZonedDateTime.start), DATE_STYLE)}
             ${formatDateTimeByLocale(
-              toKSTDate(selectedLocalDateTime.start),
+              localToZonedDate(selectedZonedDateTime.start),
               TIME_STYLE
-            )}~${formatDateTimeByLocale(toKSTDate(selectedLocalDateTime.end), TIME_STYLE)}`}
+            )}~${formatDateTimeByLocale(localToZonedDate(selectedZonedDateTime.end), TIME_STYLE)}`}
           </div>
         </div>
       )}
