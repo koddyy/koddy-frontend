@@ -5,9 +5,9 @@ import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
-import { DATE_STYLE, TIME_STYLE } from "@/constants/date";
 import { MenteeApplyForm } from "@/types/coffeechat";
-import { formatDateTimeByLocale, localToZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { localToZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { formatScheduleDateAndTimeRange } from "@/utils/schedules";
 import { timezoneCookie } from "@/utils/timezone";
 import { useSchedules } from "../hooks/useSchedules";
 
@@ -94,17 +94,18 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
       {dateField.value && timeRangeField.value && (
         <div className="flex flex-col gap-[4px] rounded-[12px] bg-gray-100 py-[16px] text-center">
           <div className="body-1-bold">
-            {`
-            ${formatDateTimeByLocale(dateField.value, DATE_STYLE)}
-            ${timeRangeField.value[0]}~${timeRangeField.value[1]} (${timezoneCookie.get()})`}
+            {formatScheduleDateAndTimeRange(
+              new Date(selectedZonedDateTime.start),
+              new Date(selectedZonedDateTime.end),
+              timezoneCookie.get()
+            )}
           </div>
           <div className="body-3 text-gray-600">
             {`${t("korea-standard-time")}
-            ${formatDateTimeByLocale(localToZonedDate(selectedZonedDateTime.start), DATE_STYLE)}
-            ${formatDateTimeByLocale(
+            ${formatScheduleDateAndTimeRange(
               localToZonedDate(selectedZonedDateTime.start),
-              TIME_STYLE
-            )}~${formatDateTimeByLocale(localToZonedDate(selectedZonedDateTime.end), TIME_STYLE)}`}
+              localToZonedDate(selectedZonedDateTime.end)
+            )}`}
           </div>
         </div>
       )}
