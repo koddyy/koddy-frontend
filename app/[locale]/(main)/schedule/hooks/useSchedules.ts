@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import { useGetReservedSchedules } from "@/apis/mentor/hooks/useGetReservedSchedules";
-import { getKSTToday, toKSTDate, toYYYYMMDD } from "@/utils/dateUtils";
+import { toYYYYMMDD } from "@/utils/dateUtils";
 import {
   convertReservedSchedulesToZoned,
   convertSchedulesDayOfWeekToDayIndex,
   createAvailableTimeSlots,
   createZonedMonthlySchedules,
+  getAvailableMaxDate,
+  getAvailableMinDate,
 } from "../utils/scheduleUtils";
 
 export const useSchedules = (mentorId: number, currentDate: Date) => {
@@ -38,14 +40,8 @@ export const useSchedules = (mentorId: number, currentDate: Date) => {
   );
 
   return {
-    minDate: period?.startDate
-      ? toKSTDate(
-          period.startDate < toYYYYMMDD(getKSTToday())
-            ? toYYYYMMDD(getKSTToday())
-            : period.startDate
-        )
-      : undefined,
-    maxDate: period?.endDate ? toKSTDate(period.endDate) : undefined,
+    minDate: period?.startDate ? getAvailableMinDate(period.startDate) : undefined,
+    maxDate: period?.endDate ? getAvailableMaxDate(period.endDate) : undefined,
     monthlySchedules,
     availableTimeSlots,
   };

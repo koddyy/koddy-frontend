@@ -206,3 +206,15 @@ export const getClosestNextTimeAfterCurrent = (current: Date, timeUnit: 30 | 60 
     return toHHMM({ hour: hour + 1, minute: 0 });
   }
 };
+
+export const getAvailableMinDate = (date: string) => {
+  return toYYYYMMDD(KSTtoZonedDate(date)) < toYYYYMMDD(getToday())
+    ? getToday()
+    : KSTtoZonedDate(date);
+};
+
+export const getAvailableMaxDate = (date: string) => {
+  return toYYYYMMDD(getToday()) < toYYYYMMDD(KSTtoZonedDate(date))
+    ? KSTtoZonedDate(date)
+    : undefined;
+};
