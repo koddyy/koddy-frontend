@@ -1,46 +1,26 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { BrowseMenteeList } from "@/app/[locale]/(main)/components/BrowseMenteeList";
 import { BrowseMentorList } from "@/app/[locale]/(main)/components/BrowseMentorList";
 import { Header } from "@/app/components/Header";
 import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
-import { Button } from "@/components/Button";
 import { useAuth } from "@/hooks/useAuth";
-import { useQueryString } from "@/hooks/useQueryString";
-import { Link } from "@/libs/navigation";
 import {
   NewAppliedCoffeeChatList,
   NewSuggestedCoffeeChatList,
 } from "./components/NewCoffeeChatList";
 import { ProfileCompleteBanner } from "./components/ProfileCompleteBanner";
+import { SwitchExploreUserButton } from "./components/SwitchExploreUserButton";
 
 const Home = ({ searchParams }: { searchParams: { explore?: string } }) => {
-  const t = useTranslations("home");
-
   const explore = searchParams.explore ?? "mentee";
-  const { createQueryString } = useQueryString();
 
   const { isPending, isAuthenticated, me } = useAuth();
 
   return (
     <>
       <Header
-        rightContent={
-          !isPending ? (
-            !isAuthenticated ? (
-              <Link
-                href={createQueryString({ explore: explore === "mentor" ? "mentee" : "mentor" })}
-              >
-                <Button size="xs" className="body-2-bold h-[35px]" fullWidth={false}>
-                  {explore === "mentor" ? t("explore-mentee") : t("explore-mentor")}
-                </Button>
-              </Link>
-            ) : null
-          ) : (
-            <></>
-          )
-        }
+        rightContent={!isPending ? !isAuthenticated ? <SwitchExploreUserButton /> : null : <></>}
       />
       {!isPending && (
         <div className="mt-[18px]">
