@@ -1,17 +1,17 @@
 import { useTranslations } from "next-intl";
-import { useGetNewAppliedCoffeeChatList } from "@/apis/coffeechat/hooks/useGetNewAppliedCoffeeChatList";
+import { useGetNewSuggestedCoffeeChatList } from "@/apis/coffeechat/hooks/useGetNewSuggestedCoffeeChatList";
 import ArrowRight from "@/assets/arrow_right.svg";
 import { Carousel } from "@/components/Carousel";
 import { Divider } from "@/components/Divider";
+import { UserCard } from "@/components/UserCard";
 import { PATH } from "@/constants/path";
 import { Link } from "@/libs/navigation";
 import { cn } from "@/utils/cn";
-import { UserCard } from "../UserCard";
 
-export const NewAppliedCoffeeChatList = () => {
+export const NewSuggestedCoffeeChatList = () => {
   const t = useTranslations("home.NewCoffeeChatList");
 
-  const { data: newCoffeeChatList } = useGetNewAppliedCoffeeChatList();
+  const { data: newCoffeeChatList } = useGetNewSuggestedCoffeeChatList();
 
   if (newCoffeeChatList.result.length === 0) return;
 
@@ -19,13 +19,13 @@ export const NewAppliedCoffeeChatList = () => {
     <>
       <div className="mb-3 flex justify-between px-[20px]">
         <div className="subheading-bold">
-          {t.rich("title.applied", {
+          {t.rich("title.suggested", {
             count: newCoffeeChatList.totalCount,
             mark: (chunk) => <span className="text-primary">{chunk}</span>,
           })}
         </div>
         <Link
-          href={PATH.COFFEECHAT + "?category=applied&status=APPLY"}
+          href={PATH.COFFEECHAT + "?category=suggested&status=SUGGEST"}
           className="body-3 flex items-center text-gray-600"
         >
           {t("view")}
@@ -45,7 +45,7 @@ export const NewAppliedCoffeeChatList = () => {
                     newCoffeeChatList.totalCount === 1 && "min-max-full min-w-full px-[20px]"
                   )}
                 >
-                  <UserCard role="mentee" {...user} />
+                  <UserCard role="mentor" {...user} />
                 </Link>
               );
             })
@@ -54,10 +54,10 @@ export const NewAppliedCoffeeChatList = () => {
                 <Link
                   key="more"
                   className="min-w-[70%] max-w-[70%] px-[20px]"
-                  href={PATH.COFFEECHAT + "?category=applied&status=APPLY"}
+                  href={PATH.COFFEECHAT + "?category=suggested&status=SUGGEST"}
                 >
                   <div className="subheading-bold flex h-full items-center justify-center gap-[4px] rounded-xl bg-gray-100">
-                    <span> {t("more")}</span>
+                    <span>{t("more")}</span>
                     <ArrowRight width={24} height={24} />
                   </div>
                 </Link>

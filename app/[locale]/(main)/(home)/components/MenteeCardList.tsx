@@ -1,9 +1,9 @@
 import { useGetMenteeList } from "@/apis/user/hooks/useGetMenteeList";
 import { GetMenteeListRequest } from "@/apis/user/types";
+import { UserCard } from "@/components/UserCard";
 import { PATH } from "@/constants/path";
 import { useIntersect } from "@/hooks/useIntersect";
 import { Link } from "@/libs/navigation";
-import { UserCard } from "./UserCard";
 
 interface MenteeCardListProps {
   params: Pick<GetMenteeListRequest, "nationalities" | "languages">;

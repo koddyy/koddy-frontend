@@ -1,7 +1,7 @@
 "use client";
 
-import { BrowseMenteeList } from "../../components/BrowseMenteeList";
-import { BrowseMentorList } from "../../components/BrowseMentorList";
+import { BrowseMenteeList } from "../components/BrowseMenteeList";
+import { BrowseMentorList } from "../components/BrowseMentorList";
 
 const Page = ({ searchParams }: { searchParams: { explore: string } }) => {
   const explore = searchParams.explore === "mentor" ? "mentor" : "mentee";

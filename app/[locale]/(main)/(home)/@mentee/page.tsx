@@ -2,9 +2,9 @@
 
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
-import { BrowseMentorList } from "../../components/BrowseMentorList";
-import { NewSuggestedCoffeeChatList } from "../../components/NewCoffeeChatList";
-import { ProfileCompleteBanner } from "../../components/ProfileCompleteBanner";
+import { BrowseMentorList } from "../components/BrowseMentorList";
+import { NewSuggestedCoffeeChatList } from "../components/NewCoffeeChatList";
+import { ProfileCompleteBanner } from "../components/ProfileCompleteBanner";
 
 const Page = () => {
   const { data: me } = useGetMe();

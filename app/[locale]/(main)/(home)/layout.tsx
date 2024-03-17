@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 import { Header } from "@/app/components/Header";
 import { useAuth } from "@/hooks/useAuth";
-import { SwitchExploreUserButton } from "../components/SwitchExploreUserButton";
+import { SwitchExploreUserButton } from "./components/SwitchExploreUserButton";
 
 interface Props {
   children: ReactNode;
