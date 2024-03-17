@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { useGetMenteeById } from "@/apis/user/hooks/useGetMenteeById";
-import { MenteeProfile } from "@/app/[locale]/(main)/components/UserProfile";
 import { GoToLoginBottomSheet } from "@/app/components/GoToLoginBottomSheet";
 import { Button } from "@/components/Button";
+import { MenteeProfile } from "@/components/UserProfile";
 import { PATH } from "@/constants/path";
 import { useAuth } from "@/hooks/useAuth";
 import { useToggle } from "@/hooks/useToggle";

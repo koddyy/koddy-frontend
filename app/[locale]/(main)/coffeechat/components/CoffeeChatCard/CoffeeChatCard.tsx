@@ -4,7 +4,7 @@ import { DefaultProfileImageUrl } from "@/constants/profile";
 import { CoffeeChatStatus } from "@/types/coffeechat";
 import { cn } from "@/utils/cn";
 import { getDescription } from "@/utils/profile";
-import { UserCardProps } from "../../../components/UserCard";
+import { UserCardProps } from "../../../../../../components/UserCard";
 
 type CoffeeChatCardProps = UserCardProps & {
   status: CoffeeChatStatus | null;

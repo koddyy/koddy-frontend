@@ -3,7 +3,7 @@ import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { BottomSheet } from "@/components/BottomSheet";
 import { Button, LinkButton } from "@/components/Button";
-import { MentorProfile } from "../../components/UserProfile";
+import { MentorProfile } from "@/components/UserProfile";
 import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
 import { RejectReasonSelect } from "../components/RejectBottomSheet";
 import { Result } from "../components/ResultBottomSheet/ResultBottomSheet";

@@ -1,4 +1,4 @@
-import { UserCard } from "./UserCard";
+import { UserCard } from "@/components/UserCard";
 
 export const UserCardListSkeleton = () => {
   return (
