@@ -1,19 +1,19 @@
 {
   "notification": {
-    "MENTOR_RECEIVE_MENTEE_FLOW_MENTEE_APPLY": "<em>{name}</em>님에게 커피챗 신청이 도착했습니다.",
-    "MENTOR_RECEIVE_MENTEE_FLOW_MENTEE_CANCEL": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
-    "MENTOR_RECEIVE_MENTEE_FLOW_MENTOR_APPROVE": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다.",
-    "MENTOR_RECEIVE_MENTOR_FLOW_MENTEE_CANCEL": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
-    "MENTOR_RECEIVE_MENTOR_FLOW_MENTEE_REJECT": "<em>{name}</em>님의 커피챗이 거절되었습니다. (거절 사유: {rejectReason})",
-    "MENTOR_RECEIVE_MENTOR_FLOW_MENTEE_PENDING": "<em>{name}</em>님이 커피챗을 수락했습니다.",
-    "MENTOR_RECEIVE_MENTOR_FLOW_MENTOR_FINALLY_APPROVE": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다.",
+    "MENTOR_RECEIVE_MENTEE_APPLY_FROM_MENTEE_FLOW": "<em>{name}</em>님에게 커피챗 신청이 도착했습니다.",
+    "MENTOR_RECEIVE_MENTEE_CANCEL_FROM_MENTEE_FLOW": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
+    "MENTOR_RECEIVE_MENTOR_APPROVE_FROM_MENTEE_FLOW": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다.",
+    "MENTOR_RECEIVE_MENTEE_CANCEL_FROM_MENTOR_FLOW": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
+    "MENTOR_RECEIVE_MENTEE_REJECT_FROM_MENTOR_FLOW": "<em>{name}</em>님의 커피챗이 거절되었습니다. (거절 사유: {rejectReason})",
+    "MENTOR_RECEIVE_MENTEE_PENDING_FROM_MENTOR_FLOW": "<em>{name}</em>님이 커피챗을 수락했습니다.",
+    "MENTOR_RECEIVE_MENTOR_FINALLY_APPROVE_FROM_MENTOR_FLOW": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다.",
 
-    "MENTEE_RECEIVE_MENTEE_FLOW_MENTOR_CANCEL": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
-    "MENTEE_RECEIVE_MENTEE_FLOW_MENTOR_REJECT": "<em>{name}</em>님의 커피챗이 거절되었습니다. (거절 사유: {rejectReason})",
-    "MENTEE_RECEIVE_MENTEE_FLOW_MENTOR_APPROVE": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다.",
-    "MENTEE_RECEIVE_MENTOR_FLOW_MENTOR_SUGGEST": "<em>{name}</em>님에게 커피챗 제안이 도착했습니다.",
-    "MENTEE_RECEIVE_MENTOR_FLOW_MENTOR_CANCEL": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
-    "MENTEE_RECEIVE_MENTOR_FLOW_MENTOR_FINALLY_CANCEL": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
-    "MENTEE_RECEIVE_MENTOR_FLOW_MENTOR_FINALLY_APPROVE": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다."
+    "MENTEE_RECEIVE_MENTOR_CANCEL_FROM_MENTEE_FLOW": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
+    "MENTEE_RECEIVE_MENTOR_REJECT_FROM_MENTEE_FLOW": "<em>{name}</em>님의 커피챗이 거절되었습니다. (거절 사유: {rejectReason})",
+    "MENTEE_RECEIVE_MENTOR_APPROVE_FROM_MENTEE_FLOW": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다.",
+    "MENTEE_RECEIVE_MENTOR_SUGGEST_FROM_MENTOR_FLOW": "<em>{name}</em>님에게 커피챗 제안이 도착했습니다.",
+    "MENTEE_RECEIVE_MENTOR_CANCEL_FROM_MENTOR_FLOW": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
+    "MENTEE_RECEIVE_MENTOR_FINALLY_CANCEL_FROM_MENTOR_FLOW": "<em>{name}</em>님과의 커피챗이 취소되었습니다. (취소 사유: {cancelReason})",
+    "MENTEE_RECEIVE_MENTOR_FINALLY_APPROVE_FROM_MENTOR_FLOW": "<em>{name}</em>님과의 커피챗이 {date}로 예정되었습니다."
   }
 }
