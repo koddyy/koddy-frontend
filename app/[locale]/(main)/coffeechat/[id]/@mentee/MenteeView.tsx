@@ -3,7 +3,6 @@ import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import useCancelCoffeeChat from "@/app/[locale]/(main)/coffeechat/hooks/useCancelCoffeeChat";
 import { BottomSheet } from "@/components/BottomSheet";
 import { Button, LinkButton } from "@/components/Button";
-import { MentorProfile } from "@/components/UserProfile";
 import { CoffeeChatSchedule } from "../../components/CoffeeChatSchedule";
 import { RejectReasonSelect } from "../../components/RejectBottomSheet";
 import { Result } from "../../components/ResultBottomSheet/ResultBottomSheet";
@@ -15,7 +14,6 @@ interface MenteeViewProps {
 
 const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -34,10 +32,6 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       <CoffeeChatSchedule startTime={coffeeChat.start} endTime={coffeeChat.end} />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
@@ -88,7 +82,6 @@ const ApplyCoffeeChat = ({ id }: MenteeViewProps) => {
 
 const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -107,10 +100,6 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       <div className="mb-[20px] flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
           <span className="text-box-label">{t("introduction-of-mentor")}</span>
@@ -163,7 +152,6 @@ const SuggestCoffeeChat = ({ id }: MenteeViewProps) => {
 
 const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -182,10 +170,6 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       <CoffeeChatSchedule startTime={coffeeChat.start} endTime={coffeeChat.end} />
       <div className="flex flex-col gap-[20px] px-[20px] py-[12px]">
         <div>
@@ -241,7 +225,6 @@ const PendingCoffeeChat = ({ id }: MenteeViewProps) => {
 
 const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -265,10 +248,6 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       <CoffeeChatSchedule
         startTime={coffeeChat.start}
         endTime={coffeeChat.end}
@@ -335,7 +314,6 @@ const ApproveCoffeeChat = ({ id }: MenteeViewProps) => {
 
 const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -352,10 +330,6 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       <CoffeeChatSchedule
         startTime={coffeeChat.start}
         endTime={coffeeChat.end}
@@ -389,7 +363,6 @@ const CompleteCoffeeChat = ({ id }: MenteeViewProps) => {
 
 const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -403,10 +376,6 @@ const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       {coffeeChat.start && coffeeChat.end && (
         <CoffeeChatSchedule
           startTime={coffeeChat.start}
@@ -446,7 +415,6 @@ const RejectCoffeeChat = ({ id }: MenteeViewProps) => {
 
 const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -464,10 +432,6 @@ const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-      />
       {coffeeChat.start && coffeeChat.end && (
         <CoffeeChatSchedule
           startTime={coffeeChat.start}
@@ -508,7 +472,6 @@ const CancelCoffeeChat = ({ id }: MenteeViewProps) => {
 
 export const AutoCancelCoffeeChat = ({ id }: MenteeViewProps) => {
   const t = useTranslations("coffeechat");
-  const constants = useTranslations("constants");
 
   const { data } = useGetCoffeeChatById(id);
   const { mentor, coffeeChat } = data ?? {};
@@ -525,11 +488,6 @@ export const AutoCancelCoffeeChat = ({ id }: MenteeViewProps) => {
 
   return (
     <>
-      <MentorProfile
-        {...mentor}
-        coffeeChatStatusText={constants(`coffeechat-status-text.mentee.${coffeeChat.status}`)}
-        isAutoCancel
-      />
       {coffeeChat.start && coffeeChat.end && (
         <CoffeeChatSchedule
           startTime={coffeeChat.start}
