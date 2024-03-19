@@ -5,15 +5,15 @@ import { BottomSheet } from "@/components/BottomSheet";
 import { Button, LinkButton } from "@/components/Button";
 import { MenteeProfile } from "@/components/UserProfile";
 import { PATH } from "@/constants/path";
-import { CoffeeChatSchedule } from "../components/CoffeeChatSchedule";
-import { CoffeeChatTypeSelect } from "../components/CoffeeChatTypeSelectBottomSheet";
-import { QuestionToMentee } from "../components/QuestionToMenteeBottomSheet/QuestionToMenteeBottomSheet";
-import { RejectReasonSelect } from "../components/RejectBottomSheet";
-import { Result } from "../components/ResultBottomSheet/ResultBottomSheet";
-import { useApplyToApproveCoffeeChat } from "../hooks/useApplyToApproveCoffeeChat";
-import { usePendingToApproveCoffeeChat } from "../hooks/usePendingToApproveCoffeeChat";
-import { usePendingToFinallyCancelCoffeeChat } from "../hooks/usePendingToFinallyCancelCoffeeChat";
-import { useRejectCoffeeChatForMentor } from "../hooks/useRejectCoffeeChatForMentor";
+import { CoffeeChatSchedule } from "../../components/CoffeeChatSchedule";
+import { CoffeeChatTypeSelect } from "../../components/CoffeeChatTypeSelectBottomSheet";
+import { QuestionToMentee } from "../../components/QuestionToMenteeBottomSheet/QuestionToMenteeBottomSheet";
+import { RejectReasonSelect } from "../../components/RejectBottomSheet";
+import { Result } from "../../components/ResultBottomSheet/ResultBottomSheet";
+import { useApplyToApproveCoffeeChat } from "../../hooks/useApplyToApproveCoffeeChat";
+import { usePendingToApproveCoffeeChat } from "../../hooks/usePendingToApproveCoffeeChat";
+import { usePendingToFinallyCancelCoffeeChat } from "../../hooks/usePendingToFinallyCancelCoffeeChat";
+import { useRejectCoffeeChatForMentor } from "../../hooks/useRejectCoffeeChatForMentor";
 
 interface MentorViewProps {
   id: number;
