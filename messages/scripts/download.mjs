@@ -1,4 +1,5 @@
 import fs from "fs";
+import { EOL } from "os";
 import { loadSheet, locales, parseFlattenedObject, scanAllJsonFiles } from "./utils.mjs";
 
 /**
@@ -25,7 +26,10 @@ const rewriteJson = (fileName, dict) => {
   locales.map((locale) => {
     const json = parseFlattenedObject(dict[locale]);
 
-    fs.writeFileSync(`messages/${locale}/${fileName}.json`, JSON.stringify(json, undefined, 2));
+    fs.writeFileSync(
+      `messages/${locale}/${fileName}.json`,
+      JSON.stringify(json, undefined, 2) + EOL
+    );
   });
 };
 
