@@ -4,7 +4,6 @@
       "label": "What do these mean?",
       "description": "Pending: Chat requests that need to be confirmed\nUpcoming: Scheduled chats\nLast: Completed or canceled chats"
     },
-
     "category": {
       "waiting": "Pending",
       "scheduled": "Uncoming",
@@ -14,7 +13,6 @@
       "mentor": "Chat requests",
       "mentee": "Chat requests"
     },
-
     "filters": {
       "all": "All",
       "apply": "Received",
@@ -23,7 +21,6 @@
       "cancel": "Declined",
       "reject": "Canceled"
     },
-
     "CoffeeChatSchedule": {
       "date": "Date",
       "korea-standard-time": "KST",
@@ -33,7 +30,6 @@
       "sns-id": "SNS ID",
       "copy-id": "Copy SNS ID"
     },
-
     "introduction-of-mentor": "About me",
     "introduction-of-mentee": "About me",
     "question-of-mentor": "Note",
@@ -46,12 +42,10 @@
     "cancel-reason-of-me": "나의 취소 사유",
     "cancel-reason-of-mentor": "멘토의 취소 사유",
     "cancel-reason-of-mentee": "멘티의 취소 사유",
-
     "accept-coffeechat": "Accept",
     "reject-coffeechat": "Decline",
     "finally-accept-coffeechat": "최종 확정하기",
     "cancel-coffeechat": "Cancel a chat",
-
     "RejectBottomSheet": {
       "reject-title": "Tell us the reason to cancel the chat\nwith {name}",
       "cancel-title": "Tell us the reason to cancel the chat\nwith {name}",
@@ -61,7 +55,6 @@
       "cancel-coffeechat": "Cancel the chat",
       "reject-coffeechat": "Cancel the chat"
     },
-
     "ResultBottomSheet": {
       "APPLY": "Successfully Sent the request\nto {name}!",
       "SUGGEST": "Successfully Sent the request\nto {name}!",
@@ -71,14 +64,12 @@
       "return-home": "Return Home",
       "go-to-calendar": "Go to Calendar"
     },
-
     "PendingBottomSheet": {
       "SUGGEST": "Would You Like to Request a chat\nto {name}?",
       "CANCEL": "Would You Like to Cancel a chat\nwith {name}?",
       "yes": "Yes",
       "no": "No"
     },
-
     "CoffeeChatTypeSelectBottomSheet": {
       "chat-method": "Chat Method",
       "guide": "Where would you like to chat with her?",

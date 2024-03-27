@@ -19,7 +19,6 @@
       "title": "사용 언어를<br></br>선택해 주세요"
     },
     "next": "다음",
-
     "TermsOfService": {
       "title": "코띠 서비스 이용에<br></br>동의해주세요",
       "agreement": {
@@ -32,7 +31,6 @@
       },
       "next": "다음"
     },
-
     "BasicInformationForm": {
       "mentor": {
         "title": "기본 정보를<br></br>입력해 주세요",
@@ -50,7 +48,6 @@
         },
         "next": "다음"
       },
-
       "mentee": {
         "title": "기본 정보를<br></br>입력해 주세요",
         "interest-school": {
@@ -68,19 +65,16 @@
         "next": "다음"
       }
     },
-
     "MainLanguageSelectForm": {
       "title": "메인 언어를<br></br>설정해 주세요",
       "description": "가장 편안하고 원활하게 대화할 수 있는 언어를<br></br>선택해 주세요.",
       "next": "다음"
     },
-
     "SubLanguageSelectForm": {
       "title": "서브 언어를<br></br>설정해 주세요",
       "description": "어느 정도 소통이 가능한 수준의 언어를<br></br>선택해 주세요.",
       "next": "다음"
     },
-
     "SignupSuccess": {
       "success": "가입이 완료됐어요 🎉",
       "guide": "커피챗을 위한 정보를 입력해주시면<br></br>멘토멘티 신청이 들어올 수 있어요",

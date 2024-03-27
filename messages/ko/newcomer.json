@@ -1,18 +1,15 @@
 {
   "newcomer": {
     "skip": "건너뛰기",
-
     "IntroductionStep": {
       "title": "{name}님을<br></br>소개해 주세요",
       "placeholder": "간단한 소개와 커피챗을 하게 된 이유, 현재는 어떤 경험을 하고 계신지 알려주시면 좋아요!",
       "next": "다음"
     },
-
     "PeriodStep": {
       "title": "어느 기간 내에<br></br>진행할 예정이신가요?",
       "next": "다음"
     },
-
     "ScheduleStep": {
       "title": "커피챗이 가능한<br></br>시간대를 알려주세요",
       "repeat": "매일 시간 같아요",

@@ -4,11 +4,9 @@
       "description": "An error occurred in this page.",
       "retry": "retry"
     },
-
     "profile-description": {
       "prefix": "Interested in"
     },
-
     "nationality-options": {
       "KR": "Korean",
       "EN": "American",
@@ -28,47 +26,40 @@
       "main": "Main Language",
       "sub": "Sub Language"
     },
-
     "coffeechat-status-text": {
       "mentor": {
         "MENTEE_APPLY": "You’ve got a request!",
         "MENTOR_APPROVE": "Scheduled Chat",
         "MENTOR_REJECT": "커피챗이 거절됐어요",
         "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "Completed Chat",
-
         "MENTOR_SUGGEST": "Request Sent",
         "MENTEE_PENDING": "Request accepted",
         "MENTEE_REJECT": "커피챗이 거절됐어요",
         "MENTOR_FINALLY_APPROVE": "Scheduled Chat",
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
-
         "CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
-        "AUTO_CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
         "CANCEL_FROM_MENTOR_FLOW": "Canceled Chat",
+        "AUTO_CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
         "AUTO_CANCEL_FROM_MENTOR_FLOW": "Canceled Chat"
       },
-
       "mentee": {
         "MENTEE_APPLY": "Request Sent",
         "MENTOR_APPROVE": "Scheduled Chat",
         "MENTOR_REJECT": "커피챗이 거절됐어요",
         "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "Completed Chat",
-
         "MENTOR_SUGGEST": "You’ve got a request!",
         "MENTEE_PENDING": "커피챗 최종 확정을 기다리고 있어요",
         "MENTEE_REJECT": "커피챗이 거절됐어요",
         "MENTOR_FINALLY_APPROVE": "Scheduled Chat",
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "Completed Chat",
-
         "CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
-        "AUTO_CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
         "CANCEL_FROM_MENTOR_FLOW": "Canceled Chat",
+        "AUTO_CANCEL_FROM_MENTEE_FLOW": "Canceled Chat",
         "AUTO_CANCEL_FROM_MENTOR_FLOW": "Canceled Chat"
       }
     },
-
     "day-of-week": {
       "월": "Mon",
       "화": "Tue",
@@ -78,7 +69,6 @@
       "토": "Sat",
       "일": "Sun"
     },
-
     "chat-method-platform": {
       "zoom": "Zoom",
       "google": "Google meet",
