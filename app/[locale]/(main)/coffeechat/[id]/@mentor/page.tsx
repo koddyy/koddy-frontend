@@ -3,18 +3,16 @@
 import { useTranslations } from "next-intl";
 import useGetCoffeeChatById from "@/apis/coffeechat/hooks/useGetCoffeeChatById";
 import { MenteeProfile } from "@/components/UserProfile";
-import { MentorView } from "./MentorView";
+import { CoffeeChatDetails } from "./_details";
 
 const Page = ({ params }: { params: { id: string } }) => {
   const constants = useTranslations("constants");
 
   const coffeeChatId = Number(params.id);
-  const { data: coffeeChatDetail, isFetching } = useGetCoffeeChatById(coffeeChatId);
-  const { coffeeChat, mentee } = coffeeChatDetail ?? {};
+  const { data: coffeeChatDetails, isFetching } = useGetCoffeeChatById(coffeeChatId);
+  const { coffeeChat, mentee } = coffeeChatDetails ?? {};
 
   if (!coffeeChat || !mentee || isFetching) return null;
-
-  const CoffeeChatDetail = MentorView[coffeeChat.status];
 
   return (
     <>
@@ -22,7 +20,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         {...mentee}
         coffeeChatStatusText={constants(`coffeechat-status-text.mentor.${coffeeChat.status}`)}
       />
-      <CoffeeChatDetail id={coffeeChatId} />
+      <CoffeeChatDetails id={coffeeChatId} status={coffeeChat.status} />
     </>
   );
 };
