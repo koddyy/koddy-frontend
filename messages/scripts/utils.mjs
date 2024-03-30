@@ -4,7 +4,6 @@ import fs from "fs";
 import { JWT } from "google-auth-library";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import path from "path";
-import creds from "../.credentials/koddy-418315-f1ceaa68067f.json" assert { type: "json" };
 
 const spreadsheetId = "1H7MyuvpvalhSqBGgEcozpZkKAu8uOaA2YiLygXOmn9A";
 
@@ -13,8 +12,8 @@ export const locales = ["ko", "en"];
 export const sheetHeaderValues = ["key", ...locales];
 
 const serviceAccountAuth = new JWT({
-  email: creds.client_email,
-  key: creds.private_key,
+  email: process.env.GOOGLE_APIS_CLIENT_EMAIL,
+  key: process.env.GOOGLE_APIS_PRIVATE_KEY,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"],
 });
 
