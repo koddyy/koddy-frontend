@@ -19,7 +19,6 @@
       "title": "Select your<br></br>preferred language."
     },
     "next": "Next",
-
     "TermsOfService": {
       "title": "Terms of service<br></br>agreement",
       "agreement": {
@@ -32,7 +31,6 @@
       },
       "next": "Next"
     },
-
     "BasicInformationForm": {
       "mentor": {
         "title": "Tell us your<br></br>academic information",
@@ -50,7 +48,6 @@
         },
         "next": "Next"
       },
-
       "mentee": {
         "title": "Tell us your<br></br>academic information",
         "interest-school": {
@@ -68,19 +65,16 @@
         "next": "Next"
       }
     },
-
     "MainLanguageSelectForm": {
       "title": "please select<br></br>your main language",
       "description": "Choose the language you are most comfortable and fluent in.",
       "next": "Next"
     },
-
     "SubLanguageSelectForm": {
       "title": "please select<br></br>your sub language",
       "description": "Select a language that, while not as proficient as the main language, allows for a certain level of communication.",
       "next": "Next"
     },
-
     "SignupSuccess": {
       "success": "Registration Complete 🎉",
       "guide": "Tell Us More about yourself<br></br>to let the others get to know you better!",

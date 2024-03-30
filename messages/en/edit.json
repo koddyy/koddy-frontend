@@ -25,7 +25,6 @@
         "main-language-is-required-error-message": "You can select one Main language."
       }
     },
-
     "language": {
       "main-language": {
         "label": "Main Language",
@@ -37,7 +36,6 @@
       },
       "edit": "Edit"
     },
-
     "schedule": {
       "title": "Edit Availability",
       "period": {
@@ -54,7 +52,6 @@
       "edit": "Edit",
       "complete": "Complete"
     },
-
     "language-and-timezone": {
       "title": "Language & Time Zone",
       "languages": "Language",

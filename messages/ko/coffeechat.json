@@ -4,7 +4,6 @@
       "label": "커피챗 단계가 어떻게 되나요?",
       "description": "커피챗은 대기 - 예정 - 지난으로 진행됩니다.\n\n대기 : 시작되지 않은 커피챗\n예정 : 예약되었으며, 시작될 예정인 커피챗\n지난 : 완료된 커피챗"
     },
-
     "category": {
       "waiting": "대기",
       "scheduled": "예정",
@@ -14,7 +13,6 @@
       "mentor": "제안한 커피챗",
       "mentee": "커피챗 제안"
     },
-
     "filters": {
       "all": "전체",
       "apply": "신청",
@@ -23,7 +21,6 @@
       "cancel": "취소",
       "reject": "거절"
     },
-
     "CoffeeChatSchedule": {
       "date": "시간",
       "korea-standard-time": "한국 기준 시간",
@@ -33,7 +30,6 @@
       "sns-id": "SNS ID",
       "copy-id": "아이디 복사"
     },
-
     "introduction-of-mentor": "멘토의 자기소개",
     "introduction-of-mentee": "멘티의 자기소개",
     "question-of-mentor": "멘토가 나에게 궁금한 점",
@@ -46,12 +42,10 @@
     "cancel-reason-of-me": "나의 취소 사유",
     "cancel-reason-of-mentor": "멘토의 취소 사유",
     "cancel-reason-of-mentee": "멘티의 취소 사유",
-
     "accept-coffeechat": "수락하기",
     "reject-coffeechat": "거절하기",
     "finally-accept-coffeechat": "최종 확정하기",
     "cancel-coffeechat": "커피챗 취소하기",
-
     "RejectBottomSheet": {
       "reject-title": "{name}님과의 커피챗을\n거절하는 이유를 알려주세요.",
       "cancel-title": "{name}님과의 커피챗을\n취소하는 이유를 알려주세요.",
@@ -61,7 +55,6 @@
       "cancel-coffeechat": "취소하기",
       "reject-coffeechat": "거절하기"
     },
-
     "ResultBottomSheet": {
       "APPLY": "{name}님과의\n커피챗이 신청되었습니다.",
       "SUGGEST": "{name}님에게\n커피챗을 제안하였습니다.",
@@ -71,14 +64,12 @@
       "return-home": "홈으로 돌아가기",
       "go-to-calendar": "예약페이지로 가기"
     },
-
     "PendingBottomSheet": {
       "SUGGEST": "{name}님에게\n커피챗을 제안하시겠습니까?",
       "CANCEL": "{name}님과의\n커피챗을 취소하시겠습니까?",
       "yes": "예",
       "no": "아니요"
     },
-
     "CoffeeChatTypeSelectBottomSheet": {
       "chat-method": "커피챗 방식",
       "guide": "커피챗 방식을 선택해주시면 멘티에게 전달 드릴게요.",

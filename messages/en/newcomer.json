@@ -1,18 +1,15 @@
 {
   "newcomer": {
     "skip": "Skip",
-
     "IntroductionStep": {
       "title": "Tell Us About<br></br>Yourself",
       "placeholder": "Tell us a bit about your background! Share a little about yourself who you are, your reasons for participating in chats, and what's happening in your life at the moment.",
       "next": "Next"
     },
-
     "PeriodStep": {
       "title": "Let us know your<br></br>preferred timeframe",
       "next": "Next"
     },
-
     "ScheduleStep": {
       "title": "Available Times<br></br>for a 30-minutes Chat",
       "repeat": "Same Everyday",

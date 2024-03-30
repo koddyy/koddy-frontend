@@ -2,14 +2,12 @@
   "home": {
     "explore-mentor": "멘토 둘러보기",
     "explore-mentee": "멘티 둘러보기",
-
     "filters": {
       "languages": "언어",
       "nationalities": "국적",
       "reset": "초기화",
       "show-results": "결과 보기"
     },
-
     "ProfileCompleteBanner": {
       "mentor": {
         "title": "멘토 프로필 <mark>{percent}%</mark> 완성",
@@ -22,7 +20,6 @@
         "complete-profile": "입력하러 가기"
       }
     },
-
     "NewCoffeeChatList": {
       "title": {
         "applied": "예약을 신청한 멘티가 <mark>{count}명</mark> 있어요",

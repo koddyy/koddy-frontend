@@ -4,11 +4,9 @@
       "description": "An error occurred in this page.",
       "retry": "retry"
     },
-
     "profile-description": {
       "prefix": "관심"
     },
-
     "nationality-options": {
       "KR": "한국",
       "EN": "미국",
@@ -28,49 +26,40 @@
       "main": "메인 언어",
       "sub": "서브 언어"
     },
-
     "coffeechat-status-text": {
       "mentor": {
         "MENTEE_APPLY": "커피챗 신청이 왔어요",
         "MENTOR_APPROVE": "커피챗 예정이에요",
         "MENTOR_REJECT": "커피챗이 거절됐어요",
         "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
-
         "MENTOR_SUGGEST": "커피챗 제안을 했어요",
         "MENTEE_PENDING": "멘티가 커피챗을 수락했어요",
         "MENTEE_REJECT": "커피챗이 거절됐어요",
         "MENTOR_FINALLY_APPROVE": "커피챗 예정이에요",
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
-
         "CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
         "CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요",
-
         "AUTO_CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
         "AUTO_CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요"
       },
-
       "mentee": {
         "MENTEE_APPLY": "커피챗 신청을 했어요",
         "MENTOR_APPROVE": "커피챗 예정이에요",
         "MENTOR_REJECT": "커피챗이 거절됐어요",
         "MENTEE_APPLY_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
-
         "MENTOR_SUGGEST": "커피챗 제안이 왔어요",
         "MENTEE_PENDING": "커피챗 최종 확정을 기다리고 있어요",
         "MENTEE_REJECT": "커피챗이 거절됐어요",
         "MENTOR_FINALLY_APPROVE": "커피챗 예정이에요",
         "MENTOR_FINALLY_CANCEL": "커피챗이 거절됐어요",
         "MENTOR_SUGGEST_COFFEE_CHAT_COMPLETE": "커피챗을 완료했어요",
-
         "CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
         "CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요",
-
         "AUTO_CANCEL_FROM_MENTEE_FLOW": "커피챗이 취소됐어요",
         "AUTO_CANCEL_FROM_MENTOR_FLOW": "커피챗이 취소됐어요"
       }
     },
-
     "day-of-week": {
       "월": "월",
       "화": "화",
@@ -80,7 +69,6 @@
       "토": "토",
       "일": "일"
     },
-
     "chat-method-platform": {
       "zoom": "Zoom",
       "google": "Google meet",

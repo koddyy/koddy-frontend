@@ -2,14 +2,12 @@
   "home": {
     "explore-mentor": "Explore mentor",
     "explore-mentee": "Explore mentee",
-
     "filters": {
       "languages": "Language",
       "nationalities": "Nationality",
       "reset": "Reset",
       "show-results": "Show Results"
     },
-
     "ProfileCompleteBanner": {
       "mentor": {
         "title": "Profile Setup <mark>{percent}%</mark> Complete!",
@@ -22,7 +20,6 @@
         "complete-profile": "Complete Profile"
       }
     },
-
     "NewCoffeeChatList": {
       "title": {
         "applied": "<mark>{count} Requests</mark> Waiting for You!",
