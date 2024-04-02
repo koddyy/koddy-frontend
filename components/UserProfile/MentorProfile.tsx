@@ -28,7 +28,6 @@ export const MentorProfile = ({
           )}
           src={profileImageUrl || DefaultProfileImageUrl["mentor"]}
         />
-        <div className="absolute inset-0 z-10 bg-dimmed-gradient"></div>
       </div>
       <div className="px-[20px] py-[12px]">
         {isAutoCancel && (
