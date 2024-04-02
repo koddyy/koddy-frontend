@@ -22,6 +22,7 @@ const Layout = ({ children, mentee, mentor }: Props) => {
         onClickGoback={() => router.back()}
         backButtonColor="white"
       />
+      <div className="absolute inset-0 z-10 h-[240px] bg-dimmed-gradient" />
       {children}
       {me?.role === "mentee" && mentee}
       {me?.role === "mentor" && mentor}

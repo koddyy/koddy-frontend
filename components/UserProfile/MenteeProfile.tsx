@@ -35,9 +35,7 @@ export const MenteeProfile = ({
           )}
           src={profileImageUrl || DefaultProfileImageUrl["mentee"]}
         />
-        <div className="absolute inset-0 z-10 bg-dimmed-gradient" />
       </div>
-
       <div className="px-[20px] py-[12px]">
         {isAutoCancel && (
           <div className="mb-[12px] rounded-[4px] bg-[#FDEDEE] py-[11px] text-center text-danger">
