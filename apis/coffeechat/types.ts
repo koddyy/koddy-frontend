@@ -67,24 +67,21 @@ export interface GetCoffeeChatListRequest {
 }
 
 export interface GetCoffeeChatListWithMentorResponse {
-  result: Array<
-    {
-      id: number;
-      status: CoffeeChatStatus;
-      mentorId: number;
-    } & Pick<Mentor, "name" | "profileImageUrl" | "school" | "major" | "enteredIn">
-  >;
+  result: Array<{
+    mentor: Pick<Mentor, "id" | "name" | "profileImageUrl" | "school" | "major" | "enteredIn">;
+    coffeeChat: { id: number; status: CoffeeChatStatus };
+  }>;
   hasNext: boolean;
 }
 
 export interface GetCoffeeChatListWithMenteeResponse {
-  result: Array<
-    {
+  result: Array<{
+    mentee: Pick<Mentee, "id" | "name" | "profileImageUrl" | "interestSchool" | "interestMajor">;
+    coffeeChat: {
       id: number;
       status: CoffeeChatStatus;
-      menteeId: number;
-    } & Pick<Mentee, "name" | "profileImageUrl" | "interestSchool" | "interestMajor">
-  >;
+    };
+  }>;
   hasNext: boolean;
 }
 

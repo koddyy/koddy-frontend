@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useGetCoffeeChatListWithMenteeByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMenteeByCategoryAndStatus";
 import { useGetCoffeeChatListWithMentorByCategoryAndStatus } from "@/apis/coffeechat/hooks/useGetCoffeeChatListWithMentorByCategoryAndStatus";
 import ArrowRight from "@/assets/arrow-right.svg";
@@ -38,7 +37,7 @@ export const CoffeeChatCardListWithMentor = ({ category, detail }: CoffeeChatCar
   return (
     <>
       <div className="flex flex-col gap-[16px]">
-        {coffeeChatListWithMentor.map(({ id, status, mentorId, ...mentor }) => {
+        {coffeeChatListWithMentor.map(({ coffeeChat: { id, status }, mentor }) => {
           return (
             <Link key={id} href={`/coffeechat/${id}`}>
               <CoffeeChatCard
@@ -76,7 +75,7 @@ export const CoffeeChatCardListWithMentee = ({ category, detail }: CoffeeChatCar
   return (
     <>
       <div className="flex flex-col gap-[16px]">
-        {coffeeChatListWithMentee.map(({ id, status, menteeId, ...mentee }) => {
+        {coffeeChatListWithMentee.map(({ coffeeChat: { id, status }, mentee }) => {
           return (
             <Link key={id} href={`/coffeechat/${id}`}>
               <CoffeeChatCard
