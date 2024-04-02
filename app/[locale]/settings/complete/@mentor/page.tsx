@@ -7,10 +7,10 @@ import { Button } from "@/components/Button";
 import { Progress } from "@/components/Progress";
 import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
-import { IntroductionStep } from "../components/IntroductionStep";
-import { PeriodStep } from "../components/PeriodStep";
-import { ProfileImageStep } from "../components/ProfileImageStep";
-import { ScheduleStep } from "../components/ScheduleStep";
+import { IntroductionStep } from "../IntroductionStep";
+import { PeriodStep } from "../PeriodStep";
+import { ProfileImageStep } from "../ProfileImageStep";
+import { ScheduleStep } from "../ScheduleStep";
 import { useCompleteProfileFormStore } from "../store";
 
 const TOTAL_STEPS = 4;

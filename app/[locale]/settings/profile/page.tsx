@@ -3,9 +3,9 @@
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { useRouter } from "@/libs/navigation";
-import { MenteeInfoForm } from "./components/MenteeInfoForm";
-import { MentorInfoForm } from "./components/MentorInfoForm";
-import { useMenteeInfoFormStore, useMentorInfoFormStore } from "./store";
+import { MenteeInfoForm } from "../components/MenteeInfoForm";
+import { MentorInfoForm } from "../components/MentorInfoForm";
+import { useMenteeInfoFormStore, useMentorInfoFormStore } from "../store";
 
 const Page = () => {
   const router = useRouter();

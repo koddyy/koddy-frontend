@@ -130,7 +130,7 @@ export const MenteeInfoForm = () => {
         <Divider className="border-[4px]" />
         <div className="mb-[24px] mt-[20px] px-[20px]">
           <LanguageSelectForm languages={languages} />
-          <Link href={PATH.MYPAGE_EDIT + "/language"} onClick={handleAddLanguages}>
+          <Link href={PATH.SETTINGS_LANGUAGE} onClick={handleAddLanguages}>
             <Button
               variant="ghost"
               className="body-2-bold mt-[10px] block bg-gray-100 text-primary-dark"

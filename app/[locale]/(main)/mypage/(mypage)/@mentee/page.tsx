@@ -31,12 +31,12 @@ const Page = () => {
         </div>
       </div>
       <Divider className="border-4" />
-      <Link href={PATH.MYPAGE_EDIT} className={linkStyle}>
+      <Link href={PATH.SETTINGS_PROFILE} className={linkStyle}>
         {t("edit-profile")}
       </Link>
       <Divider />
       <Divider className="border-4" />
-      <Link href={PATH.MYPAGE_EDIT + "/language-and-timezone"} className={linkStyle}>
+      <Link href={PATH.SETTINGS_LOCALES} className={linkStyle}>
         {t("edit-language-and-timezone")}
       </Link>
       <Divider />

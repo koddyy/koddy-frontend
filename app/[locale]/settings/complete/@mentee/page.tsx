@@ -7,8 +7,8 @@ import { Button } from "@/components/Button";
 import { Progress } from "@/components/Progress";
 import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
-import { IntroductionStep } from "../components/IntroductionStep";
-import { ProfileImageStep } from "../components/ProfileImageStep";
+import { IntroductionStep } from "../IntroductionStep";
+import { ProfileImageStep } from "../ProfileImageStep";
 import { useCompleteProfileFormStore } from "../store";
 
 const TOTAL_STEPS = 2;

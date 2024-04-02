@@ -7,9 +7,9 @@ import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { ScheduleByOptionType } from "@/constants/schedule";
 import { Schedules } from "@/types/mentor";
 import { convertSchedules, parseSchedules } from "@/utils/schedules";
-import { useCompleteProfileFormStore } from "../store";
-import { ScheduleByNotRepeat } from "./ScheduleByNotRepeat";
-import { ScheduleByRepeat } from "./ScheduleByRepeat";
+import { ScheduleByNotRepeat } from "../components/ScheduleByNotRepeat";
+import { ScheduleByRepeat } from "../components/ScheduleByRepeat";
+import { useCompleteProfileFormStore } from "./store";
 
 interface ScheduleStepProps {
   onClickNextStep: () => void;

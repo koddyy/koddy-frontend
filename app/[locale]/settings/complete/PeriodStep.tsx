@@ -3,8 +3,8 @@ import { useController, useForm } from "react-hook-form";
 import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { BottomButton } from "@/app/components/BottomButton";
 import { Mentor } from "@/types/mentor";
-import { useCompleteProfileFormStore } from "../store";
-import { PeriodSelect } from "./PeriodSelect";
+import { PeriodSelect } from "../components/PeriodSelect";
+import { useCompleteProfileFormStore } from "./store";
 
 interface PeriodStepProps {
   onClickNextStep: () => void;

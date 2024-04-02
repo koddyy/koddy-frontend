@@ -20,7 +20,7 @@ export const ProfileCompleteBanner = () => {
     );
 
     return (
-      <Banner href={PATH.NEWCOMER + "/mentor"} actionText={t(`${me.role}.complete-profile`)}>
+      <Banner href={PATH.SETTINGS_COMPLETE} actionText={t(`${me.role}.complete-profile`)}>
         <Progress percent={percent} color="secondary" tickness="thin" />
         <div className="mb-[10px] mt-[8px] flex flex-col gap-[4px]">
           <span className="subheading-bold">
@@ -41,7 +41,7 @@ export const ProfileCompleteBanner = () => {
     );
 
     return (
-      <Banner href={PATH.NEWCOMER + "/mentee"} actionText={t(`${me.role}.complete-profile`)}>
+      <Banner href={PATH.SETTINGS_COMPLETE} actionText={t(`${me.role}.complete-profile`)}>
         <Progress percent={percent} color="secondary" tickness="thin" />
         <div className="mb-[10px] mt-[8px] flex flex-col gap-[4px]">
           <span className="subheading-bold">
