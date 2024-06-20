@@ -1,11 +1,22 @@
-import { StoryFn } from "@storybook/react";
-import { IntlProvider } from "use-intl";
-import koMessages from "@/messages/ko";
+import { Decorator } from "@storybook/react";
+import { NextIntlClientProvider } from "next-intl";
+import ko from "@/messages/ko";
+import en from "@/messages/en";
+import { isSupportLocale } from "@/types/locale";
 
-export const nextIntlDecorator = (Story: StoryFn) => {
+const messages = {
+  ko,
+  en,
+};
+
+export const nextIntlDecorator: Decorator = (Story, { globals: { locale = "ko" } }) => {
+  if (!isSupportLocale(locale)) {
+    throw new Error("Unsupported locale");
+  }
+
   return (
-    <IntlProvider locale="ko" messages={koMessages}>
+    <NextIntlClientProvider locale={locale} messages={messages[locale]}>
       <Story />
-    </IntlProvider>
+    </NextIntlClientProvider>
   );
 };
