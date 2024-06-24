@@ -3,8 +3,8 @@ import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
-import { languagesOptions } from "@/constants/language";
-import { NationCode } from "@/types/user";
+import { LANGUAGE_OPTIONS } from "@/constants/user";
+import { Language } from "@/types/user";
 import { SignupForm } from "../types/mentorForm";
 
 export const SubLanguageSelectForm = () => {
@@ -23,7 +23,7 @@ export const SubLanguageSelectForm = () => {
     name: "languages.sub",
   });
 
-  const handleChangeSubLanguages = (languageCode: NationCode) => {
+  const handleChangeSubLanguages = (languageCode: Language) => {
     const hasLanguageCode = subLanguages.value.findIndex((v) => v === languageCode);
     if (hasLanguageCode === -1) {
       subLanguages.onChange(subLanguages.value.concat([languageCode]));
@@ -46,16 +46,16 @@ export const SubLanguageSelectForm = () => {
           })}
         </div>
         <div className="flex flex-col gap-[6px]">
-          {languagesOptions.map(([key]) => (
+          {LANGUAGE_OPTIONS.map((option) => (
             <Toggle
               className="p-4 text-start"
-              key={key}
+              key={option}
               variant="outline"
-              pressed={subLanguages.value?.some((v) => v === key)}
-              onChangePressed={() => handleChangeSubLanguages(key)}
-              disabled={mainLanguage && key === mainLanguage.value}
+              pressed={subLanguages.value?.some((v) => v === option)}
+              onChangePressed={() => handleChangeSubLanguages(option)}
+              disabled={mainLanguage && option === mainLanguage.value}
             >
-              {constants(`languages-options.${key}`)}
+              {constants(`languages-options.${option}`)}
             </Toggle>
           ))}
         </div>

@@ -1,9 +1,8 @@
 export type Role = "mentor" | "mentee";
 
-export type NationCode = "KR" | "EN" | "CN" | "JP" | "VN";
+export type Language = "KO" | "EN" | "CN" | "JA" | "VI";
 
-export type Nationality = NationCode | "ETC";
-
+export type Nationality = "KR" | "US" | "CN" | "JP" | "VN" | "ETC";
 export interface User {
   name: string;
   email: string;
@@ -24,35 +23,8 @@ type AvailableTimes = Array<{
   endTime: string;
 }>;
 
-interface Mentor {
-  userId: string;
-  name: string;
-  email: string;
-  school: string;
-  major: string;
-  nationality: string;
-  languages: Array<{ languageId: NationCode }>;
-  introduce?: string;
-  mentorYn: "Y";
-  grade: number;
-  zoomLink?: string;
-  availableTimes: AvailableTimes;
-}
-
-interface Mentee {
-  userId: string;
-  name: string;
-  email: string;
-  school: string;
-  major: string;
-  nationality: string;
-  languages: Array<{ languageId: NationCode }>;
-  introduce?: string;
-  mentorYn: "N";
-}
-
 /**
  *  =========================
  */
 
-export type { AvailableTimes, Mentee, Mentor, WeekType };
+export type { AvailableTimes, WeekType };

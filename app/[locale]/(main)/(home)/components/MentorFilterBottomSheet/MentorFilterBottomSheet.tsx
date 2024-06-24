@@ -5,15 +5,15 @@ import Refresh from "@/assets/refresh.svg";
 import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
-import { languagesOptions } from "@/constants/language";
-import { NationCode } from "@/types/user";
+import { LANGUAGE_OPTIONS } from "@/constants/user";
+import { Language } from "@/types/user";
 import { cn } from "@/utils/cn";
 
 interface MentorFilterBottomSheetProps extends BottomSheetProps {
   initial: {
-    languages?: NationCode[];
+    languages?: Language[];
   };
-  onSelectFilter: (languages: Array<NationCode>) => void;
+  onSelectFilter: (languages: Array<Language>) => void;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -27,9 +27,9 @@ export const MentorFilterBottomSheet = ({
   const t = useTranslations("home.filters");
   const constants = useTranslations("constants.languages-options");
 
-  const [languages, setLanguages] = useState<Set<NationCode>>(new Set(initial.languages ?? []));
+  const [languages, setLanguages] = useState<Set<Language>>(new Set(initial.languages ?? []));
 
-  const addLanguage = (language: NationCode) => {
+  const addLanguage = (language: Language) => {
     setLanguages((prev) => {
       const copy = new Set(prev);
       copy.add(language);
@@ -37,7 +37,7 @@ export const MentorFilterBottomSheet = ({
     });
   };
 
-  const deleteLanguage = (option: NationCode) => {
+  const deleteLanguage = (option: Language) => {
     if (languages?.has(option)) {
       setLanguages((prev) => {
         const copy = new Set(prev);
@@ -68,18 +68,18 @@ export const MentorFilterBottomSheet = ({
         <span className={"body-1-bold text-gray-700"}>{t("languages")}</span>
       </div>
       <div className="mb-[20px] grid grid-flow-row grid-cols-2 grid-rows-3">
-        {languagesOptions.map(([code], i) => (
+        {LANGUAGE_OPTIONS.map((option, i) => (
           <button
-            key={code}
+            key={option}
             className={cn(
               "body-2 flex items-center justify-start gap-[6px] py-[12px]",
-              languages.has(code) && "body-2-bold",
+              languages.has(option) && "body-2-bold",
               Math.floor(i / 2) < 2 && "border-b border-b-gray-100"
             )}
             type="button"
-            onClick={() => addLanguage(code)}
+            onClick={() => addLanguage(option)}
           >
-            {constants(code)}
+            {constants(option)}
           </button>
         ))}
       </div>

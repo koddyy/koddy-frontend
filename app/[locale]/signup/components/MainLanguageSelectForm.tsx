@@ -3,7 +3,7 @@ import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
-import { languagesOptions } from "@/constants/language";
+import { LANGUAGE_OPTIONS } from "@/constants/user";
 import type { SignupForm } from "../types/mentorForm";
 
 interface MainLanguageSelectFormProps {
@@ -41,21 +41,21 @@ export const MainLanguageSelectForm = ({ onClickNextStep }: MainLanguageSelectFo
           })}
         </div>
         <div className="flex flex-col gap-[6px]">
-          {languagesOptions.map(([key]) => (
+          {LANGUAGE_OPTIONS.map((option) => (
             <Toggle
               className="p-4 text-start"
-              key={key}
+              key={option}
               variant="outline"
-              pressed={key === mainLanguage.value}
+              pressed={option === mainLanguage.value}
               onChangePressed={() => {
-                if (key === mainLanguage.value) {
+                if (option === mainLanguage.value) {
                   mainLanguage.onChange();
                 } else {
-                  mainLanguage.onChange(key);
+                  mainLanguage.onChange(option);
                 }
               }}
             >
-              {constants(`languages-options.${key}`)}
+              {constants(`languages-options.${option}`)}
             </Toggle>
           ))}
         </div>

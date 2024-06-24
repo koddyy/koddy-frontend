@@ -4,7 +4,7 @@ import Refresh from "@/assets/refresh.svg";
 import { Divider } from "@/components/Divider";
 import { Tag } from "@/components/Tag";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
-import { Nationality, NationCode } from "@/types/user";
+import { Language, Nationality } from "@/types/user";
 
 export type Filter = "nationalities" | "languages";
 
@@ -18,7 +18,7 @@ export const BrowseUserFilter = ({ options, onSelectFilterBottomSheet }: BrowseU
 
   const { searchParams, setSearchParams } = useTypedSearchParams<{
     nationalities: Nationality[];
-    languages: NationCode[];
+    languages: Language[];
   }>();
 
   const counts = {

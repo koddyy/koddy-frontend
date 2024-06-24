@@ -7,11 +7,11 @@ import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Toggle } from "@/components/Toggle";
-import { languagesOptions } from "@/constants/language";
+import { LANGUAGE_OPTIONS } from "@/constants/user";
 import { useRouter } from "@/libs/navigation";
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
-import { NationCode } from "@/types/user";
+import { Language } from "@/types/user";
 import { useMenteeInfoFormStore, useMentorInfoFormStore } from "../store";
 
 const Page = () => {
@@ -33,7 +33,7 @@ const Page = () => {
     defaultValues: {
       languages: {
         main: undefined,
-        sub: [] as NationCode[],
+        sub: [] as Language[],
       },
     },
   });
@@ -48,7 +48,7 @@ const Page = () => {
 
   if (!me) return null;
 
-  const handleChangeMainLanguage = (language: NationCode) => {
+  const handleChangeMainLanguage = (language: Language) => {
     const isPressed = language === languagesField.value.main;
     if (isPressed) {
       languagesField.onChange({
@@ -63,7 +63,7 @@ const Page = () => {
     }
   };
 
-  const handleChangeSubLanguages = (language: NationCode) => {
+  const handleChangeSubLanguages = (language: Language) => {
     if (!languagesField.value) return;
 
     const hasLanguageCode = languagesField.value.sub.findIndex((v) => v === language);
@@ -107,15 +107,15 @@ const Page = () => {
           <FormLabel className="headline-1 text-gray-600 ">{t("main-language.label")}</FormLabel>
           <div className="body-1 mb-[14px] text-gray-600">{t("main-language.description")}</div>
           <div className="flex flex-col gap-[6px]">
-            {languagesOptions.map(([key]) => (
+            {LANGUAGE_OPTIONS.map((option) => (
               <Toggle
                 className="p-4 text-start"
-                key={key}
+                key={option}
                 variant="outline"
-                pressed={key === languagesField.value?.main}
-                onChangePressed={() => handleChangeMainLanguage(key)}
+                pressed={option === languagesField.value?.main}
+                onChangePressed={() => handleChangeMainLanguage(option)}
               >
-                {constants(`languages-options.${key}`)}
+                {constants(`languages-options.${option}`)}
               </Toggle>
             ))}
           </div>
@@ -124,16 +124,16 @@ const Page = () => {
           <FormLabel className="headline-1 text-gray-600">{t("sub-language.label")}</FormLabel>
           <div className="body-1 mb-[14px] text-gray-600">{t("sub-language.description")}</div>
           <div className="flex flex-col gap-[6px]">
-            {languagesOptions.map(([key]) => (
+            {LANGUAGE_OPTIONS.map((option) => (
               <Toggle
                 className="p-4 text-start"
-                key={key}
+                key={option}
                 variant="outline"
-                pressed={languagesField.value?.sub.some((v) => v === key)}
-                onChangePressed={() => handleChangeSubLanguages(key)}
-                disabled={key === languagesField.value?.main}
+                pressed={languagesField.value?.sub.some((v) => v === option)}
+                onChangePressed={() => handleChangeSubLanguages(option)}
+                disabled={option === languagesField.value?.main}
               >
-                {constants(`languages-options.${key}`)}
+                {constants(`languages-options.${option}`)}
               </Toggle>
             ))}
           </div>

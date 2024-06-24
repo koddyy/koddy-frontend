@@ -4,10 +4,9 @@ import { BottomButton } from "@/app/components/BottomButton";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
-import { Nationality, NationalityOptions, NationalityText } from "@/constants/nationality";
+import { NATIONALITY_OPTIONS } from "@/constants/user";
+import { Nationality } from "@/types/user";
 import type { SignupForm as ISignupForm } from "../../types/menteeForm";
-
-const _NationalityOptions = NationalityOptions.map((v) => v[0]);
 
 interface BasicInformationProps {
   onClickNextStep: () => void;
@@ -15,6 +14,7 @@ interface BasicInformationProps {
 
 export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps) => {
   const t = useTranslations("signup.BasicInformationForm.mentee");
+  const constants = useTranslations("constants");
 
   const {
     register,
@@ -50,11 +50,11 @@ export const BasicInformationForm = ({ onClickNextStep }: BasicInformationProps)
 
       <FormControl>
         <FormLabel htmlFor="nationality">{t("nationality.label")}</FormLabel>
-        <Select
+        <Select<Nationality>
           placeholder={t("nationality.placeholder")}
-          options={_NationalityOptions}
-          renderValue={() => NationalityText[nationalityField.value]}
-          renderOption={(option: Nationality) => NationalityText[option]}
+          options={NATIONALITY_OPTIONS}
+          renderValue={(value) => value && constants(`nationality-options.${value}`)}
+          renderOption={(option) => constants(`nationality-options.${option}`)}
           value={nationalityField.value}
           onChangeValue={nationalityField.onChange}
         />

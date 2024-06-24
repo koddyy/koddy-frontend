@@ -9,18 +9,18 @@
     },
     "nationality-options": {
       "KR": "Korean",
-      "EN": "American",
+      "US": "American",
       "JP": "Japanese",
       "CN": "Chinese",
       "VN": "Vietnamese",
       "ETC": "Other country"
     },
     "languages-options": {
-      "KR": "Korean",
+      "KO": "Korean",
       "EN": "English",
       "CN": "Chinese",
-      "JP": "Japanese",
-      "VN": "Vietnamese"
+      "JA": "Japanese",
+      "VI": "Vietnamese"
     },
     "language-type": {
       "main": "Main Language",

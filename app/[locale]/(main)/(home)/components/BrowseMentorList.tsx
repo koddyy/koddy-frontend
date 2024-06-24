@@ -3,7 +3,7 @@ import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
 import { Spinner } from "@/components/Spinner";
 import { useToggle } from "@/hooks/useToggle";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
-import { NationCode } from "@/types/user";
+import { Language } from "@/types/user";
 import { BrowseUserFilter, Filter } from "./BrowseUserFilter";
 import { MentorCardList } from "./MentorCardList";
 import { MentorFilterBottomSheet } from "./MentorFilterBottomSheet";
@@ -18,7 +18,7 @@ export const BrowseMentorList = () => {
     languages: searchParams.getAll("languages") ?? [],
   };
 
-  const handleSelectFilter = (languages: NationCode[]) => {
+  const handleSelectFilter = (languages: Language[]) => {
     setSearchParams({ languages });
     toggleOpenFilterBottomSheet();
   };

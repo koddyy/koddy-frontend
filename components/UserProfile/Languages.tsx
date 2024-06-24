@@ -1,8 +1,7 @@
 import { cva } from "cva";
 import { useTranslations } from "next-intl";
 import { Tag } from "@/components/Tag";
-import { LanguageCode, NationAndLanguageCodeMapping } from "@/constants/language";
-import { NationCode } from "@/types/user";
+import { Language } from "@/types/user";
 import { cn } from "@/utils/cn";
 import { capitalize } from "@/utils/string";
 
@@ -14,19 +13,17 @@ export const LanguageTextColorVariants = cva("", {
       CN: "text-[#F53A3A]",
       JA: "text-[#24CE49]",
       VI: "text-[#F6752D]",
-    } as Record<LanguageCode, string>,
+    } as Record<Language, string>,
   },
 });
 
 interface LanguagesProps {
-  mainLanguage: NationCode;
-  subLanguages: NationCode[];
+  mainLanguage: Language;
+  subLanguages: Language[];
 }
 
 export const Lanuages = ({ mainLanguage, subLanguages }: LanguagesProps) => {
   const constants = useTranslations("constants");
-
-  const mainLanguageCode = NationAndLanguageCodeMapping[mainLanguage];
 
   return (
     <div className="flex gap-[16px]">
@@ -36,10 +33,10 @@ export const Lanuages = ({ mainLanguage, subLanguages }: LanguagesProps) => {
           <span
             className={cn(
               "body-3-bold mr-[4px]",
-              LanguageTextColorVariants({ language: mainLanguageCode })
+              LanguageTextColorVariants({ language: mainLanguage })
             )}
           >
-            {capitalize(mainLanguageCode)}
+            {capitalize(mainLanguage)}
           </span>
           {constants(`languages-options.${mainLanguage}`)}
         </Tag>
@@ -48,16 +45,15 @@ export const Lanuages = ({ mainLanguage, subLanguages }: LanguagesProps) => {
         <div className="label mb-[4px]">{constants("language-type.sub")}</div>
         <div className="flex flex-wrap gap-[6px]">
           {subLanguages.map((subLanguage) => {
-            const subLanguageCode = NationAndLanguageCodeMapping[subLanguage];
             return (
               <Tag key={subLanguage} variant="outline" color="grayscale">
                 <span
                   className={cn(
                     "body-3-bold mr-[4px]",
-                    LanguageTextColorVariants({ language: subLanguageCode })
+                    LanguageTextColorVariants({ language: subLanguage })
                   )}
                 >
-                  {capitalize(subLanguageCode)}
+                  {capitalize(subLanguage)}
                 </span>
                 {constants(`languages-options.${subLanguage}`)}
               </Tag>

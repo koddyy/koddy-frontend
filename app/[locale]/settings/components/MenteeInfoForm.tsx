@@ -12,15 +12,13 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
-import { NationalityOptions } from "@/constants/nationality";
 import { PATH } from "@/constants/path";
+import { NATIONALITY_OPTIONS } from "@/constants/user";
 import { Link, useRouter } from "@/libs/navigation";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { Nationality } from "@/types/user";
 import { useMenteeInfoFormStore } from "../store";
 import { LanguageSelectForm } from "./LanguageSelectForm";
-
-const _NationalityOptions = NationalityOptions.map((v) => v[0]);
 
 export const MenteeInfoForm = () => {
   const t = useTranslations("edit.profile.MenteeInfoForm");
@@ -117,7 +115,7 @@ export const MenteeInfoForm = () => {
                 <FormLabel>{t("nationality")}</FormLabel>
                 <Select
                   placeholder="국적을 선택해 주세요."
-                  options={_NationalityOptions}
+                  options={NATIONALITY_OPTIONS}
                   renderValue={() => constants(`nationality-options.${value}`)}
                   renderOption={(option: Nationality) => constants(`nationality-options.${option}`)}
                   value={value}

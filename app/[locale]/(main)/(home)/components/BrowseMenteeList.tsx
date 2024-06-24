@@ -3,7 +3,7 @@ import { GetMenteeListRequest } from "@/apis/user/types";
 import { SSRSafeSuspense } from "@/app/components/SSRSafeSuspense";
 import { Spinner } from "@/components/Spinner";
 import { useTypedSearchParams } from "@/hooks/useTypedSearchParams";
-import { Nationality, NationCode } from "@/types/user";
+import { Language, Nationality } from "@/types/user";
 import { BrowseUserFilter, Filter } from "./BrowseUserFilter";
 import { MenteeCardList } from "./MenteeCardList";
 import { MenteeFilterBottomSheet } from "./MenteeFilterBottomSheet";
@@ -19,7 +19,7 @@ export const BrowseMenteeList = () => {
     languages: searchParams.getAll("languages") ?? [],
   };
 
-  const handleSelectFilters = (nationality: Nationality | null, languages: NationCode[]) => {
+  const handleSelectFilters = (nationality: Nationality | null, languages: Language[]) => {
     setSearchParams({ nationalities: nationality ? [nationality] : [], languages });
     setSelectedFilter(null);
   };

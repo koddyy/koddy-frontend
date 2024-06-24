@@ -5,9 +5,9 @@ import Refresh from "@/assets/refresh.svg";
 import { BottomSheet, BottomSheetProps } from "@/components/BottomSheet";
 import { Button } from "@/components/Button";
 import { Tag } from "@/components/Tag";
-import { languagesOptions } from "@/constants/language";
-import { NationalityImage, NationalityOptions } from "@/constants/nationality";
-import { Nationality, NationCode } from "@/types/user";
+import { NATIONALITY_IMAGE } from "@/constants/nationality";
+import { LANGUAGE_OPTIONS, NATIONALITY_OPTIONS } from "@/constants/user";
+import { Language, Nationality } from "@/types/user";
 import { cn } from "@/utils/cn";
 import { FILTER_OPTIONS } from "../BrowseMenteeList";
 import { Filter } from "../BrowseUserFilter";
@@ -15,10 +15,10 @@ import { Filter } from "../BrowseUserFilter";
 interface MenteeFilterBottomSheetProps extends BottomSheetProps {
   initial: {
     nationalities?: Nationality[];
-    languages?: NationCode[];
+    languages?: Language[];
   };
   initialFilter: Filter | null;
-  onSelectFilter: (nationality: Nationality | null, languages: Array<NationCode>) => void;
+  onSelectFilter: (nationality: Nationality | null, languages: Array<Language>) => void;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -37,13 +37,13 @@ export const MenteeFilterBottomSheet = ({
   const [nationality, setNationality] = useState<Nationality | null>(
     initial.nationalities?.[0] ?? null
   );
-  const [languages, setLanguages] = useState<Set<NationCode>>(new Set(initial.languages ?? []));
+  const [languages, setLanguages] = useState<Set<Language>>(new Set(initial.languages ?? []));
 
   const addNationality = (nationality: Nationality) => {
     setNationality(nationality);
   };
 
-  const addLanguage = (language: NationCode) => {
+  const addLanguage = (language: Language) => {
     setLanguages((prev) => {
       const copy = new Set(prev);
       copy.add(language);
@@ -55,7 +55,7 @@ export const MenteeFilterBottomSheet = ({
     setNationality(null);
   };
 
-  const deleteLanguage = (option: NationCode) => {
+  const deleteLanguage = (option: Language) => {
     if (languages?.has(option)) {
       setLanguages((prev) => {
         const copy = new Set(prev);
@@ -109,37 +109,37 @@ export const MenteeFilterBottomSheet = ({
       <div className="mb-[23px]">
         {selectedFilter === "nationalities" && (
           <div className="grid grid-flow-row grid-cols-2 grid-rows-3">
-            {NationalityOptions.map(([key], i) => (
+            {NATIONALITY_OPTIONS.map((option, i) => (
               <button
-                key={key}
+                key={option}
                 className={cn(
                   "body-2 flex items-center justify-start gap-[6px] py-[12px]",
-                  nationality === key && "body-2-bold",
+                  nationality === option && "body-2-bold",
                   Math.floor(i / 2) < 2 && "border-b border-b-gray-100"
                 )}
                 type="button"
-                onClick={() => addNationality(key)}
+                onClick={() => addNationality(option)}
               >
-                <img src={NationalityImage[key]} />
-                {constants(`nationality-options.${key}`)}
+                <img src={NATIONALITY_IMAGE[option]} />
+                {constants(`nationality-options.${option}`)}
               </button>
             ))}
           </div>
         )}
         {selectedFilter === "languages" && (
           <div className="grid grid-flow-row grid-cols-2 grid-rows-3">
-            {languagesOptions.map(([code], i) => (
+            {LANGUAGE_OPTIONS.map((option, i) => (
               <button
-                key={code}
+                key={option}
                 className={cn(
                   "body-2 flex items-center justify-start gap-[6px] py-[12px]",
-                  languages.has(code) && "body-2-bold",
+                  languages.has(option) && "body-2-bold",
                   Math.floor(i / 2) < 2 && "border-b border-b-gray-100"
                 )}
                 type="button"
-                onClick={() => addLanguage(code)}
+                onClick={() => addLanguage(option)}
               >
-                {constants(`languages-options.${code}`)}
+                {constants(`languages-options.${option}`)}
               </button>
             ))}
           </div>

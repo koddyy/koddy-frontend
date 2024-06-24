@@ -1,4 +1,4 @@
-import { Nationality, NationCode } from "./user";
+import { Language, Nationality } from "./user";
 
 export interface Mentee {
   id: number;
@@ -8,8 +8,8 @@ export interface Mentee {
   nationality: Nationality;
   introduction?: string;
   languages: {
-    main: NationCode;
-    sub: NationCode[];
+    main: Language;
+    sub: Language[];
   };
   interestSchool: string;
   interestMajor: string;

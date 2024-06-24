@@ -1,6 +1,6 @@
 import { Mentee } from "@/types/mentee";
 import { Mentor } from "@/types/mentor";
-import { AvailableTimes, Nationality, NationCode } from "@/types/user";
+import { AvailableTimes, Nationality, Language } from "@/types/user";
 
 export type GetMentorByIdResponse = Pick<
   Mentor,
@@ -28,7 +28,7 @@ export type GetMenteeByIdResponse = Pick<
 
 export interface GetMentorListRequest {
   page: number;
-  languages?: NationCode[];
+  languages?: Language[];
 }
 
 export interface GetMentorListResponse {
@@ -41,7 +41,7 @@ export interface GetMentorListResponse {
 export interface GetMenteeListRequest {
   page: number;
   nationalities?: Nationality[];
-  languages?: NationCode[];
+  languages?: Language[];
 }
 
 export interface GetMenteeListResponse {

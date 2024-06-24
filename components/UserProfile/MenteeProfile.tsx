@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { GetMenteeByIdResponse } from "@/apis/user/types";
-import { NationalityImage } from "@/constants/nationality";
+import { NATIONALITY_IMAGE } from "@/constants/nationality";
 import { DefaultProfileImageUrl } from "@/constants/profile";
 import { cn } from "@/utils/cn";
 import { getDescription } from "@/utils/profile";
@@ -48,7 +48,7 @@ export const MenteeProfile = ({
           )}
           {nationality && (
             <div className="mb-[4px] flex items-center gap-[6px]">
-              <img className="h-[18px] w-[18px]" src={NationalityImage[nationality]} />
+              <img className="h-[18px] w-[18px]" src={NATIONALITY_IMAGE[nationality]} />
               {constants(`nationality-options.${nationality}`)}
             </div>
           )}

@@ -4,13 +4,14 @@ import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
 import { UpdateMenteeInfoForm } from "@/types/mentee";
 import { UpdateMentorInfoForm } from "@/types/mentor";
-import { NationCode } from "@/types/user";
-import { getKeys } from "@/utils/object";
+import { Language } from "@/types/user";
 
-const languageCategoryOptions = { main: "main", sub: "sub" } as const;
+type LanguageType = "main" | "sub";
+
+const LANGUAGE_TYPE: LanguageType[] = ["main", "sub"];
 
 interface LanguageSelectFormProps {
-  languages: NationCode[];
+  languages: Language[];
 }
 
 export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
@@ -39,7 +40,7 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
         {languages.map((language) => (
           <Select
             key={language}
-            options={getKeys(languageCategoryOptions)}
+            options={LANGUAGE_TYPE}
             value={language === languagesField.value.main ? "main" : "sub"}
             onChangeValue={(value) => {
               if (value === "main" && languagesField.value.main !== language) {
