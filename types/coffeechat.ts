@@ -1,5 +1,3 @@
-import { WeekType } from "@/types/user";
-
 export interface MenteeApplyForm {
   date: Date;
   timeRange: [string, string];
@@ -61,20 +59,3 @@ export const isValidWaitingCoffeeChatStatus = (
 export const isValidPassedCoffeChatStatus = (status: string): status is PassedCoffeeChatStatus => {
   return PassedCoffeeChatStatusList.includes(status as PassedCoffeeChatStatus);
 };
-
-/**
- * =========================
- * @TODO remove
- * =========================
- */
-
-type AvailableTimeRange = {
-  startTime: string;
-  endTime: string;
-};
-
-type AvailableTimes = AvailableTimeRange & {
-  weeks: WeekType[];
-};
-
-export type { AvailableTimeRange, AvailableTimes };

@@ -7,10 +7,9 @@ import {
   GetMentorByIdResponse,
   GetMentorListRequest,
   GetMentorListResponse,
-  PostAvailableTimesRequest,
 } from "@/apis/user/types";
-import type { SignupForm as MenteeSignupForm } from "@/app/[locale]/signup/types/menteeForm";
-import type { SignupForm as MentorSignupForm } from "@/app/[locale]/signup/types/mentorForm";
+import type { SignupForm as MenteeSignupForm } from "@/features/user/types/menteeForm";
+import type { SignupForm as MentorSignupForm } from "@/features/user/types/mentorForm";
 import { OauthInfo } from "@/stores/oauth-info";
 import { ProviderState } from "@/stores/provider";
 import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
@@ -103,17 +102,6 @@ class UserApi {
     info: Omit<UpdateMenteeInfoForm, "profileImageFile"> & Pick<Mentee, "profileImageUrl">
   ) => {
     return apiInstance.patch("/api/mentees/me/basic-info", info);
-  };
-
-  /** deprecated */
-
-  getUserById = async (id: number) => {
-    const response = await apiInstance.get<Mentor | Mentee>(`/api/users/${id}`);
-    return response.data;
-  };
-
-  postAvailableTimes = (availableTimesData: PostAvailableTimesRequest) => {
-    return apiInstance.post("/api/users/available-time", availableTimesData);
   };
 }
 

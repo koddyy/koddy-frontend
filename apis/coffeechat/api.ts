@@ -4,7 +4,6 @@ import {
   GetCoffeeChatByIdResponse,
   GetCoffeeChatCountsResponse,
   GetCoffeeChatListRequest,
-  GetCoffeeChatListResponse,
   GetCoffeeChatListWithMenteeResponse,
   GetCoffeeChatListWithMentorResponse,
   GetSuggestedCoffeeChatListResponse,
@@ -15,7 +14,6 @@ import {
   PostZoomMeetingLinkRequest,
   PostZoomMeetingLinkResponse,
 } from "@/apis/coffeechat/types";
-import { ResponseType } from "@/apis/types";
 import { redirectUri } from "../auth/api";
 
 class CoffeeChatApi {
@@ -132,14 +130,6 @@ class CoffeeChatApi {
       start,
       end,
     });
-  };
-
-  /** deprecated */
-
-  getCoffeeChatNotification = async () => {
-    const response =
-      await apiInstance.get<ResponseType<GetCoffeeChatListResponse>>("/api/application/alarm");
-    return response.data;
   };
 }
 

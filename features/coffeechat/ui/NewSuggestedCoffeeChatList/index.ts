@@ -1,0 +1,1 @@
+export { NewSuggestedCoffeeChatList } from "./NewSuggestedCoffeeChatList";

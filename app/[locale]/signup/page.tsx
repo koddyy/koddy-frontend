@@ -8,8 +8,8 @@ import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
 import { SupportLocale } from "@/types/locale";
 import { Role } from "@/types/user";
-import { LocaleSelectStep } from "./components/LocaleSelectStep";
-import { UserRoleSelectStep } from "./components/UserRoleSelectStep";
+import { LocaleSelectStep } from "../../../features/user/ui/LocaleSelectStep";
+import { UserRoleSelectStep } from "../../../features/user/ui/UserRoleSelectStep";
 
 const Page = () => {
   const t = useTranslations("signup");

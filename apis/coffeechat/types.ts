@@ -145,11 +145,3 @@ export interface PostZoomMeetingLinkResponse {
   joinUrl: string;
   duration: number;
 }
-
-/**
- * =========================
- * @TODO remove
- * =========================
- */
-
-export type GetCoffeeChatListResponse = GetCoffeeChatByIdResponse[];

@@ -2,17 +2,17 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { useSignupAsMentee } from "@/apis/user/hooks/useSignupAsMentee";
-import { SignupForm as ISignupForm } from "@/app/[locale]/signup/types/menteeForm";
 import { NavigationBar } from "@/app/components/NavigationBar";
 import { Progress } from "@/components/Progress";
+import { SignupForm as ISignupForm } from "@/features/user/types/menteeForm";
+import { MainLanguageSelectForm } from "@/features/user/ui/MainLanguageSelectForm";
+import { BasicInformationForm } from "@/features/user/ui/MenteeBasicInformationForm";
+import { SignupSuccess } from "@/features/user/ui/SignupSuccess";
+import { SubLanguageSelectForm } from "@/features/user/ui/SubLanguageSelectForm";
 import { useSteps } from "@/hooks/useSteps";
 import { useRouter } from "@/libs/navigation";
 import { useOauthInfoStore } from "@/stores/oauth-info";
 import { useProviderStore } from "@/stores/provider";
-import { MainLanguageSelectForm } from "../components/MainLanguageSelectForm";
-import { SignupSuccess } from "../components/SignupSuccess";
-import { SubLanguageSelectForm } from "../components/SubLanguageSelectForm";
-import { BasicInformationForm } from "./components/BasicInformationForm";
 
 const TOTAL_STEPS = 4;
 

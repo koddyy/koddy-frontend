@@ -4,7 +4,6 @@ export const PATH = {
   SIGNUP: "/signup",
   SIGNUP_MENTOR: "/signup/mentor",
   SIGNUP_MENTEE: "/signup/mentee",
-  SETTINGS_COMPLETE: "/settings/complete",
   PROFILE_MENTOR: "/profile/mentor",
   PROFILE_MENTEE: "/profile/mentee",
   COFFEECHAT: "/coffeechat",
@@ -13,11 +12,11 @@ export const PATH = {
   NOTIFICATION: "/notification",
   MYPAGE: "/mypage",
   MYPAGE_ACCOUNT: "/mypage/account",
-  SETTINGS: "/settings",
-  SETTINGS_PROFILE: "/settings/profile",
-  SETTINGS_LANGUAGE: "/settings/language",
-  SETTINGS_LOCALES: "/settings/locales",
-  SETTINGS_SCHEDULE: "/settings/schedule",
+  MYPAGE_LOCALES: "/mypage/locales",
+  MYPAGE_PROFILE_COMPLETE: "/mypage/profile/complete",
+  MYPAGE_PROFILE_EDIT: "/mypage/profile/edit",
+  MYPAGE_PROFILE_LANGUAGE: "/mypage/profile/language",
+  MYPAGE_SCHEDULE: "/mypage/schedule",
 };
 
 export const PUBLIC_PATH = [
@@ -33,4 +32,12 @@ export const PUBLIC_PATH = [
   PATH.MYPAGE,
 ];
 
-export const PRIVATE_PATH = [PATH.SCHEDULE, PATH.SETTINGS];
+export const PRIVATE_PATH = [
+  PATH.SCHEDULE,
+  PATH.MYPAGE_ACCOUNT,
+  PATH.MYPAGE_LOCALES,
+  PATH.MYPAGE_PROFILE_COMPLETE,
+  PATH.MYPAGE_PROFILE_EDIT,
+  PATH.MYPAGE_PROFILE_LANGUAGE,
+  PATH.MYPAGE_SCHEDULE,
+];

@@ -6,6 +6,7 @@ import QueryClientProvider from "@/app/providers/QueryClientProvider";
 import { ToastProvider } from "@/components/Toast";
 import { locales } from "@/constants/locale";
 import MswInit from "@/mocks/MswInit";
+import AppLayout from "../components/AppLayout";
 
 export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0",
@@ -40,7 +41,9 @@ export default function Layout({
         <MswInit />
         <IntlClientProvider locale={locale}>
           <ToastProvider>
-            <QueryClientProvider>{children}</QueryClientProvider>
+            <QueryClientProvider>
+              <AppLayout>{children}</AppLayout>
+            </QueryClientProvider>
           </ToastProvider>
         </IntlClientProvider>
       </body>
