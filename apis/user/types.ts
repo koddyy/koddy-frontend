@@ -53,3 +53,19 @@ export interface GetMenteeListResponse {
   >;
   hasNext: boolean;
 }
+
+export type PatchMentorInfoRequest = Pick<
+  Mentor,
+  "name" | "school" | "major" | "enteredIn" | "languages" | "introduction" | "profileImageUrl"
+>;
+
+export type PatchMenteeInfoRequest = Pick<
+  Mentee,
+  | "name"
+  | "interestSchool"
+  | "interestMajor"
+  | "nationality"
+  | "languages"
+  | "introduction"
+  | "profileImageUrl"
+>;

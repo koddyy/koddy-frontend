@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { useGetMeAsMentor } from "@/apis/user/hooks/useGetMeAsMentor";
 import { useUpdateMentorInfo } from "@/apis/user/hooks/useUpdateMentorInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
@@ -14,34 +13,35 @@ import { Select } from "@/components/Select";
 import { TextArea } from "@/components/TextArea";
 import { PATH } from "@/constants/path";
 import { Link, useRouter } from "@/libs/navigation";
-import { UpdateMentorInfoForm } from "@/types/mentor";
+import { Mentor } from "@/types/mentor";
+import { Language } from "@/types/user";
 import { useMentorInfoFormStore } from "../store/profile";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
 const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
 
-export const MentorInfoForm = () => {
+type MentorInfoForm = {
+  name: string;
+  school: string;
+  major: string;
+  enteredIn: number;
+  languages: {
+    main: Language;
+    sub: Language[];
+  };
+  introduction?: string;
+  profileImageFile?: File;
+};
+
+export const MentorInfoForm = ({ mentor }: { mentor: Mentor }) => {
   const t = useTranslations("edit.profile.MentorInfoForm");
 
   const router = useRouter();
-  const { data: me } = useGetMeAsMentor();
   const { mutate: updateMentorInfo } = useUpdateMentorInfo();
   const { isModified, setIsModified, userInfoForm, setUserInfoForm } = useMentorInfoFormStore();
 
-  const values = (
-    [
-      "name",
-      "school",
-      "major",
-      "enteredIn",
-      "languages",
-      "introduction",
-      "profileImageUrl",
-    ] as Array<keyof typeof me>
-  ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMentorInfoForm;
-
-  const methods = useForm<UpdateMentorInfoForm & { profileImageFile?: File }>({
-    values: { ...values, ...userInfoForm },
+  const methods = useForm<MentorInfoForm>({
+    defaultValues: { ...mentor, ...userInfoForm },
   });
 
   const {
@@ -52,9 +52,9 @@ export const MentorInfoForm = () => {
     formState: { isDirty, isValid },
   } = methods;
 
-  const onSubmitForm = (form: UpdateMentorInfoForm) => {
+  const onSubmitForm = (form: MentorInfoForm) => {
     updateMentorInfo(
-      { ...values, ...form },
+      { ...mentor, ...form },
       {
         onSuccess: () => {
           router.push(PATH.MYPAGE);
@@ -73,7 +73,7 @@ export const MentorInfoForm = () => {
   const languages = (
     userInfoForm?.languages
       ? [userInfoForm?.languages.main].concat(userInfoForm?.languages.sub)
-      : [values.languages.main].concat(values.languages.sub)
+      : [mentor.languages.main].concat(mentor.languages.sub)
   ).filter((e) => !!e);
 
   return (
@@ -86,7 +86,7 @@ export const MentorInfoForm = () => {
             render={({ field: { onChange } }) => (
               <ProfileImageUpload
                 isEditable
-                imageUrl={me?.profileImageUrl}
+                imageUrl={mentor.profileImageUrl}
                 onChange={(e) => onChange(e.target.files?.[0])}
               />
             )}

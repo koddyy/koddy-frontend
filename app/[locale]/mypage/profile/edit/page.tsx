@@ -24,8 +24,8 @@ const Page = () => {
           router.back();
         }}
       />
-      {me?.role === "mentor" && <MentorInfoForm />}
-      {me?.role === "mentee" && <MenteeInfoForm />}
+      {me?.role === "mentor" && <MentorInfoForm mentor={me} />}
+      {me?.role === "mentee" && <MenteeInfoForm mentee={me} />}
     </>
   );
 };

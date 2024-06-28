@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { useGetMeAsMentee } from "@/apis/user/hooks/useGetMeAsMentee";
 import { useUpdateMenteeInfo } from "@/apis/user/hooks/useUpdateMenteeInfo";
 import { BottomButton } from "@/app/components/BottomButton";
 import { ProfileImageUpload } from "@/app/components/ProfileImageUpload";
@@ -15,34 +14,34 @@ import { TextArea } from "@/components/TextArea";
 import { PATH } from "@/constants/path";
 import { NATIONALITY_OPTIONS } from "@/constants/user";
 import { Link, useRouter } from "@/libs/navigation";
-import { UpdateMenteeInfoForm } from "@/types/mentee";
-import { Nationality } from "@/types/user";
+import { Mentee } from "@/types/mentee";
+import { Language, Nationality } from "@/types/user";
 import { useMenteeInfoFormStore } from "../store/profile";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
-export const MenteeInfoForm = () => {
+type MenteeInfoForm = {
+  name: string;
+  interestSchool: string;
+  interestMajor: string;
+  nationality: Nationality;
+  languages: {
+    main: Language;
+    sub: Language[];
+  };
+  introduction?: string;
+  profileImageFile?: File;
+};
+
+export const MenteeInfoForm = ({ mentee }: { mentee: Mentee }) => {
   const t = useTranslations("edit.profile.MenteeInfoForm");
   const constants = useTranslations("constants");
 
   const router = useRouter();
-  const { data: me } = useGetMeAsMentee();
   const { mutate: updateMenteeInfo } = useUpdateMenteeInfo();
   const { isModified, setIsModified, userInfoForm, setUserInfoForm } = useMenteeInfoFormStore();
 
-  const values = (
-    [
-      "name",
-      "interestSchool",
-      "interestMajor",
-      "nationality",
-      "languages",
-      "introduction",
-      "profileImageUrl",
-    ] as Array<keyof typeof me>
-  ).reduce((acc, field) => ({ ...acc, [field]: me?.[field] }), {}) as UpdateMenteeInfoForm;
-
-  const methods = useForm<UpdateMenteeInfoForm & { profileImageFile?: File }>({
-    values: { ...values, ...userInfoForm },
+  const methods = useForm<MenteeInfoForm>({
+    defaultValues: { ...mentee, ...userInfoForm },
   });
 
   const {
@@ -53,9 +52,9 @@ export const MenteeInfoForm = () => {
     formState: { isDirty, isValid },
   } = methods;
 
-  const onSubmitForm = (form: UpdateMenteeInfoForm) => {
+  const onSubmitForm = (form: MenteeInfoForm) => {
     updateMenteeInfo(
-      { ...values, ...form },
+      { ...mentee, ...form },
       {
         onSuccess: () => {
           router.push(PATH.MYPAGE);
@@ -74,7 +73,7 @@ export const MenteeInfoForm = () => {
   const languages = (
     userInfoForm?.languages
       ? [userInfoForm?.languages.main].concat(userInfoForm?.languages.sub)
-      : [values.languages.main].concat(values.languages.sub)
+      : [mentee.languages.main].concat(mentee.languages.sub)
   ).filter((e) => !!e);
 
   return (
@@ -87,7 +86,7 @@ export const MenteeInfoForm = () => {
             render={({ field: { onChange } }) => (
               <ProfileImageUpload
                 isEditable
-                imageUrl={me?.profileImageUrl}
+                imageUrl={mentee.profileImageUrl}
                 onChange={(e) => onChange(e.target.files?.[0])}
               />
             )}

@@ -7,13 +7,15 @@ import {
   GetMentorByIdResponse,
   GetMentorListRequest,
   GetMentorListResponse,
+  PatchMenteeInfoRequest,
+  PatchMentorInfoRequest,
 } from "@/apis/user/types";
 import type { SignupForm as MenteeSignupForm } from "@/features/user/types/menteeForm";
 import type { SignupForm as MentorSignupForm } from "@/features/user/types/mentorForm";
 import { OauthInfo } from "@/stores/oauth-info";
 import { ProviderState } from "@/stores/provider";
-import type { Mentee, UpdateMenteeInfoForm } from "@/types/mentee";
-import type { Mentor, UpdateMentorInfoForm } from "@/types/mentor";
+import type { Mentee } from "@/types/mentee";
+import type { Mentor } from "@/types/mentor";
 
 class UserApi {
   signupAsMentor = (
@@ -92,15 +94,11 @@ class UserApi {
     return apiInstance.patch("/api/mentors/me/schedules", schedules);
   };
 
-  patchMentorInfo = (
-    info: Omit<UpdateMentorInfoForm, "profileImageFile"> & Pick<Mentor, "profileImageUrl">
-  ) => {
+  patchMentorInfo = (info: PatchMentorInfoRequest) => {
     return apiInstance.patch("/api/mentors/me/basic-info", info);
   };
 
-  patchMenteeInfo = (
-    info: Omit<UpdateMenteeInfoForm, "profileImageFile"> & Pick<Mentee, "profileImageUrl">
-  ) => {
+  patchMenteeInfo = (info: PatchMenteeInfoRequest) => {
     return apiInstance.patch("/api/mentees/me/basic-info", info);
   };
 }
