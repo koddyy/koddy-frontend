@@ -30,11 +30,8 @@ const useFormControl = <T extends HTMLElement>(props: UseFormControl<T> = {}) =>
     disabled = context?.disabled,
     hasError = context?.hasError,
     readOnly = context?.readOnly,
-    "aria-labelledby": ariaLabelledbyProp,
     ...rest
   } = props;
-
-  const ariaLabelledby = context?.labelId ?? ariaLabelledbyProp;
 
   const ariaDesribedby =
     [props["aria-describedby"], context?.hasError && context.errorMessageId]
@@ -52,7 +49,6 @@ const useFormControl = <T extends HTMLElement>(props: UseFormControl<T> = {}) =>
     "aria-disabled": disabled,
     "aria-invalid": hasError,
     "aria-readonly": readOnly,
-    "aria-labelledby": ariaLabelledby,
     "aria-describedby": ariaDesribedby,
   };
 };

@@ -1,8 +1,9 @@
 import { render } from "@/libs/test-utils";
+import { Checkbox } from "../Checkbox";
 import { Input } from "../Input";
 import { Select } from "../Select";
 import { TextArea } from "../TextArea";
-import { FormControl, FormErrorMessage, FormLabel } from ".";
+import { FormControl, FormErrorMessage, FormGroup, FormGroupLabel, FormLabel } from ".";
 
 const LABEL = "label test";
 const ERROR_MESSAGE = "error message test";
@@ -177,6 +178,130 @@ describe("FormControl", () => {
         "aria-describedby",
         `${id}-custom-error-message ${id}-error-message`
       );
+    });
+  });
+});
+
+describe("FormGroup", () => {
+  it("renders form elements group", () => {
+    const id = "name";
+    const { getByLabelText } = render(
+      <FormGroup id={id}>
+        <FormGroupLabel>Name</FormGroupLabel>
+        <FormControl>
+          <FormLabel>first name</FormLabel>
+          <Input />
+        </FormControl>
+        <FormControl>
+          <FormLabel>last name</FormLabel>
+          <Input />
+        </FormControl>
+      </FormGroup>
+    );
+
+    const group = getByLabelText("Name");
+
+    expect(group).toBeInTheDocument();
+  });
+
+  describe("FormGroupLabel", () => {
+    it("has not htmlFor attribute", () => {
+      const id = "test";
+      const { getByText } = render(
+        <FormGroup id={id}>
+          <FormGroupLabel>Name</FormGroupLabel>
+          <FormControl>
+            <FormLabel>first name</FormLabel>
+            <Input />
+          </FormControl>
+          <FormControl>
+            <FormLabel>last name</FormLabel>
+            <Input />
+          </FormControl>
+        </FormGroup>
+      );
+
+      const label = getByText("Name") as HTMLLabelElement;
+
+      expect(label.htmlFor).not.toBeDefined();
+    });
+
+    it("has id attribute correctly", () => {
+      const id = "test";
+      const { getByText } = render(
+        <FormGroup id={id}>
+          <FormGroupLabel>Name</FormGroupLabel>
+          <FormControl>
+            <FormLabel>first name</FormLabel>
+            <Input />
+          </FormControl>
+          <FormControl>
+            <FormLabel>last name</FormLabel>
+            <Input />
+          </FormControl>
+        </FormGroup>
+      );
+
+      const label = getByText("Name") as HTMLLabelElement;
+
+      expect(label.id).toEqual(`${id}-label`);
+    });
+  });
+
+  describe("FormErrorMessage", () => {
+    it("renders error message only when hasError props is passed", () => {
+      const id = "test";
+      const { getByText } = render(
+        <FormGroup id={id} hasError>
+          <FormGroupLabel>{LABEL}</FormGroupLabel>
+          {["option1", "option2"].map((option, i) => (
+            <Checkbox key={i} value={option} />
+          ))}
+          <FormErrorMessage>{ERROR_MESSAGE}</FormErrorMessage>
+        </FormGroup>
+      );
+
+      const errorMessage = getByText(ERROR_MESSAGE);
+
+      expect(errorMessage).toBeInTheDocument();
+    });
+
+    it("has error message id", () => {
+      const id = "test";
+      const { getByText } = render(
+        <FormGroup id={id} hasError>
+          <FormGroupLabel>{LABEL}</FormGroupLabel>
+          {["option1", "option2"].map((option, i) => (
+            <Checkbox key={i} value={option} />
+          ))}
+          <FormErrorMessage>{ERROR_MESSAGE}</FormErrorMessage>
+        </FormGroup>
+      );
+
+      const errorMessage = getByText(ERROR_MESSAGE);
+
+      expect(errorMessage.id).toEqual(`${id}-error-message`);
+    });
+  });
+
+  describe("ARIA attributes", () => {
+    it("links error message with form group when hasError prop is passed", () => {
+      const id = "test";
+      const { getByLabelText, getByText } = render(
+        <FormGroup id={id} hasError>
+          <FormGroupLabel>{LABEL}</FormGroupLabel>
+          {["option1", "option2"].map((option, i) => (
+            <Checkbox key={i} value={option} />
+          ))}
+          <FormErrorMessage>{ERROR_MESSAGE}</FormErrorMessage>
+        </FormGroup>
+      );
+
+      const group = getByLabelText(LABEL);
+
+      const errorMessage = getByText(ERROR_MESSAGE);
+
+      expect(group).toHaveAttribute("aria-describedby", errorMessage.id);
     });
   });
 });
