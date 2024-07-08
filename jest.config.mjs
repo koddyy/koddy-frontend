@@ -8,10 +8,21 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 /** @type {import('jest').Config} */
 const config = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   testEnvironment: "jest-environment-jsdom",
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-export default createJestConfig(config);
+const jestConfig = async () => {
+  const jestConfig = await createJestConfig(config)();
+
+  return {
+    ...jestConfig,
+    moduleNameMapper: {
+      "\\.svg": "<rootDir>/__mocks__/svg.js",
+      ...jestConfig.moduleNameMapper,
+    },
+  };
+};
+
+export default jestConfig;
