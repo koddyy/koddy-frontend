@@ -2,7 +2,9 @@ import React, { HTMLAttributes } from "react";
 import type { FormOptions } from "./FormControl.type";
 
 interface FormControlContext extends FormOptions {
-  id?: string;
+  id: string;
+  labelId: string;
+  errorMessageId: string;
 }
 
 const createFormControlContext = () => {
@@ -20,16 +22,38 @@ const [FormControlProvider, useFormControlContext] = createFormControlContext();
 
 interface UseFormControl<T extends HTMLElement> extends FormOptions, HTMLAttributes<T> {}
 
-const useFormControl = <T extends HTMLElement>(props?: UseFormControl<T>) => {
-  const { required, disabled, hasError, readOnly, ...rest } = props ?? {};
+const useFormControl = <T extends HTMLElement>(props: UseFormControl<T> = {}) => {
   const context = useFormControlContext();
+  const {
+    id = context?.id,
+    required = context?.required,
+    disabled = context?.disabled,
+    hasError = context?.hasError,
+    readOnly = context?.readOnly,
+    "aria-labelledby": ariaLabelledbyProp,
+    ...rest
+  } = props;
+
+  const ariaLabelledby = context?.labelId ?? ariaLabelledbyProp;
+
+  const ariaDesribedby =
+    [props["aria-describedby"], context?.hasError && context.errorMessageId]
+      .filter(Boolean)
+      .join(" ") || undefined;
 
   return {
     ...rest,
-    required: required ?? context?.required,
-    disabled: disabled ?? context?.disabled,
-    hasError: hasError ?? context?.hasError,
-    readOnly: readOnly ?? context?.readOnly,
+    id,
+    required,
+    disabled,
+    hasError,
+    readOnly,
+    "aria-required": required,
+    "aria-disabled": disabled,
+    "aria-invalid": hasError,
+    "aria-readonly": readOnly,
+    "aria-labelledby": ariaLabelledby,
+    "aria-describedby": ariaDesribedby,
   };
 };
 

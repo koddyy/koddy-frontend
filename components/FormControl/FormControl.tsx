@@ -1,22 +1,30 @@
-import { HTMLAttributes, LabelHTMLAttributes, PropsWithChildren, useMemo } from "react";
+import { HTMLAttributes, LabelHTMLAttributes, PropsWithChildren, useId, useMemo } from "react";
 import { cn } from "@/utils/cn";
-import { FormControlContext, FormControlProvider, useFormControl } from "./FormControlContext";
+import { FormOptions } from "./FormControl.type";
+import { FormControlProvider, useFormControlContext } from "./FormControlContext";
 
-export interface FormControlProps extends FormControlContext, HTMLAttributes<HTMLDivElement> {}
+export interface FormControlProps extends FormOptions, HTMLAttributes<HTMLDivElement> {}
 
-const FormControl = ({ className, children, ...props }: PropsWithChildren<FormControlProps>) => {
-  const { id, required, disabled, hasError, readOnly, ...rest } = props;
+const FormControl = ({ children, ...props }: PropsWithChildren<FormControlProps>) => {
+  const uid = useId();
+  const { id = uid, required, disabled, hasError, readOnly, ...rest } = props;
 
   const value = useMemo(
-    () => ({ id, required, disabled, hasError, readOnly }),
+    () => ({
+      id,
+      labelId: `${id}-label`,
+      errorMessageId: `${id}-error-message`,
+      required,
+      disabled,
+      hasError,
+      readOnly,
+    }),
     [id, required, disabled, hasError, readOnly]
   );
 
   return (
     <FormControlProvider value={value}>
-      <div className={cn("gap-[0.375rem]", className)} {...rest}>
-        {children}
-      </div>
+      <div {...rest}>{children}</div>
     </FormControlProvider>
   );
 };
@@ -26,17 +34,21 @@ const FormLabel = ({
   children,
   ...props
 }: PropsWithChildren<LabelHTMLAttributes<HTMLLabelElement>>) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id, required, hasError, ...rest } = useFormControl(props);
+  const { id, labelId, required } = useFormControlContext() ?? {};
 
   return (
     <label
-      htmlFor={id}
-      className={cn("body-3-bold mb-[0.375rem] inline-block", className)}
-      {...rest}
+      htmlFor={props.htmlFor ?? id}
+      id={props.id ?? labelId}
+      className={cn("body-3-bold mb-[6px] inline-block", className)}
+      {...props}
     >
       {children}
-      {required && <span className="text-danger"> *</span>}
+      {required && (
+        <span className="text-danger" role="presentation" aria-hidden="true">
+          *
+        </span>
+      )}
     </label>
   );
 };
@@ -46,12 +58,17 @@ const FormErrorMessage = ({
   children,
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement>>) => {
-  const { hasError, ...rest } = useFormControl(props);
+  const { errorMessageId, hasError } = useFormControlContext() ?? {};
 
   if (!hasError) return null;
 
   return (
-    <span className={cn("body-3 mt-[0.375rem] inline-block text-danger", className)} {...rest}>
+    <span
+      className={cn("body-3 mt-[6px] inline-block text-danger", className)}
+      id={errorMessageId}
+      aria-live="polite"
+      {...props}
+    >
       {children}
     </span>
   );
