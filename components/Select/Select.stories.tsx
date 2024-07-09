@@ -27,7 +27,7 @@ export const Controlled: StoryObj<typeof Select<string>> = {
   args: {
     options: ["Korea", "US", "Japen", "France", "Germany"],
     placeholder: "국적을 선택해 주세요",
-    rightContent: TriangleDown,
+    icon: TriangleDown,
   },
 };
 
