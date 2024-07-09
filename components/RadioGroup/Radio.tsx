@@ -1,5 +1,6 @@
 import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 import { cn } from "@/utils/cn";
+import { isNil } from "@/utils/typeUtils";
 import { useFormControl } from "../FormControl/FormControlContext";
 import { useRadioContext } from "./Radio.context";
 
@@ -25,7 +26,7 @@ export const Radio = ({ className, value, children, ...props }: PropsWithChildre
         name={name}
         value={value}
         onChange={(e) => onChangeValue?.(e.target.value)}
-        checked={value === selectedValue}
+        checked={isNil(selectedValue) ? undefined : value === selectedValue}
         required={required}
         disabled={disabled}
         readOnly={readOnly}

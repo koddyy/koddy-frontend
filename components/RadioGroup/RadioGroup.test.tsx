@@ -109,4 +109,50 @@ describe("RadioGroup", () => {
     expect(defaultRadio).not.toBeChecked();
     expect(targetRadio).toBeChecked();
   });
+
+  describe("Used as uncontrolled", () => {
+    it("renders a uncontrolled group of radio inputs with defaultChecked", () => {
+      const targetValue = OPTIONS[0];
+      const { getByDisplayValue } = render(
+        <RadioGroup name={NAME}>
+          <FormGroupLabel>{LABEL}</FormGroupLabel>
+          {OPTIONS.map((option, i) => (
+            <Radio key={i} value={option} defaultChecked={option === OPTIONS[0]}>
+              {option}
+            </Radio>
+          ))}
+        </RadioGroup>
+      );
+
+      const radio = getByDisplayValue(targetValue);
+
+      expect(radio).toBeChecked();
+    });
+  });
+
+  it("changes checked radio when user clicks the unchecked radio", async () => {
+    const defaultValue = OPTIONS[0];
+    const targetValue = OPTIONS[1];
+    const { getByDisplayValue } = render(
+      <RadioGroup name={NAME}>
+        <FormGroupLabel>{LABEL}</FormGroupLabel>
+        {OPTIONS.map((option, i) => (
+          <Radio key={i} value={option} defaultChecked={option === defaultValue}>
+            {option}
+          </Radio>
+        ))}
+      </RadioGroup>
+    );
+
+    const defaultRadio = getByDisplayValue(defaultValue);
+    const targetRadio = getByDisplayValue(targetValue);
+
+    expect(defaultRadio).toBeChecked();
+    expect(targetRadio).not.toBeChecked();
+
+    await userEvent.click(targetRadio);
+
+    expect(defaultRadio).not.toBeChecked();
+    expect(targetRadio).toBeChecked();
+  });
 });
