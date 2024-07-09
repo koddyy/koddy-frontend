@@ -1,6 +1,7 @@
 import { render } from "@/libs/test-utils";
 import { Checkbox } from "../Checkbox";
 import { Input } from "../Input";
+import { Radio, RadioGroup } from "../RadioGroup";
 import { Select } from "../Select";
 import { TextArea } from "../TextArea";
 import { FormControl, FormErrorMessage, FormGroup, FormGroupLabel, FormLabel } from ".";
@@ -202,6 +203,24 @@ describe("FormGroup", () => {
     const group = getByLabelText("Name");
 
     expect(group).toBeInTheDocument();
+  });
+
+  it("renders Radio group associated with label", () => {
+    const id = "test";
+    const { getByLabelText } = render(
+      <RadioGroup id={id} name="option">
+        <FormGroupLabel>{LABEL}</FormGroupLabel>
+        {["option1", "option2"].map((option, i) => (
+          <Radio key={i} value={option}>
+            {option}
+          </Radio>
+        ))}
+      </RadioGroup>
+    );
+
+    const radioGroup = getByLabelText(LABEL);
+
+    expect(radioGroup).toBeInTheDocument();
   });
 
   describe("FormGroupLabel", () => {
