@@ -146,6 +146,14 @@ describe("Select", () => {
       expect(queryByRole("listbox")).not.toBeInTheDocument();
     });
 
+    it("doesn't open the dropdown when the readonly button is clicked", async () => {
+      const { queryByRole, getByRole } = render(<Select options={OPTIONS} readOnly />);
+
+      await userEvent.click(getByRole("combobox"));
+
+      expect(queryByRole("listbox")).not.toBeInTheDocument();
+    });
+
     it("changes the select value when the other option is clicked", async () => {
       const ControlledSelect = () => {
         const [value, setValue] = useState("");

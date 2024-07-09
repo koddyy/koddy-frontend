@@ -30,7 +30,7 @@ export const Select = <T extends string | number>({
   ...props
 }: PropsWithChildren<SelectProps<T>>) => {
   const dropdownId = useId();
-  const { hasError, ...rest } = useFormControl(props);
+  const { hasError, readOnly, ...rest } = useFormControl(props);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useClickOutside(() => setIsOpen(false));
 
@@ -48,7 +48,10 @@ export const Select = <T extends string | number>({
           className
         )}
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={() => {
+          if (readOnly) return;
+          setIsOpen((prev) => !prev);
+        }}
         role="combobox"
         aria-controls={dropdownId}
         aria-expanded={isOpen}
