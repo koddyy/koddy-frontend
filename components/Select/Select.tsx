@@ -1,10 +1,11 @@
-import { ElementType, PropsWithChildren, ReactNode, useId, useState } from "react";
+import { ElementType, PropsWithChildren, ReactNode } from "react";
 import ArrowDown from "@/assets/arrow_down.svg";
 import Close from "@/assets/close.svg";
 import { FormOptions } from "@/components/FormControl/FormControl.type";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
 import useClickOutside from "@/hooks/useClickOutside";
 import { cn } from "@/utils/cn";
+import { useSelect } from "./useSelect";
 
 export type SelectValue<T, Multiple> = Multiple extends true ? T[] : T;
 
@@ -35,27 +36,22 @@ export const Select = <T extends string | number, Multiple extends boolean = fal
   dropdownClassName,
   ...props
 }: PropsWithChildren<SelectProps<T, Multiple>>) => {
-  const dropdownId = useId();
   const { hasError, readOnly, ...rest } = useFormControl(props);
-  const [isOpen, setIsOpen] = useState(false);
-  const ref = useClickOutside(() => setIsOpen(false));
-
-  const isSelectedValue = (option: T) => {
-    return multiple ? (value as T[]).includes(option) : value === option;
-  };
-
-  const handleChangeSingleValue = (option: T) => {
-    onChangeValue?.(option as SelectValue<T, Multiple>);
-    setIsOpen(false);
-  };
-
-  const handleChangeMultiValues = (option: T) => {
-    if (isSelectedValue(option)) {
-      onChangeValue?.((value as T[]).filter((v) => v !== option) as SelectValue<T, Multiple>);
-    } else {
-      onChangeValue?.([...(value as T[]), option] as SelectValue<T, Multiple>);
-    }
-  };
+  const {
+    isOpenDropdown,
+    closeDropdown,
+    toggleDropdown,
+    handleChangeSingleValue,
+    handleChangeMultiValues,
+    triggerProps,
+    listBoxProps,
+    getOptionProps,
+  } = useSelect({
+    value,
+    onChangeValue,
+    multiple,
+  });
+  const ref = useClickOutside(closeDropdown);
 
   const renderValue = (value: SelectValue<T, Multiple>) => {
     if (renderValueProp) return renderValueProp(value);
@@ -70,7 +66,7 @@ export const Select = <T extends string | number, Multiple extends boolean = fal
               key={v}
               className="label-bold flex items-center gap-[2px] rounded-md border border-primary bg-[#EAFAF1] py-[6px] pl-[10px] pr-[6px] text-primary"
               onClick={() => {
-                setIsOpen((prev) => !prev);
+                toggleDropdown();
                 handleChangeMultiValues(v);
               }}
             >
@@ -96,12 +92,9 @@ export const Select = <T extends string | number, Multiple extends boolean = fal
         type="button"
         onClick={() => {
           if (readOnly) return;
-          setIsOpen((prev) => !prev);
+          toggleDropdown();
         }}
-        role="combobox"
-        aria-controls={dropdownId}
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
+        {...triggerProps}
         {...rest}
       >
         {(value && renderValue(value)) || <span className="text-gray-400">{placeholder}</span>}
@@ -115,16 +108,13 @@ export const Select = <T extends string | number, Multiple extends boolean = fal
           />
         )}
       </button>
-      {isOpen && (
+      {isOpenDropdown && (
         <ul
           className={cn(
             "absolute top-14 z-dropdown max-h-[12rem] w-full overflow-y-scroll rounded-[0.625rem] border border-gray-300 bg-white shadow-md",
             dropdownClassName
           )}
-          role="listbox"
-          id={dropdownId}
-          tabIndex={-1}
-          aria-multiselectable={multiple}
+          {...listBoxProps}
         >
           {options.map((option) => (
             <li
@@ -137,8 +127,7 @@ export const Select = <T extends string | number, Multiple extends boolean = fal
                   handleChangeSingleValue(option);
                 }
               }}
-              role="option"
-              aria-selected={isSelectedValue(option)}
+              {...getOptionProps(option)}
             >
               {renderOption ? renderOption(option) : option}
             </li>
