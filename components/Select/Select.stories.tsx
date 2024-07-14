@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import TriangleDown from "@/assets/triangle-down.svg";
 import { CoffeeChatTypeIcon, CoffeeChatTypeLabel, Meeting } from "@/constants/coffeechat";
-import { Select, SelectProps } from "./Select";
+import { Select, SelectProps as Props } from "./Select";
 
 const meta = {
   title: "Components/Select",
@@ -11,6 +12,8 @@ const meta = {
 } satisfies Meta<typeof Select>;
 
 export default meta;
+
+type SelectProps<T extends string | number = string> = Props<T, false>;
 
 const ControlledSelect = (args: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState("");
@@ -62,7 +65,7 @@ export const CustomValue: StoryObj<typeof Select<string>> = {
   },
 };
 
-const CustomOptionSelect = (args: SelectProps<Meeting>) => {
+const CustomOptionSelect = (args: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState<Meeting>();
 
   return (
@@ -84,7 +87,19 @@ const CustomOptionSelect = (args: SelectProps<Meeting>) => {
   );
 };
 
-export const CustomOption: StoryObj<typeof Select<Meeting>> = {
-  render: (args: SelectProps<Meeting>) => <CustomOptionSelect {...args} />,
+export const CustomOption: StoryObj<typeof Select<string>> = {
+  render: (args: SelectProps) => <CustomOptionSelect {...args} />,
   args: {},
+};
+
+export const MultiSelect: StoryObj<typeof Select<string, true>> = {
+  render: (args: Props<string, true>) => {
+    const [values, setValues] = useState(["option1"]);
+
+    return <Select {...args} multiple value={values} onChangeValue={setValues} />;
+  },
+  args: {
+    options: ["option1", "option2", "option3", "option4", "option5"],
+    placeholder: "select options...",
+  },
 };

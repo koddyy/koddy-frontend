@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import TriangleDown from "@/assets/triangle-down.svg";
-import { render } from "@/libs/test-utils";
+import { render, within } from "@/libs/test-utils";
 import { FormControl } from "../FormControl";
 import { Select } from ".";
 
@@ -110,14 +110,16 @@ describe("Select", () => {
   });
 
   describe("User Interactions", () => {
-    it("opens the dropdown when the trigger button is clicked", async () => {
+    it("toggles the dropdown when the trigger button is clicked", async () => {
       const { queryByRole, getByRole } = render(<Select options={OPTIONS} />);
 
       expect(queryByRole("listbox")).not.toBeInTheDocument();
 
       await userEvent.click(getByRole("combobox"));
-
       expect(getByRole("listbox")).toBeInTheDocument();
+
+      await userEvent.click(getByRole("combobox"));
+      expect(queryByRole("listbox")).not.toBeInTheDocument();
     });
 
     it("closes the dropdown when the outside of select is clicked", async () => {
@@ -194,6 +196,106 @@ describe("Select", () => {
       expect(trigger).toHaveAttribute("aria-disabled");
       expect(trigger).toHaveAttribute("aria-readonly");
       expect(trigger).toHaveAttribute("aria-invalid");
+    });
+  });
+
+  describe("Used as multi-select", () => {
+    const OPTIONS = ["option1", "option2", "option3", "option4", "option5"];
+
+    it("renders the selected values when value prop is array", () => {
+      const values = ["option1", "option2"];
+      const { getByRole } = render(<Select multiple options={OPTIONS} value={values} />);
+
+      const trigger = getByRole("combobox");
+
+      values.forEach((value) => expect(trigger).toHaveTextContent(value));
+    });
+
+    it("renders a placeholder text when value prop is empty array", () => {
+      const placeholder = "select options...";
+      const values: string[] = [];
+      const { getByRole } = render(
+        <Select multiple options={OPTIONS} placeholder={placeholder} value={values} />
+      );
+
+      const trigger = getByRole("combobox");
+
+      expect(trigger).toHaveTextContent(placeholder);
+    });
+
+    it("renders the selected values using the renderValue prop", () => {
+      const values = ["option1", "option2"];
+      const { getByRole } = render(
+        <Select
+          multiple
+          options={OPTIONS}
+          value={values}
+          renderValue={(values) => values.map((value) => <span key={value}>custom {value}</span>)}
+        />
+      );
+
+      const trigger = getByRole("combobox");
+
+      values.forEach((value) => expect(trigger).toHaveTextContent(`custom ${value}`));
+    });
+
+    describe("User Interactions", () => {
+      const ControlledMultiSelect = () => {
+        const [values, setValues] = useState<string[]>([]);
+
+        return <Select multiple options={OPTIONS} value={values} onChangeValue={setValues} />;
+      };
+
+      it("doesn't close the dropdown when an option is clicked", async () => {
+        const { getByRole } = render(<ControlledMultiSelect />);
+
+        await userEvent.click(getByRole("combobox"));
+        await userEvent.click(getByRole("option", { name: OPTIONS[1] }));
+
+        expect(getByRole("listbox")).toBeInTheDocument();
+      });
+
+      it("adds/removes the value when the unselected/selected dropdown option is clicked", async () => {
+        const { getByRole } = render(<ControlledMultiSelect />);
+
+        const trigger = getByRole("combobox");
+        await userEvent.click(trigger);
+
+        for (const option of OPTIONS) {
+          await userEvent.click(getByRole("option", { name: option }));
+        }
+
+        OPTIONS.forEach((option) => expect(within(trigger).getByText(option)).toBeInTheDocument());
+
+        for (const option of OPTIONS) {
+          await userEvent.click(getByRole("option", { name: option }));
+        }
+
+        OPTIONS.forEach((option) =>
+          expect(within(trigger).queryByText(option)).not.toBeInTheDocument()
+        );
+      });
+
+      it("removes the value when the selected value in trigger button is clicked", async () => {
+        const { getByRole } = render(<ControlledMultiSelect />);
+
+        const trigger = getByRole("combobox");
+        await userEvent.click(trigger);
+
+        for (const option of OPTIONS) {
+          await userEvent.click(getByRole("option", { name: option }));
+        }
+
+        OPTIONS.forEach((option) => expect(within(trigger).getByText(option)).toBeInTheDocument());
+
+        for (const option of OPTIONS) {
+          await userEvent.click(within(trigger).getByText(option));
+        }
+
+        OPTIONS.forEach((option) =>
+          expect(within(trigger).queryByText(option)).not.toBeInTheDocument()
+        );
+      });
     });
   });
 });
