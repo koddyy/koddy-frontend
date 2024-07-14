@@ -66,7 +66,7 @@ export const Select = <T extends string | number, Multiple extends boolean = fal
               key={v}
               className="label-bold flex items-center gap-[2px] rounded-md border border-primary bg-[#EAFAF1] py-[6px] pl-[10px] pr-[6px] text-primary"
               onClick={() => {
-                toggleDropdown();
+                closeDropdown();
                 handleChangeMultiValues(v);
               }}
             >

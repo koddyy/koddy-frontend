@@ -296,6 +296,18 @@ describe("Select", () => {
           expect(within(trigger).queryByText(option)).not.toBeInTheDocument()
         );
       });
+
+      it("closes the dropdown when the selected value is clicked", async () => {
+        const { getByRole } = render(<ControlledMultiSelect />);
+
+        const trigger = getByRole("combobox");
+        await userEvent.click(trigger);
+        await userEvent.click(getByRole("option", { name: OPTIONS[0] }));
+
+        await userEvent.click(within(trigger).getByText(OPTIONS[0]));
+
+        expect(within(trigger).queryByText(OPTIONS[0])).not.toBeInTheDocument();
+      });
     });
   });
 });
