@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { Radio } from "./Radio";
-import { RadioGroup } from "./RadioGroup";
+import { Radio, RadioVariantsProps } from "./Radio";
+import { RadioGroup, RadioGroupProps } from "./RadioGroup";
 
 const meta: Meta<typeof RadioGroup> = {
   component: RadioGroup,
@@ -10,17 +10,29 @@ const meta: Meta<typeof RadioGroup> = {
 export default meta;
 type Story = StoryObj<typeof RadioGroup>;
 
-const Controlled = () => {
-  const [value, setValue] = useState("");
+const OPTIONS = ["option1", "option2", "option3"];
+
+const ControlledRadioGroup = ({ variant, ...args }: RadioGroupProps & RadioVariantsProps) => {
+  const [value, setValue] = useState(OPTIONS[0]);
 
   return (
-    <RadioGroup name="options" value={value} onChangeValue={setValue}>
-      <Radio value="option1">option1</Radio>
-      <Radio value="option2">option2</Radio>
+    <RadioGroup {...args} name={`options-${variant}`} value={value} onChangeValue={setValue}>
+      {OPTIONS.map((option) => (
+        <Radio key={option} value={option} variant={variant}>
+          {option}
+        </Radio>
+      ))}
     </RadioGroup>
   );
 };
 
 export const Primary: Story = {
-  render: () => <Controlled />,
+  render: (args) => (
+    <div className="flex flex-col gap-[46px]">
+      <ControlledRadioGroup {...args} />
+      <ControlledRadioGroup variant="solid" {...args} />
+      <ControlledRadioGroup variant="surface" {...args} />
+      <ControlledRadioGroup variant="outline" {...args} />
+    </div>
+  ),
 };

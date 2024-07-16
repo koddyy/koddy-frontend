@@ -1,14 +1,27 @@
+import { VariantProps } from "cva";
 import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 import { cn } from "@/utils/cn";
 import { isNil } from "@/utils/typeUtils";
+import { CheckboxVariants } from "../Checkbox";
 import { useFormControl } from "../FormControl/FormControlContext";
 import { useRadioContext } from "./Radio.context";
 
-export interface RadioProps extends Omit<ComponentPropsWithoutRef<"input">, "name" | "onChange"> {
+export const RadioVariants = CheckboxVariants;
+export type RadioVariantsProps = VariantProps<typeof RadioVariants>;
+
+export interface RadioProps
+  extends Omit<ComponentPropsWithoutRef<"input">, "name" | "onChange">,
+    RadioVariantsProps {
   value: string;
 }
 
-export const Radio = ({ className, value, children, ...props }: PropsWithChildren<RadioProps>) => {
+export const Radio = ({
+  className,
+  value,
+  variant,
+  children,
+  ...props
+}: PropsWithChildren<RadioProps>) => {
   const { name, value: selectedValue, onChangeValue } = useRadioContext();
   const {
     required,
@@ -17,11 +30,17 @@ export const Radio = ({ className, value, children, ...props }: PropsWithChildre
     "aria-describedby": ariaDesribedby,
   } = useFormControl(props);
 
+  const defaultStyle = !variant;
+
   return (
-    <label className="body-1 flex items-center gap-[6px]" htmlFor={value}>
+    <label
+      className={cn(
+        defaultStyle ? "body-1 flex items-center gap-[6px]" : RadioVariants({ variant }),
+        className
+      )}
+    >
       <input
-        className={cn("radio-input", className)}
-        id={value}
+        className={cn("appearance-none", defaultStyle && "radio-input")}
         type="radio"
         name={name}
         value={value}
