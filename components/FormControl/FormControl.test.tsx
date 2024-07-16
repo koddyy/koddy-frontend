@@ -400,5 +400,23 @@ describe("FormGroup", () => {
 
       expect(group).toHaveAttribute("aria-describedby", caption.id);
     });
+
+    it("links a custom aria-labelledby", () => {
+      const id = "test";
+      const { getByLabelText } = render(
+        <>
+          <span id={id}>{LABEL}</span>
+          <FormGroup aria-labelledby={id}>
+            {["option1", "option2"].map((option, i) => (
+              <Checkbox key={i} value={option} />
+            ))}
+          </FormGroup>
+        </>
+      );
+
+      const group = getByLabelText(LABEL);
+
+      expect(group).toHaveAttribute("aria-labelledby", id);
+    });
   });
 });

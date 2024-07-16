@@ -139,7 +139,7 @@ const FormGroup = ({ children, role = "group", ...props }: PropsWithChildren<For
     <FormControlProvider value={value}>
       <div
         role={role}
-        aria-labelledby={value.labelId ?? ariaLabelledby}
+        aria-labelledby={ariaLabelledby ?? value.labelId}
         aria-describedby={
           [
             ariaDesribedby,
