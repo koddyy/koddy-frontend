@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    checked: false,
     children: "option",
   },
 };
@@ -27,7 +28,7 @@ const CheckboxGroup = () => {
           key={i}
           value={value}
           checked={isChecked[i]}
-          onChangeChecked={() => {
+          onChange={() => {
             setIsChecked((prev) => {
               const cloned = [...prev];
               cloned[i] = !cloned[i];

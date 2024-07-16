@@ -1,38 +1,54 @@
-import { ChangeEvent, PropsWithChildren } from "react";
+import { cva, VariantProps } from "cva";
+import { ChangeEvent, ComponentPropsWithRef, PropsWithChildren } from "react";
 import Checked from "@/assets/checkboxes_checked.svg";
 import Unchecked from "@/assets/checkboxes_unchecked.svg";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { cn } from "@/utils/cn";
 
-export interface CheckboxProps {
+export const CheckboxVariants = cva(
+  "body-2 rounded-[10px] border border-gray-300 px-[13px] py-[11px] disabled:cursor-not-allowed disabled:text-gray-300",
+  {
+    variants: {
+      variant: {
+        solid:
+          "[&:has(input:checked)]:border-primary [&:has(input:checked)]:bg-primary [&:has(input:checked)]:font-bold [&:has(input:checked)]:text-white",
+        surface: "[&:has(input:checked)]:border-primary [&:has(input:checked)]:bg-[#DCFEEB]",
+        outline: "[&:has(input:checked)]:border-primary",
+      },
+    },
+  }
+);
+
+export interface CheckboxProps
+  extends ComponentPropsWithRef<"input">,
+    VariantProps<typeof CheckboxVariants> {
   className?: string;
-  id?: string;
-  value?: string;
-  checked?: boolean;
-  onChangeChecked?: (e: ChangeEvent<HTMLInputElement>) => void;
+  checked: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Checkbox = ({
   className,
-  value,
   checked,
-  onChangeChecked,
+  onChange,
+  variant,
   children,
   ...props
 }: PropsWithChildren<CheckboxProps>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { hasError } = useFormControl(props);
 
+  const defaultStyle = !variant;
+
   return (
-    <label className={cn("flex items-center gap-1", className)}>
-      <input
-        className="peer appearance-none"
-        type="checkbox"
-        value={value}
-        checked={checked}
-        onChange={onChangeChecked}
-      />
-      <span>{checked ? <Checked /> : <Unchecked />}</span>
+    <label
+      className={cn(
+        defaultStyle ? "inline-flex items-center gap-1" : CheckboxVariants({ variant }),
+        className
+      )}
+    >
+      <input className="appearance-none" type="checkbox" checked={checked} onChange={onChange} />
+      {defaultStyle && <span>{checked ? <Checked /> : <Unchecked />}</span>}
       {children}
     </label>
   );
