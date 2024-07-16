@@ -51,7 +51,7 @@ const FormLabel = ({
     <label
       htmlFor={props.htmlFor ?? id}
       id={props.id ?? labelId}
-      className={cn("body-3-bold mb-[6px] inline-block", className)}
+      className={cn("body-3-bold mb-[6px] block", className)}
       {...props}
     >
       {children}
@@ -75,7 +75,7 @@ const FormErrorMessage = ({
 
   return (
     <span
-      className={cn("body-3 mt-[6px] inline-block text-danger", className)}
+      className={cn("body-3 mt-[6px] block text-danger", className)}
       id={errorMessageId}
       aria-live="polite"
       {...props}
@@ -93,7 +93,7 @@ const FormCaption = ({
 
   return (
     <span
-      className={cn("body-3 inline-block text-gray-600", className)}
+      className={cn("body-3 mt-[6px] block text-gray-600", className)}
       id={captionId}
       ref={(node) => {
         if (node) {
@@ -167,7 +167,7 @@ const FormGroupLabel = ({
   return (
     <span
       id={props.id ?? labelId}
-      className={cn("body-3-bold mb-[6px] inline-block", className)}
+      className={cn("body-3-bold mb-[6px] block", className)}
       {...props}
     >
       {children}
