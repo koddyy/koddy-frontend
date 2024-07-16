@@ -17,11 +17,13 @@ const ControlledRadioGroup = ({ variant, ...args }: RadioGroupProps & RadioVaria
 
   return (
     <RadioGroup {...args} name={`options-${variant}`} value={value} onChangeValue={setValue}>
-      {OPTIONS.map((option) => (
-        <Radio key={option} value={option} variant={variant}>
-          {option}
-        </Radio>
-      ))}
+      <div className="flex gap-[14px]">
+        {OPTIONS.map((option) => (
+          <Radio key={option} value={option} variant={variant}>
+            {option}
+          </Radio>
+        ))}
+      </div>
     </RadioGroup>
   );
 };
