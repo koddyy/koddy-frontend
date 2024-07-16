@@ -4,10 +4,18 @@ import { Input } from "../Input";
 import { Radio, RadioGroup } from "../RadioGroup";
 import { Select } from "../Select";
 import { TextArea } from "../TextArea";
-import { FormControl, FormErrorMessage, FormGroup, FormGroupLabel, FormLabel } from ".";
+import {
+  FormCaption,
+  FormControl,
+  FormErrorMessage,
+  FormGroup,
+  FormGroupLabel,
+  FormLabel,
+} from ".";
 
 const LABEL = "label test";
 const ERROR_MESSAGE = "error message test";
+const CAPTION = "caption test";
 
 describe("FormControl", () => {
   it("renders with custom id", () => {
@@ -145,6 +153,23 @@ describe("FormControl", () => {
     });
   });
 
+  describe("FormCaption", () => {
+    it("has caption id", () => {
+      const id = "test";
+      const { getByText } = render(
+        <FormControl id={id} hasError>
+          <FormLabel>{LABEL}</FormLabel>
+          <Input />
+          <FormCaption>{CAPTION}</FormCaption>
+        </FormControl>
+      );
+
+      const caption = getByText(CAPTION);
+
+      expect(caption.id).toEqual(`${id}-caption`);
+    });
+  });
+
   describe("ARIA attributes", () => {
     it("links error message with the input when hasError prop is passed", () => {
       const id = "test";
@@ -160,6 +185,22 @@ describe("FormControl", () => {
       const errorMessage = getByText(ERROR_MESSAGE);
 
       expect(input).toHaveAttribute("aria-describedby", errorMessage.id);
+    });
+
+    it("links the caption text with input when FormCaption is rendered", () => {
+      const id = "test";
+      const { getByLabelText, getByText } = render(
+        <FormControl id={id}>
+          <FormLabel>{LABEL}</FormLabel>
+          <Input />
+          <FormCaption>{CAPTION}</FormCaption>
+        </FormControl>
+      );
+
+      const input = getByLabelText(LABEL);
+      const caption = getByText(CAPTION);
+
+      expect(input).toHaveAttribute("aria-describedby", caption.id);
     });
 
     it("links a custom aria-describedby", () => {
@@ -303,6 +344,25 @@ describe("FormGroup", () => {
     });
   });
 
+  describe("FormCaption", () => {
+    it("has caption id", () => {
+      const id = "test";
+      const { getByText } = render(
+        <FormGroup id={id} hasError>
+          <FormGroupLabel>{LABEL}</FormGroupLabel>
+          {["option1", "option2"].map((option, i) => (
+            <Checkbox key={i} value={option} />
+          ))}
+          <FormCaption>{CAPTION}</FormCaption>
+        </FormGroup>
+      );
+
+      const caption = getByText(CAPTION);
+
+      expect(caption.id).toEqual(`${id}-caption`);
+    });
+  });
+
   describe("ARIA attributes", () => {
     it("links error message with form group when hasError prop is passed", () => {
       const id = "test";
@@ -321,6 +381,24 @@ describe("FormGroup", () => {
       const errorMessage = getByText(ERROR_MESSAGE);
 
       expect(group).toHaveAttribute("aria-describedby", errorMessage.id);
+    });
+
+    it("links the caption text with form group when FormCaption is rendered", () => {
+      const id = "test";
+      const { getByLabelText, getByText } = render(
+        <FormGroup id={id}>
+          <FormGroupLabel>{LABEL}</FormGroupLabel>
+          {["option1", "option2"].map((option, i) => (
+            <Checkbox key={i} value={option} />
+          ))}
+          <FormCaption>{CAPTION}</FormCaption>
+        </FormGroup>
+      );
+
+      const group = getByLabelText(LABEL);
+      const caption = getByText(CAPTION);
+
+      expect(group).toHaveAttribute("aria-describedby", caption.id);
     });
   });
 });

@@ -5,6 +5,9 @@ interface FormControlContext extends FormOptions {
   id: string;
   labelId: string;
   errorMessageId: string;
+  captionId: string;
+  hasCaption: boolean;
+  setHasCaption: (hasCaption: boolean) => void;
 }
 
 const createFormControlContext = () => {
@@ -34,7 +37,11 @@ const useFormControl = <T extends HTMLElement>(props: UseFormControl<T> = {}) =>
   } = props;
 
   const ariaDesribedby =
-    [props["aria-describedby"], context?.hasError && context.errorMessageId]
+    [
+      props["aria-describedby"],
+      context?.hasError && context.errorMessageId,
+      context?.hasCaption && context.captionId,
+    ]
       .filter(Boolean)
       .join(" ") || undefined;
 
