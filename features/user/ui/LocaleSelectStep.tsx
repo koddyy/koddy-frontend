@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
-import { Toggle } from "@/components/Toggle";
+import { FormGroupLabel } from "@/components/FormControl";
+import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { localesOptions } from "@/constants/locale";
 import { SupportLocale } from "@/types/locale";
 import { getEntries } from "@/utils/object";
@@ -13,25 +14,29 @@ export const LocaleSelectStep = ({ selectedLocale, onChangeLocale }: LocaleSelec
   const t = useTranslations("signup.LocaleSelectStep");
 
   return (
-    <div className="px-[20px]">
-      <div className="headline-1 mb-[26px] mt-[20px]">
+    <RadioGroup
+      className="px-[20px]"
+      name="locale"
+      value={selectedLocale}
+      onChangeValue={(locale) => onChangeLocale(locale as SupportLocale)}
+    >
+      <FormGroupLabel className="headline-1 mb-[26px] mt-[20px]">
         {t.rich("title", {
           br: () => <br />,
         })}
-      </div>
+      </FormGroupLabel>
       <div className="flex flex-col gap-[16px]">
         {getEntries(localesOptions).map(([key, value]) => (
-          <Toggle
+          <Radio
             key={key}
-            className="subheading-bold rounded-[16px] border-[2px] p-[16px]"
+            className="subheading-bold rounded-[16px] border-[2px] p-[16px] text-center"
             variant="outline"
-            pressed={selectedLocale === key}
-            onChangePressed={() => onChangeLocale(key)}
+            value={key}
           >
             {value}
-          </Toggle>
+          </Radio>
         ))}
       </div>
-    </div>
+    </RadioGroup>
   );
 };

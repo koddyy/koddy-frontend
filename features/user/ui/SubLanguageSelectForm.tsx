@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
 import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
-import { FormControl, FormLabel } from "@/components/FormControl";
-import { Toggle } from "@/components/Toggle";
+import { Checkbox } from "@/components/Checkbox";
+import { FormCaption, FormGroup, FormGroupLabel } from "@/components/FormControl";
 import { LANGUAGE_OPTIONS } from "@/constants/user";
 import { Language } from "@/types/user";
 import { SignupForm } from "../types/mentorForm";
@@ -34,32 +34,32 @@ export const SubLanguageSelectForm = () => {
 
   return (
     <>
-      <FormControl>
-        <FormLabel className="headline-1 mb-[9px]">
+      <FormGroup>
+        <FormGroupLabel className="headline-1 mb-[9px]">
           {t.rich("title", {
             br: () => <br />,
           })}
-        </FormLabel>
-        <div className="body-1 mb-[14px] text-gray-600">
+        </FormGroupLabel>
+        <FormCaption className="body-1 mb-[14px] text-gray-600">
           {t.rich("description", {
             br: () => <br />,
           })}
-        </div>
+        </FormCaption>
         <div className="flex flex-col gap-[6px]">
           {LANGUAGE_OPTIONS.map((option) => (
-            <Toggle
+            <Checkbox
               className="p-4 text-start"
               key={option}
               variant="outline"
-              pressed={subLanguages.value?.some((v) => v === option)}
-              onChangePressed={() => handleChangeSubLanguages(option)}
+              checked={subLanguages.value?.some((v) => v === option)}
+              onChange={() => handleChangeSubLanguages(option)}
               disabled={mainLanguage && option === mainLanguage.value}
             >
               {constants(`languages-options.${option}`)}
-            </Toggle>
+            </Checkbox>
           ))}
         </div>
-      </FormControl>
+      </FormGroup>
       <BottomButton type="submit" disabled={!isValid}>
         {t("next")}
       </BottomButton>

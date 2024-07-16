@@ -40,11 +40,7 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
           br: () => <br />,
         })}
       </div>
-      <Checkbox
-        className="body-2-bold"
-        checked={isCheckedAll}
-        onChangeChecked={handleChangeCheckedAll}
-      >
+      <Checkbox className="body-2-bold" checked={isCheckedAll} onChange={handleChangeCheckedAll}>
         {t("agreement.all")}
       </Checkbox>
       <Divider className="my-4" />
@@ -54,7 +50,7 @@ export const TermsOfService = ({ onClickNextStep }: TermsOfServiceProps) => {
             key={i}
             className="items-start"
             checked={isChecked[i]}
-            onChangeChecked={() => handleChangeChecked(i)}
+            onChange={() => handleChangeChecked(i)}
           >
             <span>
               {t("agreement.prefix")}{" "}

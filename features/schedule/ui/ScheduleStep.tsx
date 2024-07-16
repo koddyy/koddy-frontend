@@ -3,8 +3,8 @@ import { useController, useFormContext } from "react-hook-form";
 import { BottomButton } from "@/app/components/BottomButton";
 import { Calendar } from "@/components/Calendar";
 import { Divider } from "@/components/Divider/Divider";
-import { FormControl, FormLabel } from "@/components/FormControl";
-import { Toggle } from "@/components/Toggle";
+import { FormControl, FormGroupLabel, FormLabel } from "@/components/FormControl";
+import { Radio, RadioGroup } from "@/components/RadioGroup";
 import { MenteeApplyForm } from "@/types/coffeechat";
 import { localToZonedDate, toYYYYMMDD } from "@/utils/dateUtils";
 import { formatScheduleDateAndTimeRange } from "@/utils/schedules";
@@ -69,26 +69,24 @@ export const ScheduleStep = ({ mentorId, onClickNextStep }: FirstStepProps) => {
         </div>
       </FormControl>
       {dateField.value && (
-        <FormControl className="my-[16px]">
-          <FormLabel className="body-1-bold mb-2">{t("time")}</FormLabel>
+        <RadioGroup
+          className="my-[16px]"
+          name="timeRange"
+          value={timeRangeField.value?.join(" ~ ")}
+          onChangeValue={(timeRange) => timeRangeField.onChange(timeRange.split(" ~ "))}
+        >
+          <FormGroupLabel className="body-1-bold mb-2">{t("time")}</FormGroupLabel>
           <div className="flex flex-wrap gap-3">
             {availableTimeSlots.map((timeRange, i) => {
-              const delimiter = " ~ ";
-              const value = timeRange.join(delimiter);
+              const value = timeRange.join(" ~ ");
               return (
-                <Toggle
-                  key={i}
-                  className="px-[12px] py-[9px]"
-                  variant="surface"
-                  pressed={timeRangeField.value?.join(delimiter) === value}
-                  onChangePressed={() => timeRangeField.onChange(timeRange)}
-                >
+                <Radio key={i} className="px-[12px] py-[9px]" variant="surface" value={value}>
                   {value}
-                </Toggle>
+                </Radio>
               );
             })}
           </div>
-        </FormControl>
+        </RadioGroup>
       )}
       <Divider className="my-[16px]" />
       {dateField.value && timeRangeField.value && (

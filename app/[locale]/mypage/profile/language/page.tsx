@@ -5,8 +5,8 @@ import { useController, useForm } from "react-hook-form";
 import { useGetMe } from "@/apis/user/hooks/useGetMe";
 import { BottomButton } from "@/app/components/BottomButton";
 import { NavigationBar } from "@/app/components/NavigationBar";
-import { FormControl, FormLabel } from "@/components/FormControl";
-import { Toggle } from "@/components/Toggle";
+import { Checkbox } from "@/components/Checkbox";
+import { FormCaption, FormGroup, FormGroupLabel } from "@/components/FormControl";
 import { LANGUAGE_OPTIONS } from "@/constants/user";
 import { useMenteeInfoFormStore, useMentorInfoFormStore } from "@/features/user/store/profile";
 import { useRouter } from "@/libs/navigation";
@@ -103,43 +103,47 @@ const Page = () => {
         // }
       />
       <div className="mt-[21px] px-[20px]">
-        <FormControl className="mb-[35px]">
-          <FormLabel className="headline-1 text-gray-600 ">{t("main-language.label")}</FormLabel>
-          <div className="body-1 mb-[14px] text-gray-600">{t("main-language.description")}</div>
+        <FormGroup className="mb-[35px]">
+          <FormGroupLabel className="headline-1 text-gray-600">
+            {t("main-language.label")}
+          </FormGroupLabel>
+          <FormCaption className="body-1 mb-[14px]">{t("main-language.description")}</FormCaption>
           <div className="flex flex-col gap-[6px]">
             {LANGUAGE_OPTIONS.map((option) => (
-              <Toggle
+              <Checkbox
                 className="p-4 text-start"
                 key={option}
                 variant="outline"
-                pressed={option === languagesField.value?.main}
-                onChangePressed={() => handleChangeMainLanguage(option)}
+                checked={option === languagesField.value?.main}
+                onChange={() => handleChangeMainLanguage(option as Language)}
               >
                 {constants(`languages-options.${option}`)}
-              </Toggle>
+              </Checkbox>
             ))}
           </div>
-        </FormControl>
-        <FormControl className="mb-[35px]">
-          <FormLabel className="headline-1 text-gray-600">{t("sub-language.label")}</FormLabel>
-          <div className="body-1 mb-[14px] text-gray-600">{t("sub-language.description")}</div>
+        </FormGroup>
+        <FormGroup>
+          <FormGroupLabel className="headline-1 text-gray-600">
+            {t("sub-language.label")}
+          </FormGroupLabel>
+          <FormCaption className="body-1 mb-[14px]">{t("sub-language.description")}</FormCaption>
           <div className="flex flex-col gap-[6px]">
             {LANGUAGE_OPTIONS.map((option) => (
-              <Toggle
+              <Checkbox
                 className="p-4 text-start"
                 key={option}
                 variant="outline"
-                pressed={languagesField.value?.sub.some((v) => v === option)}
-                onChangePressed={() => handleChangeSubLanguages(option)}
+                checked={languagesField.value?.sub.some((v) => v === option)}
+                onChange={() => handleChangeSubLanguages(option)}
                 disabled={option === languagesField.value?.main}
               >
                 {constants(`languages-options.${option}`)}
-              </Toggle>
+              </Checkbox>
             ))}
           </div>
-        </FormControl>
+        </FormGroup>
       </div>
-      <div className="h-[96px]" />
+      <div className="h-[131px]" />
       <BottomButton type="submit" disabled={!isValid}>
         {t("edit")}
       </BottomButton>

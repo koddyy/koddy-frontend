@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
+import { Checkbox } from "@/components/Checkbox";
+import { FormGroup } from "@/components/FormControl";
 import { Select } from "@/components/Select";
-import { Toggle } from "@/components/Toggle";
 import { DAYS, TIMES } from "@/constants/date";
 import type { Day } from "@/types/mentor";
 
@@ -23,20 +24,21 @@ export const DaysAndTimeRangeSelect = ({
 
   return (
     <>
-      <div className="mb-[13px] flex justify-between">
+      <FormGroup className="mb-[13px] flex justify-between">
         {DAYS.map((day, i) => {
           return (
-            <Toggle
+            <Checkbox
               key={i}
-              pressed={days.includes(day)}
-              onChangePressed={() => onChangeDays(day)}
+              variant="solid"
+              checked={days.includes(day)}
+              onChange={() => onChangeDays(day)}
               disabled={disabledDays?.includes(day)}
             >
               {constants(`day-of-week.${day}`)[0]}
-            </Toggle>
+            </Checkbox>
           );
         })}
-      </div>
+      </FormGroup>
       <div className="mb-[13px] flex items-center gap-[12px]">
         <Select
           dropdownClassName="z-overlay"
