@@ -4,9 +4,10 @@ import Checked from "@/assets/checkboxes_checked.svg";
 import Unchecked from "@/assets/checkboxes_unchecked.svg";
 import { useFormControl } from "@/components/FormControl/FormControlContext";
 import { cn } from "@/utils/cn";
+import { FormOptions } from "../FormControl/FormControl.type";
 
 export const CheckboxVariants = cva(
-  "body-2 rounded-[10px] border border-gray-300 px-[13px] py-[11px] disabled:cursor-not-allowed disabled:text-gray-300",
+  "body-2 rounded-[10px] border border-gray-300 px-[13px] py-[11px] [&:has(input:disabled)]:cursor-not-allowed [&:has(input:disabled)]:text-gray-300",
   {
     variants: {
       variant: {
@@ -21,6 +22,7 @@ export const CheckboxVariants = cva(
 
 export interface CheckboxProps
   extends ComponentPropsWithRef<"input">,
+    FormOptions,
     VariantProps<typeof CheckboxVariants> {
   className?: string;
   checked: boolean;
@@ -36,7 +38,7 @@ export const Checkbox = ({
   ...props
 }: PropsWithChildren<CheckboxProps>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { hasError } = useFormControl(props);
+  const { hasError, ...rest } = useFormControl(props);
 
   const defaultStyle = !variant;
 
@@ -47,7 +49,13 @@ export const Checkbox = ({
         className
       )}
     >
-      <input className="appearance-none" type="checkbox" checked={checked} onChange={onChange} />
+      <input
+        className="appearance-none"
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        {...rest}
+      />
       {defaultStyle && <span>{checked ? <Checked /> : <Unchecked />}</span>}
       {children}
     </label>
