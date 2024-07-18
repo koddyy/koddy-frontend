@@ -20,7 +20,7 @@ import { LanguageSelectForm } from "./LanguageSelectForm";
 
 const enteredInOptions = [18, 19, 20, 21, 22, 23, 24];
 
-type MentorInfoForm = {
+export type MentorInfoForm = {
   name: string;
   school: string;
   major: string;

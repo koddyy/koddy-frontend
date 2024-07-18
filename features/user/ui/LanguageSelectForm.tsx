@@ -2,9 +2,9 @@ import { useTranslations } from "next-intl";
 import { useController, useFormContext } from "react-hook-form";
 import { FormControl, FormLabel } from "@/components/FormControl";
 import { Select } from "@/components/Select";
-import { UpdateMenteeInfoForm } from "@/types/mentee";
-import { UpdateMentorInfoForm } from "@/types/mentor";
 import { Language } from "@/types/user";
+import { MenteeInfoForm } from "./MenteeInfoForm";
+import { MentorInfoForm } from "./MentorInfoForm";
 
 type LanguageType = "main" | "sub";
 
@@ -19,7 +19,7 @@ export const LanguageSelectForm = ({ languages }: LanguageSelectFormProps) => {
   const constants = useTranslations("constants");
 
   const { control } = useFormContext<
-    Pick<UpdateMentorInfoForm, "languages"> | Pick<UpdateMenteeInfoForm, "languages">
+    Pick<MentorInfoForm, "languages"> | Pick<MenteeInfoForm, "languages">
   >();
 
   const {

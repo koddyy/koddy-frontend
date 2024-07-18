@@ -19,7 +19,7 @@ import { Language, Nationality } from "@/types/user";
 import { useMenteeInfoFormStore } from "../store/profile";
 import { LanguageSelectForm } from "./LanguageSelectForm";
 
-type MenteeInfoForm = {
+export type MenteeInfoForm = {
   name: string;
   interestSchool: string;
   interestMajor: string;

@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { UpdateMenteeInfoForm } from "@/types/mentee";
-import { UpdateMentorInfoForm } from "@/types/mentor";
+import { MenteeInfoForm } from "../ui/MenteeInfoForm";
+import { MentorInfoForm } from "../ui/MentorInfoForm";
 
-interface UserInfoFormState<T extends UpdateMenteeInfoForm | UpdateMentorInfoForm> {
+interface UserInfoFormState<T extends MenteeInfoForm | MentorInfoForm> {
   isModified: boolean;
   userInfoForm?: T | Pick<T, "languages">;
 }
 
-interface UserInfoFormAction<T extends UpdateMenteeInfoForm | UpdateMentorInfoForm> {
+interface UserInfoFormAction<T extends MenteeInfoForm | MentorInfoForm> {
   setIsModified: (isModified: boolean) => void;
   setUserInfoForm: (userInfoForm: T) => void;
   setLanguages: (languages: T["languages"]) => void;
@@ -16,7 +16,7 @@ interface UserInfoFormAction<T extends UpdateMenteeInfoForm | UpdateMentorInfoFo
 }
 
 export const useMenteeInfoFormStore = create<
-  UserInfoFormState<UpdateMenteeInfoForm> & UserInfoFormAction<UpdateMenteeInfoForm>
+  UserInfoFormState<MenteeInfoForm> & UserInfoFormAction<MenteeInfoForm>
 >()(
   devtools((set) => ({
     isModified: false,
@@ -29,7 +29,7 @@ export const useMenteeInfoFormStore = create<
 );
 
 export const useMentorInfoFormStore = create<
-  UserInfoFormState<UpdateMentorInfoForm> & UserInfoFormAction<UpdateMentorInfoForm>
+  UserInfoFormState<MentorInfoForm> & UserInfoFormAction<MentorInfoForm>
 >()(
   devtools((set) => ({
     isModified: false,

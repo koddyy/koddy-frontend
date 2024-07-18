@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { fileApi } from "@/apis/file/api";
 import { useUploadImageFile } from "@/apis/file/hook/useUploadImageFile";
-import { UpdateMentorInfoForm } from "@/types/mentor";
+import { MentorInfoForm } from "@/features/user/ui/MentorInfoForm";
 import { userApi } from "../api";
 
 export const useUpdateMentorInfo = () => {
@@ -13,7 +13,7 @@ export const useUpdateMentorInfo = () => {
       profileImageFile,
       profileImageUrl,
       ...rest
-    }: UpdateMentorInfoForm & { profileImageFile?: File }) => {
+    }: MentorInfoForm & { profileImageUrl?: string }) => {
       if (profileImageFile) {
         const { preSignedUrl, uploadFileUrl } = await fileApi.getPresignedUrl(
           profileImageFile.name
